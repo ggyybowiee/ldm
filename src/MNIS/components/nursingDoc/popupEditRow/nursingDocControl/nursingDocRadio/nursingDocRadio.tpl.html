@@ -1,0 +1,13 @@
+<div class="radio-input-wrapper radio-{{layout}}">
+  <label class="custom-radio" ng-repeat="radio in options track by $index" ng-show="radio">
+    <input type="radio" ng-model="$parent.ngModel" value="{{radio}}" ng-click="handleClick(radio, $event, $index)" name="name"
+    />
+    <span ng-class="{'checked': $parent.ngModel == radio}">{{radio}}</span>
+  </label>
+  <br/>
+  <div ng-show="needOtherValue" style="display:flex;">
+    <span style="width:45px;">其它:</span>
+    <input name="value" ng-model="otherValue" class="estimate-edit-cell-control estiamte-edit-cell-text-input" autocomplete="off"
+      type="text" ng-focus="itemFocus($event)"/>
+  </div>
+</div>

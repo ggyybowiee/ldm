@@ -1,0 +1,105 @@
+<div class="patient-order-list flex" loading-wrapper="vm.loadOrders">
+
+  <div style="margin-left: 15px;">
+
+    <div style="margin-bottom: 5px;padding-bottom: 0px;">
+      <div class="toolbar" style="margin: 0px;">
+        <div class="toolbar-item">
+          时间：
+          <date-picker class="orders-date-picker" ng-model="vm.params.beginTime" date-options="vm.dateOptions" disabled="{{!vm.current}}"
+            ng-change="vm.loadOrders.func()"></date-picker>&nbsp;到&nbsp;
+          <date-picker class="orders-date-picker" ng-model="vm.params.endTime" date-options="vm.dateOptions" disabled="{{!vm.current}}"
+            ng-change="vm.loadOrders.func()"></date-picker>
+        </div>
+        <div class="toolbar-item">
+          类型：
+          <select class="form-control input-sm" ng-model="vm.params.isLongTerm" ng-change="vm.loadOrders.func()">
+            <option value="">全部</option>
+            <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderLongTerm">{{item.dicName}}</option>
+          </select>
+        </div>
+        <div class="toolbar-item">
+          状态：
+          <select class="form-control input-sm" ng-model="vm.params.status" ng-change="vm.loadOrders.func()">
+            <option value="">全部</option>
+            <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderStatus">{{item.dicName}}</option>
+          </select>
+        </div>
+        <div class="toolbar-item">
+          用法：
+          <select class="form-control input-sm" ng-model="vm.params.execTypeCode" ng-change="vm.loadOrders.func()">
+            <option value="">全部</option>
+            <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderType">{{item.dicName}}</option>
+          </select>
+        </div>
+        <span class="toolbar-item pull-right">
+          <div class="btn-group btn-radio">
+            <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="0">
+              查看医嘱
+            </label>
+            <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="1">
+              唱对医嘱
+            </label>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <table class="table white-borderd tr-hover thead-fixed">
+      <thead>
+        <tr>
+          <th ng-show="vm.filter.showType==1" width="50px">唱对</th>
+          <th width="30px"></th>
+          <th width="120px">开立时间</th>
+          <th width="50px">状态</th>
+          <th width="30px">组</th>
+          <th class="order-content">医嘱内容</th>
+          <th width="70px">剂量</th>
+          <th width="70px">用量</th>
+          <th width="80px">执行方式</th>
+          <th width="80px">频率</th>
+          <th width="70px">开立医生</th>
+          <th width="70px">备注</th>
+          <th width="95px">自备药</th>
+          <th width="120px">停嘱时间</th>
+          <th width="70px">停嘱医生</th>
+        </tr>
+      </thead>
+      <tbody full-page="fix" id="patientOrderTab">
+        <tr ng-repeat="row in vm.list track by $index" style="cursor:{{vm.filter.showType==0?'default':'pointer'}}"
+          ng-class="row.isChecked ? 'order-row-tr-checked' : ''">
+          <td ng-show="vm.filter.showType==1" width="50px">{{row.isChecked ? "√": ""}}</td>
+          <td width="30px" ng-click="vm.open(row)">{{row.repeatIndicator=='1' ? '长': '临'}}</td>
+          <td width="120px">{{row.enterDateTime | idate: 'DM' | orderGourpItemVisible:row}}</td>
+          <td width="50px">
+            {{vm.dicHelper.dic.orderStatus[row.orderStatus].dicName}}
+            <!-- <span class="tag new-tag" ng-if="vm.isNew(row)">新</span>
+          <span class="tag stop-tag" ng-if="row.orderStatus == 3">停</span> -->
+          </td>
+          <td width="30px">{{row.groupType}}</td>
+          <td class="order-content">{{row.itemName}}</td>
+          <td width="40px" style="text-align:right;">{{row.dosage}}</td>
+          <td width="30px">{{row.dosageUnit}}</td>
+          <td width="40px" style="text-align:right;">{{row.totalDosage}}</td>
+          <td width="30px">{{row.totalDosageUnit}}</td>
+          <td width="80px">{{row.administration | orderGourpItemVisible:row}}</td>
+          <td width="80px">{{row.frequency | orderGourpItemVisible:row}}</td>
+          <td width="70px">{{row.doctor | orderGourpItemVisible:row}}</td>
+          <td width="70px">
+            <div edit-text="row.nurseRemark" cb="vm.saveEditData(row)" ng-if="vm.orderGourpItemVisible(row)">
+              {{row.nurseRemark | orderGourpItemVisible:row}}
+            </div>
+          </td>
+          <td width="95px">
+            <select class="form-control input-sm" ng-model="row.isSelfPrepare" ng-change="vm.saveEditData(row)" ng-if="vm.orderGourpItemVisible(row)">
+              <option ng-repeat="item in vm.prepare" value="{{item.key}}">{{item.value}}</option>
+            </select>
+          </td>
+          <td width="120px">{{row.stopDateTime | idate: 'DM' |orderGourpItemVisible:row}}</td>
+          <td width="70px">{{row.stopDoctor|orderGourpItemVisible:row}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

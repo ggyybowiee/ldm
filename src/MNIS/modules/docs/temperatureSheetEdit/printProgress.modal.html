@@ -1,0 +1,25 @@
+<div class="modal-content print-modal-wrapper">
+  <div class="modal-header">
+    <h5 class="modal-title">打印装载进度</h5>
+  </div>
+  <div class="modal-body text-center">
+    <div class="progress">
+      <div class="progress-bar" ng-class="{
+            'progress-bar-success': vm.metaData.totalPrintPage === vm.metaData.echo.printCurPageCount,
+            'progress-bar-striped': vm.metaData.totalPrintPage !== vm.metaData.echo.printCurPageCount,
+            active: vm.metaData.totalPrintPage !== vm.metaData.echo.printCurPageCount
+          }"
+        role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ vm.metaData.echo.printCurPageCount * 100 / vm.metaData.totalPrintPage }}%">
+      </div>
+    </div>
+    <span ng-if="vm.metaData.totalPrintPage !== vm.metaData.echo.printCurPageCount">
+      正在装载页面数据，共{{vm.metaData.totalPrintPage}}页<br />
+      已经加载{{vm.metaData.echo.printCurPageCount}}页，还剩{{vm.metaData.totalPrintPage -
+      vm.metaData.echo.printCurPageCount}}页
+    </span>
+    <span ng-if="vm.metaData.totalPrintPage === vm.metaData.echo.printCurPageCount">已全部装载完~</span>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger btn-sm btn-round" ng-click="vm.ok()">取消打印</button>
+  </div>
+</div>

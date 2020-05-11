@@ -1,0 +1,248 @@
+.left-nav {
+  position: fixed;
+  z-index: 444;
+  top: 50px;
+  left: 0;
+
+  height: 100%;
+
+  .nav-wrapper {
+    float: left;
+    overflow: auto;
+
+    width: $side-nav-width;
+    height: 100%;
+
+    transition: all .2s ease-in-out;
+
+    border-right: 1px #ccc solid;
+    background: $navbar-theme;
+
+    &.min-mode {
+      width: $side-nav-min-width;
+    }
+
+    .menu-list {
+      overflow: auto;
+
+      height: calc(100% - 80px);
+
+      &::-webkit-scrollbar {
+        width: 6px;
+
+        background: $navbar-theme;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 0;
+        background: darken($primary, 15%);
+      }
+
+      .nav-menu {
+        .no-panel {
+          box-shadow: none;
+        }
+
+        .panel-group {
+          .panel {
+            overflow: hidden;
+
+            margin: 0;
+            padding: 0;
+
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+
+            .panel-heading {
+              padding: 0;
+            }
+          }
+
+          .panel-title {
+            a {
+              @include clearfix;
+            }
+          }
+
+          .panel-body {
+            padding: 0;
+
+            border: 0 !important;
+          }
+        }
+      }
+
+      .nav-menu_item-arrow {
+        font-size: 18px;
+        line-height: 40px;
+
+        margin-right: 10px !important;
+      }
+    }
+
+    .nav-menu_sub-item {
+      margin: 0;
+
+      background: darken($navbar-theme, 5%);
+
+      li {
+        line-height: 40px;
+
+        cursor: pointer;
+
+        color: $font-color;
+
+        a {
+          padding-left: 8px;
+          position: relative;
+          display: block;
+          height: 40px;
+
+          white-space: nowrap;
+
+          &.active {
+            background: #e5f1ff;
+
+            &:before {
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              display: block;
+
+              width: 5px;
+              border-radius: 0px 5px 5px 0px;
+              height: 100%;
+
+              content: ' ';
+
+              background-color: $primary;
+            }
+          }
+
+          .nav-menu_item-icon {
+            font-size: 14px;
+          }
+        }
+
+        &:hover {
+          background: #e5f1ff;
+        }
+      }
+    }
+
+    .nav-menu_item {
+      font-size: 12px;
+      line-height: 40px;
+      position: relative;
+      height: 40px;
+      margin: 0;
+      border-bottom: 0;
+
+      // &:hover {
+      //   background: lighten($navbar-theme, 10%);
+
+      //   .sub-nav & {
+      //     background: #fff;
+      //   }
+      // }
+
+      a {
+        display: inline-block;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        color: $font-color;
+
+        &.active {
+          color: $primary;
+        }
+      }
+
+      &.active {
+        a {
+          color: $primary;
+        }
+      }
+
+      // &.current {
+      //   a {
+      //     color: $primary;
+      //   }
+      //   background: lighten($navbar-theme, 6%);
+      // }
+    }
+  }
+}
+
+.nav-menu_item-icon {
+  line-height: 40px;
+
+  display: inline-block;
+  //width: 50px;因有些模块名字较长，超出导航的显示范围，宽度改小为40px
+  width: 40px;
+  height: 40px;
+
+  text-align: center;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.nav-menu_item,
+.nav-menu_item>a,
+.nav-menu_sub-item-text {
+  .nav-menu_item-icon img {
+    &.blur {
+      display: inline;
+    }
+
+    &.focus {
+      display: none;
+    }
+  }
+
+  &.active {
+    .nav-menu_item-icon img {
+      &.blur {
+        display: none;
+      }
+
+      &.focus {
+        display: inline;
+      }
+    }
+  }
+}
+
+.nav-view-trigger {
+  line-height: 40px;
+
+  height: 40px;
+
+  text-align: center;
+
+  border-bottom: 1px #ccc solid;
+  background: lighten($navbar-theme, 10%);
+
+  .fa {
+    font-size: 14px;
+  }
+
+  a {
+    display: block;
+  }
+}
+
+.sub-item__title {
+  transition: opacity .2s;
+
+  opacity: 1;
+
+  .min-mode & {
+    opacity: 0;
+  }
+}

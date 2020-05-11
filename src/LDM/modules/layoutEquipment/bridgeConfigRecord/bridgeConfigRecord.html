@@ -1,0 +1,75 @@
+<div class="panel panel-layout panel-default">
+    <div class="flex-box justify-between filter-bar form-inline">
+      <div class="filter-bar__search" style="width:50%;">
+          <search-input ng-model="vm.queryParams.content" search="vm.search()" text="内容"></search-input>
+      </div>
+    </div>
+    <div class="filter-bar form-inline">
+      <div class="filter-item">
+          <label> 操作时间： </label>
+          <date-picker ng-model="vm.queryParams.beginTime" ng-change="vm.search()"></date-picker>
+          <span> 至 </span>
+          <date-picker ng-model="vm.queryParams.endTime" ng-change="vm.search()"></date-picker>
+      </div>
+    </div>
+
+
+      <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+        <table class="white-borderd table table-hover device-table" st-pipe="vm.getRecords" st-table="vm.configList" style="table-layout:fixed">
+          <colgroup>
+          <col>
+          <col>
+          <col>
+          <col style="width: 50%;">
+          <col>
+          <col>
+          </colgroup>
+          <thead>
+              <tr>
+            <th>序号</th>
+            <th>操作时间 </th>
+            <th>配置方式</th>
+            <th>配置内容</th>
+            <th>操作人</th>
+            <th>操作</th>
+              </tr>
+          </thead>
+            <tbody>
+              <tr ng-repeat="row in vm.dataCopy | filter: vm.queryText | orderBy : updateTime track by $index">
+            <td class="ng-binding">{{ $index+1 }}</input></td>
+            <td class="ng-binding">{{ row.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td class="ng-binding">{{(vm.sendType | filter: {dicCode: row.sendType-1})[0].dicName}}</td>
+            <td class="ng-binding" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                连接指定AP：{{ row.contentObject.apSsid }}；
+                密码：{{ row.contentObject.apPassWord }}；
+                WLAN频带宽度: {{(vm.wlanBands | filter: { code: row.contentObject.WLANFreqBand })[0].value}};
+                加密方式：{{(vm.encryptTypes | filter: { code: row.contentObject.encryptTyp })[0].value}};
+                网关: {{row.contentObject.gateway}};
+                掩码长度: {{row.contentObject.netLength}};
+                子网掩码: {{row.contentObject.netMask}};
+                域名1: {{row.contentObject.dns1}};
+                域名2: {{row.contentObject.dns2}};
+                服务器地址: {{row.contentObject.serverIP}};
+                服务器端口: {{row.contentObject.serverPort}};
+            </td>
+            <td class="ng-binding">{{ row.createPerson }}</td>
+            <td class="flex-box justify-around">
+                    <button class="btn btn-link btn-xs success-text" ng-click="vm.openDetail(row)">
+                      <i class="fa fa-files-o"></i>
+                    </button>
+                </td>
+              </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="6">
+            <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.dataCopy"></none-data-info>
+    </div>
+   </div>
+
+

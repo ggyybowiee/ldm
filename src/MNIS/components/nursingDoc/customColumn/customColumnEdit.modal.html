@@ -1,0 +1,94 @@
+<div class="modal-content modal-input-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">自定义列编辑</h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div class="bordered-bottom" style="margin:10px 0px 5px 0px;">
+        <h5 style="margin:0px;">表头选择</h5>
+      </div>
+      <div class="doc-comp-wrapper">
+        <div class="custom-column-config table-header">
+          <div class="header-item" ng-class="{'left': $index === 0, 'custom-column-highlight':item.isCustomColumn, 'selected':item == vm.metaData.selectedColumn}"
+            ng-repeat="item in vm.metaData.headerDivs" ng-click="vm.selectColumn(item)" ng-style="{width: item.calcWidth + vm.metaData.unit, height: item.calcHeight}">
+            <div class="header-item-text" ng-if="item.double === '0'">
+              <span ng-hide="item.isCustomColumn" ng-bind-html="item.text|htmlcontent"></span>
+              <span ng-show="item.isCustomColumn" ng-bind-html="vm.formData.content[item.key]|htmlcontent"></span>
+            </div>
+            <div ng-if="item.double === '1'">
+              <div class="header-item-top">
+                <span class="header-item-text" ng-bind-html="item.text|htmlcontent"></span>
+              </div>
+              <div class="header-item-bottom">
+                <div class="header-bottom-item" ng-repeat="sub in item.subs" ng-style="{width: sub.calcWidth + vm.metaData.unit}"
+                  ng-click="vm.selectColumn(sub)" ng-class="{'custom-column-highlight':sub.isCustomColumn, 'selected':sub == vm.metaData.selectedColumn}">
+                  <span class="header-item-text" ng-if="!sub.isCustomColumn" ng-bind-html="sub.text|htmlcontent"></span>
+                  <span class="header-item-text" ng-if="sub.isCustomColumn" ng-bind-html="vm.formData.content[sub.key]|htmlcontent"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bordered-bottom" style="margin:10px 0px 5px 0px;height: 30px;">
+        <h5 style="margin:5px 0px 0px 0px;display: inline;line-height: 30px;">表头设置</h5>
+        <div class="btn-group btn-radio pull-right">
+          <label class="btn btn-sm btn-primary" ng-model="vm.metaData.editType" uib-btn-radio="0">
+            表头设置
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.metaData.editType" uib-btn-radio="1">
+            数据引用
+          </label>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <div class="form-group">
+          <label for="text" class="control-label" ng-class="{'col-sm-3': vm.metaData.editType==0, 'col-sm-1': vm.metaData.editType==1}">表头名称：</label>
+          <div ng-class="{'col-sm-7': vm.metaData.editType==0, 'col-sm-11': vm.metaData.editType==1}">
+            <textarea type="text" id="text" name="text" autocomplete="off" ng-model="vm.formData.content[vm.metaData.selectedColumn.key]"
+              class="form-control input-sm"></textarea>
+          </div>
+        </div>
+        <div ng-if="vm.metaData.editType==0">
+          <div class="form-group">
+            <label for="text" class="col-sm-3 control-label">匹配项目：</label>
+            <div class="col-sm-7 custom-column-options-items-panel">
+              <span ng-if="vm.metaData.selectedColumn.rule.customOptions==undefined || vm.metaData.selectedColumn.rule.customOptions.length == 0">无项目</span>
+              <div ng-if="vm.metaData.selectedColumn.rule.customOptions.length > 0" ng-repeat="option in vm.metaData.selectedColumn.rule.customOptions|filter:vm.matchFilter">
+                <div ng-class="{'custom-option-selected' :option == vm.formData.content[vm.metaData.selectedColumn.key]}"
+                  ng-click="vm.setCustomColumnName(option)">
+                  {{option}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="text" class="col-sm-3 control-label">可选项目：</label>
+            <div class="col-sm-7 custom-column-options-items-panel">
+              <span ng-if="vm.metaData.selectedColumn.rule.customOptions==undefined || vm.metaData.selectedColumn.rule.customOptions.length == 0">无项目</span>
+              <div ng-if="vm.metaData.selectedColumn.rule.customOptions.length > 0" ng-repeat="option in vm.metaData.selectedColumn.rule.customOptions|filter:vm.notMatchFilter">
+                <div ng-class="{'custom-option-selected' :option == vm.formData.content[vm.metaData.selectedColumn.key]}"
+                  ng-click="vm.setCustomColumnName(option)">
+                  {{option}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bordered-top" style="margin-top:10px;" ng-if="vm.metaData.editType==1">
+        <extend-panel extend-echo="vm.metaData.extendEcho" edit-data="vm.metaData.editingData" 
+          hide-close-button="true" patient-info="vm.metaData.patientInfo" insert-callback="vm.metaData.insertText"></extend-panel>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" ng-click="vm.ok()">确定</button>
+      <button class="btn btn-warning btn-sm btn-round" ng-click="vm.cancel()">取消</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.deviceMonitoring-tabs {
+  .nav-tabs {
+    display: flex;
+
+    & > li {
+      flex: 1;
+      text-align: center;
+
+      & > a {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.monitoring__network, .monitoring__battery, .monitoring__record, .monitoring__location {
+  margin: 50px 0;
+}
+
+.monitoring__item {
+  margin: 0 20px;
+  img {
+    height: 120px;
+  }
+}
+
+.monitoring__large-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.device-monitoring__table {
+  td.danger,td.warning,td.success {
+    border-bottom: 1px solid #fff
+  }
+}
+
+.detail-scroll-table {
+  max-height: 400px;
+  overflow-y: auto;
+}

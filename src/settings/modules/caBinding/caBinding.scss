@@ -1,0 +1,40 @@
+.settings-role-wrapper {
+  .role-wrapper {
+    padding: 10px 0 30px;
+    background-color: white;
+    .role-handler {
+      width: 840px;
+      margin: 0 auto;
+      .user-list {
+        li.active {
+          a {
+            color: $primary!important;
+          }
+        }
+        .panel-body {
+          overflow: scroll;
+        }
+      }
+      .user-role-wrapper {
+        position: relative;
+        .section-cover {
+          .middle-cell {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 30px;
+          }
+        }
+        .role-list {
+          li {
+            line-height: 40px;
+            padding: 0 12px;
+            + li {
+              border-top: 1px solid $border-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

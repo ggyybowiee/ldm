@@ -1,0 +1,30 @@
+<div class="container-fluid monitoring__battery">
+  <div class="flex-box justify-center align-base">
+    <div class="monitoring__item">
+      <img src="assets/images/ldm/ldm_battery.jpg" alt="网络状况">
+    </div>
+    <div class="monitoring__item">
+      <p>充电状态</p>
+      <span class="monitoring__large-text" ng-class="{'warning-text': vm.metaData.batteryInfo.content.status == 1}">{{(vm.metaData.batteryInfo.content.status && (vm.metaData.codes | filter: { type: 'batteryStatus', code: vm.metaData.batteryInfo.content.status })[0].name) || '--' }}</span>
+    </div>
+    <div class="monitoring__item">
+      <p>剩余电量</p>
+      <span class="monitoring__large-text">{{vm.metaData.batteryInfo.content.residualCapacity || '--'}}</span>%
+    </div>
+    <div class="monitoring__item">
+      <p>最后更新时间</p>
+      <span class="monitoring__large-text">{{(vm.metaData.batteryInfo.sendTime | date: 'yyyy-MM-dd HH:mm') || '--'}}</span>
+    </div>
+  </div>
+  <br/>
+  <div class="flex-box justify-center align-base">
+      <div custom-echarts width="800px" height="300px" options="vm.metaData.lineTemplate"></div>
+  </div>
+  <div class="flex-box justify-center align-base" >
+    <div>
+        <i class="fa fa-chevron-left 2x" aria-hidden="true" style="font-size: 16px;width: 20px;" ng-click="vm.selectDate(-1)" tooltip="vm.tooltip"></i>
+        <div style="display: inline-block;font-size: 14px;">{{vm.metaData.selectedDateFormat}}</div>
+        <i class="fa fa-chevron-right 2x" aria-hidden="true" style="font-size: 16px;width: 20px;text-align: end;" ng-click="vm.selectDate(1)" tooltip="vm.tooltip"></i>
+      </div>
+  </div>
+</div>

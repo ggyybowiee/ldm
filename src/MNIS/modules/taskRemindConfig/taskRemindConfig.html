@@ -1,0 +1,79 @@
+<div class="manager-wrapper">
+  <div class="toolbar">
+    <div class="pull-left">
+      <div class="toolbar-item">
+        智能提醒规则配置
+      </div>
+    </div>
+    <div class="pull-right">
+      <div class="toolbar-item">
+        <button class="btn btn-sm btn-round btn-sm btn-success" ng-click="open()">添加</button>
+      </div>
+    </div>
+  </div>
+  <div class="content-table">
+    <h4 class="searchNoResultTitle" ng-if="taskRemindConfig.list.length === 0">暂无数据</h4>
+    <table class="table white-borderd tr-hover" ng-if="taskRemindConfig.list.length > 0">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>规则类型</th>
+          <th>规则名称</th>
+          <th>年龄下限</th>
+          <th>年龄上限</th>
+          <th>关联事件</th>
+          <th>周期类型</th>
+          <th>天数</th>
+          <th>间隔天数</th>
+          <th>次数</th>
+          <th>计划项目</th>
+          <th>计划时间</th>
+          <th>规则数值</th>
+          <th>提示语句</th>
+          <th style="width: 100px;">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in taskRemindConfig.list track by $index">
+          <td>{{$index + 1}}</td>
+          <td>{{ruleType[item.ruleType]}}</td>
+          <td>{{item.ruleName}}</td>
+          <td>{{item.ageMin}}</td>
+          <td>{{item.ageMax}}</td>
+          <td>{{item.eventName}}</td>
+          <td>{{periodType[item.periodType]}}</td>
+          <td>{{item.duration}}</td>
+          <td>{{item.interval}}</td>
+          <td>{{item.cycleTime}}</td>
+          <td>{{item.bindItemName}}</td>
+          <td>{{item.measureTimes}}</td>
+          <td>{{item.ruleValue}}</td>
+          <td>{{item.content}}</td>
+          <td>
+            <button class="btn btn-link btn-xs warning-text" ng-click="open(item)">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="btn btn-link btn-xs danger-text" confirm yes="del(item)" content="确定要删除该配置？">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="paginationStyle" ng-if="taskRemindConfig.list.length > 0">
+      <div class="pageItem">
+        <label for="firstname" class="control-label">每页显示条数：</label>
+        <select ng-model="pageItem.count" name="count" id="count" ng-change="queryList(1)">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <ul uib-pagination total-items="pageItem.totalItems" previous-text="上一页" next-text="下一页" first-text="首页" rotate="false"
+        last-text="最后一页" ng-change="queryList(pageItem.page)" ng-model="pageItem.page" items-per-page="pageItem.count"
+        class="pagination-sm" boundary-links="true" boundary-link-numbers="true" max-size="pageItem.maxSize">
+      </ul>
+    </div>
+  </div>
+</div>

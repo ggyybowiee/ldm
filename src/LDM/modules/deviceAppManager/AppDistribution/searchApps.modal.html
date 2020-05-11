@@ -1,0 +1,65 @@
+<div>
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">
+      选择软件
+    </h5>
+  </div>
+  <form class="form-horizontal w5c-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption" name="yearForm">
+
+    <div class="modal-body">
+      <div class="container-fluid">
+          <div class="filter-bar form-inline">
+              <div class="filter-item">
+                <input class="form-control input-sm" type="text" ng-model="vm.metaData.queryParams.softName" placeholder="关键字">
+              </div>
+              <button class="btn btn-sm btn-primary round-btn button-size" ng-click="vm.searchApps()">查询</button>
+            </div>
+        <table class="white-borderd table table-hover md-modal-font " st-table="vm.softwaresDisplay" table-check="vm.softwaresDisplay" key="seqId" selected="vm.checked" st-safe-src="vm.data">
+          <thead>
+            <tr>
+              <th>
+                <label class="custom-checkbox">
+                  <input type="checkbox" table-check-all select-type="currentPage" ng-disabled="vm.softwares.length === 0">
+                  <span>全选</span>
+                </label>
+              </th>
+              <th>名称</th>
+              <th>版本号</th>
+              <th>大小</th>
+              <th>上传时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.softwaresDisplay track by $index">
+              <td class="ng-binding">
+                <label class="custom-checkbox" >
+                    <input table-check-all-item type="checkbox" value="row.seqId">
+                    <span></span>
+                  </label>
+              </td>
+              <td class="ng-binding">{{row.softName}}</td>
+              <td class="ng-binding">{{row.versionName}}</td>
+              <td class="ng-binding">{{row.size && ((row.size/1024/1024) | number : 2) + "M"}}</td>
+              <td class="ng-binding">{{row.updateTime}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="8">
+                <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-sm btn-default btn-round" ng-click="vm.cancel()">取消</button>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,15 @@
+<span
+  class="switch {{class}}"
+  ng-click="handleClick()"
+  ng-class="{'checked': ngModel, 'disabled': disabled }"
+  ng-style="{borderColor: ngModel ? onColor : '', background: (ngModel ? onColor : offColor)}"
+  id="id">
+  <small class="switch__ball" ng-style="{color: (ngModel ? onColor : offColor)}">
+    <i class="fa fa-{{icon}}" ng-if="icon"></i>
+  </small>
+  <input ng-model="ngModel" type="checkbox" name="name" style="display:none" />
+  <span class="switch-text">
+    <span class="on">{{on}}</span>
+    <span class="off">{{off}}</span>
+  </span>
+</span>

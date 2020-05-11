@@ -1,0 +1,32 @@
+.border-content{
+  margin: 5px;
+  height: 50px;
+}
+
+.unselected-content {
+  border-color: white;
+}
+
+.selected-content {
+  border: 1px solid #4f9fcf;
+  > div{
+    > label {
+      > span:first-child{
+        color: #4f9fcf;
+      }
+    }
+  }
+}
+
+.center-vertical {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.status_info_div {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+

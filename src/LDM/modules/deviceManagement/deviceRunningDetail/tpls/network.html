@@ -1,0 +1,11 @@
+<div class="container-fluid monitoring__network">
+  <div class="flex-box justify-center align-base">
+    <div class="monitoring__item">
+      <img src="assets/images/ldm/ldm_network.jpg" alt="网络状况">
+    </div>
+    <div class="monitoring__item">
+      <p>当前网络连接  {{ (vm.metaData.codes | filter: { type: 'onlineStatus', code: vm.metaData.network.content.status })[0].name || '--'}}</p>
+      <span class="monitoring__large-text">{{vm.metaData.network.duration > 60 ? (vm.metaData.network.duration / 60).toFixed(1) : (vm.metaData.network.duration || 0)}}</span> {{vm.metaData.network.operationTime > 60 ? '小时' : '分钟'}}
+    </div>
+  </div>
+</div>

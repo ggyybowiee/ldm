@@ -1,0 +1,13 @@
+.upload-image-wrapper {
+  position: relative;
+  .upload-input {
+    position: absolute;
+    left: -9999px;
+  }
+  .upload-tips {
+    line-height: 2;
+  }
+  .upload-image {
+    width: 100px;
+  }
+}

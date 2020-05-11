@@ -1,0 +1,24 @@
+.nav-horizontal {
+  margin-bottom: 0;
+  height: 50px;
+  .nav-link {
+    font-size: 14px;
+    &.active {
+      font-weight: bold;
+    }
+  }
+}
+
+.nav-horizontal__breadcrumb {
+  background-color: #f8f8f8;
+  border-bottom: 1px #e3e3e3 solid; // margin-bottom: 10px;
+  height: 20px;
+  .breadcrumb-wrapper {
+    position: static;
+    background-color: inherit;
+  }
+  .breadcrumb {
+    border: 0;
+    background-color: inherit;
+  }
+}

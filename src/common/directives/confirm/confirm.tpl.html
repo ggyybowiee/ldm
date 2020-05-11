@@ -1,0 +1,24 @@
+<div class="confirm-modal">
+  <div class="modal-header" ng-class="{'warning': vm.metaData.type === 'confirm'}">
+    <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span
+        aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">
+      警告
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+
+      <div class="col-sm-12">
+        <h6> <span class="danger-text"><i class="fa fa-warning confirm-modal__icon"></i></span> {{vm.metaData.title}}</h6>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button ng-if="vm.metaData.type === 'confirm'" class="btn btn-sm btn-danger btn-round" type="button" ng-click="vm.ok()">确定</button>
+    <button class="btn btn-sm btn-default btn-round" ng-class="{'btn-primary':vm.metaData.type === 'notice'}" type="button"
+      ng-click="vm.cancel()">{{vm.metaData.type === 'confirm'?'取消':'知道了'}}</button>
+  </div>
+</div>

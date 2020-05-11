@@ -1,0 +1,74 @@
+.modal-content {
+  min-width: 600px;
+}
+
+.estiamte-option-panel {}
+
+.estiamte-option-desc-panel {
+  border: 0px solid $border-2;
+  border-bottom-width: 1px;
+  margin: 5px 0px;
+}
+
+.estiamte-option-list-panel {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  background-color: rgb(241, 241, 241);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.estiamte-option-list-table {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.estiamte-option-list-table th {
+  border: 1px solid $border-2;
+  text-align: center;
+  padding: 5px;
+  background: $back-1;
+  color: white;
+}
+
+.estiamte-option-list-table td {
+  border: 1px solid $border-2;
+  text-align: center;
+  padding: 5px;
+}
+
+.estiamte-option-list-table tbody tr {
+  cursor: pointer;
+}
+
+.estiamte-option-list-table-row-select {
+  background-color: $primary;
+  color: white;
+}
+
+.estiamte-option-list-table tbody tr:hover {
+  background: $primary;
+  color: white;
+}
+
+.estiamte-option-edit-panel {
+  width: 100%;
+  display: flex;
+  border: 0px solid $border-2;
+  border-top-width: 1px;
+  margin-top: 10px;
+}
+
+.estiamte-option-detail-edit-panel {
+  flex-grow: 1;
+  flex-basis: 50%;
+  border: 0px solid $border-2;
+  border-right-width: 1px;
+  margin-right: 5px;
+}
+
+.estiamte-option-desc-edit-panel {
+  flex-grow: 1;
+  flex-basis: 50%;
+}

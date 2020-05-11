@@ -1,0 +1,48 @@
+<div>
+  <div class="vital-sign-ext-panel" loading-wrapper="vm.loadVitalsign">
+
+    <div class="toolbar">
+      <div class="toolbar-item">
+        <date-picker class="input-control input-sm" ng-model="vm.queryParam.startDate" ng-change="vm.loadVitalsign.func()"></date-picker>
+      </div>
+      <div class="toolbar-item">
+        采集方式：
+        <select class="form-control input-sm" ng-model="vm.queryParam.gatherType" ng-change="vm.loadVitalsign.func()">
+          <option value="0">常规采集</option>
+          <option value="1">临时采集</option>
+        </select>
+      </div>
+      <div class="toolbar-item pull-right">
+        <label class="custom-checkbox">
+          <input type="checkbox">
+          <span ng-class="{'checked': vm.filter.showAlert}">只显示异常值</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="vital-sign-ext-data-panel">
+      <h5>可引用的体征值:</h5>
+      <span>标记为离选中护理记录时间最近的体征值</span>
+      <div ng-if="vm.filter.showIndex==0">
+        <table class="table white-borderd tr-hover thead-fixed">
+          <thead>
+            <tr>
+              <th width="50px" rowspan="2">时间</th>
+              <th ng-if="vitalSignType.display=='value'" ng-repeat="vitalSignType in vm.exsitVitalsignTypes" colspan="2">{{vm.vitalSignTypeDic[vitalSignType.type].dicName}}&nbsp;|&nbsp;{{vitalSignType.text}}</th>
+            </tr>
+            <tr>
+              <th ng-repeat="vitalSignType in vm.exsitVitalsignTypes">{{vitalSignType.display=='value' ? '值' :'源'}}</th>
+            </tr>
+          </thead>
+          <tbody full-page="fix">
+            <tr ng-repeat="item in vm.timePointList" ng-dblclick="vm.insertVitalSignItem(item)" ng-class="{'nearest':item.isNear}">
+              <td width="50px">{{item.recordDate | idate:'XDH'}}</td>
+              <td ng-repeat="vitalSignType in vm.exsitVitalsignTypes">{{(vitalSignType.display=='value' ?
+                item[vitalSignType.type].vitalSignsValues : vm.vitalSignItemSourceDic[item[vitalSignType.type].source].dicName)|mewsScore}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

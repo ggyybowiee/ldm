@@ -1,0 +1,6 @@
+<div class="radio-input-wrapper radio-{{layout}}">
+  <label class="custom-radio" ng-repeat="radio in _options track by $index">
+    <input type="radio" ng-model="$parent.ngModel" value="{{radio.value}}" ng-click="handleClick(radio, $event, $index)" name="{{name}}" ng-disabled="ngDisabled"/>
+    <span ng-class="{'checked': $parent.ngModel == radio.value}">{{radio.text || radio.label}}</span>
+  </label>
+</div>

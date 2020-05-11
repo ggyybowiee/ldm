@@ -1,0 +1,34 @@
+<div class="orders-config-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item pull-right">
+      <button class="btn btn-success btn-sm btn-round" ng-click="vm.open()">添加</button>
+    </div>
+  </div>
+  <div class="content-table" loading-wrapper="vm.load">
+    <table class="table white-borderd">
+      <thead>
+        <tr>
+          <th>执行频次</th>
+          <th>类型</th>
+          <th>拆分配置</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in vm.list">
+          <td>{{vm.dicHelper.getDicName('frequency', item.execFreq)}}</td>
+          <td>{{vm.dicHelper.getDicName('orderDecomposeType', item.splitType)}}</td>
+          <td>{{item.splitConf}}</td>
+          <td>
+            <button class="btn btn-link btn-xs warning-text" ng-click="vm.open(item)">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="btn btn-link btn-xs danger-text" confirm yes="vm.del(item)" content="确定要删除该配置？">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

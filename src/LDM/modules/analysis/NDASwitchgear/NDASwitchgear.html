@@ -1,0 +1,96 @@
+                <thead>
+                  <tr>
+                    <th width="50%"></th>
+                    <th width="20%"></th>
+                    <th width="20%"></th>
+                    <th width="10%" style="text-align: center;"></th><div class="panel panel-layout panel-default NDASwitchgear">
+    <div class="flex-box justify-between filter-bar form-inline">
+        <div class="filter-bar__search" style="width:50%;">
+          <search-input ng-model="vm.queryParams.key" search="vm.load.func()" text="关键字"></search-input>
+        </div>
+      </div>
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <label>所属科室： </label>
+      <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.queryParams.wardCode" name="wardCode" convertToNumber>
+        <option value="">全部</option>
+        <option ng-repeat="item in vm.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+      </select>
+    </div>
+    <div class="filter-item">
+      <label>统计时段： </label>
+      <date-picker ng-model="vm.queryParams.startTime" ng-change="vm.load.func()"></date-picker>
+      <span class="title-text"> 至 </span>
+      <date-picker ng-model="vm.queryParams.endTime" ng-change="vm.load.func()"></date-picker>
+    </div>
+  </div>
+
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+      <table class="table table-hover white-table" st-table="vm.historyDisplay" st-safe-src="vm.history" sytle="table-layout: fixed">
+        <thead>
+          <tr>
+            <th width="10%" style="text-align: center">序号</th>
+            <th width="20%">NDA名称</th>
+            <th width="20%">Mac地址</th>
+            <th width="20%">所属病区</th>
+            <th width="20%">开关机(次)</th>
+            <th width="10%" style="text-align: center">操作</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="row in vm.historyDisplay | orderBy : '-count' : desc track by $index">
+            <tr class="splite-row"></tr>
+          <tr ng-class="{'top-table-blue' : row.showDetail}" class="row-shadow">
+            <td class="ng-binding" style="text-align: center">{{$index + 1}}</td>
+            <td class="ng-binding">{{row.deviceInfo.content.basicInfo.eqpName}}</td>
+            <td class="ng-binding">{{row.deviceInfo.content.basicInfo.mac}}</td>
+            <td class="ng-binding">{{vm.belongs && (vm.belongs | filter : {wardCode: row.deviceInfo.content.basicInfo.eqpBelong})[0].wardName}}</td>
+            <td class="ng-binding">
+              <span ng-class="vm.setColor(row.count)">
+                <strong class="fz-16">{{row.count}}</strong>&nbsp次</span>
+            </td>
+            <td class="ng-binding" ng-click="vm.clickRow(row)" ng-disabled="row.count == 0" style="text-align: center">
+              <span class="text-primary"> {{row.showDetail ? '收缩' : '展开'}}</span>&nbsp&nbsp
+              <img style="width: 12px;" ng-class="{'turn-img': row.showDetail}" src="assets/images/devices/icon_xiala.png">
+            </td>
+          </tr>
+          <tr ng-show="row.showDetail === true" ng-class="{'under-table-blue' : row.showDetail}">
+            <td colspan="7">
+              <table class="table table-hover white-table sub-table" style="margin-bottom: 0px" st-table="row.statisticRecordsDisplay" st-safe-src="row.statisticRecords">
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="record in row.statisticRecordsDisplay | orderBy: '-updateTime' track by $index">
+                    <td></td>
+                    <td class="ng-binding subTable-td">
+                        <label>
+                            <i class="fa fa-dot-circle-o text-primary" style="margin-right: 5px;"></i>
+                            <span>{{(vm.switchgearType | filter : {code: record.status})[0].name}}</span>
+                        </label>
+                    </td>
+                    <td class="ng-binding subTable-td">{{record.updateTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td class="ng-binding subTable-td" style="text-align: center;">{{record.residualCapacity}}%</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4">
+                      <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+          </tr>
+        </tbody>
+        </td>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- <none-data-info list="vm.statuses"></none-data-info> -->
+    </div>
+</div>

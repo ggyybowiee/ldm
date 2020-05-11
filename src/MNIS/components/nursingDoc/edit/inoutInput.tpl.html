@@ -1,0 +1,20 @@
+<div class="modal-input">
+  <div class="flex-box total-in-out-wrap align-center">
+    <div class="">
+      {{ngModel.date}}
+      &nbsp;
+      {{ngModel.time}}
+      &nbsp;
+      {{ngModel.data.remark}}
+      &nbsp;
+      <span ng-show="ngModel.inVisable && ngModel.totalIn">总入量：{{ngModel.totalIn}} ml;
+      {{ngModel.inRemark ? '（' + ngModel.inRemark + '）' : ''}}
+    </span>
+    </div>
+    <div class="">
+      <span ng-show="ngModel.outVisable && ngModel.totalOut">总出量：<span>{{ngModel.totalOut}} ml;</span>
+      {{ngModel.outRemark ? '（' + ngModel.outRemark + '）' : ''}}
+    </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div>
+  <span class="patient-info-bar">
+    <div class="align-center flex-box" ng-repeat="item in vm.items" ng-style="{width: item.width ? item.width + 'mm' : 'auto'}">
+      &nbsp;
+      <div class="doc-table__header-label">{{item.dicName}}：</div>
+      <div class="doc-table__header-value">
+        {{vm.dynamicProps.indexOf(item.dicCode) > -1 ? (vm.dynamicData[item.dicCode] || vm.getDicValue(vm.patient,
+        item.dicCode)): vm.getDicValue(vm.patient, item.dicCode)}}
+      </div>
+      &nbsp;
+    </div>
+    <div class="holder flex-box">
+      <ng-transclude></ng-transclude>
+    </div>
+  </span>
+</div>

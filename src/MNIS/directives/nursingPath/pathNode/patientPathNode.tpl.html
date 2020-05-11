@@ -1,0 +1,104 @@
+<div class="patient-path-node-panel">
+
+  <div style="justify-content: center; padding: 10px 10px 0px 10px;position:relative;">
+    <div loading-wrapper="vm.executeNodeBatchProc">
+      <table class="nursing-path-config-table table thead-fixed">
+        <thead>
+          <tr>
+            <th width="300px">执行项目</th>
+            <th width="65px">执行状态</th>
+            <th width="50px">必选</th>
+            <th width="50px">重点</th>
+            <th width="150px">观察项</th>
+            <th width="150px">文书</th>
+            <th width="100px">执行频率</th>
+            <th width="120px">执行时间</th>
+            <th width="100px">执行护士</th>
+          </tr>
+        </thead>
+        <tbody full-page="fix">
+          <tr ng-repeat="node in vm.editingCurrentSelectedNodesForTable track by $index" ng-show="!node.treeNode.isHidden">
+            <td class="tree-expander-node" style="text-align:left;" width="300px" ng-click="vm.nodeExpanderClick(node)"
+              tooltip-class="custom-tip" uib-tooltip-html="vm.text(node.attribute.customTip)" tooltip-popup-close-delay="0"
+              tooltip-append-to-body="true">
+              <span ng-style="{width: (node.treeNode.level -1) * 16 +'px', 'display': 'inline-block'}">&nbsp;</span>
+              <span>
+                <span class="nursing-path-item-node" ng-class="{'parent-node': (node.childNodeExecs && node.childNodeExecs.length > 0), 'expanded':node.treeNode.isExpanded, 'collapsed':!node.treeNode.isExpanded}"
+                  style="display:inline-block;">&nbsp;</span>
+                <span>{{node.nodeName}}</span>
+                <span ng-if="node.attribute.customTip">
+                  <i class="fa fa-question-circle"></i>
+                </span>
+              </span>
+            </td>
+            <td width="65px" tooltip-class="custom-tip">
+              <label class="custom-checkbox  control-label input-sm" ng-show="!node.childNodeExecs" >
+                <!-- 加载圈 ng-change="vm.executeNodeBatchProc.func('executeNode' ,[node, $index])" -->
+                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="node.executeStatus" ng-disabled="node.attribute.bindObserveItem"
+                 ng-change="vm.executeNode(node)" />
+                 <!-- 有观察项，显示checkbox打钩禁用状态 ng-if="node.attribute.bindObserveItem && !node.executeStatus" -->
+                <span ng-if="node.attribute.bindObserveItem" tooltip-class="custom-tip" uib-tooltip="观察项请在输入框中输入值点保存路径提交" tooltip-popup-close-delay="0" tooltip-append-to-body="true"></span>
+                <span ng-if="!node.attribute.bindObserveItem"></span>
+              </label>
+            </td>
+            <td width="50px">
+              <img ng-if="node.attribute.required" src="../../../assets/images/mnis/needCheck.png" alt="" width="13">
+            </td>
+            <td width="50px">
+              <img ng-if="node.attribute.important" src="../../../assets/images/mnis/star.png" alt="" width="13">
+            </td>
+
+            <!-- 观察项 -->
+            <td width="50px" ng-if="node.attribute.bindObserveItem && node.pathExecuteInfo.recordDate" tooltip-class="custom-tip" uib-tooltip="观察项记录时间"
+              tooltip-append-to-body="true" style="cursor: pointer;">{{node.pathExecuteInfo.recordDate|idate:'HM'}}</td>
+            <td width="{{node.pathExecuteInfo.recordDate && node.attribute.bindObserveItem ? '100px' : '150px'}}">
+              <input type="text" ng-class="{'dirty' : node.pathExecuteInfo.value != vm.currentSelectedNodesForTable[$index].pathExecuteInfo.value}"
+                class="observe-item-input form-control input-sm" ng-if="node.attribute !== null && node.attribute.bindObserveItem" ng-keydown="vm.observeItemInputKeydown($event)"
+                ng-model="node.pathExecuteInfo.value">
+              <span ng-if="!(node.attribute !==  null && node.attribute.bindObserveItem)">—</span>
+            </td>
+
+            <td width="150px">
+              <span class="btn btn-link" ng-if="node.attribute !== null && node.attribute.bindTplId && node.pathExecuteInfo.value"
+                ng-click="vm.toRecord(node)">{{node.pathExecuteInfo.value}}</span>
+              <button class="btn btn-link" ng-if="node.attribute !== null && node.attribute.bindTplId && !node.attribute.sheetDataKey && !node.pathExecuteInfo.value"
+                ng-click="vm.toRecord(node)">打开文书</button>
+              <button class="btn btn-link" ng-if="node.attribute !== null && node.attribute.bindTplId && node.attribute.sheetDataKey && !node.pathExecuteInfo.value"
+                ng-click="vm.toRecord(node)">打开文书</button>
+            </td>
+            <td width="100px">
+              <span ng-if="!node.childNodeExecs">{{vm.getFrequency(node.attribute.frequency)}}</span>
+            </td>
+            <td width="120px"><span>{{node.pathExecuteInfo.recordDate | idate: 'DM'}}</span></td>
+            <td width="100px"><span>{{node.pathExecuteInfo && node.pathExecuteInfo.executePersonName}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="nursing-path-doc-edit-panel" ng-if="vm.editingDoc">
+
+        <div class="accordion">
+          <button class="btn btn-primary btn-sm" ng-click="vm.closeDocEditing()">返回路径</button>
+          <div>当前路径结点——{{vm.editingDoc.curNode.nodeName}}</div>
+
+          <div class="pull-right" style="margin-right:10px" ng-if="vm.editingDoc.iDocSheet">
+            <button type="button" class="btn btn-sm btn-success round-btn" name="button" ng-disabled="vm.docSaving"
+              ng-click="vm.saveDoc()">{{vm.docSaving ? '正在保存...' : '保存'}}</button>
+            <button type="button" class="btn btn-sm btn-primary round-btn" name="button" ng-click="vm.print()">打印</button>
+          </div>
+
+        </div>
+
+        <div class="edit-wrapper" full-page="fix">
+          <div ng-if="vm.editingDoc.hlpgdSheet">
+            <estimate-editor patient="vm.patient" cur-sheet="vm.editingDoc.hlpgdSheet" editor-type="nursingPath"></estimate-editor>
+          </div>
+          <div ng-if="vm.editingDoc.iDocSheet">
+            <div class="modal-body" full-page style="overflow:hidden;">
+              <div id="path-idoc-modal-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

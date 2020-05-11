@@ -1,0 +1,281 @@
+<div class="modal-content">
+  <div class="modal-header temperature-form-modal-header">
+    <div class="temperature-form-not-today-warning" ng-show="vm.getWarningWhenSelectDate()">
+      当前日期不是今天
+    </div>
+    <div>
+      <span>
+      </span>
+      <space></space>
+      <div class="flex-box inline-block">
+        <button class="btn btn-default btn-sm" ng-disabled="vm.metaData.isSaving || vm.formData.recordDate === vm.metaData.indate"
+          style="margin: auto" ng-click="vm.preDay()" tabindex="-1">前一天</button>
+        <date-picker name="date" class="temperature-form-date-picker" ng-change="vm.loadData()" ng-model="vm.formData.recordDate"
+          no-icon="true" min="vm.metaData.indate" max="vm.metaData.outdate" ng-click="vm.checkNeedSave(true)"></date-picker>
+        <button class="btn btn-default btn-sm" ng-disabled="vm.metaData.isSaving || vm.formData.recordDate === vm.metaData.outdate"
+          style="margin: auto" ng-click="vm.nextDay()" tabindex="-1">后一天</button>
+      </div>
+      <space></space>
+      <span class="flex-box">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="modal-body" style="position:relative;padding: 0px 15px;">
+    <div class="temperature-form-loading-wrapper" ng-show="vm.metaData.isLoading">
+      <div>{{vm.metaData.loadingContent}}</div>
+    </div>
+    <div style="padding:0px 5px;">
+      <div>
+        <table class="row6times-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th ng-repeat="time in vm.metaData.times track by $index">
+                <div class="temperature-form__time-label">
+                  {{time}}:00
+                </div>
+                <div ng-if="vm.metaData.hasTwiceVitalInput" class="temperature-form__time-label" style="border-top: 1px solid #DEDEDE; display: flex; margin-bottom: -3px;">
+                  <div style="width: 50%; border-right: 1px solid #DEDEDE;">{{time}}: 00</div>
+                  <div style="width: 50%">{{(+time + 2) % 24}}: 00</div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 患者状态 -->
+            <tr>
+              <td arrow-td>患者状态</td>
+              <td ng-repeat="time in vm.metaData.times track by $index" arrow-td>
+                <select ng-change="vm.setPatientStatus($index)" ng-model="vm.metaData.data[$index].patientStatus">
+                  <option value=""></option>
+                  <option value="{{option.dicName}}" ng-repeat="option in vm.metaData.config.statusList">{{option.dicName}}</option>
+                </select>
+              </td>
+            </tr>
+            <!-- 4小时体征区 -->
+            <tr ng-repeat="label in vm.metaData.row6times | orderBy: 'orderIndex'" ng-init="outerIndex = $index;">
+              <td arrow-td>
+                <span>
+                  {{label.dicName}}{{vm.metaData.config.clickToSetValue[label.dicCode][0].unit && ('('
+                  +
+                  vm.metaData.config.clickToSetValue[label.dicCode][0].unit
+                  + ')')}}
+                </span>
+              </td>
+              <td ng-repeat="time in vm.metaData.times track by $index" arrow-td>
+                <div class="temperature-form__input">
+                  <span ng-if="label.isShowTwiceVitalInput" style="display: flex;padding: 5px 0px;">
+                    <div ng-if="label.isShowMeasureInBatch" style="width: 45%; margin-right: 10%;">
+                      <select ng-if="label.isShowMeasureInBatch" ng-model="vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsMeasureCode[0]" 
+                        ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsMeasureCode[0], vm.metaData.originalData[$index + 1][label.dicCode].twiceVitalSignsMeasureCode[0])"
+                        ng-change="vm.clickToSetValue(label.dicCode, vm.formData.data[$index + 1][label.dicCode])" style="width: 100%">
+                        <option value="{{option.dicCode}}" ng-repeat="option in vm.getClickToSetOptions(label.dicCode)">{{option.dicName}}</option>
+                      </select>
+                      
+                      <input type="text" style="width: 100%;" ng-keydown="vm.keyboardDown($event, outerIndex)" class="temperature-keyboard-focus"
+                        ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[0],vm.metaData.originalData[$index + 1][label.dicCode].twiceVitalSignsValues[0])"
+                        ng-model="vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[0]" />
+                    </div>
+
+                    <div ng-if="label.isShowMeasureInBatch" style="width: 45%">
+                      <select ng-if="label.isShowMeasureInBatch" ng-model="vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsMeasureCode[1]"
+                        ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsMeasureCode[1], vm.metaData.originalData[$index + 1][label.dicCode].twiceVitalSignsMeasureCode[1])"
+                        ng-change="vm.clickToSetValue(label.dicCode, vm.formData.data[$index + 1][label.dicCode])" style="width: 100%">
+                        <option value="{{option.dicCode}}" ng-repeat="option in vm.getClickToSetOptions(label.dicCode)">{{option.dicName}}</option>
+                      </select>
+                    
+                      <input type="text" style="width: 100%;" ng-keydown="vm.keyboardDown($event, outerIndex)" class="temperature-keyboard-focus"
+                        ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[1],vm.metaData.originalData[$index + 1][label.dicCode].twiceVitalSignsValues[1])"
+                        ng-model="vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[1]" />
+                    </div>
+
+                    <div ng-if="!label.isShowMeasureInBatch" style="width: 100%">
+                      <input type="text" style="width: 45%; margin-right: 5%;" ng-keydown="vm.keyboardDown($event, outerIndex)" class="temperature-keyboard-focus"
+                      ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[0],vm.metaData.originalData[$index + 1][label.dicCode].twiceVitalSignsValues[0])" 
+                      ng-model="vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[0]"/>
+  
+                      <input ng-if="label.dicCode!='bloodPress'" class="temperature-keyboard-focus" ng-keydown="vm.keyboardDown($event, outerIndex)"
+                        ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[1], vm.metaData.originalData[$index + 1][label.dicCode].twiceVitalSignsValues[1])"
+                        ng-model="vm.formData.data[$index + 1][label.dicCode].twiceVitalSignsValues[1]" style="width:45%" />
+                    </div>
+                      
+                  </span>
+
+                  <span ng-if="!label.isShowTwiceVitalInput">
+                    <select ng-if="label.isShowMeasureInBatch" ng-model="vm.formData.data[$index + 1][label.dicCode].measureCode"
+                      ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].measureCode, vm.metaData.originalData[$index + 1][label.dicCode].measureCode)"
+                      ng-change="vm.clickToSetValue(label.dicCode, vm.formData.data[$index + 1][label.dicCode])" style="width:{{label.isShowMeasureInBatch ? '45%' : '100%'}}">
+                      <option value="{{option.dicCode}}" ng-repeat="option in vm.getClickToSetOptions(label.dicCode)">{{option.dicName}}</option>
+                    </select>
+                    <blood-pressure-input ng-if="label.dicCode=='bloodPress'" input-class="temperature-keyboard-focus"
+                      ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].vitalSignsValues, vm.metaData.originalData[$index + 1][label.dicCode].vitalSignsValues)"
+                      ng-input-keydown="vm.keyboardDown" ng-model="vm.formData.data[$index + 1][label.dicCode].vitalSignsValues"
+                      style="display: inline-block;width:{{label.isShowMeasureInBatch ? '45%' : '100%'}}" input-type="fourHour" outer-index="{{outerIndex}}"></blood-pressure-input>
+                    <input ng-if="label.dicCode!='bloodPress'" class="temperature-keyboard-focus" ng-keydown="vm.keyboardDown($event, outerIndex)"
+                      ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][label.dicCode].vitalSignsValues, vm.metaData.originalData[$index + 1][label.dicCode].vitalSignsValues)"
+                      ng-model="vm.formData.data[$index + 1][label.dicCode].vitalSignsValues" style="width:{{label.isShowMeasureInBatch? '45%' : '100%'}}" />
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <!-- 12小时体征区 -->
+            <tr ng-if="vm.metaData.config.row12HourEditType == '12Hour'" ng-repeat="label in vm.metaData.row2times | orderBy: 'orderIndex'">
+              <td arrow-td>
+                <span>
+                  {{label.dicName}}{{vm.metaData.config.clickToSetValue[label.dicCode][0].unit && ('('
+                  +
+                  vm.metaData.config.clickToSetValue[label.dicCode][0].unit
+                  + ')')}}
+                </span>
+              </td>
+              <td ng-repeat="time in vm.metaData.twiceTimes track by $index" colspan="3" arrow-td>
+                <div class="temperature-form__input">
+                  <select ng-if="label.isShowMeasureInBatch" ng-model="vm.formData.data[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].measureCode"
+                    ng-change="vm.clickToSetValue(label.dicCode, vm.formData.data[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode])"
+                    ng-class="vm.compareToOriginValue(vm.formData.data[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].measureCode, vm.metaData.originalData[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].measureCode)"
+                    style="width:{{label.isShowMeasureInBatch ? '45%' : '100%'}}">
+                    <option value="{{option.dicCode}}" ng-repeat="option in vm.getClickToSetOptions(label.dicCode)">{{option.dicName}}</option>
+                  </select>
+                  <blood-pressure-input ng-if="label.dicCode=='bloodPress'" input-class="temperature-keyboard-focus"
+                    ng-input-keydown="vm.keyboardDown" ng-model="vm.formData.data[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].vitalSignsValues"
+                    ng-class="vm.compareToOriginValue(vm.formData.data[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].vitalSignsValues, vm.metaData.originalData[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].vitalSignsValues)"
+                    style="width:{{label.isShowMeasureInBatch ? '45%' : '100%'}}"></blood-pressure-input>
+                  <input ng-if="label.dicCode!='bloodPress'" class="temperature-keyboard-focus" ng-keydown="vm.keyboardDown($event)"
+                    ng-model="vm.formData.data[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].vitalSignsValues"
+                    ng-class="vm.compareToOriginValue(vm.formData.data[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].vitalSignsValues, vm.metaData.originalData[$index * 3 + 1 + ($index==0 ? vm.metaData.config.row12HourEditPoint1 : vm.metaData.config.row12HourEditPoint2)][label.dicCode].vitalSignsValues)"
+                    style="width:{{label.isShowMeasureInBatch ? '45%' : '100%'}}" />
+                </div>
+              </td>
+            </tr>
+            <!-- 35度下评估区 -->
+            <tr ng-if="vm.metaData.row35Deg">
+              <td arrow-td>
+                <span>
+                  {{vm.metaData.row35Deg.dicName}}：
+                </span>
+              </td>
+              <td ng-repeat="time in vm.metaData.times track by $index" arrow-td>
+                <select ng-model="vm.formData.data[$index + 1][vm.metaData.row35Deg.dicCode].vitalSignsValues" ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][vm.metaData.row35Deg.dicCode].vitalSignsValues, vm.metaData.originalData[$index + 1][vm.metaData.row35Deg.dicCode].vitalSignsValues)">
+                  <option value=""></option>
+                  <option value="{{point}}" ng-repeat="point in vm.getEvaluateOptions(vm.metaData.row35Deg.dicCode)">{{point}}</option>
+                </select>
+              </td>
+            </tr>
+            <!-- 35度下评估区图表 -->
+            <tr ng-if="vm.metaData.row35DegChart">
+              <td arrow-td>
+                <span>
+                  {{vm.metaData.row35DegChart.dicName}}：
+                </span>
+              </td>
+              <td ng-repeat="time in vm.metaData.times track by $index" arrow-td>
+                <select ng-model="vm.formData.data[$index + 1][vm.metaData.row35DegChart.dicCode].vitalSignsValues"
+                  ng-class="vm.compareToOriginValue(vm.formData.data[$index + 1][vm.metaData.row35DegChart.dicCode].vitalSignsValues, vm.metaData.originalData[$index + 1][vm.metaData.row35DegChart.dicCode].vitalSignsValues)">
+                  <option value=""></option>
+                  <option value="{{point}}" ng-repeat="point in vm.getEvaluateOptions(vm.metaData.row35DegChart.dicCode)">{{point}}</option>
+                </select>
+              </td>
+            </tr>
+            <!-- 24小时编辑区 -->
+            <tr ng-if="item.dicCode !== 'skinTestInfo'" ng-repeat="item in vm.metaData.row24times track by $index">
+              <td>
+                {{item.dicName}}
+              </td>
+              <td colspan="2">
+                <div class="temperature-form__input">
+                  <input class="temperature-keyboard-focus" id="temperature-24-hour-input-{{$index}}" ng-keydown="vm.keyboardDown($event)"
+                    autocomplete="off" style="width:100%;" ng-model="vm.formData.data[0][item.dicCode].vitalSignsValues"
+                    ng-class="vm.compareToOriginValue(vm.formData.data[0][item.dicCode].vitalSignsValues, vm.metaData.originalData[0][item.dicCode].vitalSignsValues)"
+                    required name="code" />
+                </div>
+              </td>
+              <td colspan="4" style="text-align:left;">
+                <button class="btn btn-primary btn-xs" style="margin-right:1px;" ng-repeat="option in vm.getClickToSetOptions(item.dicCode)"
+                  ng-if="option.isSet" ng-dblclick="vm.clickToSetValue(item.dicCode, vm.formData.data[0][item.dicCode], option.dicCode, $parent.$parent.$index)"
+                  tabindex="-1" uib-tooltip="双击选择">{{option.dicName}}</button>
+              </td>
+            </tr>
+            <!-- 皮试 -->
+            <tr ng-if="vm.metaData.skinTestInfo" ng-repeat="item in vm.formData.skinTestInfo">
+              <td ng-if="$first" rowspan="{{vm.formData.skinTestInfo.length}}">
+                <span>{{vm.metaData.skinTestInfo.dicName}}</span>
+              </td>
+              <td colspan="6">
+                <div class="temperature-form-skin-input-panel">
+                  <select style="display: inline-block; width: 100px;" ng-model="vm.formData.skinTestInfo[$index].measureCode"
+                    ng-change="vm.setCurrentDrug($index, item.measureCode)" ng-class="{'temperature-form__input__dirty': vm.compareToOriginValue(vm.formData.skinTestInfo[$index].measureCode, vm.metaData.originalSkinTestInfo[$index].measureCode)}">
+                    <option value="{{drug.dicCode}}" ng-repeat="drug in vm.metaData.skinTest">{{drug.dicName}}</option>
+                  </select>
+                  <input ng-show="vm.isCustomValue(vm.formData.skinTestInfo[$index].measureCode)" style="width: 90px;margin: 0;display:inline-block"
+                    ng-model="vm.formData.skinTestInfo[$index].measureName" ng-class="{'temperature-form__input__dirty': vm.compareToOriginValue(vm.formData.skinTestInfo[$index].measureName, vm.metaData.originalSkinTestInfo[$index].measureName)}" />
+                  <label for="skinTestInfoYes{{$index}}" style="margin-left: 10px;color: #f00">
+                    <input type="radio" name="skinTestInfo{{$index}}" id="skinTestInfoYes{{$index}}" value="p" ng-model="vm.formData.skinTestInfo[$index].vitalSignsValues"
+                      ng-class="{'temperature-form__input__dirty': vm.compareToOriginValue(vm.formData.skinTestInfo[$index].vitalSignsValues, vm.metaData.originalSkinTestInfo[$index].vitalSignsValues)}" />
+                  </label>
+                  <span style="color: #f00;">阳性</span>
+                  <label for="skinTestInfoNo{{$index}}" style="margin-left: 10px">
+                    <input type="radio" name="skinTestInfo{{$index}}" id="skinTestInfoNo{{$index}}" value="n" ng-model="vm.formData.skinTestInfo[$index].vitalSignsValues"
+                      ng-class="{'temperature-form__input__dirty': vm.compareToOriginValue(vm.formData.skinTestInfo[$index].vitalSignsValues, vm.metaData.originalSkinTestInfo[$index].vitalSignsValues)}" />
+                  </label>
+                  <span>阴性</span>
+                  <button class="btn btn-xs btn-danger btn-round" type="button" ng-click="vm.formData.skinTestInfo[$index] = {}">清空</button>
+                  <button class="btn btn-xs btn-danger btn-round" ng-click="vm.removeSkinTest($index)" type="button">删除</button>
+                  <button class="btn btn-xs btn-default btn-round" ng-if="$last" ng-click="vm.addSkinTest()" type="button">添加{{vm.metaData.skinTestInfo.dicName}}</button>
+                </div>
+              </td>
+            </tr>
+            <tr ng-if="vm.metaData.skinTestInfo && (!vm.formData.skinTestInfo || vm.formData.skinTestInfo.length == 0)">
+              <td>
+                <span>{{vm.metaData.skinTestInfo.dicName}}</span>
+              </td>
+              <td colspan="6">
+                <div class="temperature-form-skin-input-panel">
+                  <button class="btn btn-xs btn-default btn-round" ng-click="vm.addSkinTest()" type="button">添加{{vm.metaData.skinTestInfo.dicName}}</button>
+                </div>
+              </td>
+            </tr>
+            <!-- 自定义项目 -->
+            <tr ng-repeat="item in vm.metaData.rowCustomConfig track by $index">
+              <td>
+                <div class="doc-custom-column temperature-form__input" uib-tooltip="清空当页该自定义项所有值时，自定义表头会自动删除" tooltip-enable="{{item}}">
+                  <input style="width:100%;" placeholder="自定义名称 " ng-focus="vm.openOptions($event) " ng-blur="vm.hideOptions($event) "
+                    style="display: inline-block; " ng-model="vm.formData.customRows[$index].vitalSigns" ng-disabled="item"
+                    ng-class="{'disabled': item, 'temperature-form__input__dirty': vm.compareToOriginValue(vm.formData.customRows[$index].vitalSigns, vm.metaData.originalCustomRows[$index].vitalSigns)}" />
+                  <div class="doc-custom-options " style="height:auto !important;">
+                    <ul>
+                      <li ng-repeat="option in vm.metaData.dic.vitalItemCustom " ng-click="vm.setValue($parent.$index, option.dicName) ">{{option.dicName}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td colspan="2" arrow-td>
+                <div class="temperature-form__input">
+                  <input class="temperature-keyboard-focus" ng-keydown="vm.keyboardDown($event)" style="width:100%;"
+                    placeholder="{{!vm.formData.customRows[$index].vitalSigns ? '未填写自定义项名称' : '自定义值'}}" ng-model="vm.formData.customRows[$index].vitalSignsValues"
+                    ng-class="{'disabled': !vm.formData.customRows[$index].vitalSigns, 'temperature-form__input__dirty': vm.compareToOriginValue(vm.formData.customRows[$index].vitalSignsValues, vm.metaData.originalCustomRows[$index].vitalSignsValues)}"
+                    ng-disabled="!vm.formData.customRows[$index].vitalSigns">
+                </div>
+              </td>
+              <td colspan="4" style="text-align:left;">                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="bordered-top " style="display: flex; justify-content: space-between; padding:10px 10px; ">
+    <span style="margin:auto 0px; ">操作说明:【→】向右移动; 【←】向左移动;
+      【↑】选择上一行并保存; 【↓】选择下一行并保存; 【Enter】保存并进入下一行。</span>
+    <div>
+      <button class="btn btn-sm btn-warning btn-round " ng-disabled="vm.metaData.isSaving" uib-tooltip="未保存的修改将被重置 "
+        tooltip-append-to-body="true" type="button" ng-click="vm.reset() ">重置</button>
+      <button class="btn btn-sm btn-success btn-round " ng-disabled="vm.metaData.isSaving" type="button" ng-click="vm.ok() ">确定</button>
+      <button class="btn btn-sm btn-default btn-round " type="button " ng-click="$dismiss() ">取消</button>
+    </div>
+  </div>
+</div>

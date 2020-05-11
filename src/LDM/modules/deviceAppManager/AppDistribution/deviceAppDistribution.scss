@@ -1,0 +1,25 @@
+.rect-box {
+  min-height: 70px;
+  border: 1px solid;
+  border-color: lightgray;
+  box-shadow: 5px 5px 5px #ebebeb;
+  align-items: center;
+  margin: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  max-width: 380px;
+  min-width: 240px;
+  font-size: 14px;
+  p {
+    margin: 0 0 0px;
+  }
+
+  &:hover{
+    border-color: #3f78bf;
+    p {
+      color: #3f78bf;
+    }
+  }
+}
+
+

@@ -1,0 +1,33 @@
+.nursing-doc-search-dropdown {
+  top: -398px;
+  height: 400px;
+  width: 360px;
+  padding: 10px;
+
+  .nursing-doc-search-dropdown-head {
+    display: flex;
+    padding-bottom: 5px;
+    border-bottom: 1px solid $border-3;
+
+    >input {
+      flex-grow: 1;
+      margin-right: 8px;
+    }
+
+    >button {
+      flex-basis: 35px;
+    }
+  }
+
+  .nursing-doc-search-dropdown-content {
+    border: 1px solid $border-3;
+    margin-top: 5px;
+
+    >table {
+      >tbody {
+        height: 300px;
+        overflow-y: auto;
+      }
+    }
+  }
+}

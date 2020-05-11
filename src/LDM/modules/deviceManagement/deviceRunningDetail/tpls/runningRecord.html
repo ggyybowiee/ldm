@@ -1,0 +1,26 @@
+<div class="container-fluid monitoring__record">
+  <div class="flex-box justify-center align-base">
+    <div class="monitoring__item">
+      <img src="assets/images/ldm/ldm_runRecord.jpg" alt="网络状况">
+    </div>
+    <div class="monitoring__item">
+      <p>设备已{{ (vm.metaData.codes | filter: { type: 'operationStatus', code: vm.metaData.record.content.status })[0].name || '--' }}</p>
+      <!-- <span class="monitoring__large-text">{{vm.onlineTime}}</span> 小时 -->
+      <span class="monitoring__large-text">{{(vm.metaData.record.duration / 60) > 60 ? (vm.metaData.record.duration / 60 / 60).toFixed(1) : vm.metaData.record.duration}}</span> {{(vm.metaData.record.duration / 60) >= 60 ? '小时' : '分钟'}}
+    </div>
+    <div class="monitoring__item">
+      <p>
+        最近开机时间
+      </p>
+      <!-- <span class="monitoring__large-text">08:38</span>&nbsp;{{vm.currentDate}} -->
+      <span class="monitoring__large-text">{{(vm.metaData.record.lastPowerOnTime && vm.metaData.record.lastPowerOnTime | date: 'HH:mm:ss') || '--'}}</span> {{vm.metaData.record.lastPowerOnTime | date: 'yyyy-MM-dd' || '--'}}
+    </div>
+    <div class="monitoring__item">
+      <p>
+        总开机时间
+      </p>
+      <!-- <span class="monitoring__large-text">57</span> 小时 -->
+      <span class="monitoring__large-text">{{(vm.metaData.record.totalPowerOnTime / 60) > 60 ? (vm.metaData.record.totalPowerOnTime / 60 / 60).toFixed(1) : (vm.metaData.record.totalPowerOnTime || '--') }}</span> {{(vm.metaData.record.totalPowerOnTime / 60) > 60 ? '小时' : '分钟'}}
+    </div>
+  </div>
+</div>

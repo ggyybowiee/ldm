@@ -1,0 +1,15 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">续打提示</h5>
+  </div>
+  <div class="modal-body">
+    <div>第{{vm.metaData.changedRow}}行的数据已被修改。</div>
+    <div>从修改行的页数续打请点击<strong>“从第{{vm.metaData.prePage + 1}}页开始打印”</strong>；</div>
+    <div>若从其他位置打印请手动调整一下续打标记，谢谢！！</div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-sm btn-round" ng-click="vm.ok()">从第{{vm.metaData.prePage + 1}}页开始打印</button>
+    <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+  </div>
+</div>

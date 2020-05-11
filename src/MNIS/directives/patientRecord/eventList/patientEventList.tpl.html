@@ -1,0 +1,48 @@
+<div class="patient-event-list-panel">
+  <div loading-wrapper="vm.loadPatientEvent">
+
+    <div class="toolbar">
+
+      <div class="toolbar-item">
+        <span>患者事件</span>
+      </div>
+
+      <div class="toolbar-item pull-right">
+        <button class="btn btn-primary btn-sm" ng-click="vm.addOrEditPatientEvent()">添加患者事件</button>
+      </div>
+    </div>
+
+    <div class="patient-event-list-wrapper">
+      <table class="table white-borderd tr-hover thead-fixed">
+        <thead>
+          <tr>
+            <th width="150px">事件时间</th>
+            <th width="80px">事件类型</th>
+            <th width="120px">事件发生科室</th>
+            <th width="260px">体征单显示时间</th>
+            <th style="text-align:left;">事件内容</th>
+            <th width="80px">操作</th>
+          </tr>
+        </thead>
+        <tbody full-page="fix" full-page-bottom="15">
+          <tr ng-repeat="event in vm.eventList | orderBy: '-recordTime'">
+            <td width="150px">{{event.recordTime | idate:'DM'}}</td>
+            <td width="80px">{{vm.eventTypeDic[event.event].dicName}}</td>
+            <td width="120px">{{event.wardName}}({{event.wardCode}})</td>            
+            <td width="260px">{{event.recordDate|idate:'DM'}} | {{event.timeInChinese}}</td>
+            <td style="text-align:left;" ng-if="event.event!='bedTransfer'">{{event.content}}</td>
+            <td style="text-align:left;" ng-if="event.event=='bedTransfer'">{{event.bedCode}}床 → {{event.targetBed}}床</td>
+            <td width="80px">
+              <button class="btn btn-link btn-xs warning-text " ng-click="vm.addOrEditPatientEvent(event)">
+                <i class="fa fa-edit "></i>
+              </button>
+              <button class="btn btn-link btn-sm danger-text" confirm yes="vm.deletePatientEvent(event)" content="确定要删除此患者事件？">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="panel panel-layout panel-default">
+  <div ng-if='vm.isMonthAgo' class="flex-box justify-between filter-bar form-inline remind-image">
+      <div class="small-image"></div>
+      <div class="remind-title"><span style="font-size: 18px">已超过<span style="font-size: 30px">30</span>天没有打包数据了，赶紧打包吧!</span></div>
+    <!-- ng-if='vm.isMonthAgo' -->
+  </div>
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <label>统计时段： </label>
+      <date-picker ng-model="vm.queryParams.startTime" ng-change="vm.load.func()"></date-picker>
+      <span class="title-text"> 至 </span>
+      <date-picker ng-model="vm.queryParams.endTime" ng-change="vm.load.func()"></date-picker>
+    </div>
+    <button class="btn btn-sm btn-primary round-btn standard-button" ng-click="vm.load.func()">查询</button>
+    <div class="filter-item pull-right">
+      <button class="btn btn-default btn-round standard-button" ng-click="vm.openAdd()">
+        <i class="fa fa-upload"></i>&nbsp;打包
+      </button>
+    </div>
+  </div>
+
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="white-borderd table table-hover device-table" st-table="vm.historyDisplay" st-safe-src="vm.history" sytle="table-layout: fixed">
+      <thead>
+        <tr>
+          <th width="20%" style="text-align: center">开始时间</th>
+          <th width="20%" style="text-align: center">结束时间</th>
+          <th width="10%"style="text-align: center">打包人</th>
+          <th width="15%" style="text-align: center">数据包大小</th>
+          <th width="10%" style="text-align: center">状态</th>
+          <th width="10%" style="text-align: center">下载次数</th>
+          <th width="15%" style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <!-- | orderBy : '-endTime' : desc -->
+      <tbody ng-repeat="row in vm.historyDisplay track by $index">
+        <tr>
+          <td class="ng-binding" style="text-align: center">{{row.startTime | date: "yyyy-MM-dd HH:mm:ss"}}</td>
+          <td class="ng-binding" style="text-align: center">{{row.endTime | date: "yyyy-MM-dd HH:mm:ss"}}</td>
+          <td class="ng-binding" style="text-align: center">{{row.packPerson}}</td>
+          <td class="ng-binding" style="text-align: center">{{row.packageSize | number : 2}}MB</td>
+          <td class="ng-binding" style="text-align: center">{{vm.packStatus && (vm.packStatus | filter : {code: row.status})[0].name}}</td>
+          <td class="ng-binding" style="text-align: center">{{row.downloadTimes}}</td>
+          <td class="flex-box justify-around">
+            <a class="btn btn-link btn-xs success-text" download ng-href="{{vm.downloadFile(row)}}" ng-click="vm.updateDownloadTimes(row)">
+              <i class="fa fa-download"></i>
+            </a>
+            <button class="btn btn-link btn-xs danger-text" ng-if='row.status !== 0' confirm yes="vm.del(row)" content="确定删除该数据包吗？">
+              <i class="fa fa-trash"></i>
+            </button>
+            <button class="btn btn-link btn-xs danger-text" ng-if='row.status === 0' confirm yes="vm.cancelPackage(row)" content="确定要取消打包吗？">
+              <i class="fa fa-pencil"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="6">
+            <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <!-- <none-data-info list="vm.statuses"></none-data-info> -->
+  </div>
+</div>

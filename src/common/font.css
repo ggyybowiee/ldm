@@ -1,0 +1,258 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('/assets/fonts/icomoon.eot?5conhz');
+  src:  url('/assets/fonts/icomoon.eot?5conhz#iefix') format('embedded-opentype'),
+    url('/assets/fonts/icomoon.ttf?5conhz') format('truetype'),
+    url('/assets/fonts/icomoon.woff?5conhz') format('woff'),
+    url('/assets/fonts/icomoon.svg?5conhz#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icomoon-"], [class*=" icomoon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icomoon-plus2:before {
+  content: "\e946";
+}
+.icomoon-surgery2:before {
+  content: "\e947";
+}
+.icomoon-user_plus:before {
+  content: "\e948";
+}
+.icomoon-default:before {
+  content: "\e94c";
+}
+.icomoon-lock:before {
+  content: "\e94a";
+}
+.icomoon-user:before {
+  content: "\e94b";
+}
+.icomoon-radar:before {
+  content: "\e938";
+}
+.icomoon-plus:before {
+  content: "\e949";
+}
+.icomoon-edit:before {
+  content: "\e92c";
+}
+.icomoon-blue-bridge:before {
+  content: "\e903";
+}
+.icomoon-refresh:before {
+  content: "\e935";
+}
+.icomoon-breathe:before {
+  content: "\e936";
+}
+.icomoon-close:before {
+  content: "\e937";
+}
+.icomoon-cut_bed:before {
+  content: "\e939";
+}
+.icomoon-chair:before {
+  content: "\e93a";
+}
+.icomoon-heartrate:before {
+  content: "\e93b";
+}
+.icomoon-card-view:before {
+  content: "\e93c";
+}
+.icomoon-edge-left:before {
+  content: "\e93d";
+}
+.icomoon-list-view:before {
+  content: "\e93e";
+}
+.icomoon-motion-frequency:before {
+  content: "\e93f";
+}
+.icomoon-user-fill:before {
+  content: "\e940";
+}
+.icomoon-pause:before {
+  content: "\e941";
+}
+.icomoon-icon_tendency:before {
+  content: "\e942";
+}
+.icomoon-arrow-down:before {
+  content: "\e943";
+}
+.icomoon-arrow-right:before {
+  content: "\e944";
+}
+.icomoon-unfolded:before {
+  content: "\e945";
+}
+.icomoon-ecg:before {
+  content: "\e900";
+}
+.icomoon-exam:before {
+  content: "\e901";
+}
+.icomoon-oxygen:before {
+  content: "\e902";
+}
+.icomoon-thermometer:before {
+  content: "\e904";
+}
+.icomoon-tool:before {
+  content: "\e905";
+}
+.icomoon-device:before {
+  content: "\e906";
+}
+.icomoon-doctors:before {
+  content: "\e907";
+}
+.icomoon-manual:before {
+  content: "\e908";
+}
+.icomoon-quality:before {
+  content: "\e909";
+}
+.icomoon-research:before {
+  content: "\e90a";
+}
+.icomoon-setting:before {
+  content: "\e90b";
+}
+.icomoon-bad:before {
+  content: "\e90c";
+}
+.icomoon-duty:before {
+  content: "\e90d";
+}
+.icomoon-hr:before {
+  content: "\e90e";
+}
+.icomoon-doctor:before {
+  content: "\e90f";
+}
+.icomoon-fileplus:before {
+  content: "\e910";
+}
+.icomoon-folderplus:before {
+  content: "\e911";
+}
+.icomoon-hospital:before {
+  content: "\e912";
+}
+.icomoon-life:before {
+  content: "\e913";
+}
+.icomoon-list:before {
+  content: "\e914";
+}
+.icomoon-more:before {
+  content: "\e915";
+}
+.icomoon-note:before {
+  content: "\e916";
+}
+.icomoon-notice:before {
+  content: "\e917";
+}
+.icomoon-nurse:before {
+  content: "\e918";
+}
+.icomoon-patient:before {
+  content: "\e919";
+}
+.icomoon-people:before {
+  content: "\e91a";
+}
+.icomoon-pointright:before {
+  content: "\e91b";
+}
+.icomoon-pointup:before {
+  content: "\e91c";
+}
+.icomoon-record:before {
+  content: "\e91d";
+}
+.icomoon-rubbish:before {
+  content: "\e91e";
+}
+.icomoon-search:before {
+  content: "\e91f";
+}
+.icomoon-shift:before {
+  content: "\e920";
+}
+.icomoon-star:before {
+  content: "\e921";
+}
+.icomoon-surgery:before {
+  content: "\e922";
+}
+.icomoon-table:before {
+  content: "\e923";
+}
+.icomoon-triangledown:before {
+  content: "\e924";
+}
+.icomoon-triangleup:before {
+  content: "\e925";
+}
+.icomoon-warn:before {
+  content: "\e926";
+}
+.icomoon-write:before {
+  content: "\e927";
+}
+.icomoon-arrowdown:before {
+  content: "\e928";
+}
+.icomoon-arrowup:before {
+  content: "\e929";
+}
+.icomoon-child:before {
+  content: "\e92a";
+}
+.icomoon-clinical:before {
+  content: "\e92b";
+}
+.icomoon-3:before {
+  content: "\e92d";
+}
+.icomoon-4:before {
+  content: "\e92e";
+}
+.icomoon-5:before {
+  content: "\e92f";
+}
+.icomoon-6:before {
+  content: "\e930";
+}
+.icomoon-7:before {
+  content: "\e931";
+}
+.icomoon-8:before {
+  content: "\e932";
+}
+.icomoon-1:before {
+  content: "\e933";
+}
+.icomoon-2:before {
+  content: "\e934";
+}
+

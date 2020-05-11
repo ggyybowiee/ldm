@@ -1,0 +1,4 @@
+<div class="edit-text-wrapper" ng-class="{'input-mode': edit.show}">
+  <span ng-if="!edit.show">{{edit.model}}</span>
+  <input type="text" class="form-control input-sm" ng-model="edit.model" ng-if="edit.show">
+</div>

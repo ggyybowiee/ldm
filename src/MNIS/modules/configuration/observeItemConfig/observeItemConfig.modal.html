@@ -1,0 +1,151 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form" name="deviceBindForm" role="form" novalidate w5c-form-validate="vm.validationOption"
+    form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <span class="toolbar-item pull-right" style="margin: 0px 10px">
+        <div class="btn-group btn-radio">
+          <label class="btn btn-sm btn-primary" ng-model="vm.metaData.showType" uib-btn-radio="0">
+            编辑属性
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.metaData.showType" uib-btn-radio="1">
+            编辑病区
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.metaData.showType" uib-btn-radio="2">
+            异常事件
+          </label>
+        </div>
+      </span>
+      <h5 class="modal-title">{{vm.type}}观察项</h5>
+    </div>
+    <div class="modal-body">
+      <div ng-show="vm.metaData.showType==0">
+        <div class="form-group">
+          <label for="itemCode" class="control-label col-xs-3 partial-label">项目编码：</label>
+          <div class="col-xs-8">
+            <input name="itemCode" class="form-control input-sm" autocomplete="off" type="text" ng-model="vm.formData.itemCode"
+              required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="itemName" class="control-label col-xs-3 partial-label">项目名称：</label>
+          <div class="col-xs-8">
+            <input name="itemName" class="form-control input-sm" autocomplete="off" type="text" ng-model="vm.formData.itemName"
+              required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pinyin" class="control-label col-xs-3 partial-label">拼音代码：</label>
+          <div class="col-xs-8">
+            <input name="pinyin" class="form-control input-sm" autocomplete="off" type="text" ng-model="vm.formData.pinyin" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="type" class="control-label col-xs-3 partial-label">体征类型</label>
+          <div class="col-xs-8">
+            <select name="type" class="form-control input-sm" ng-model="vm.formData.type" required>
+              <option ng-repeat="obsrItem in vm.metaData.obsrItemTypeDic" value="{{obsrItem.dicCode}}">{{obsrItem.dicName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="validRange" class="col-sm-3 control-label">有效值范围</label>
+          <div class="col-xs-2">
+            <input name="validRange" class="form-control input-sm" type="number" autocomplete="off" ng-model="vm.formData.minValue" />
+          </div>
+          <span style="float:left;height: 26px;line-height: 26px;">—</span>
+          <div class="col-xs-2">
+            <input name="validRange" class="form-control input-sm" type="number" autocomplete="off" ng-model="vm.formData.maxValue" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="warningRange" class="col-sm-3 control-label">预警值范围</label>
+          <div class="col-xs-2">
+            <input name="warningRange" class="form-control input-sm" type="number" autocomplete="off" ng-model="vm.formData.minWarningValue" />
+          </div>
+          <span style="float:left;height: 26px;line-height: 26px;">—</span>
+          <div class="col-xs-2"><input name="warningRange" class="form-control input-sm" type="number" autocomplete="off"
+              ng-model="vm.formData.maxWarningValue" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputType" class="col-sm-3 control-label">输入类型</label>
+          <div class="col-xs-8">
+            <select name="inputType" class="form-control input-sm" ng-model="vm.formData.inputType"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="unit" class="control-label col-xs-3 partial-label">单位</label>
+          <div class="col-xs-8">
+            <input name="unit" class="form-control input-sm" type="text" autocomplete="off" ng-model="vm.formData.unit" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="smartDeviceType" class="control-label col-xs-3 partial-label">智能设备</label>
+          <div class="col-xs-8">
+            <select name="smartDeviceType" class="form-control input-sm" ng-model="vm.formData.smartDeviceType">
+              <option ng-repeat="smartDevice in vm.metaData.smartDeviceDic" value="{{smartDevice.dicCode}}">{{smartDevice.dicName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="status" class="control-label col-xs-3 partial-label">禁用</label>
+          <div class="col-xs-8">
+            <select name="staus" class="form-control input-sm" ng-model="vm.formData.status" required>
+              <option value="1">启用</option>
+              <option value="0">禁用</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div ng-show="vm.metaData.showType==1">
+        <div class="form-group">
+          <label class="control-label col-xs-2 partial-label">所属病区： </label>
+          <div class="col-xs-10">
+            <transfer ward-list="vm.metaData.wardList" ng-model="vm.formData.wardCode"></transfer>
+          </div>
+        </div>
+      </div>
+      <div ng-show="vm.metaData.showType==2">
+        <div class="form-group">
+          <label for="headerFormItems" class="control-label col-xs-1 partial-label"></label>
+          <div class="col-xs-11">
+            <div class="header-form-wrap flex-box" ng-repeat="formItem in vm.formData.abnormalEvents">
+              <div class="header-form__item flex-box">
+                <div class="header-form__item-label">异常事件类型：</div>
+                <select class="form-control input-sm table-header__input-item" ng-model="formItem.abnormalEvent" style="width: 8em"
+                  name="dataType">
+                  <option ng-repeat="patVitalEvent in vm.metaData.patVitalEventDic" value="{{patVitalEvent.dicCode}}">{{patVitalEvent.dicName}}</option>
+                </select>
+                
+              </div>
+              <div class="header-form__item flex-box">
+                <div class="header-form__item-label">最小值：</div>
+                <input class="form-control input-sm" ng-model="formItem.minValue" type="text" name="minValue" />
+              </div>
+              <div class="header-form__item flex-box">
+                <div class="header-form__item-label">最大值：</div>
+                <input class="form-control input-sm" type="text" ng-model="formItem.maxValue" name="maxValue" />
+                &nbsp;
+                <button class="btn btn-xs btn-danger btn-round" ng-click="vm.removeItem($index)">
+                  删除
+                </button>
+              </div>
+            </div>
+            <div class="header-form-wrap flex-box">
+              <button class="btn btn-xs btn-default btn-round" style="margin-top: 10px" ng-click="vm.addItem()">
+                新增
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

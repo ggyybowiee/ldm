@@ -1,0 +1,59 @@
+<div class="modal-content device-modal-content">
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title title-text">查找NDA</h5>
+  </div>
+
+  <div class="modal-body">
+    <interval-loading time="30" ng-if="vm.isHideIntervalLoading"></interval-loading>
+      <form class="form-horizontal static-form" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+    <div class="base-field clearfix">
+      <p>通过以下方式查找设备</p>
+      <div class="col-xs-12 status_info_div" ng-class="{'selected-content': (vm.searchTypeArray.indexOf(1) > -1)}">
+          <div class="form-group col-xs-1"></div>
+          <div class="form-group col-xs-9">
+              <label class="custom-checkbox control-label">
+            <input type="checkbox" ng-click="vm.setSearchType(1)"></input>
+            <span>&nbsp播放提示音 (会在设备上播放2分钟的提示音)</span>
+              </label>
+        </div>
+        <div  class="form-group col-xs-2 text-right">
+          <span>{{vm.searchDevicesResult.beepStatus}}</span>
+        </div>
+      </div>
+      <div class="col-xs-12 status_info_div" ng-class="{'selected-content': (vm.searchTypeArray.indexOf(2) > -1)}">
+          <div class="form-group col-xs-1"></div>
+          <div class="form-group col-xs-9">
+              <label class="custom-checkbox control-label">
+            <input type="checkbox" ng-click="vm.setSearchType(2)"></input>
+            <span>&nbsp震动 (设备持续震动2分钟)</span>
+              </label>
+          </div>
+          <div  class="form-group col-xs-2 text-right">
+              <span>{{vm.searchDevicesResult.vibrateStatus}}</span>
+          </div>
+      </div>
+      <div class="col-xs-12 status_info_div" style="margin-bottom: 20px;" ng-class="{'selected-content': (vm.searchTypeArray.indexOf(3) > -1)}">
+          <div class="form-group col-xs-1"></div>
+          <div class="form-group col-xs-9">
+              <label class="custom-checkbox control-label">
+              <input type="checkbox" ng-click="vm.setSearchType(3)"></input>
+              <span>&nbsp设备定位 <span>(获取设备位置)</span></span>
+              </label>
+            </div>
+            <div  class="form-group col-xs-2 text-right">
+                <span>{{vm.searchDevicesResult.locationStatus}}</span>
+            </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-sm btn-round button-size" ng-click="vm.ok()">查找</button>
+
+    <button class="btn btn-default btn-sm btn-round button-size" ng-click="vm.cancel()">取消</button>
+  </div>
+
+</div>

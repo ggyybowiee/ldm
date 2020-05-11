@@ -1,0 +1,143 @@
+.estimate-config-page-description {
+  margin: 5px 0px;
+}
+
+.estimate-config-page-panel {
+  border: 1px solid $border-3;
+}
+
+.estimate-config-page-inner-panel {
+  outline: 1px dashed $border-3;
+}
+
+.estimate-config-table-panel {
+  border: 1px solid red;
+}
+
+.estimate-config-table {
+  width: 100%;
+  overflow: hidden;
+  table-layout: fixed;
+}
+
+.estimate-config-table td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.estimate-config-table th {
+  border: 1px solid black;
+  text-align: center;
+}
+
+// 配置项-配置状态
+.estimate-config-table-header-td {
+  font-weight: normal;
+  background-color: #eee;
+  color: black;
+}
+
+.estimate-config-table-header-td-something-wrong {
+  background-color: $danger;
+  color: white;
+}
+
+.estimate-config-table-header-td:hover {
+  background-color: $primary;
+  color: white;
+  cursor: pointer;
+}
+
+// 配置项-编辑状态
+.estimate-edit-table-header-td {
+  background-color: transparent;
+  color: black;
+}
+
+.size-not-enough {
+  td {
+    border: 1px red solid !important;
+  }
+}
+
+.estimate-config-table-example-td {
+  background-color: white;
+}
+
+.estiamte-table-header-config-subheader-layout {
+  margin-right: 10px;
+}
+
+.estimate-table-header-config-subheader-title {
+  border-top: 1px solid $border-3;
+  margin-top: 30px;
+}
+
+.estiamte-table-header-config-subheader {
+  margin-left: 35px;
+}
+
+.estiamte-table-header-config-subheader label {
+  font-size: 14px;
+  display: block;
+}
+
+.estiamte-table-header-config-subheader li {
+  border-top: 1px solid $border-3;
+  margin: 10px;
+}
+
+.estiamte-table-header-top-border {
+  border-top: 1px solid $border-3;
+  margin-top: 15px;
+}
+
+.estiamte-table-header-config-option-edit {
+  flex-basis: 50;
+  border-left: 1px solid $border-3;
+  height: 100%;
+}
+
+.estimate-table-config-colwidth-input {
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.estimate-data-header-formula-panel {
+  display: flex;
+  flex-wrap: wrap;
+
+  .estimate-data-header-formula-wrapper {
+    flex-basis: 15%;
+    border: 1px solid $border-3;
+    margin: 2px;
+    text-align: center;
+    padding: 0px 3px;
+    cursor: pointer;
+
+    &:hover{
+      background-color: $primary;
+      color: white;
+    }
+
+    >div:first-child{
+      font-weight: bold;
+      border-bottom: 1px solid $border-3;
+    }
+
+    >div:last-child{
+      
+    }
+  }
+}

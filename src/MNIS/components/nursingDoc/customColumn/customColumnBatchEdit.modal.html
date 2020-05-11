@@ -1,0 +1,135 @@
+<div class="modal-content modal-input-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">自定义列批量编辑</h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+
+      <div class="custom-column-edit-item-panel">
+        <div class="toolbar">
+          <span>护理记录标题修改：</span>
+        </div>
+        <div class="custom-column-batch-edit-title-panel">
+          <div>
+            <span>当前值：</span>
+            <input ng-model="vm.formData.srcTitle" autocomplete="off" />
+            <button class="btn btn-success btn-xs" style="margin:0px 5px;" ng-click="vm.searchHeaderKey()">查找</button>
+          </div>
+          <div>
+            <span>修改值：</span>
+            <input ng-model="vm.formData.desTitle" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+
+      <div class="custom-column-edit-item-panel">
+        <div class="toolbar">
+          <span>护理记录页标题修改：</span>
+          <div>
+            <button class="btn btn-xs btn-round btn-primary" ng-click="vm.selectRecord(vm.formData.containTitleSheetChange, true)">全选</button>
+            <button class="btn btn-xs btn-round btn-primary" ng-click="vm.selectRecord(vm.formData.containTitleSheetChange, false)">全不选</button>
+            <button class="btn btn-xs btn-round btn-primary" ng-click="vm.selectRecord(vm.formData.containTitleSheetChange)">反选</button>
+            <button class="btn btn-xs btn-round btn-danger" ng-click="vm.modifyPageItem()">修改</button>
+          </div>
+        </div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:40px;text-align: center;">选中</th>
+                <th style="text-align: center;">页码</th>
+                <th>自定义表头原名称</th>
+                <th>自定义表头新名称</th>
+                <th style="border-right-width:0px !important;">列位置</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="cursor:pointer" ng-repeat="item in vm.formData.containTitleSheetChange | orderBy: '-pageNo'"
+                ng-click="vm.selectRecord(item)">
+                <td style="text-align: center;">
+                  {{item.isSelected ? '√' : ''}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.pageNo}}
+                </td>
+                <td>
+                  {{item.oldValue}}
+                </td>
+                <td>
+                  {{item.newValue}}
+                </td>
+                <td>
+                  {{item.column.text}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="custom-column-edit-item-panel">
+        <div class="toolbar">
+          <span>护理记录页内容修改：</span>
+          <div>
+            <button class="btn btn-xs btn-round btn-primary" ng-click="vm.selectPageRecord()">选中已选中页码的记录</button>
+            <button class="btn btn-xs btn-round btn-primary" ng-click="vm.selectRecord(vm.formData.containTitleDataChange, true)">全选</button>
+            <button class="btn btn-xs btn-round btn-primary" ng-click="vm.selectRecord(vm.formData.containTitleDataChange, false)">全不选</button>
+            <button class="btn btn-xs btn-round btn-primary" ng-click="vm.selectRecord(vm.formData.containTitleDataChange)">反选</button>
+            <button class="btn btn-xs btn-round btn-danger" ng-click="vm.modifyRecordItem()">修改</button>
+          </div>
+        </div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:40px;text-align: center;">选中</th>
+                <th style="text-align: center;">记录日期</th>
+                <th style="text-align: center;">页码</th>
+                <th style="text-align: center;">行数</th>
+                <th style="text-align: center;">列位置</th>
+                <th>自定义表头原名称</th>
+                <th>自定义表头新名称</th>
+                <th style="border-right-width:0px !important; max-width: 200px;">项目值</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in vm.formData.containTitleDataChange track by $index" ng-click="vm.selectRecord(item)">
+                <td style="text-align: center;">
+                  {{item.isSelected ? '√' : ''}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.recordDate|idate:"DM"}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.pageNo}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.pageRow}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.columnData.title}}
+                </td>
+                <td>
+                  {{item.oldValue}}
+                </td>
+                <td>
+                  {{item.newValue}}
+                </td>
+                <td style="border-right-width:0px !important; max-width: 200px;text-emphasis: emphasis;">
+                  {{item.columnData.content}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-sm btn-round" ng-click="vm.ok()">确定</button>
+    <button class="btn btn-warning btn-sm btn-round" ng-click="$dismiss()">取消</button>
+  </div>
+</div>

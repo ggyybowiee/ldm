@@ -1,0 +1,26 @@
+<div class="container-fluid detail-scroll-table">
+  <table class="white-borderd table table-hover" st-table="vm.metaData.errorInfoDisplay" st-safe-src="vm.metaData.errorInfo">
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>状态</th>
+        <th>备注</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in vm.metaData.errorInfoDisplay | orderBy: '-sendTime'">
+        <td class="ng-binding">{{row.sendTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="ng-binding" ng-class="{'warning': row.content.code == 2, 'danger': row.content.code == 1}">{{(vm.metaData.codes | filter: { type: 'errorLevel', code: row.content.level })[0].name || '--'}}</td>
+        <td class="ng-binding">{{row.content.message}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+          <td colspan="3">
+            <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+  </table>
+  <none-data-info list="vm.metaData.errorInfo"></none-data-info>
+</div>

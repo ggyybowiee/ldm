@@ -1,0 +1,174 @@
+<div class="custom-print-wrapper">
+  <style>
+    .custom-print-wrapper * {
+      font-family: "microsoft yahei";
+      font-weight: 700;
+      letter-spacing: 0;
+      padding-left: 1mm;
+      padding-right: 1mm;
+    }
+
+    .custom-print-wrapper .sm {
+      font-size: 2mm;
+    }
+
+    .custom-print-wrapper .middle {
+      font-size: 3mm;
+    }
+
+    .custom-print-wrapper .lg {
+      font-size: 4mm;
+    }
+
+    .custom-print-wrapper .huge {
+      font-size: 5.5mm;
+    }
+
+    .custom-print-wrapper .bold {
+      font-weight: 900;
+    }
+
+    .custom-print-wrapper qrcode {
+      display: block;
+    }
+  </style>
+  <style>
+    .custom-print-wrapper img {
+      width: 50px;
+    }
+
+    .custom-print-wrapper .patient-content {
+      padding-top: 3mm;
+    }
+
+    .custom-print-wrapper .patient-info {
+      position: relative;
+      height: 60px;
+    }
+
+    .custom-print-wrapper .patient-img {
+      position: absolute;
+      right: 0mm;
+      top: 3mm;
+      z-index: 99;
+    }
+
+    .custom-print-wrapper .patient-text {
+      position: absolute;
+      left: 0;
+    }
+
+    .custom-print-wrapper .info-line {
+      line-height: 17px;
+    }
+
+    .custom-print-wrapper .sign-line {
+      line-height: 20px;
+    }
+
+    .custom-print-wrapper .label {
+      min-width: 12mm;
+      display: inline-block;
+    }
+
+    .custom-print-wrapper .order-content table {
+      width: 100%;
+      border: none;
+      table-layout: fixed;
+    }
+
+    .custom-print-wrapper .order-content thead th {
+      border-bottom: .5mm solid black;
+      text-align: left;
+    }
+
+    .custom-print-wrapper .text-overflow {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .custom-print-wrapper .bottom-line {
+      margin-top: 1mm;
+      /* position: absolute; */
+      /* bottom: 1mm; */
+      /* left: 1mm; */
+      /* width: 100%; */
+    }
+
+    .bottom-qrcode {
+      float: right;
+      margin-right: 4mm;
+    }
+
+    .order-no {
+      position: absolute;
+      right: 0;
+    }
+
+    .middle-line {
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .middle-line .adm {
+      margin-left: 10px;
+    }
+
+    .fre {
+      position: absolute;
+      right: 0;
+    }
+
+    .half {
+      width: 30% !important;
+    }
+  </style>
+  <div class="patient-content bottle__content">
+    <div class="patient-info">
+      <div class="patient-img">
+        <qrcode data="{{order.orderbar}}" size="50" mode="img" version="1" error-correction-level="L"></qrcode>
+      </div>
+      <div class="patient-text">
+        <div class="info-line lg">
+          <span class="label">日期：{{order.planTime | idate}}</span>
+          <span>{{order.repeatIndicator==1 ? '长':'临'}}</span>
+        </div>
+        <div class="info-line" style="margin: 1mm 0mm;">
+          <span class="label huge">{{order.patient.bedCode}}床</span>
+          <span class="huge">{{order.patient.patName}}</span>
+        </div>
+        <div class="info-line">
+          <span class="lg">{{order.administration}}</span>
+          <span class="lg">{{order.frequencyCode}}-{{order.orderSortNo}}</span>
+          <span class="middle">住院号：{{order.patient.displayCode}}222</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="order-content">
+    <table style="border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th class="middle" width="60%">药品名称</th>
+          <th class="middle">规格</th>
+          <th class="middle">用量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in order.items" style="line-height: 13px;">
+          <td class="lg text-overflow">{{item.itemName}}<br>{{item.orderRemark}}</td>
+          <td class="lg">{{item.specification}}</td>
+          <td class="lg">{{item.dosage}}{{item.dosageUnit}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="bottom-line">
+    <div class="bottom-qrcode">
+      <qrcode data="{{order.orderbar}}" size="50" mode="img" version="1" error-correction-level="L"></qrcode>
+    </div>
+    <!-- <div class="sign-line"> <span class="label middle half">备药：</span><span class="label middle right-half">审核：</span>
+    </div> -->
+    <div class="sign-line"> </span> <span class="label middle">备注：</span><span class="lg">{{order.orderRemark}}</span>
+    </div>
+  </div>

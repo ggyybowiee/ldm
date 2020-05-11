@@ -1,0 +1,35 @@
+.paper-wrapper {
+  .check-all {
+    padding: 0 10px 10px;
+    margin: 0 -10px 10px -10px;
+    border-bottom: 1px solid #dce1e5;
+  }
+  .paper {
+    .patient-info {
+      padding: 8px;
+      background-color: $th-color;
+      border-bottom: 1px solid white;
+      color: $md-black;
+    }
+    .print-info {
+      line-height: 2;
+    }
+    .patient-sheet {
+      + .patient-sheet {
+        margin-top: 20px;
+      }
+    }
+    tfoot {
+      td {
+        background-color: white;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.skin-test-modal-wrapper {
+  img {
+    width: 100%;
+  }
+}

@@ -1,0 +1,284 @@
+<div class="patient-mews-list-panel">
+
+  <div class="content" style="padding: 0px 10px" full-page="fix">
+
+    <!-- 动态MEWS评分 -->
+    <div>
+
+      <!-- <h2 count-up start-val="0" decimals="1" end-val="873.4" duration="0.5" reanimate-on-click="false"></h2> -->
+
+      <h4 class="bordered-bottom" style="margin-bottom: 10px;">实时评分</h4>
+
+      <div class="realtime-mews-panel">
+        <table class="realtime-mews-table">
+          <thead>
+            <tr>
+              <th style="text-align:left;">
+                <div>
+                  <div>动态MEWS评分
+                    <span ng-if="vm.realTimeMewsScore.mews.totalScore.newValue == undefined">—</span>
+                    <span ng-if="vm.realTimeMewsScore.mews.totalScore.newValue != undefined" style="color:{{{alertLevel:vm.realTimeMewsScore.mews.totalScoreAlertLevel}|mewsScoreColor}};font-size:40px;">
+                      {{vm.realTimeMewsScore.mews.totalScore.newValue}}</span>
+                    分</div>
+                  <div>{{vm.now | idate: 'DH'}}</div>
+                </div>
+              </th>
+              <th>
+                <div>
+                  <div>
+                    <img src='assets/images/mnis/mews/realtime/temperature.svg' />
+                    <span>体温(°C)</span>
+                  </div>
+                  <div>
+                    <span ng-if="!vm.realTimeMewsScore.mews.vitals.temperature.newValue">-</span>
+                    <span ng-if="vm.realTimeMewsScore.mews.vitals.temperature.newValue" style="color: {{vm.realTimeMewsScore.mews.vitals.temperature.newValue|mewsScoreColor}}">{{vm.realTimeMewsScore.mews.vitals.temperature.newValue.score}}</span>
+                    <span class="mews-value-label" ng-if="vm.realTimeMewsScore.mews.vitals.temperature.newValue">
+                      (
+                      <span count-up start-val="vm.realTimeMewsScore.mews.vitals.temperature.oldValue.value" decimals="1"
+                        end-val="vm.realTimeMewsScore.mews.vitals.temperature.newValue.value" duration="2"
+                        reanimate-on-click="false"></span>)
+                    </span>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div>
+                  <div>
+                    <img src='assets/images/mnis/mews/realtime/heartrate.svg' />
+                    <span>心率(次/分)</span>
+                  </div>
+                  <div>
+                    <span ng-if="!vm.realTimeMewsScore.mews.vitals.heartRate.newValue">-</span>
+                    <span ng-if="vm.realTimeMewsScore.mews.vitals.heartRate.newValue" style="color: {{vm.realTimeMewsScore.mews.vitals.heartRate.newValue|mewsScoreColor}}">{{vm.realTimeMewsScore.mews.vitals.heartRate.newValue.score}}</span>
+                    <span class="mews-value-label" ng-if="vm.realTimeMewsScore.mews.vitals.heartRate.newValue">
+                      (
+                      <span count-up start-val="vm.realTimeMewsScore.mews.vitals.heartRate.oldValue.value" decimals="0"
+                        end-val="vm.realTimeMewsScore.mews.vitals.heartRate.newValue.value" duration="2"
+                        reanimate-on-click="false"></span>)
+                    </span>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div>
+                  <div>
+                    <img src='assets/images/mnis/mews/realtime/breath.svg' />
+                    <span>呼吸(次/分)</span>
+                  </div>
+                  <div>
+                    <span ng-if="!vm.realTimeMewsScore.mews.vitals.breath.newValue">-</span>
+                    <span ng-if="vm.realTimeMewsScore.mews.vitals.breath.newValue" style="color: {{vm.realTimeMewsScore.mews.vitals.breath.newValue|mewsScoreColor}}">{{vm.realTimeMewsScore.mews.vitals.breath.newValue.score}}</span>
+                    <span class="mews-value-label" ng-if="vm.realTimeMewsScore.mews.vitals.breath.newValue">
+                      (
+                      <span count-up start-val="vm.realTimeMewsScore.mews.vitals.breath.oldValue.value" decimals="0"
+                        end-val="vm.realTimeMewsScore.mews.vitals.breath.newValue.value" duration="2"
+                        reanimate-on-click="false"></span>)
+                    </span>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div>
+                  <div>
+                    <img src='assets/images/mnis/mews/realtime/bloodpress.svg' />
+                    <span>收缩压(mmHg)</span>
+                  </div>
+                  <div>
+                    <span ng-if="!vm.realTimeMewsScore.mews.vitals.bloodPress.newValue">-</span>
+                    <span ng-if="vm.realTimeMewsScore.mews.vitals.bloodPress.newValue" style="color: {{vm.realTimeMewsScore.mews.vitals.bloodPress.newValue|mewsScoreColor}}">{{vm.realTimeMewsScore.mews.vitals.bloodPress.newValue.score}}</span>
+                    <span class="mews-value-label" ng-if="vm.realTimeMewsScore.mews.vitals.bloodPress.newValue">
+                      (
+                      <span count-up start-val="vm.realTimeMewsScore.mews.vitals.bloodPress.oldValue.value" decimals="0"
+                        end-val="vm.realTimeMewsScore.mews.vitals.bloodPress.newValue.value" duration="2"
+                        reanimate-on-click="false"></span>)
+                    </span>
+                  </div>
+                </div>
+              </th>
+              <th>
+                <div>
+                  <div>
+                    <img src='assets/images/mnis/mews/realtime/sense.svg' />
+                    <span>意识</span>
+                  </div>
+                  <div>
+                    <span ng-if="!vm.realTimeMewsScore.mews.vitals.sense.newValue">-</span>
+                    <span ng-if="vm.realTimeMewsScore.mews.vitals.sense.newValue" style="color: {{vm.realTimeMewsScore.mews.vitals.sense.newValue|mewsScoreColor}}">{{vm.realTimeMewsScore.mews.vitals.sense.newValue.score}}</span>
+                    <span class="mews-value-label" ng-if="vm.realTimeMewsScore.mews.vitals.sense.newValue">
+                      (
+                      <span>{{vm.realTimeMewsScore.mews.vitals.sense.newValue.value}}</span>)
+                    </span>
+                  </div>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th>数据来源</th>
+              <th>体温(°C)</th>
+              <th>心率(次/分)</th>
+              <th>呼吸(次/分)</th>
+              <th>收缩压(mmHg)</th>
+              <th>意识</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>基本生命体征采集</td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.VITAL.newValue.temperature">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.VITAL.newValue.temperature" count-up start-val="vm.realTimeMewsScore.source.VITAL.oldValue.temperature.value"
+                  decimals="1" end-val="vm.realTimeMewsScore.source.VITAL.newValue.temperature.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.temperature.newValue.source ==='VITAL'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.VITAL.newValue.heartRate">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.VITAL.newValue.heartRate" count-up start-val="vm.realTimeMewsScore.source.VITAL.oldValue.heartRate.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.VITAL.newValue.heartRate.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.heartRate.newValue.source ==='VITAL'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.VITAL.newValue.breath">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.VITAL.newValue.breath" count-up start-val="vm.realTimeMewsScore.source.VITAL.oldValue.breath.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.VITAL.newValue.breath.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.breath.newValue.source ==='VITAL'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.VITAL.newValue.bloodPress">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.VITAL.newValue.bloodPress" count-up start-val="vm.realTimeMewsScore.source.VITAL.oldValue.bloodPress.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.VITAL.newValue.bloodPress.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.bloodPress.newValue.source ==='VITAL'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.VITAL.newValue.sense">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.VITAL.newValue.sense">{{vm.realTimeMewsScore.source.VITAL.newValue.sense.value}}</span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.sense.newValue.source ==='VITAL'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+            </tr>
+            <tr>
+              <td>非接触生命体征采集(EarlySense)</td>
+              <td>—</td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.ES.newValue.heartRate">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.ES.newValue.heartRate" count-up start-val="vm.realTimeMewsScore.source.ES.oldValue.heartRate.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.ES.newValue.heartRate.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.heartRate.newValue.source ==='ES'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.ES.newValue.breath">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.ES.newValue.breath" count-up start-val="vm.realTimeMewsScore.source.ES.oldValue.breath.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.ES.newValue.breath.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.breath.newValue.source ==='ES'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>心电监护仪</td>
+              <td>—</td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.ECG.newValue.heartRate">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.ECG.newValue.heartRate" count-up start-val="vm.realTimeMewsScore.source.ECG.oldValue.heartRate.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.ECG.newValue.heartRate.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.heartRate.newValue.source ==='ECG'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.ECG.newValue.breath">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.ECG.newValue.breath" count-up start-val="vm.realTimeMewsScore.source.ECG.oldValue.breath.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.ECG.newValue.breath.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.breath.newValue.source ==='ECG'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>
+                <span ng-if="!vm.realTimeMewsScore.source.ECG.newValue.bloodPress">—</span>
+                <span ng-if="vm.realTimeMewsScore.source.ECG.newValue.bloodPress" count-up start-val="vm.realTimeMewsScore.source.ECG.oldValue.bloodPress.value"
+                  decimals="0" end-val="vm.realTimeMewsScore.source.ECG.newValue.bloodPress.value" duration="2"
+                  reanimate-on-click="false"></span>
+                <img ng-if="vm.realTimeMewsScore.mews.vitals.bloodPress.newValue.source ==='ECG'" src='assets/images/mnis/mews/realtime/triangle.svg' />
+              </td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!--  历史查询条件 -->
+    <div class="toolbar bordered-top" style="margin-top:15px;">
+      <div class="toolbar-item">
+        <h4 style="display: inline;">历史评分</h4>
+      </div>
+      <div class="toolbar-item">
+        操作时间：
+        <date-picker style="width: 160px" ng-model="vm.filter.beginTime" date-options="vm.dateOptions" ng-change="vm.loadMewsScore.func()"></date-picker>&nbsp;&nbsp;—&nbsp;&nbsp;
+        <date-picker style="width: 160px" ng-model="vm.filter.endTime" date-options="vm.dateOptions" ng-change="vm.loadMewsScore.func()"></date-picker>
+      </div>
+      <span class="toolbar-item pull-right">
+        <div class="btn-group btn-radio">
+          <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="0">
+            表格
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="1">
+            曲线
+          </label>
+        </div>
+      </span>
+    </div>
+
+    <!--  历史评分查询 -->
+    <div>
+      <table class="mews-table table white-borderd" ng-show="vm.filter.showType===0">
+        <thead>
+          <th>评估时间</th>
+          <th>总分</th>
+          <th>体温</th>
+          <th>心率</th>
+          <th>呼吸</th>
+          <th>收缩压 </th>
+          <th>意识</th>
+          <th>是否预警</th>
+          <th>处理措施</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="score in vm.scoreData | orderBy:'createTime':true track by $index">
+            <td>{{score.createTime|idate: 'DM'}}</td>
+            <td>
+              <label style="color:{{vm.ruleDic[score.alertLevel].color}};font-weight:bold;font-size:16px;">{{score.totalScore|mewsScore}}</label>
+            </td>
+            <td>
+              <label class="mews-value-label">{{score.temperature.value|mewsScore}}</label>
+              <label class="mews-score-label" ng-if="score.temperature" style="color:{{vm.ruleDic[score.temperature.alertLevel].color}};">({{score.temperature.score}}分)</label>
+            </td>
+            <td>
+              <label class="mews-value-label">{{score.heartRate.value|mewsScore}}</label>
+              <label class="mews-score-label" ng-if="score.heartRate" style="color:{{vm.ruleDic[score.heartRate.alertLevel].color}};">({{score.heartRate.score}}分)</label>
+            </td>
+            <td>
+              <label class="mews-value-label">{{score.breath.value|mewsScore}}</label>
+              <label class="mews-score-label" ng-if="score.breath" style="color:{{vm.ruleDic[score.breath.alertLevel].color}};">({{score.breath.score}}分)</label>
+            </td>
+            <td>
+              <label class="mews-value-label">{{score.bloodPress.value|mewsScore}}</label>
+              <label class="mews-score-label" ng-if="score.bloodPress" style="color:{{vm.ruleDic[score.bloodPress.alertLevel].color}};">({{score.bloodPress.score}}分)</label>
+            </td>
+            <td>
+              <label class="mews-value-label">{{score.sense.value|mewsScore}}</label>
+              <label class="mews-score-label" ng-if="score.sense" style="color:{{vm.ruleDic[score.sense.alertLevel].color}};">({{score.sense.score}}分)</label>
+            </td>
+            <td>{{score.demo|mewsScore}}</td>
+            <td>{{score.demo|mewsScore}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div ng-show="vm.filter.showType === 1" class="echarts-wrap" echarts="vm.chart.identity" echarts-dimension="vm.chart.dimension"
+        config="vm.chart.config" style="cursor:pointer;">
+      </div>
+    </div>
+  </div>
+</div>

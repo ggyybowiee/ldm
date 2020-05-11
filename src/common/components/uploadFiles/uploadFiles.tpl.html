@@ -1,0 +1,13 @@
+<div class="upload-files-wrapper flex-box">
+  <button class="btn btn-sm btn-primary btn-round" ng-click="select()">选择文件</button>
+  <div class="flex progress-wrapper" ng-if="info.status === 'upload-doing'">
+    <uib-progressbar class="progress-striped active" value="info.progress" type="{{getType()}}">{{echo.fileName}}
+      {{info.progress}}%</uib-progressbar>
+    <span class="upload-cancel" ng-click="cancel()">
+      <i class="fa fa-close"></i>
+    </span>
+  </div>
+  <div class="flex msg-wrapper" ng-class="{'file-fail': 'text-danger', 'upload-fail': 'text-danger', 'file-cancel': 'text-warning', 'upload-success': 'text-success'}[info.status]"
+    ng-if="info.status !== 'upload-doing'">{{echo.msg}}</div>
+  <input class="upload-input" type="file" nv-file-select uploader="uploader">
+</div>

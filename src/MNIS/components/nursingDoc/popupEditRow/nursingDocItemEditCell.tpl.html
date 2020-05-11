@@ -1,0 +1,70 @@
+<div class="estimate-edit-cell-panel" style="width: 100%;position: relative;">
+
+  <div class="estimate-edit-cell-disable-panel" ng-if="!editable">
+  </div>
+
+  <!-- 血压输入 -->
+  <blood-pressure-input name="value" input-class="nursing-doc-edit-cell-control estiamte-edit-cell-text-input"
+    autocomplete="off" ng-input-focus="focusItemTpl" ng-input-keydown="keyDown" type="text" ng-if="row.key=='bloodPress'"
+    ng-model="editData.data[row.key]"></blood-pressure-input>
+
+  <div ng-if="row.key!='bloodPress'">
+    <!-- 日期时间 -->
+    <datetime-input name="value" ng-if="row.type==='datetime'" edit-format="YYYY-MM-DD HH:mm" ng-model="editData.data[row.key]"
+      ng-input-focus="focusItemTpl" ng-input-keydown="keyDown" input-class="nursing-doc-edit-cell-control estiamte-edit-cell-text-input"></datetime-input>
+
+    <!-- 日期 -->
+    <date-picker name="value" ng-if="row.type==='date'" no-icon="true" ng-model="editData.data[row.key]"></date-picker>
+
+    <!-- 时间 -->
+    <time-picker name="value" ng-if="row.type==='time'" ng-model="editData.data[row.key]"></time-picker>
+
+    <!-- 出入量控件 -->
+    <inout-input name="value" ng-if="row.type==='inoutInput' && (!row.isCustomColumn || (row.isCustomColumn && currentPageColumns.content[row.key]))"
+      input-class="nursing-doc-edit-cell-control estiamte-edit-cell-text-input" ng-model="editData.data[row.key]"
+      ng-avalible-focus="electAndInputFocusItemTpl" ng-avalible-keydown="selectAndInputKeyDown"></inout-input>
+
+    <!-- 文本 -->
+    <input name="value" class="nursing-doc-edit-cell-control estiamte-edit-cell-text-input" autocomplete="off" type="text"
+      ng-if="row.type==='text' && row.key!='bloodPress' && (!row.isCustomColumn || (row.isCustomColumn && currentPageColumns.content[row.key]))"
+      ng-model="editData.data[row.key]" ng-focus="focusItemTpl($event)" ng-keydown="keyDown($event)" />
+
+    <!-- 未定义的自定义表头 -->
+    <div ng-if="row.isCustomColumn && !currentPageColumns.content[row.key]">
+      未选择表头项，不可编辑
+    </div>
+
+    <!-- 布尔 -->
+    <select-and-input class="" inner-class="nursing-doc-edit-cell-control" ng-if="row.type==='boolean'" name="value"
+      options="[row.rule.trueValue, row.rule.falseValue]" ng-model="editData.data[row.key]" ng-avalible-focus="electAndInputFocusItemTpl"
+      ng-avalible-keydown="selectAndInputKeyDown"></select-and-input>
+
+    <!-- 模板 -->
+    <textarea name="value" class="nursing-doc-edit-cell-control" ng-if="row.type==='modal'" ng-model="editData.data[row.key]"
+      type="text" ng-focus="focusItemTpl($event)" ng-keydown="keyDown($event, true)"></textarea>
+
+    <!-- 数字 -->
+    <input name="value" class="nursing-doc-edit-cell-control" autocomplete="off" ng-if="row.type==='number'" type="text"
+      ng-model="editData.data[row.key]" ng-focus="focusItemTpl($event)" ng-change="validNumberInput($event)" required
+      ng-keydown="keyDown($event)" />
+
+    <!-- 选择 -->
+    <select-and-input class="" inner-class="nursing-doc-edit-cell-control" ng-if="row.type==='select'" name="value"
+      options="row.rule.options" ng-model="editData.data[row.key]" ng-avalible-focus="electAndInputFocusItemTpl"
+      ng-avalible-keydown="selectAndInputKeyDown"></select-and-input>
+
+    <!-- 签名 -->
+    <div ng-if="row.type==='outer'||row.key==='sign'">
+      <span ng-repeat="signContent in editData.data[row.key] track by $index">
+        <span ng-if="!$first">&nbsp;|&nbsp;</span>
+        <user-sign sign-content="signContent" style="display:inline-block;"></user-sign>
+      </span>
+    </div>
+
+    <!-- 审核签名 -->
+    <div ng-if="row.type==='verifySignature'">
+      <nursing-doc-user-sign-input nursing-doc-data="editData" sign-Key="row.key"></nursing-doc-user-sign-input>
+    </div>
+  </div>
+
+</div>

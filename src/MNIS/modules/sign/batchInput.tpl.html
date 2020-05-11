@@ -1,0 +1,105 @@
+<div class="panel panel-layout">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      <date-picker style="width: 160px" ng-model="vm.queryParams.recordDate" ng-change="vm.load.func(vm.selectedPatients)"></date-picker>
+    </div>
+    <div class="toolbar-item batch-input-toolbar-item" style="margin-left: 10px !important;">
+      <span>提醒事件筛选:</span>
+      <select ng-model="vm.filter.remindType">
+        <option value="-1">全部</option>
+        <option value="0">待测</option>
+      </select>
+    </div>
+    <div class="toolbar-item batch-input-toolbar-item">
+      <span>护理等级筛选:</span>
+      <select ng-model="vm.filter.nursingLevelType">
+        <option value="-1">全部</option>
+        <option value="0">特级护理</option>
+        <option value="1">一级护理</option>
+        <option value="2">二级护理</option>
+        <option value="3">三级护理</option>
+      </select>
+    </div>
+    <div class="toolbar-item batch-input-toolbar-item">
+      <span>时间点:</span>
+      <span class="toolbar-item">
+        <div class="btn-group btn-radio">
+          <label class="btn btn-sm btn-primary" ng-repeat="item in vm.timeList track by $index" ng-model="vm.queryParams.recordTimeIndex"
+            uib-btn-radio="$index">
+            {{item.showName}}
+          </label>
+        </div>
+      </span>
+    </div>
+    <div class="toolbar-item">
+      <button class="btn btn-success btn-sm btn-round" ng-click="vm.load.func()">刷新</button>
+    </div>
+  </div>
+  <div class="bodysign-batchinput-panel">
+    <div class="bodysign-patients pull-left">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          患者列表
+        </div>
+        <div class="panel-body" full-page="fix" full-page-bottom="12">
+          <div checkbox-team="vm.selectedPatients" listener="vm.load.func">
+            <label class="custom-checkbox bodysign-patients__checkbox">
+              <input type="checkbox" checkbox-all>
+              <span>全部</span>
+            </label>
+            <checkbox-group ng-model="vm.selectedPatients" class="bodysign-patients__checkbox" eles="vm.filteredPatients"
+              options="{value: 'value'}"></checkbox-group>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div loading-wrapper="vm.load" class="bodysign-table-wrap">
+      <div style="margin-bottom:10px; padding: 5px 10px;" class="bodysign-batchinput-note">
+        <div class="remind"></div>
+        <span>智能提醒录入</span>
+        <div class="saving"></div>
+        <span>保存中&nbsp;&nbsp;|</span>
+        <span>&nbsp;&nbsp;使用键盘快速录入: 【→】向右移动; 【←】向左移动; 【↑】选择上一行并保存; 【↓】选择下一行并保存; 【Enter】保存并进入下一行。</span>
+      </div>
+      <table id="batchTable" class="table batch-input-table thead-fixed" key-table="vm.vitalsigns" start-column-index="2" event-map="{
+          enter: vm.save,
+          up: vm.save,
+          down: vm.save,
+          blur: vm.save,
+          click: vm.save
+        }"
+        st-table="vm.vitalsigns">
+        <thead>
+          <tr>
+            <th width="48">床号</th>
+            <th width="70">姓名</th>
+            <th draggable="" draggable-th name="{{th.dicCode}}" class="exchange-th" width="{{th.width?th.width:'auto'}}" ng-if="(!th.isMeasure && th.isShowItemInBatch) || (th.isMeasure && th.isVisible)"
+              ng-repeat="th in vm.configItems | orderBy: 'orderIndex' track by $index">
+              {{th.dicName}}
+              <div class="th-succedaneum">
+                {{th.dicName}}
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody full-page="fix" full-page-bottom="12">
+          <tr editable-row ng-repeat="row in vm.vitalsigns" context-menu="vm.contextMenuConfig">
+            <td width="48">
+              {{row.bedCode}}
+            </td>
+            <td width="70">
+              {{row.patName}}
+            </td>
+            <td type="td.dicCode=='bloodPress'? 'bloodPress' :td.inputType" ng-if="(!td.isMeasure && td.isShowItemInBatch) || (td.isMeasure && td.isVisible)"
+              editable-td options="vm.getOptions(vm.configItems, td.dicCode)" ng-model="row[td.dicCode].vitalSignsValues"
+              ng-repeat="td in vm.configItems | orderBy: 'orderIndex'" ng-class="{danger: row[td.dicCode].vitalSignsValues != vm.originalVitalSigns[$parent.$parent.$index][td.dicCode].vitalSignsValues,
+                        'batch-input-remind-item':(vm.filterRemind[row.inhosCode].bindItems[td.dicCode]!=undefined)}"
+              uib-tooltip="{{vm.filterRemind[row.inhosCode].bindItems[td.dicCode]}}" style="text-align:center;"  width="{{td.width?td.width:'auto'}}"
+              tooltip-append-to-body="true">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

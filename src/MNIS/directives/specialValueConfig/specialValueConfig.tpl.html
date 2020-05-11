@@ -1,0 +1,45 @@
+<div>
+  <div class="toolbar" style="justify-content: space-between;height:47px; line-height: 47px; padding: 0px; padding-left: 10px;vertical-align: middle;">
+    <span style="font-size: 16px;">
+      特殊值配置
+      <button class="btn btn-xs btn-primary" style="margin-left:5px;" ng-click="vm.save()">保存</button>
+    </span>
+  </div>
+  <div class="panel-body" full-page="fix">
+    <div class="form-group">
+      <label for="headerFormItems" class="control-label col-xs-2 partial-label">录入项：</label>
+      <div class="col-xs-10">
+        <div class="header-form-wrap flex-box" ng-repeat="formItem in vm.specialItems">
+          <div class="header-form__item flex-box">
+            <div class="header-form__item-label">标签：</div>
+            <input class="form-control input-sm" ng-model="formItem.label" type="text" name="label" />
+          </div>
+          <div class="header-form__item flex-box">
+            <div class="header-form__item-label">绑定值：</div>
+            <input class="form-control input-sm" type="text" ng-model="formItem.dataBind" name="dataBind" />
+          </div>
+          <div class="header-form__item flex-box">
+            <div class="header-form__item-label">输入类型：</div>
+            <select class="form-control input-sm table-header__input-item" uib-tooltip="输入类型" ng-model="formItem.dataType" style="width: 8em"
+              name="dataType">
+              <option ng-repeat="inputType in vm.headInputTypes" value="{{inputType.type}}">{{inputType.desc}}</option>
+            </select>
+            <button ng-show="['select', 'select2', 'multiSelect', 'radio', 'selectAndInput'].indexOf(formItem.dataType) > -1" class="btn btn-xs btn-default btn-round"
+              ng-click="vm.addOption(formItem)">
+              编辑
+            </button>
+            &nbsp;
+            <button class="btn btn-xs btn-danger btn-round" ng-click="vm.removeFormItem($index)">
+              删除
+            </button>
+          </div>
+        </div>
+        <div class="header-form-wrap flex-box">
+          <button class="btn btn-xs btn-default btn-round" style="margin-top: 10px" ng-click="vm.addHeaderItem()">
+            新增录入项
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+<span class="input-group" style="width: {{showNow && '190px'}}">
+  <uib-timepicker class="timepick" ng-model="model" hour-step="1" minute-step="1" show-meridian="false" template-url="common/components/timePicker/timePicker.html" date-codec></uib-timepicker>
+  <button ng-show="showNow" style="margin-left: 5px;" class="btn btn-sm btn-default" type="button" ng-click="now()">现在</button>
+</span>

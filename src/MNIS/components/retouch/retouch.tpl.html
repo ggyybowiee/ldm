@@ -1,0 +1,7 @@
+<div class="clearfix retouch-wrap">
+  <div ng-repeat="item in items" class="pull-left retouch-item" ng-if="!isDateTime(item.dicCode)">
+    <div class="doc-table__header-label">{{item.dicName}}：</div>
+    <div ng-style="{'min-width': retouch[item.dicCode] ? 'auto' : '10em', width: item.width + 'mm' }" class="doc-table__header-value">{{retouch[item.dicCode]}}</div>
+  </div>
+  <button class="retouch-edit-btn btn btn-primary btn-xs btn-round" ng-if="!demonstration" ng-click="openRetouches()">编辑修正项</button>
+</div>

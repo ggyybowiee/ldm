@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<name>mnisqm-pc</name>
+	<artifactId>mnisqm-pc</artifactId>
+	<groupId>com.lachesis.mnisqm</groupId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+
+
+	<build>
+		<resources>
+			<resource>
+				<directory>dist</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<compilerArgument>-proc:none</compilerArgument>
+					<compilerArgument>-Xlint:deprecation</compilerArgument>
+					<compilerArgument>-Xlint:unchecked</compilerArgument>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<port>9090</port>
+					<path>/dist</path>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<warSourceDirectory>/dist</warSourceDirectory>
+					<warName>dist</warName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- === 如何触发打包? mvn clean install -PpackageAll === -->
+	<profiles>
+		<profile>
+			<id>packageAll</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<id>copyMnisqmFrontEnd</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target>
+										<copy todir="${basedir}/target/${project.build.finalName}/"
+											overwrite="true">
+											<fileset dir="../mnisqm-pc/dist">
+												<include name="**/*.*" />
+											</fileset>
+										</copy>
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>

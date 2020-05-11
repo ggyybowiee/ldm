@@ -1,0 +1,116 @@
+<div class="panel panel-layout panel-default NDAconfigContent" style="max-width: 1200px" ui-view>
+
+  <form class="form-horizontal nda-config-form" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+    <div class="base-field clearfix">
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">设置运行状态通知</span>
+        <button class="btn btn-sm btn-success round-btn pull-right" ng-click="vm.postReminder()">保 存</button>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12 col-md-8 form-group">
+        <div class="col-xs-5 col-md-4 control-label text-right">
+            <label>
+              <span>需要发送通知的设备状态：</span>
+            </label>
+          </div>
+        <div class="col-xs-3 col-md-2 control-label" style="text-align: left;">
+          <label class="custom-checkbox" for="warningLevel1">
+            <input type="checkbox" id="warningLevel1" name="warningLevel1" ng-checked="vm.setting.warningLevel.indexOf('1') > -1" ng-click="vm.setStatus('1')" />
+            <span>设备警告</span>
+          </label>
+        </div>
+        <div class="col-xs-3 col-md-2 control-label" style="text-align: left">
+          <label class="custom-checkbox" for="warningLevel2">
+            <input type="checkbox" id="warningLevel2" name="warningLevel2" ng-checked="vm.setting.warningLevel.indexOf('2') > -1" ng-click="vm.setStatus('2')" />
+            <span>设备异常</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">通知方式</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-xs-12">
+        <div class="col-xs-1"></div>
+        <label class="custom-checkbox control-label" for="notifyMethod">
+          <input type="checkbox" id="notifyMethod" name="notifyMethod" ng-checked="vm.setting.notifyMethod === '1'" ng-click="vm.setNotifyMethod()"/>
+          <span>邮件</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-row form-colored-field">
+      <div class="col-xs-6">
+        <div class="col-xs-12 form-group">
+          <label class="col-xs-5 control-label">发送邮件服务器：</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="syncTimeServer" required ng-model="vm.setting.mailSetting.smtpServer"
+            />
+          </div>
+        </div>
+        <div class="col-xs-12 form-group">
+          <label class="col-xs-5 control-label">发送邮箱账号：</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="syncTimeServer" required ng-model="vm.setting.mailSetting.smtpAccount"
+            />
+          </div>
+        </div>
+        <div class="col-xs-12 form-group">
+          <label class="col-xs-5 control-label">发送邮箱密码：</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="syncTimeServer" required ng-model="vm.setting.mailSetting.password"
+            />
+          </div>
+        </div>
+        <div class="col-xs-12 form-group">
+          <label class="col-xs-5 control-label">接收邮箱：</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="syncTimeServer" ng-model="vm.incomingAddressString"
+            />
+          </div>
+        </div>
+        <div class="col-xs-12 form-group">
+          <label class="col-xs-5 control-label">抄送邮箱：</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="syncTimeServer" ng-model="vm.forwardAddressString" />
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 form-group">
+        <div class="col-xs-12 form-group">
+          <label class="col-xs-2 control-label">邮件标题：</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="syncTimeServer" ng-required="vm.switch.timeServer" ng-model="vm.setting.mailSetting.mailTitle"
+            />
+          </div>
+        </div>
+        <div class="col-xs-12 form-group">
+          <label class="col-xs-2 control-label">邮件补充内容</label>
+          <div class="col-xs-7">
+            <label class="control-label">(邮件内容包括系统反馈信息+邮件补充内容)</label>
+          </div>
+        </div>
+        <div class="col-xs-12 form-group">
+          <div class="col-xs-2"></div>
+          <div class="col-xs-7">
+            <textarea class="form-control" style="height: 108px; width: 100%" ng-model="vm.setting.mailSetting.exstraContent"></textarea>
+          </div>
+        </div>
+      </div>
+  </form>
+  </div>

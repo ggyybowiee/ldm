@@ -1,0 +1,222 @@
+<div>
+  <div class="estimate-config-page-description bordered-bottom">
+    <label>页面大小:{{vm.pageSize.width}},{{vm.pageSize.height}}</label>
+    <bold style="color: red">(修改非本页配置项时，可能需要刷新界面才能正常显示)</bold>
+    <div>
+      <div>1. 纵向表格只支持单表</div>
+      <div>2. 灰色实线边框为页面大小,灰色虚线为打印边距</div>
+      <div>3. 当表格分配的高度与实际布局高度有偏差时表格会显示为红色，可能通过调整行高、列宽等方式来调节，如果实在无法容纳则需要适当减少行数</div>
+      <div>4. datetiming\date\time\sign\总分项的约束提醒没被满足时表头显示红色</div>
+    </div>
+    <table class="table white-borderd">
+      <tr>
+        <th style="width:150px;">
+          布局方式
+        </th>
+        <th>
+          合并方式
+        </th>
+        <th>
+          行数
+        </th>
+        <th>
+          行高(px)
+        </th>
+        <th>
+          表格间距(px)
+        </th>
+        <th>
+          左边距(+10mm)
+        </th>
+        <th>
+          上边距(+5mm)
+        </th>
+        <th>
+          右边距(+10mm)
+        </th>
+        <th>
+          下边距(+0mm)
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <select id="orientation" name="orientation" ng-model="tpl.orientation" class="form-control input-sm" required
+            ng-change="refreshShowTable()">
+            <option value="horizon">横向</option>
+            <option value="vertical">纵向</option>
+          </select>
+        </td>
+        <td style="width:100px;">
+          <select id="orientation" name="orientation" ng-model="tpl.components.combineType" class="form-control input-sm"
+            required ng-change="refreshShowTable()">
+            <option value="combine">合并</option>
+            <option value="seperate">分离</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" name="rowNum" ng-model="tpl.rowNum" autocomplete="off" class="form-control input-sm"
+            ng-change="refreshShowTable()">
+        </td>
+        <td>
+          <input type="number" name="lineHeight" ng-model="tpl.lineHeight" autocomplete="off" class="form-control input-sm"
+            required ng-change="refreshShowTable()">
+        </td>
+        <td>
+          <input type="number" name="tableSpace" ng-model="tpl.components.tableSpace" autocomplete="off" class="form-control input-sm"
+            required ng-change="refreshShowTable()">
+        </td>
+        <td>
+          <input type="number" name="left" ng-model="tpl.margin.left" autocomplete="off" class="form-control input-sm"
+            required ng-change="refreshShowTable()">
+        </td>
+        <td>
+          <input type="number" name="top" ng-model="tpl.margin.top" autocomplete="off" class="form-control input-sm"
+            required ng-change="refreshShowTable()">
+        </td>
+        <td>
+          <input type="number" name="right" ng-model="tpl.margin.right" autocomplete="off" class="form-control input-sm"
+            required ng-change="refreshShowTable()">
+        </td>
+        <td>
+          <input type="number" name="bottom" ng-model="tpl.margin.bottom" autocomplete="off" class="form-control input-sm"
+            required ng-change="refreshShowTable()">
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bordered-bottom" style="margin-bottom: 5px;">
+    <div style="display: flex; justify-content: space-between;">
+      <div style="display:flex;">
+        <h4 style="margin: auto 0px;">表格设置</h4>
+      </div>
+      <div style="margin: auto 0px;">
+        <button class="btn btn-primary" type="button" ng-show="tpl.orientation=='horizon' || vm.newTable &lt; 1"
+          ng-click="vm.addTableButtonOnClick()">添加表格(不要用此按键添加行/列)</button>
+      </div>
+    </div>
+    <table class="table white-borderd" style="margin-top:5px;">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>表格占高(对纵向布局无效，为空时以20计算)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="table in tpl.components.tablesV11 track by $index">
+          <td>
+            {{$index + 1}}
+          </td>
+          <td>
+            <input type="text" id="heightRate" name="heightRate" ng-model="table.title" class="form-control input-sm">
+          </td>
+          <td>
+            <input type="number" id="heightRate" name="heightRate" ng-model="table.heightRate" class="form-control input-sm"
+              ng-change="refreshShowTable()" required>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="bordered-bottom" style="display: flex;margin-bottom: 5px;">
+    <div ng-if="tpl.components.combineType == 'seperate'">
+      <span style="margin:auto 0px auto 
+      0px;">打印预览方式:</span>
+      <select class="form-control" style="display: inline-block; width:100px !important; margin-right: 20px;" ng-model="vm.printPreview"
+        ng-change="refreshShowTable()">
+        <option ng-repeat="table in tpl.components.tablesV11 track by $index" value="{{$index}}">第{{$index+1}}表</option>
+      </select>
+    </div>
+    <button class="btn btn-success" style="flex-grow:1;margin-bottom: 5px;" type="button" ng-click="vm.refreshShowTable()">重新加载布局</button>
+  </div>
+
+  <div class="estimate-config-page-panel" ng-style="vm.pageSize">
+    <div class="estimate-config-page-inner-panel" style="height: 100%; width:100%;">
+      <!-- 表头 -->
+      <div class="doc-header estimate-config-table-header" style="position:relative">
+        <div class="shield" ng-if="openOuter"></div>
+        <div class="text-center">
+          <div class="hospital-name" ng-if="!hospitalLogo || !tpl.logoVisible">{{hospitalName}}</div>
+          <img ng-if="hospitalLogo && tpl.logoVisible" url-to-base64 ng-src="{{hospitalLogo}}" alt="{{hospitalName}}"
+            height="50" width="auto">
+          <div class="tpl-name">{{tpl.tplName}}</div>
+        </div>
+        <div class="flex-box doc-table__header">
+          <patient-info-bar items="tpl.header" demonstration="true">
+            <retouch items="tpl.retouch" demonstration="true"></retouch>
+            <doc-header-form items="tpl.headerFormItems" demonstration="true"></doc-header-form>
+            <img ng-src="windranger/sys/sysAttachment/{{tpl.image.url}}/file" width="{{tpl.image.width || 'auto'}}"
+              height="{{tpl.image.height || 'auto'}}" alt="">
+          </patient-info-bar>
+        </div>
+      </div>
+
+      <!-- 横向表体 -->
+      <table class="estimate-config-table" id="estiamte-config-table-{{$index}}" style="margin-bottom: {{tpl.components.tableSpace}}px;"
+        ng-repeat="table in vm.newTable track by $index" style="height: {{vm.pageSize.tableHeight}};" ng-class="vm.renderSizeEnough($index)"
+        ng-if="tpl.orientation==='horizon' && (vm.getPrintPreview() == -1 || vm.getPrintPreview() == $index)">
+        <tbody>
+          <tr ng-repeat="headerRow in vm.showTableHeader[$index] track by $index">
+            <th ng-class="vm.getEstiamteHeaderClass(header)" ng-repeat="header in headerRow track by $index"
+              context-menu="vm.contextMenuConfig" ng-click="vm.headerCellOnClick(header,$parent.$parent.$index)" rowspan="{{header.rowspan}}"
+              colspan="{{header.colspan}}" table-Index="$parent.$parent.$index" style="text-align:{{header.textAlign}};width:{{header.colWidth}}mm;">
+              <span ng-if="!header.crossline || header.crossline=='N'" ng-bind-html="header.title|htmlcontent"></span>
+              <div ng-if="header.crossline=='R'||header.crossline=='L'">
+                <span ng-bind-html="header.title|htmlcontent"></span>
+                <span ng-bind-html="header.titleSecond|htmlcontent"></span>
+              </div>
+            </th>
+          </tr>
+          <tr ng-repeat="data in vm.getHorizonDataTableHeader($parent.$index) track by $index">
+            <td class="estimate-hide-text" ng-repeat="col in vm.dataTableHeader[$parent.$index]" style="height: {{tpl.lineHeight}}px;"
+              colspan="{{col.colspan}}">
+              <div style="max-height: {{tpl.lineHeight}}px;text-align:{{col.textAlign}};">
+                {{col|headerDemoText}}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td ng-repeat="col in vm.titleTableHeader[$parent.$index]" style="background-color: rgb(241,241,241);height: {{tpl.lineHeight}}px;">
+              <input class="estimate-table-config-colwidth-input" style="height:90%" type="number" ng-model="col.colWidthRate"
+                ng-change="vm.colWidthRateOnChanged($parent.$parent.$index)" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 纵向表体,不支持多个表格 -->
+      <table class="estimate-config-table" id="estiamte-config-table-{{$index}}" ng-repeat="table in vm.newTable track by $index"
+        ng-if="tpl.orientation==='vertical' && $index==0" style="height: {{vm.pageSize.tableHeight}};margin-bottom: {{tpl.components.tableSpace}}px;table-layout:auto !important;"
+        ng-class="vm.renderSizeEnough($index)">
+        <tr ng-repeat="headerRow in vm.showTableHeader[$parent.$index] track by $index">
+          <td ng-class="vm.getEstiamteHeaderClass(header)" ng-repeat="header in headerRow track by $index" context-menu="vm.contextMenuConfig"
+            ng-click="vm.headerCellOnClick(header, $parent.$parent.$index)" rowspan="{{header.rowspan}}" colspan="{{vm.getVerticalDataTableHeader($parent.$parent.$index,$parent.$index)==undefined?header.colspan-1:header.colspan}}"
+            style="text-align:{{header.textAlign}};height:{{header.colWidth}}px">
+            <span ng-if="!header.crossline || header.crossline=='N'" ng-bind-html="header.title|htmlcontent"></span>
+            <div ng-if="header.crossline=='R'||header.crossline=='L'">
+              <span ng-bind-html="header.title|htmlcontent"></span>
+              <span ng-bind-html="header.titleSecond|htmlcontent"></span>
+            </div>
+          </td>
+          <td class="estimate-hide-text" class="estimate-config-table-example-td" ng-repeat="header in vm.getVerticalDataTableHeader($parent.$parent.$index, $index) track by $index"
+            rowspan="{{header.rowspan}}" style="width: {{tpl.lineHeight}}px;">
+            <div style="max-height:{{header.colWidth}}px;text-align:{{header.textAlign}};" ng-if="!$last">{{header|headerDemoText}}</div>
+            <input ng-if="$last" class="estimate-table-config-colwidth-input" type="number" ng-model="vm.titleTableHeader[$parent.$parent.$parent.$index][$parent.$parent.$index].colWidthRate"
+              ng-change="vm.colWidthRateOnChanged($parent.$parent.$parent.$index)" style="width: 30px" />
+          </td>
+          <td ng-if="vm.getVerticalDataTableHeader($parent.$index, $index)==undefined" style="background-color: rgb(241,241,241);width: {{tpl.lineHeight}}px;">
+            <input class="estimate-table-config-colwidth-input" type="number" ng-model="vm.titleTableHeader[$parent.$parent.$index][$index].colWidthRate"
+              ng-change="vm.colWidthRateOnChanged($parent.$parent.$index)" style="width: 30px" />
+          </td>
+        </tr>
+      </table>
+
+      <!-- 表尾 -->
+      <div class="doc-footer estimate-config-table-footer">
+        <div ng-bind-html="vm.getHtml(tpl.footer)"></div>
+        <div style="text-align: center">第 X 页</div>
+      </div>
+    </div>
+  </div>
+</div>

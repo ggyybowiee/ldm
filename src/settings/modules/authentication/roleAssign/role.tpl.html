@@ -1,0 +1,13 @@
+<div class="settings-role-wrapper">
+
+  <uib-tabset active="active" class="page-tab">
+    <uib-tab index="0" heading="系统用户管理" select="vm.selectedIndex = 0">
+    </uib-tab>
+    <uib-tab index="1" heading="批量角色分配" select="vm.selectedIndex = 1">
+    </uib-tab>
+  </uib-tabset>
+
+  <user-manager ng-if="vm.selectedIndex === 0"></user-manager>
+  <user-role-assign-manager ng-if="vm.selectedIndex === 1"></user-role-assign-manager>
+
+</div>

@@ -1,0 +1,37 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form"
+        name="deviceBindForm"
+        role="form"
+        novalidate
+        w5c-form-validate="vm.validationOption"
+        form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title">编辑患者状态选项</h5>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-4 partial-label">名称：</label>
+        <div class="col-xs-7">
+          <input class="form-control input-sm" ng-model="vm.formData.dicName" required name="dicName"></input>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-4 partial-label" uib-tooltip="Code首次设置并保存后，若再次修改为其他值，将会导致修改前的数据无法读取!">
+            <i tooltip-append-to-body class="fa fa-question-circle"></i>
+          Code：
+          </label>
+        <div class="col-xs-7">
+          <input class="form-control input-sm"  ng-model="vm.formData.dicCode" required name="dicCode" />
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer clearfix">
+      <button class="btn btn-sm btn-success btn-round" type="button" ng-click="vm.ok()">确定</button>
+      <button class="btn btn-sm btn-default btn-round" type="button" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

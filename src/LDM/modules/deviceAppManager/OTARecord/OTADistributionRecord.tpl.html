@@ -1,0 +1,79 @@
+<div class="panel panel-layout panel-default">
+  <div class="flex-box justify-between filter-bar form-inline">
+    <div class="filter-bar__search" style="width:50%;">
+      <search-input ng-model="vm.queryParams.keyword" search="vm.load.func()" text="关键字"></search-input>
+    </div>
+    <div class="filter-item">
+      <button class="btn btn-link icon-btn primary-text" uib-tooltip="刷新" ng-click="vm.load.func()">
+        <i class="iconmoon icomoon-refresh"></i>
+      </button>
+    </div>
+  </div>
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <div class="filter-item filter-bottom">
+        <label>设备类型： </label>
+        <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.queryParams.deviceType" name="deviceType" convert-to-number>
+          <option ng-repeat="item in vm.deviceTypes" value="{{item.code}}">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-item filter-bottom">
+      <label>所属科室： </label>
+      <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.queryParams.wardCode" name="wardCode" convertToNumber>
+        <option value="">全部</option>
+        <option ng-repeat="item in vm.wards" value="{{item.wardCode}}">{{item.wardName}}</option>
+      </select>
+    </div>
+    <div class="filter-item">
+      <label> 操作时间： </label>
+      <date-picker ng-model="vm.queryParams.startTime" ng-change="vm.load.func()"></date-picker>
+      <span> 至 </span>
+      <date-picker ng-model="vm.queryParams.endTime" ng-change="vm.load.func()"></date-picker>
+    </div>
+  </div>
+  <div class="panel-body"  loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="white-borderd table table-hover device-monitoring__table device-table" st-table="vm.recordsDisplay" st-safe-src="vm.records">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>操作时间</th>
+          <th>设备名称</th>
+          <th>设备类型</th>
+          <th>MAC地址</th>
+          <th>所属科室</th>
+          <th>升级前版本</th>
+          <th>升级后版本</th>
+          <th>升级状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.recordsDisplay | orderBy : '-createTime' : desc track by $index">
+          <td class="ng-binding">{{$index + 1}}</td>
+          <td class="ng-binding">{{row.createTime}}</td>
+          <td class="ng-binding">{{row.deviceName}}</td>
+          <td class="ng-binding">{{(row.deviceType && (vm.deviceTypes | filter: { code: row.deviceType })[0].name) || '' }}</td>
+          <td class="ng-binding">{{row.mac}}</td>
+          <td class="ng-binding">{{(row.wardCode && (vm.wards | filter: { wardCode: row.wardCode })[0].wardName) || '' }}</td>
+          <td class="ng-binding">{{row.oldVersion}}</td>
+          <td class="ng-binding">{{row.newVersion}}</td>
+          <td class="ng-binding" ng-class="{'red': row.status === -1}">{{(vm.status | filter: { code: row.status })[0].name}}</td>
+          <td class="ng-binding">
+            <button class="btn btn-link btn-s success-text" ng-click="vm.openDetail(row)">
+              <i class="fa fa-files-o"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8">
+            <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.records"></none-data-info>
+  </div>
+</div>

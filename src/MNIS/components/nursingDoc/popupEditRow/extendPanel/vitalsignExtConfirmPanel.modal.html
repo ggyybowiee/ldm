@@ -1,0 +1,16 @@
+
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span
+        aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">是否覆盖已有值</h5>
+  </div>
+  <div class="modal-body">
+    护理记录上已经有选中的体征记录值，请确定是否要覆盖原有信息？
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger btn-sm btn-round" ng-click="vm.ok(true)">覆盖所有</button>
+    <button class="btn btn-success btn-sm btn-round" ng-click="vm.ok(false)">填充空值</button>
+    <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+  </div>
+</div>

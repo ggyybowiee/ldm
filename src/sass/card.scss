@@ -1,0 +1,38 @@
+.card-header {
+  @include clearfix();
+}
+.el-card__header {
+  padding: 12px 18px;
+  background-color: $gray-lighter;
+}
+.el-card__body {
+  padding: 18px;
+}
+.card-title {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.box-card {
+  margin-top: 10px;
+}
+
+.card-content {
+  @include clearfix;
+}
+
+.block-title {
+  @include clearfix();
+  font-size: 12px;
+  border-bottom: 1px $gray solid;
+  padding: 0 0 8px 0;
+  margin: 10px 0 18px;
+  color: $silver;
+}
+
+.no-data {
+  width: 100%;
+  padding: 70px 0;
+  text-align: center;
+  font-size: 14px;
+}

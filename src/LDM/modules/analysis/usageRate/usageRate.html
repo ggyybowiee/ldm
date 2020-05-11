@@ -1,0 +1,63 @@
+<div class="panel panel-layout panel-default">
+  <div class="flex-box justify-between filter-bar form-inline">
+    <div class="filter-bar__search" style="width:50%;">
+      <search-input ng-model="vm.queryParams.key" search="vm.search()" text="关键字"></search-input>
+    </div>
+    <!-- <div class="filter-item">
+      <button class="btn btn-link icon-btn primary-text" uib-tooltip="刷新" ng-click="vm.search()">
+        <i class="iconmoon icomoon-refresh"></i>
+      </button>
+    </div> -->
+  </div>
+  <div class="filter-bar form-inline">
+    <div class="filter-item filter-bottom">
+      <label>设备类型： </label>
+      <select class="form-control input-sm" ng-change="vm.search()" ng-model="vm.queryParams.deviceType" name="deviceType" convert-to-number>
+        <option ng-repeat="item in vm.types" value="{{item.code}}">{{item.name}}</option>
+      </select>
+    </div>
+    <div class="filter-item filter-bottom">
+      <label>所属病区： </label>
+      <select class="form-control input-sm" ng-change="vm.search()" ng-model="vm.queryParams.wardCode" name="eqpBelong" convertToNumber>
+        <option value="">全部</option>
+        <option ng-repeat="item in vm.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+      </select>
+    </div>
+    <div class="filter-item filter-bottom">
+      <label>统计时段： </label>
+      <date-picker ng-model="vm.queryParams.startTime" ng-change="vm.search()"></date-picker>
+      <span class="title-text">&nbsp至&nbsp</span>
+      <date-picker ng-model="vm.queryParams.endTime" ng-change="vm.search()"></date-picker>
+    </div>
+  </div>
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="white-borderd table table-hover device-table" st-table="vm.devicesDisplay" st-safe-src="vm.usageRate">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>设备名称</th>
+          <th>Mac地址</th>
+          <th>所属病区</th>
+          <th ng-click="vm.sortDevices(vm.propertyName)">{{vm.title}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.devicesDisplay track by $index">
+          <td class="ng-binding">{{$index + 1}}</td>
+          <td class="ng-binding">{{row.device.content.basicInfo.eqpName}}</td>
+          <td class="ng-binding">{{row.device.content.basicInfo.mac}}</td>
+          <td class="ng-binding">{{vm.belongs && (vm.belongs | filter : {wardCode: row.device.content.basicInfo.eqpBelong})[0].wardName}}</td>
+          <td class="ng-binding">{{row.times}}{{(row.hours | number: 2)}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <div st-pagination="" st-items-by-page="15" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.usageRate"></none-data-info>
+  </div>
+</div>

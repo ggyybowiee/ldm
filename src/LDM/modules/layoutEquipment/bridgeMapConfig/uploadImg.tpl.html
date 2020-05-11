@@ -1,0 +1,30 @@
+<div class="mod-pop-dateForm clearfix editCheck">
+  <form class="form-inlne form-horizontal w5c-form"
+        name="uploadMapImg"
+        role="form"
+        novalidate
+        w5c-form-validate="vm.role.validationOption"
+        form="uploadMapImg">
+    <div class="modal-header">
+      <button ng-click="$dismiss()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h5 class="modal-title">
+        <!-- <i class="iconmoon icomoon-edit"></i> -->
+        上传地图
+      </h5>
+    </div>
+    <div class="modal-body clearfix">
+      <div class="form-group col-xs-12">
+        <label for="cate" class="control-label col-xs-3 partial-label">图片：</label>
+        <div class="col-xs-8 has-feedback" id="formControl">
+          <input id="fileInput" type="file" value="{{vm.formData.uploadMapFile}}" ng-model="vm.formData.uploadMapFile" name="uploadMapFile" onchange="onFileInputChange(this.name, this.value, this)" accept="image/*" class="form-control" style="border: none;" />
+          <span class="help-block" id="sizeLimitErr">文件大小必须小于2M</span>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <div class="modal-footer clearfix">
+      <button id="saveUploadMapImg" class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.ok()" disabled="true">保存</button>
+      <button class="btn btn-sm btn-default btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

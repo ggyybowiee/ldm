@@ -1,0 +1,6 @@
+.nursing-doc-custom-blankpage-tr {
+  &.selected{
+    background-color: lighten($primary, 10%) !important;
+    color:white;
+  }
+}

@@ -1,0 +1,106 @@
+<div class="role-wrapper">
+
+  <div class="setting-tabcontrol-page-header">
+    <div>
+      <h4>角色分配</h4>
+      <span>角色分配完成后请重新登录使设置生效
+        &nbsp;&nbsp;&nbsp;<button class="btn btn-link danger-text btn-xs" ng-click="vm.logout()">重新登录</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="user-role-wrapper">
+      <div class="panel role-panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-cubes"></i>
+          <span>角色列表</span>
+        </div>
+        <div class="panel-body padding-0" full-page="fix">
+          <div loading-wrapper loading-type="content" loading-options="vm.loadRoles">
+            <ul class="role-list">
+              <li ng-repeat="item in vm.rRoles" ng-class="{'selected': item==vm.selectedRole}" ng-click="vm.selectRole(item)">
+                <span>{{item.roleName}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel assign-user-panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-person"></i>
+          <span>已分配用户列表（{{vm.assignUsers?vm.assignUsers.length:'0'}}）</span>
+        </div>
+        <div class="panel-body padding-0">
+          <div class="toolbar">
+            <div class="toolbar-item">
+              <input class="form-control input-sm input-round" autocomplete="off" style="width: 380px;" placeholder="在此输入用户名|用户姓名|用户权限病区|用户权限科室进行过滤" />
+            </div>
+            <div class="toolbar-item pull-right">
+              <button class="btn btn-primary btn-sm" confirm content="此操作会取消所有已经分配角色的用户" yes="cancleAllUser()">全部取消</button>
+            </div>
+          </div>
+          <div loading-wrapper loading-type="content" loading-options="vm.loadAssignUsers">
+            <table class="table white-borderd thead-fixed tr-hover">
+              <thead>
+                <tr>
+                  <th>用户姓名</th>
+                  <th>HIS用户名</th>
+                  <th>用户名</th>
+                  <!-- <th>所属科室</th>
+                  <th>所属科室</th> -->
+                </tr>
+              </thead>
+              <tbody full-page="fix">
+                <tr ng-repeat="item in vm.assignUsers track by $index" ng-click="vm.cancelUser(item)">
+                  <td>{{item.userName}}</td>
+                  <td>{{item.hisCode}}</td>
+                  <td>{{item.userCode}}</td>
+                  <!-- <td></td>
+                  <td></td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel available-user-panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-person"></i>
+          <span>可分配用户列表（{{vm.availableUsers?vm.availableUsers.length:'0'}}）-只显示前100个用户（不影响检索）</span>
+        </div>
+        <div class="panel-body padding-0">
+          <div class="toolbar">
+            <div class="toolbar-item">
+              <input class="form-control input-sm input-round" autocomplete="off" style="width: 380px;" ng-model="vm.availableUserFilter"
+                placeholder="在此输入用户名|用户姓名|用户权限病区|用户权限科室进行过滤" />
+            </div>
+            <div class="toolbar-item pull-right">
+              <button class="btn btn-primary btn-sm" confirm content="此操作会将所有用户分配此角色" yes="assignAllUser()">全部选中</button>
+            </div>
+          </div>
+          <div loading-wrapper loading-type="content" loading-options="vm.loadAvailableUsers">
+            <table class="table white-borderd thead-fixed tr-hover">
+              <thead>
+                <tr>
+                  <th>用户姓名</th>
+                  <th>HIS用户名</th>
+                  <th>用户名</th>
+                </tr>
+              </thead>
+              <tbody full-page="fix">
+                <tr ng-repeat="item in vm.availableUsers | filter:vm.availableUserFilter track by $index" ng-click="vm.assignUser(item)"
+                  ng-if="$index<100">
+                  <td>{{item.userName}}</td>
+                  <td>{{item.hisCode}}</td>
+                  <td>{{item.userCode}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

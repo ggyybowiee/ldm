@@ -1,0 +1,136 @@
+<div class="doc-comp-wrapper">
+
+  <style>
+    .editing-line .form-control {
+      height: {{doc.lineHeight - 1+'px'}}
+    }
+
+    .editable-line__input-control {
+      line-height: {{doc.lineHeight+'px'}}
+    }
+
+    @media print {
+      .seperator-page-row {
+        display: none;
+      }
+    }
+
+  </style>
+
+
+  <div class="table-header" ng-if="!doc.echo.isCurrentBlankPage">
+    <div class="header-item" ng-class="{'left': $index === 0}" ng-repeat="item in doc.headerDivs" ng-style="{width: item.calcWidth + doc.unit, height: item.calcHeight}">
+      <!-- 单表头 -->
+      <div class="header-item-text divide-show" ng-if="item.double === '0'" context-menu="{{item.isCustomColumn ? 'doc.customColumnMenuConfig' : 'null'}}"
+        ng-click="doc.openCustomColumnEdit(item)" ng-class="{'custom-column__item': item.isCustomColumn, 'cross-line':item.crossline=='R'||item.crossline=='L', 'custom-column':item.isCustomColumn, 'table-seperate-line-td-r':item.crossline=='R', 'table-seperate-line-td-l':item.crossline=='L'}">
+        <div ng-if="!item.isCustomColumn && (item.crossline=='R' || item.crossline=='L')">
+          <span ng-bind-html="item.text|htmlcontent"></span>
+          <span ng-bind-html="item.text2|htmlcontent"></span>
+        </div>
+        <span ng-if="!item.isCustomColumn && (item.crossline!='R' && item.crossline!='L')" ng-bind-html="item.text|htmlcontent"></span>
+        <span ng-if="item.isCustomColumn" ng-bind-html="doc.currentPageColumns.content[item.key]|htmlcontent" style="height:auto"></span>
+      </div>
+      <!-- 双表头 -->
+      <div ng-if="item.double === '1'">
+        <!--  双上表头 -->
+        <div class="header-item-top divide-show" ng-class="{'table-seperate-line-td-r':item.crossline=='R', 'table-seperate-line-td-l':item.crossline=='L'}">
+          <div ng-if="!item.isCustomColumn && (item.crossline=='R' || item.crossline=='L')">
+            <span ng-bind-html="item.text|htmlcontent"></span>
+            <span ng-bind-html="item.text2|htmlcontent"></span>
+          </div>
+          <span class="header-item-text" ng-if="!item.isCustomColumn && (item.crossline!='R' && item.crossline!='L')"
+            ng-bind-html="item.text|htmlcontent"></span>
+          <span class="header-item-text" ng-if="item.isCustomColumn" ng-bind-html="doc.currentPageColumns.content[item.key]|htmlcontent"></span>
+        </div>
+        <!--  双下表头 -->
+        <div class="header-item-bottom">
+          <div class="header-bottom-item divide-show" ng-repeat="sub in item.subs" context-menu="{{sub.isCustomColumn ? 'doc.customColumnMenuConfig' : 'null'}}"
+            ng-style="{width: sub.calcWidth + doc.unit}" ng-class="{'custom-column':sub.isCustomColumn, 'cross-line':item.crossline=='R'||item.crossline=='L', 'table-seperate-line-td-r':sub.crossline=='R', 'table-seperate-line-td-l':sub.crossline=='L'}"
+            ng-click="doc.openCustomColumnEdit(sub)">
+            <div ng-if="!sub.isCustomColumn && (sub.crossline=='R' || sub.crossline=='L')" >
+              <span ng-bind-html="
+              sub.text|htmlcontent"></span>
+              <span ng-bind-html="sub.text2|htmlcontent"></span>
+            </div>
+            <span class="header-item-text" ng-if="!sub.isCustomColumn && (sub.crossline!='R' && sub.crossline!='L')"
+              ng-bind-html="sub.text|htmlcontent"></span>
+            <span class="header-item-text" ng-if="sub.isCustomColumn" ng-bind-html="doc.currentPageColumns.content[sub.key]|htmlcontent"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-content-wrapper nursing-doc-table-wrapper" full-page="fix">
+
+    <!--  表格框 -->
+    <div ng-if="!doc.echo.isCurrentBlankPage">
+      <div class="table-border-pages">
+        <div class="table-border-page">
+          <div class="table-border-line" ng-repeat="row in doc.rowsPerPage" ng-style="{'height': doc.lineHeight + 'px'}">
+            <div class="table-border-cell divide-show" ng-class="{'left': $index === 0,'table-seperate-line-td-r':item.divideCellSeperateCross==='R'&&item.type=='divideCell'&&item.divideCellVisibility==='always', 'table-seperate-line-td-l':item.divideCellSeperateCross==='L'&&item.type=='divideCell'&&item.divideCellVisibility==='always'}"
+              ng-repeat="item in doc.contentDivs" ng-style="{width: item.calcWidth + doc.unit, 'height': doc.lineHeight + 'px'}">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-content" editable-wrapper="doc.methods" row-index="doc.echo.active" style="width: {{doc.docWidthStyle}}" >
+        <div class="table-content-row-wrapper" ng-repeat="row in doc.showData track by $index" data-count="{{row.$count}}"
+          data-from="{{row.rowFrom}}">
+
+          <!-- 弹框编辑 -->
+          <div ng-if="!row.blankPage && !row.inOutStatistics" class="table-content-row" data-length="{{row.rowLength}}" data-size="{{row.rowSize}}"
+            data-index="{{$index}}" context-menu="doc.contextMenuConfig" ng-class="{
+                'fixed': doc.inputDisabled === 'true' || !!row.checkUserCode,
+                'active': doc.echo.selected.dataId === row.dataId,
+                'mark-row': row.rowInfile <= doc.rowMark && doc.rowMark < (row.rowInfile + row.rowSize) && (row.rowLength + row.rowFrom === row.rowSize)}"
+            ng-if="doc.tpl.editType == 'popup'" ng-click="doc.select($index, row)">
+            <div class="content-item" data-from="{{row.rowFrom}}" ng-repeat="item in doc.contentDivs" ng-style="{
+                  width: item.calcWidth + doc.unit,
+                  'line-height': doc.lineHeight + 'px',
+                  'text-align': '' + item.textAlign,
+                  'vertical-align': (item.key === 'sign' || item.type === 'verifySignature') ? doc.conf.signaturePosition.configValue : 'top',
+                  'min-height': doc.lineHeight + 'px'}"
+              ng-model="row.data[item.key]" editing-row="doc.editingRow" extra="row" methods="doc.methods" ng-class="{diff: row.customColumnDataDiff[item.key] && row.rowFrom === 0}"
+              editing="doc.echo.active === $parent.$index" options="item" line-height="doc.lineHeight" cell-width="item.calcWidth+doc.unit"
+              uib-tooltip="本数据属于旧的列：【{{row.customColumnDataDiff[item.key].before}}】；新的列已变更为：【{{row.customColumnDataDiff[item.key].after}}】"
+              tooltip-enable="row.customColumnDataDiff[item.key] && row.rowFrom === 0" tooltip-placement="{{$parent.$index < 2 ? 'bottom' : 'top'}}"
+              custom-columns="doc.currentPageColumns" editable-cell>
+            </div>
+          </div>
+
+          <!-- 分页符 -->
+          <div class="table-content-row in-out-line seperator-page-row" ng-if="row.blankPage" context-menu="doc.contextMenuConfig"
+            ng-style="{height: doc.lineHeight - 1 + 'px'}" ng-class="{'active': doc.echo.selected.dataId === row.dataId}">
+            <div class="content-item" ng-style="{'line-height': doc.lineHeight + 'px', width: '100%', 'border-top': '0px solid #000'}"
+              extra="row" editing-row="doc.editingRow" methods="doc.methods" ng-model="row.data.details" editing="doc.echo.active === $parent.$index"
+              options="{type: 'text', key: 'details'}" line-height="doc.lineHeight">
+              <button class="btn btn-link btn-primary" style="width:100% !important;font-weight:bold;" ng-click="doc.directToPage(doc.echo.curPage + row.pageOffSet + 1, true)">
+                转至第{{doc.echo.curPage + row.pageOffSet + 1}}页
+              </button>
+            </div>
+          </div>
+
+
+          <!-- 出入量可编辑 2018年07月02日16:46:36 -->
+          <div class="table-content-row in-out-line" context-menu="doc.contextMenuConfig" ng-style="{height: doc.lineHeight + 'px'}"
+            ng-class="{
+                'active': doc.echo.selected === row,
+                'mark-row': row.rowInfile <= doc.rowMark && doc.rowMark < (row.rowInfile + row.rowSize) && (row.rowLength + row.rowFrom === row.rowSize),
+                'first-line': $index==0}"
+            ng-if="row.inOutStatistics" ng-click="doc.select($index, row)" editable-line>
+            <div class="content-item" ng-style="{'line-height': doc.lineHeight + 'px', width: '100%'}"
+              extra="row" editing-row="doc.editingRow" methods="doc.methods" ng-model="row.data.details" editing="doc.echo.active === $parent.$index"
+              options="{type: 'text', key: 'details'}" line-height="doc.lineHeight" editable-cell></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <div class="blank-page-notice" ng-if="doc.data && doc.echo.isCurrentBlankPage==true">
+        <div>
+          此为空白页，不会打印出此页
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<div class="paper-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      时间：
+
+      <date-picker
+        style="width: 160px"
+        ng-model="vm.tmpDate"
+        ng-change="vm.loadContent.func()"
+        time-codec="time-codec"
+      ></date-picker>
+    </div>
+
+    <div class="pull-right toolbar-item">
+      <button
+        class="btn btn-success btn-sm btn-round"
+        print-landscape
+        print-btn="print-btn"
+      >打印</button>
+    </div>
+  </div>
+
+  <div class="flex-box">
+    <div
+      class="patients-left-list"
+      loading-wrapper="vm.loadMenu"
+      loading-type="menu"
+    >
+      <div class="panel panel-default">
+        <div class="panel-heading">患者列表</div>
+
+        <div
+          class="panel-body"
+          full-page="reverse"
+        >
+          <div
+            checkbox-team="vm.params.inhosCodes"
+            listener="vm.loadContent.func"
+          >
+            <div class="check-all">
+              <label class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  checkbox-all="checkbox-all"
+                ></input>
+
+                <span>全部</span>
+              </label>
+            </div>
+
+            <checkbox-group
+              ng-model="vm.params.inhosCodes"
+              class="bodysign-patients__checkbox"
+              eles="vm.patients"
+              options="{value: 'inhosCode'}"
+            ></checkbox-group>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex"
+      loading-wrapper="vm.loadContent"
+    >
+      <div style="position: absolute;">
+        <table class="table white-borderd group-table" style="table-layout: fixed; width: calc(100% - 6px);">
+          <thead>
+            <tr>
+              <th>床位</th>
+          
+              <th>姓名</th>
+          
+              <th>巡视事件</th>
+          
+              <th>巡视护士</th>
+          
+              <th>巡视时间</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div full-page="reverse">
+        <table
+          class="table white-borderd group-table" style="table-layout: fixed;"
+          print-table="vm.list"
+        >
+          <thead>
+            <tr>
+              <th>床位</th>
+  
+              <th>姓名</th>
+  
+              <th>巡视事件</th>
+  
+              <th>巡视护士</th>
+  
+              <th>巡视时间</th>
+            </tr>
+          </thead>
+  
+          <tbody ng-repeat="arr in vm.list">
+            <tr ng-repeat="row in arr">
+              <td
+                ng-if="$first"
+                rowspan="{{arr.length}}"
+              >{{row.bedCode}}</td>
+  
+              <td
+                ng-if="$first"
+                rowspan="{{arr.length}}"
+              >{{row.patName}}</td>
+  
+              <td>{{row.patrolContent}}</td>
+  
+              <td>{{row.patrolNurse}}</td>
+  
+              <td>
+                {{row.patrolTime | idate: 'DH'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

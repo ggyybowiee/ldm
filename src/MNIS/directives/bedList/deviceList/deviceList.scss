@@ -1,0 +1,50 @@
+.patient-device-binding-wrapper {
+  background-color: $back-4;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  line-height: 20px;
+
+  > div {
+    height: 20px;
+
+    &:first-child {
+      height: 25px;
+      line-height: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid $border-1;
+    }
+    > button {
+      font-weight: bold;
+    }
+  }
+}
+
+.device-list-binding-patient-wrapper {
+  background-color: $back-4;
+  padding: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary;
+    color: white;
+  }
+
+  &.selected {
+    background-color: $primary;
+    color: white;
+  }
+}
+
+.searchNoResultTitle {
+  height: 24px;
+  line-height: 24px;
+  width: 100%;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0px;
+}

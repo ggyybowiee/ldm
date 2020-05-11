@@ -1,0 +1,7 @@
+<div class="checkbox-input-wrapper">
+  <label class="custom-checkbox" ng-repeat="item in eles">
+    <input type="checkbox" value="{{item[opts.value]}}" check-list="$parent.ngModel">
+    <!-- {{item[opts.value]}} -->
+    <span ng-class="{'text-danger': item[dangerKey] === dangerValue}">{{item[opts.text]}} {{opts.extra ? '(' + item[opts.extra] + ')':''}}</span>
+  </label>
+</div>

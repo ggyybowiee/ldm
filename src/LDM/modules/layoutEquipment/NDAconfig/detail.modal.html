@@ -1,0 +1,239 @@
+<div class="modal-content device-modal-content">
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">NDA配置详情</h5>
+  </div>
+
+  <div class="modal-body">
+    <form class="form-horizontal static-form" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+      <div class="base-field clearfix">
+        <div class="form-row">
+          <div class="form-group col-xs-4">
+            <label for="configName" class="col-sm-6 control-label">配置名称：</label>
+            <span class="control-value">{{vm.data.name}}</span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label for="wardCode" class="col-sm-6 control-label">所属病区：</label>
+            <span class="control-value">{{(vm.data.wardCode && (vm.metaData.wards | filter: { wardCode: vm.data.wardCode })[0].wardName) || '全部'}}</span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <button class="btn btn-success btn-sm btn-round" ng-click="vm.pushConfigs(vm.data)">
+              <i class="fa fa-play"></i>
+              &nbsp;
+              推送配置</button>
+          </div>
+        </div>
+
+        <div class="divide-line">
+          <span class="divide-line__title fz-14">网络设置</span>
+        </div>
+        <div class="form-row">
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">连接指定AP：</label>
+
+            <span class="control-value">{{vm.data.content.AP.apName}}</span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">密码：</label>
+            <span class="control-value">{{vm.data.content.AP.password}}</span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">WLAN频带：</label>
+            <span class="control-value">{{(vm.metaData.wlanBands | filter: { code: vm.data.content.AP.WLANFreqBand })[0].value}}</span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">加密方式：</label>
+
+            <span class="control-value">{{(vm.metaData.encryptTypes | filter: { code: vm.data.content.AP.encryptType })[0].value}}</span>
+          </div>
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">漫游触发值：</label>
+            <div class="col-xs-6 input-group input-group-sm">
+              <span class="control-value">{{vm.data.content.wifiRoaming.trigger}}</span>
+              <span class="control-value" id="basic-addon2">db</span>
+            </div>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">漫游增益值：</label>
+            <div class="col-xs-6 input-group input-group-sm">
+              <span class="control-value">{{vm.data.content.wifiRoaming.gain}}</span>
+              <span class="control-value" id="basic-addon2">db</span>
+            </div>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">绑定指定SSID：</label>
+            <span class="control-value">
+              {{vm.getTrueOrFalse(vm.data.content.AP.bindSsid)}}
+            </span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">设置静态IP：</label>
+            <span class="control-value" uib-tooltip tooltip-template="'ipTooltip.html'">
+              {{vm.data.content.AP.SSIDstaticIp.fileName ? '是' : '否'}}
+            </span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">网关：</label>
+
+            <span class="control-value">
+              {{vm.data.content.AP.SSIDstaticIp.gateway}}
+            </span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">掩码长度：</label>
+
+            <label class="control-value">
+              {{vm.data.content.AP.SSIDstaticIp.netLength}}
+            </label>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">域名1：</label>
+
+            <label class="control-value">
+              {{vm.data.content.AP.SSIDstaticIp.dns1}}
+            </label>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">域名2：</label>
+
+            <label class="control-value">
+              {{vm.data.content.AP.SSIDstaticIp.dns2}}
+            </label>
+          </div>
+        </div>
+        <div class="divide-line">
+          <span class="divide-line__title fz-14">个性化设置</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">桌面标题：</label>
+            <span class="control-value">
+              {{vm.getTrueOrFalse(vm.data.content.desktopTitle)}} （{{vm.data.content.desktopTitle || '无'}}）
+            </span>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">显示快速旋转屏幕：</label>
+            <label class="control-value">
+              {{vm.getTrueOrFalse(vm.data.content.showScreenRotationSetter)}}
+            </label>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">显示快速设置蓝牙：</label>
+            <label class="control-value">
+              {{vm.getTrueOrFalse(vm.data.content.showBluetoothSetter)}}
+            </label>
+          </div>
+
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">显示快速设置Wi-Fi：</label>
+            <label class="control-value">
+              {{vm.getTrueOrFalse(vm.data.content.showWifiSetter)}}
+            </label>
+          </div>
+          <div class="form-group col-xs-4">
+            <label class="col-xs-6 control-label">限制桌面操作：</label>
+            <label class="control-value">
+              {{vm.getTrueOrFalse(vm.data.content.limitDesktopOp)}}
+            </label>
+          </div>
+        </div>
+
+      </div>
+      <div class="divide-line">
+        <span class="divide-line__title fz-14">其他设置</span>
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">同步服务器时间：</label>
+          <span class="control-value">
+            {{vm.data.content.syncTime.timeServer}}
+          </span>
+        </div>
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">时间服务器：</label>
+
+          <span class="control-value">
+            {{vm.data.content.syncTime.timeServer}}
+          </span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">间隔：</label>
+
+          <span class="control-value">
+            {{(vm.metaData.syncInterval | filter: { code: vm.data.content.syncTime.syncInterval})[0].value }}
+          </span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">启用系统密码设置：</label>
+          <span class="control-value">
+            {{vm.getTrueOrFalse(vm.data.content.sysPwdEnable)}}
+          </span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">密码：</label>
+          <span class="control-value">
+            {{vm.data.content.sysPassword}}
+          </span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">PDA扫描方式：</label>
+          <span class="control-value">
+            {{vm.getPDAMethod(vm.data.content.pdaScanMethod)}}
+          </span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">后台服务器地址：</label>
+          <span class="control-value">
+            {{vm.data.content.backendServer}}
+          </span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">OTA升级地址：</label>
+          <span class="control-value">
+            {{vm.data.content.OTA}}
+          </span>
+        </div>
+      </div>
+
+      <div class="divide-line">
+        <span class="divide-line__title fz-14">应用设备</span>
+      </div>
+
+      <div class="base-field clearfix">
+        <div class="form-group col-xs-12">
+          <button class="btn btn-label btn-sm btn-default" ng-repeat="mac in vm.data.devices" style="margin-right:3px; margin-bottom: 3px;">
+            <i class="fa fa-mobile-phone fa-lg"></i>
+            &nbsp;
+            <span>{{mac}}</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

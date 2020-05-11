@@ -1,0 +1,9 @@
+<span>
+  <button class="btn" ng-click="verifySignature()" ng-class="{'btn-danger':nursingDocData.data[signKey], 'btn-success':!nursingDocData.data[signKey]}">
+    {{nursingDocData.data[signKey]?'取消签名':'签名'}}
+  </button>
+  <span ng-if="nursingDocData.data[signKey]">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+  <span>
+    <user-sign sign-content="nursingDocData.data[signKey]" style="display:inline-block"></user-sign>
+  </span>
+</span>

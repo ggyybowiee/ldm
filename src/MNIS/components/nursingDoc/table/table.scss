@@ -1,0 +1,58 @@
+.nursing-doc-modal-wrapper {
+  .font-demo {
+    line-height: 26px;
+
+    width: 50px;
+    margin-left: 10px;
+
+    text-align: center;
+  }
+  .number-range {
+    input {
+      width: 80px;
+    }
+  }
+  .select-option-control, .modal-tpl-control {
+    width: 50px;
+    line-height: 26px;
+    text-align: center;
+  }
+  .select-option {
+    margin-top: 10px;
+    padding: 3px 8px;
+    background-color: #eee;
+    float: left;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .modal-tpl {
+    margin-top: 10px;
+    padding: 3px 8px;
+    background-color: #eee;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}
+
+.nursing-doc-table-wrapper {
+  td {
+    .exchange-btn {
+      position: absolute;
+      z-index: -1;
+      bottom: -10px;
+      left: 50%;
+
+      width: 18px;
+      height: 20px;
+      margin-left: -9px;
+      padding: 0;
+
+      border-radius: 2px;
+    }
+    &:hover {
+      z-index: 1;
+    }
+  }
+}

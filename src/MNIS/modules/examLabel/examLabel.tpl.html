@@ -1,0 +1,55 @@
+<div class="compareModel">
+    <div class="modal-header">
+      <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span
+        aria-hidden="true">&times;</span></button>
+      <h5 class="modal-title">报告详情</h5>
+    </div>
+
+    <div class="reportListBox">
+      <table width="100%">
+          <tbody full-page="fix">
+            <tr>
+              <td class="col-md-3" colspan="2">
+                <div class="flex-box patient-info">
+                  <div>住院号：{{vm.indexPatient.displayCode}}</div>
+                  <div>患者姓名：{{vm.current.patExamMaster.inhosName}}</div>
+                  <div>检查项目：{{vm.current.patExamMaster.examClass}}</div>
+                </div>
+                <div class="flex-box patient-info">
+                    <div>申请者：{{vm.current.patExamMaster.reqPhysician}}</div>
+                    <div>申请时间：{{vm.current.patExamMaster.reqDateTime.split('.')[0].replace('T', ' ')}}</div>
+                    <div>报告者：{{vm.current.patExamMaster.reporter}}</div>
+                    <div>报告时间：{{vm.current.patExamMaster.reportDateTime.split('.')[0].replace('T', ' ')}}</div>
+                  </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    <div class="reportListBox" auto-scroll="vm.list">
+      <table width="100%">
+        <thead class="tableHeader">
+          <tr>
+            <th class="col-md-3">检查所见</th>
+            <th class="col-md-3">检查意见</th>
+          </tr>
+        </thead>
+        <tbody full-page="fix">
+          <tr>
+            <td class="col-md-3">{{vm.current.patExamReport.description}}</td>
+            <td class="col-md-3">{{vm.current.patExamReport.recommendation}}</td>
+            <!-- <td class="col-md-3">{{item.description}}</td>
+            <td class="col-md-3">{{item.recommendation}}</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <form class="form-horizontal 5c-form" novalidate w5c-form-validate name="add">
+
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-default btn-round" type="button" ng-click="vm.cancel()">关闭</button>
+      </div>
+    </form>
+  </div>

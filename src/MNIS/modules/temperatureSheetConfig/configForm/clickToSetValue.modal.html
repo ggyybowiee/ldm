@@ -1,0 +1,54 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form"
+        name="deviceBindForm"
+        role="form"
+        novalidate
+        w5c-form-validate="vm.validationOption"
+        form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title">编辑选中后的值</h5>
+    </div>
+    <div class="modal-body">
+      <ul class="list-group">
+        <li ng-repeat="option in vm.metaData.items" ng-class="{active: option.dicCode === vm.formData.dicCode}" class="list-group-item" ng-click="vm.setFormData(option)">
+          {{option.dicName}} → {{(option.saveValue === undefined || option.saveValue === null) ? option.dicName : option.saveValue }}
+          <div class="pull-right">
+            <button ng-if="vm.metaData.key == 'cooledTemperature'" class="btn btn-xs" uib-tooltip="在体温单中连线成灯笼" tooltip-append-to-body="true" ng-class="{'btn-success': !option.isShowLantern, 'btn-default': option.isShowLantern}" type="button" ng-click="option.isShowLantern = !option.isShowLantern">{{option.isShowLantern ? '取消显示连线成灯笼' : '显示连线成灯笼'}}</button>
+            &nbsp;
+            <button class="btn btn-xs" uib-tooltip="在体温单中35°下方显示措施或方式" tooltip-append-to-body="true" ng-class="{'btn-success': !option.isShowUnder35Deg, 'btn-default': option.isShowUnder35Deg}" type="button" ng-click="option.isShowUnder35Deg = !option.isShowUnder35Deg">{{option.isShowUnder35Deg ? '取消35°下方显示措施/方式' : '35°下方显示措施/方式'}}</button>
+            &nbsp;
+            <button class="btn btn-xs" uib-tooltip="在体温单中显示措施或方式，如血压中的“上肢、下肢等”" tooltip-append-to-body="true" ng-class="{'btn-success': !option.isShowInSheet, 'btn-default': option.isShowInSheet}" type="button" ng-click="option.isShowInSheet = !option.isShowInSheet">{{option.isShowInSheet ? '取消体温单显示措施/方式' : '体温单显示措施/方式'}}</button>
+            &nbsp;
+            <button class="btn btn-xs" uib-tooltip="选中该项措施/方式将值赋给测量值" tooltip-append-to-body="true" ng-class="{'btn-success': !option.isSet, 'btn-default': option.isSet}" type="button" ng-click="option.isSet = !option.isSet">{{option.isSet ? '取消点击设置' : '点击设置值'}}</button>
+          </div>
+        </li>
+      </ul>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">对应单位：</label>
+        <div class="col-xs-7">
+          <input class="form-control input-sm" ng-model="vm.formData.unit" required name="unit"></input>
+        </div>
+      </div>
+      <div class="form-group" ng-show="vm.formData.isShowInSheet">
+        <label for="cate" class="control-label col-xs-2 partial-label">显示名称：</label>
+        <div class="col-xs-7">
+          <input class="form-control input-sm" ng-model="vm.formData.nameInSheet" required name="nameInSheet"></input>
+        </div>
+      </div>
+
+      <div class="form-group" ng-show="vm.formData.isSet">
+        <label for="cate" class="control-label col-xs-2 partial-label">设置名称：</label>
+        <div class="col-xs-7">
+          <input class="form-control input-sm" ng-model="vm.formData.saveValue" required name="saveValue"></input>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer clearfix">
+      <button class="btn btn-sm btn-success btn-round" type="button" ng-click="vm.ok()">确定</button>
+      <button class="btn btn-sm btn-default btn-round" type="button" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

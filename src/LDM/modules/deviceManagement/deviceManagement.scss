@@ -1,0 +1,88 @@
+.divide-box{
+  // &:after{
+  //   content: "";
+  //   width: 1px;
+  //   height: 60px;
+  //   float: right;
+  //   background: lightgrey;
+  //   position: relative;
+  //   top: 25%;
+  // }
+  > div {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+.divide-bar {
+  border-left: 3px solid;
+  border-color: #3f78bf;
+  > span {
+    margin-left: 5px;
+  }
+}
+
+.button-wide {
+  width: 80px;
+}
+
+.button-click {
+  border-color: #3f78bf;
+  > i {
+    color: #3f78bf;
+  }
+  &：hover{
+    border-color: #8c8c8c;
+  }
+}
+
+.statistic-text p{
+  font-size: 18px;
+}
+
+.checked-image {
+  &:hover{
+    src: "assets/images/devices/icon_check_pressed.png"
+  }
+}
+
+.device-img {
+  height: 90px;
+  width: 100px;
+  > img{
+    margin-bottom: 10px;
+    width: 50px;
+  }
+  > p{
+    margin-bottom: 0px;
+  }
+}
+
+.bottom-10 {
+  margin-bottom: 10px;
+}
+
+.overview-device-button {
+  display: block;
+  width: 48px;
+  height: 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/assets/images/devices/icon_check_default.png');
+  &：hover{
+    background-image: url('/assets/images/devices/icon_check_pressed.png');
+  }
+}
+
+.panel-body-shadow{
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.text-lightgray {
+  color: lightgrey;
+}
+
+.no-padding{
+  padding: 0px;
+}

@@ -1,0 +1,20 @@
+<div class="settings-auth-wrapper">
+
+  <uib-tabset active="active" class="page-tab" type="tabs">
+    <uib-tab index="0" heading="角色资源及权限分配" select="vm.selectedIndex = 0">
+    </uib-tab>
+    <uib-tab index="2" heading="资源管理" select="vm.selectedIndex = 2">
+    </uib-tab>
+    <uib-tab index="1" heading="角色管理" select="vm.selectedIndex = 1">
+    </uib-tab>
+
+    <!-- <uib-tab index="3" heading="权限管理" select="vm.selectedIndex = 3">
+    </uib-tab> -->
+  </uib-tabset>
+
+  <role-authentication-assign ng-if="vm.selectedIndex === 0"></role-authentication-assign>
+  <role-manager ng-if="vm.selectedIndex === 1"></role-manager>
+  <resource-manager ng-if="vm.selectedIndex === 2"></resource-manager>
+  <!-- <right-manager ng-if="vm.selectedIndex === 3"></right-manager> -->
+
+</div>

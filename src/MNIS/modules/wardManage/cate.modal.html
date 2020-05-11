@@ -1,0 +1,26 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <i class="fa fa-times"></i>
+    </button>
+    <h5 class="modal-title">详情查看</h5>
+  </div>
+  <div class="modal-body">
+    <table class="table white-borderd">
+      <thead>
+        <tr>
+          <th>护士工号</th>
+          <th>护士名称</th>
+          <th>工作量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, value) in vm.data">
+          <td>{{value.hisCode}}</td>
+          <td>{{value.userName}}</td>
+          <td>{{value.total}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

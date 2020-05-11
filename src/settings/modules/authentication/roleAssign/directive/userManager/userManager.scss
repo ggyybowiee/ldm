@@ -1,0 +1,29 @@
+.paginationStyle {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0px;
+
+  .pagination {
+    margin: 0px;
+  }
+
+  .pageItem {
+    display: inline-block;
+    margin-right: 20px;
+    height: 28px;
+    line-height: 28px;
+
+    select {
+      height: inherit;
+      border-radius: 4px;
+      padding: 0 5px;
+      border-color: #ddd;
+      color: #444;
+      line-height: 28px;
+    }
+  }
+}
+
+.user-table-image{
+  max-height:20px;
+}

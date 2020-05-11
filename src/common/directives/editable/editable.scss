@@ -1,0 +1,11 @@
+.editable-input {
+  width: inherit!important;
+}
+
+.editable-label {
+  line-height: 26px;
+  cursor: pointer;
+  &:hover {
+    color: $primary;
+  }
+}

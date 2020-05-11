@@ -1,0 +1,32 @@
+<td colspan="{{tdLen}}">
+
+    <table class="table white-borderd">
+      <thead>
+        <tr class="header-export">
+          <th>文字</th>
+
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="row-{{$index}}" ng-repeat="row in getData()">
+          <td class="relative">
+            {{row.text}}
+            <button class="exchange-btn btn btn-primary" ng-if="!$last" ng-click="exchange(row, getData())">
+              <i class="fa fa-arrows-v"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-link btn-sm success-text" ng-click="open(row)">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-link btn-sm danger-text" confirm yes="del(row)" content="确定要删除此列？">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+</td>

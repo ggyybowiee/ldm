@@ -1,0 +1,102 @@
+<div>
+  <div class="selector-title">
+    住院号
+  </div>
+  <div class="selector-value">
+    <input class="pateint-selector-inhos-code-input" on-blur="vm.inhosCodeCancel()" ng-keypress="vm.inhosCodeEnter($event)"
+      ng-model="vm.editInhosCode" />
+  </div>
+</div>
+<div uib-dropdown>
+  <div style="cursor:pointer;" uib-dropdown-toggle>
+    <div class="selector-title">
+      护理计划
+    </div>
+    <div class="selector-value patient-selector-bar-todo-count" ng-class="{'danger':(vm.patientRemindList.vitalSign.length > 0 || vm.patientRemindList.evaluate.length>0)}">
+      {{(vm.patientRemindList.vitalSign.length + vm.patientRemindList.evaluate.length) || 0}}
+    </div>
+  </div>
+  <div ng-if="(vm.patientRemindList.vitalSign.length > 0 || vm.patientRemindList.evaluate.length>0)" class="patient-selector-bar-todo-panel"
+    uib-dropdown-menu>
+    <div class="patient-selector-bar-todo-type-panel">
+      <h5 class="bordered-bottom">
+        体征待测({{vm.patientRemindList.vitalSign.length}})
+      </h5>
+      <table>
+        <tr ng-repeat="item in vm.patientRemindList.vitalSign track by $index">
+          <td>{{item.bindItemName}}</td>
+          <td>{{item.planTimes|arrayToString}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="patient-selector-bar-todo-type-panel">
+      <h5 class="bordered-bottom">
+        风险评估({{vm.patientRemindList.evaluate.length}})
+      </h5>
+      <table style="text-align:left;">
+        <tr ng-repeat="item in vm.patientRemindList.evaluate track by $index">
+          <td>{{item.bindItemName}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="selector-title">
+    性别
+  </div>
+  <div class="selector-value">{{vm.patient.gender|gender}}</div>
+</div>
+<div>
+  <div class="selector-title">
+    年龄
+  </div>
+  <div class="selector-value">{{vm.patient.birthDate|age}}</div>
+</div>
+<div>
+  <div class="selector-title">
+    护理级别
+  </div>
+  <div class="selector-value">{{vm.patient.nurseLevel|nurseLevel}}</div>
+</div>
+<div>
+  <div class="selector-title">
+    入院日期
+  </div>
+  <div class="selector-value">{{vm.patient.inDate|idate: 'D'}}</div>
+</div>
+<div>
+  <div class="selector-title">
+    入院诊断
+  </div>
+  <div class="selector-value indiagText" uib-tooltip="{{vm.patient.inDiag}}">{{vm.patient.inDiag}}</div>
+</div>
+<div>
+  <div class="selector-title">
+    MEWS
+  </div>
+  <div class="selector-value" style="color:{{vm.patient.mewsRecord|mewsScoreColor}}">{{vm.patient.mewsRecord.totalScore|mewsScore}}</div>
+</div>
+<div>
+  <div class="selector-title">
+    高危评估
+  </div>
+  <div class="selector-value">
+    <span ng-repeat="item in vm.patient.realTimeEvaluateList">
+      <span style="color: {{item.riskLevel | evaluateRiskColorLevel}}">{{item.nature | evaluateHighRiskShortWord}}</span>
+      <span ng-if="vm.patient.realTimeEvaluateList.length > 1 && $index != (vm.patient.realTimeEvaluateList.length - 1)">,</span>
+    </span>
+  </div>
+</div>
+<div>
+  <div class="selector-title">
+    过敏
+  </div>
+  <div class="selector-value">{{vm.patient.allergen}}</div>
+</div>
+<div>
+  <div class="selector-title">
+    主治医生
+  </div>
+  <div class="selector-value">{{vm.patient.doctorName}}</div>
+</div>

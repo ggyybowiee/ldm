@@ -1,0 +1,18 @@
+<div class="checkbox-input-wrapper">
+  <label class="custom-checkbox" ng-show="type === 'normal'">
+    <input type="checkbox" ng-model="ngModel" value="{{value}}">
+    <span>{{text}}</span>
+  </label>
+  <label class="switch-checkbox" ng-show="type === 'switch'">
+    <input type="checkbox" ng-model="ngModel">
+    <div class="switch" ng-class="switchType">
+      <div class="handle-container">
+        <div class="handle handle-on"></div>
+        <div class="handle handle-icon">
+          <i class="fa" ng-class="'fa-' + switchIcon"></i>
+        </div>
+        <div class="handle handle-off"></div>
+      </div>
+    </div>
+  </label>
+</div>

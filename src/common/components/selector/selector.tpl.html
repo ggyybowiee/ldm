@@ -1,0 +1,28 @@
+<div class="multi-selector">
+  <input class="form-control input-sm" readonly ng-model="ngModel" type="hidden" ng-required="!!required" name="{{name}}" />
+  <div class="multi-selector__value form-control input-sm {{class}}">
+    {{ngModel && showValue || ''}}
+  </div>
+  <div class="multi-selector__options">
+    <button
+      ng-if="multiple"
+      class="btn-sm btn-default multi-selector__option"
+      type="button"
+      ng-repeat="option in options"
+      ng-class="{'btn-primary': ngModel && (withId ? (ngModel | filter: { id: option.id }).length > 0 : ngModel.indexOf(option.value) > -1)}"
+      ng-click="toggleOption(option, $index)"
+    >
+      {{option && (option.label || option.value || '无')}}
+    </button>
+    <button
+      ng-if="!multiple"
+      class="btn-sm btn-default multi-selector__option"
+      type="button"
+      ng-repeat="option in options"
+      ng-class="{'btn-primary': ngModel && (withId ? (ngModel.id || ngModel[0].id) === option.id : ngModel == option.value)}"
+      ng-click="toggleOption(option, $index)"
+    >
+      {{option && (option.label || option.value || '无')}}
+    </button>
+  </div>
+</div>

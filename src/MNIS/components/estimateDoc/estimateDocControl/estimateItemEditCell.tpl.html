@@ -1,0 +1,50 @@
+<div class="estimate-edit-cell-panel" style="width: 100%">
+
+  <!-- 日期时间 -->
+  <datetime-input name="value" ng-if="header.dataType==='datetime'" edit-format="YYYY-MM-DD HH:mm" ng-model="editData.data[header.dataBind]"
+    ng-input-focus="focusItemTpl" ng-input-keydown="keyDown" input-class="estimate-edit-cell-control"></datetime-input>
+
+  <date-picker name="value" class="estimate-edit-cell-control" ng-if="header.dataType==='date'" no-icon="true" ng-model="editData.data[header.dataBind]"
+    ng-disabled="!header.editable"></date-picker>
+
+  <time-picker name="value" class="estimate-edit-cell-control" ng-if="header.dataType==='time'" ng-model="editData.data[header.dataBind]"
+    ng-disabled="!header.editable"></time-picker>
+
+  <input name="value" class="estimate-edit-cell-control estiamte-edit-cell-text-input" autocomplete="off" type="text"
+    ng-if="header.dataType==='text'" ng-disabled="!header.editable" ng-model="editData.data[header.dataBind]" ng-change="valueChanged()" />
+
+  <input ng-if="header.dataType==='boolean'" autocomplete="off" class="estimate-edit-cell-control" name="value"
+    ng-model="editData.data[header.dataBind]" ng-disabled="!header.editable" ng-true-value="{{header.settings.trueValue}}"
+    ng-false-value="{{header.settings.falseValue}}" type="checkbox" ng-change="valueChanged()" />
+
+  <textarea name="value" class="estimate-edit-cell-control" ng-if="header.dataType==='textarea'" ng-model="editData.data[header.dataBind]"
+    ng-disabled="!header.editable" type="text" ng-change="valueChanged()">
+  </textarea>
+
+  <input name="value" class="estimate-edit-cell-control" autocomplete="off" ng-if="header.dataType==='number'" type="number"
+    ng-model="editData.data[header.dataBind]" ng-disabled="!header.editable" ng-change="valueChanged()" />
+
+  <div ng-if="header.dataType==='radio'">
+    <estimate-radio layout="block" name="header.dataBind" options="header.opts" ng-model="editData.data[header.dataBind]"
+      ng-if="header.editable" on-change="valueChanged()"></estimate-radio>
+    <label ng-if="!header.editable" ng-bind="editData.data[header.dataBind]|optionDisplayText"></label>
+  </div>
+
+  <div ng-if="header.dataType==='select'">
+    <select-and-input ng-if="header.editable" inner-class="estimate-edit-cell-control" name="value" options="header.opts"
+      ng-model="editData.data[header.dataBind]" type="opt"></select-and-input>
+    <label ng-if="!header.editable" ng-bind="editData.data[header.dataBind]|optionDisplayText"></label>
+  </div>
+
+  <div ng-if="header.dataType==='multiSelect'  || header.dataType==='select2'">
+    <estimate-checkbox ng-if="header.editable" options="header.opts" ng-model="selectedItems" on-change="multiSelectOnChanged"></estimate-checkbox>
+    <label ng-if="!header.editable" ng-bind="editData.data[header.dataBind]|optionDisplayText"></label>
+  </div>
+
+  <div ng-if="header.dataType==='signature'||header.dataType==='signaturePicture'">
+    <user-sign sign-content="editData.data[header.dataBind]">
+  </div>
+
+  <div ng-if="header.dataType==='verifySignature'">
+    <nursing-doc-user-sign-input nursing-doc-data="editData" sign-Key="header.dataBind"></nursing-doc-user-sign-input>
+  </div>

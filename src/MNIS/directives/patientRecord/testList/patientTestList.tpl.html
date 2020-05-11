@@ -1,0 +1,98 @@
+<div loading-wrapper="vm.loadPatientTest">
+
+  <div class="patient-test-list-panel">
+    <div class="patient-test-list-wrapper" full-page="fix" full-page-bottom="3">
+      <div class="toolbar">
+        检验列表({{vm.testList.length}})
+      </div>
+      <div>
+        <div class="patient-test-brief-panel" ng-repeat="testReport in vm.testList" ng-click="vm.selectText(testReport)"
+          ng-class="{'selected': vm.selectedTest == testReport}">
+          <span>{{testReport.labMaster.resultsRptDateTime | idate:'D'}}</span>
+          <span>{{testReport.labMaster.testCause}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="patient-test-report-wrapper">
+
+      <div class="patient-test-report-hos-info-wrapper">
+        <!-- 医院LOGO -->
+        <div class="patient-test-report-hospital-wrapper text-center">
+          <div class="hospital-name" ng-if="!vm.hospitalInfo.hospitalLogo">{{hospitalName}}</div>
+          <img ng-if="vm.hospitalInfo.hospitalLogo " url-to-base64 ng-src="{{vm.hospitalInfo.hospitalLogo}}" alt="{{vm.hospitalInfo.hospitalName}}"
+            height="50" width="auto">
+          <h3>化验报告单</h3>
+          <div class="patient-test-code">
+            化验单号：{{vm.selectedTest.labMaster.testCode}}
+          </div>
+        </div>
+        <!-- 化验单表头 -->
+        <div class="patient-test-report-test-header-wrapper">
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  姓名：{{patientInfo.patName}}
+                </td>
+                <td>
+                  病人病区：{{patientInfo.wardName}}&nbsp;&nbsp;|&nbsp;&nbsp;{{patientInfo.bedCode}}床
+                </td>
+                <td>
+                  样本类型: {{vm.selectedTest.labMaster.specimen}}
+                </td>
+                <td>
+                  住院号：{{patientInfo.displayCode}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  性别：{{patientInfo.gender|gender}}
+                </td>
+                <td>
+                  申请医生：{{vm.selectedTest.labMaster.orderingProvider}}
+                </td>
+                <td>
+                  校对状态：{{vm.selectedTest.labMaster.resultStatus}}
+                </td>
+                <td>申请时间：{{vm.selectedTest.labMaster.requestedDateTime|idate:'DH'}}</td>
+              </tr>
+              <tr>
+                <td>年龄：{{patientInfo.birthDate|age}}</td>
+                <td colspan="2">临床诊断：{{vm.selectedTest.labMaster.relevantClinicDiag}}</td>
+                <td>
+                  报告时间：{{vm.selectedTest.labMaster.resultsRptDateTime|idate:'DH'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- 化验单结果 -->
+        <div class="patient-test-report-test-result-wrapper">
+          <table class="table thead-fixed" width="100%">
+            <thead>
+              <tr>
+                <th>检验项目</th>
+                <th>结果</th>
+                <th>单位</th>
+                <th>参考值</th>
+              </tr>
+            </thead>
+            <tbody full-page="fix" full-page-bottom="25">
+              <tr ng-repeat="item in vm.selectedTest.reportItems" ng-style="{color: item.abnormal !== '0' ? 'red' : 'inherit'}">
+                <td>{{item.itemName}}</td>
+                <td>
+                  {{item.result}}
+                  <span ng-if="item.abnormalIndicator === 'H'" class="fa fa-long-arrow-up"></span>
+                  <span ng-if="item.abnormalIndicator === 'L'" class="fa fa-long-arrow-down"></span>
+                </td>
+                <td>{{item.units}}</td>
+                <td>{{item.refrenceValue}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

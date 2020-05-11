@@ -1,0 +1,112 @@
+.patient-test-ext-list-panel {
+  display: flex;
+  margin: 0px;
+  padding-top: 5px;
+
+  .patient-test-brief-panel {
+    margin: 5px 0px;
+
+    >span:first-child {
+      width: 35px;
+      min-width: 35px;
+    }
+  }
+
+  .patient-test-ext-list-wrapper {
+    width: 200px;
+    border-right: 1px solid $border-3;
+    padding-right: 5px;
+    margin-right: 5px;
+    word-break: break-all;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .patient-test-ext-brief-panel {
+    margin-top: 5px;
+    padding: 2px 5px;
+    border: 1px solid $border-3;
+    word-break: break-all;
+
+    >div:first-child {
+      border-bottom: 1px solid $border-3;
+    }
+
+    >div:last-child {}
+
+    &.selected {
+      background-color: $primary;
+      color: white !important;
+    }
+
+    &:hover {
+      background-color: lighten($primary, 15%) !important;
+      color: white !important;
+    }
+  }
+
+  .patient-test-ext-report-wrapper {
+    flex-grow: 1;
+    position: relative;
+
+    >div:first-child {
+      padding: 5px 0px;
+      border-bottom: 1px solid $border-3;
+    }
+
+    table {
+      width: 100%;
+
+      tr {
+        cursor: pointer;
+
+        >td {
+          padding: 5px 5px;
+          border: 1px solid white;
+        }
+
+        >td:first-child {
+          text-align: center;
+        }
+
+        &:hover {
+          background-color: lighten($primary, 15%) !important;
+          color: white !important;
+        }
+
+        &.selected {
+          background-color: $primary;
+          color: white !important;
+        }
+      }
+    }
+
+    .test-ext-append-text-panel {
+      height: 200px;
+      width: 100%;
+      position: absolute;
+      bottom: 5px;
+      left: 0px;
+      border: 0px;
+      display: flex;
+      flex-direction: column;
+
+      >textarea {
+        flex-grow: 1;
+        width: 100%;
+        border: 0px;
+        border-top: 1px solid $border-3;
+        border-bottom: 1px solid $border-3;
+        background-color: transparent;
+      }
+
+      >button {
+        width: 100%;
+        height: 30px;
+        margin-top: 5px;
+      }
+    }
+  }
+}

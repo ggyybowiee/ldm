@@ -1,0 +1,562 @@
+<div class="panel panel-layout">
+  <form class="form-horizontal w5c-form estimate-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption"
+    name="estimateConfigForm">
+    <div class="toolbar" id="temperatureConfig">
+      <div class="toolbar-item">
+        <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.save()">
+          保存</button>
+      </div>
+    </div>
+    <div class="toolbar" top=".header-top" refraction="#temperatureConfig" fixed-top>
+      <div class="toolbar-item">
+        <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.save()">
+          保存</button>
+      </div>
+    </div>
+  <!-- <form class="form-horizontal w5c-form estimate-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption" name="estimateConfigForm"> -->
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">纸张大小：</label>
+      <div class="col-xs-2">
+        <select class="form-control input-sm" ng-model="vm.formData.size" name="size">
+          <option ng-repeat="size in vm.pageSize" value="{{size.value}}">{{size.label}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="margin" class="col-sm-2 control-label">打印边距(mm)：</label>
+      <div class="col-sm-3">
+        <div class="print-margin-wrap">
+          <div class="flex-box text-center" style="justify-content: center">
+            <input type="text" autocomplete="off" id="marginTop" style="width: 5em" placeholder="上边距" name="marginTop"
+              ng-model="vm.formData.margin.top" class="form-control input-sm">
+          </div>
+          <div class="flex-box text-center" style="justify-content: space-between">
+            <input type="text" autocomplete="off" style="width: 5em" id="marginLeft" placeholder="左边距" name="marginLeft"
+              ng-model="vm.formData.margin.left" class="form-control input-sm">
+            <input type="text" autocomplete="off" style="width: 5em" id="marginRight" placeholder="右边距" name="marginRight"
+              ng-model="vm.formData.margin.right" class="form-control input-sm">
+          </div>
+          <div class="flex-box text-center" style="justify-content: center">
+            <input type="text" autocomplete="off" id="marginBottom" style="width: 5em" placeholder="下边距" name="marginBottom"
+              ng-model="vm.formData.margin.bottom" class="form-control input-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <label for="sortNo" class="col-sm-2 control-label"></label>
+      <div class="col-sm-3">
+        <div style="margin-top: 10px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.measureVisible">
+            <span>是否显示措施/测量方式</span>
+          </label>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="sortNo" class="col-sm-2 control-label"></label>
+      <div class="col-sm-3">
+        <div style="margin-top: 10px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.logoVisible">
+            <span>是否显示医院logo图片</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">
+        患者状态：</label>
+      <div class="col-xs-8">
+        <span class="label label-default" ng-show="!vm.formData.statusList || vm.formData.statusList.length === 0">无</span>
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="status in vm.formData.statusList" ng-click="vm.openAddStatus(status)"
+          style="margin-right:3px; margin-bottom: 3px;">{{status.dicName}}
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeItem($event, vm.formData.statusList, $index)">&nbsp;×</span>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-xs-2 partial-label"></label>
+      <div class="col-xs-3">
+        <button class="btn btn-xs btn-default btn-round" ng-click="vm.openAddStatus()">
+          <i class="fa fa-plus"></i>&nbsp;添加状态
+        </button>
+      </div>
+    </div>
+    <!-- 表头区 -->
+    <div class="divide-line">
+      <span class="divide-line__title">表头区（只修改显示名称）</span>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">第一行：</label>
+      <div class="col-xs-5">
+        <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.headers.date"  name="date">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">非首列日期展示方式：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-radio" ng-repeat="item in vm.dateTypes" style="margin-right: 10px;">
+            <input type="radio" ng-value="item.type" ng-model="vm.formData.headers.dateType" name="showType">
+            <span>{{item.text}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">第二行：</label>
+      <div class="col-xs-5">
+        <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.headers.inHosDays"  name="inHosDays">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">第三行：</label>
+      <div class="col-xs-5">
+        <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.headers.surgeryOrElse"  
+          name="surgeryOrElse">
+      </div>
+    </div>
+    <!-- 时间区 -->
+    <div>
+      <div class="divide-line">
+        <span class="divide-line__title">时间区</span>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">12小时制显示：</label>
+        <div class="col-sm-3">
+          <div style="margin-top: 5px">
+            <label class="custom-checkbox">
+              <input type="checkbox" ng-model="vm.formData.times12HourFormat" name="times12HourFormat">
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">时间间隔：</label>
+        <div class="col-xs-5">
+          <select class="form-control input-sm table-header__input-item" ng-model="vm.formData.timesInterval" style="width: 180px"
+            name="textAlign">
+            <option value="{{interval}}" ng-repeat="interval in vm.timesIntervals track by $index">{{interval}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">单元格颜色：</label>
+        <div class="col-xs-8">
+          <input class="form-control input-sm color-picker-input" ng-repeat="color in vm.formData.timesIntervalColors track by $index"
+            colorpicker="hex" style="background-color: {{color}};" autocomplete="off" ng-model="vm.formData.timesIntervalColors[$index]"
+              name="timesIntervalColors" />
+        </div>
+      </div>
+    </div>
+    <!-- 手术时间配置 -->
+    <div>
+      <div class="divide-line">
+        <span class="divide-line__title">手术|分娩时间配置</span>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">到期消失天数：</label>
+        <div class="col-xs-5">
+          <input class="form-control input-sm" type="number" autocomplete="off" ng-model="vm.formData.surgeryExpireDays"
+              name="surgeryExpireDays" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">手术当天字符集：</label>
+        <div class="col-xs-5">
+          <!-- <input class="form-control input-sm" type="number" autocomplete="off" ng-model="vm.formData.surgeryExpireDays"
+              name="inHosDays"></input> -->
+          <radio ng-model="vm.formData.surgeryDayCharacterSets" options="[{text:'阿拉伯数字(0)', value:'arabic'},{text:'罗马数字(I,II,III,IV,V,……,XX)——最多支持20台手术',value:'roman'}]"></radio>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sortNo" class="col-sm-2 control-label">手术当天是否显示：</label>
+        <div class="col-sm-3">
+          <div style="margin-top: 5px">
+            <label class="custom-checkbox">
+              <input type="checkbox" ng-model="vm.formData.isShowSurgeryDay">
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sortNo" class="col-sm-2 control-label">是否只记录最新一次手术：</label>
+        <div class="col-sm-3">
+          <div style="margin-top: 5px">
+            <label class="custom-checkbox">
+              <input type="checkbox" ng-model="vm.formData.isToRecoredNewSurgery">
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Y轴坐标区  -->
+    <div>
+      <div class="divide-line">
+        <span class="divide-line__title">Y轴坐标区</span>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">脉搏标题颜色：</label>
+        <div class="col-xs-5">
+          <input class="form-control input-sm color-picker-input" colorpicker="hex" style="background-color: {{vm.formData.yAxisPulseTitleColor}};"
+            ng-model="vm.formData.yAxisPulseTitleColor" autocomplete="off" name="yAxisPulseTitleColor" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">脉搏结点颜色：</label>
+        <div class="col-xs-5">
+          <input class="form-control input-sm color-picker-input" colorpicker="hex" style="background-color: {{vm.formData.yAxisPulseNodeColor}};"
+            ng-model="vm.formData.yAxisPulseNodeColor" autocomplete="off" name="yAxisPulseNodeColor" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">脉搏范围：</label>
+        <div class="col-xs-2">
+          <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.pulseRange" placeholder="示例：180,20"
+            type="text" maxlength="6"   name="pulseRange" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">体温标题颜色：</label>
+        <div class="col-xs-5">
+          <input class="form-control input-sm color-picker-input" colorpicker="hex" style="background-color: {{vm.formData.yAxisTemperatureTitleColor}};"
+            ng-model="vm.formData.yAxisTemperatureTitleColor" autocomplete="off" name="yAxisTemperatureTitleColor" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">体温结点颜色：</label>
+        <div class="col-xs-5">
+          <input class="form-control input-sm color-picker-input" colorpicker="hex" style="background-color: {{vm.formData.yAxisTemperatureNodeColor}};"
+            ng-model="vm.formData.yAxisTemperatureNodeColor" autocomplete="off" name="yAxisTemperatureNodeColor" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">体温范围：</label>
+        <div class="col-xs-2">
+          <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.temperatureRange" placeholder="示例：35,42"
+            type="text" maxlength="5"   name="temperatureRange" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 边框|线配置  -->
+    <div class="divide-line">
+      <span class="divide-line__title">边框|线配置</span>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">分割线宽度</label>
+      <div class="col-xs-2">
+        <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.seperatorLineStrok" placeholder="范围值(1~3)，可以为小数"
+          type="number" min="1" max="3" step="0.5" name="dataAreaXLinesStroke" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">主数据区X轴标尺线：</label>
+      <div class="col-xs-8">
+        <input class="form-control input-sm color-picker-input" ng-repeat="color in vm.formData.dataAreaXLines track by $index"
+          colorpicker="hex" style="background-color: {{color}};" autocomplete="off" ng-model="vm.formData.dataAreaXLines[$index]"
+            name="dataAreaXLines" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">主数据区Y轴标尺线：</label>
+      <div class="col-xs-8">
+        <input class="form-control input-sm color-picker-input" ng-repeat="color in vm.formData.dataAreaYLines track by $index"
+          colorpicker="hex" style="background-color: {{color}};" autocomplete="off" ng-model="vm.formData.dataAreaYLines[$index]"
+            name="dataAreaYLines" />
+      </div>
+    </div>
+    <!-- 35℃下描述区 -->
+    <div class="divide-line">
+      <span class="divide-line__title">35℃下描述区</span>
+    </div>
+
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">评估项：</label>
+      <div class="col-xs-3">
+        <ui-select theme="bootstrap" ng-model="vm.formData.row35Deg"   reset-search-input="false">
+          <ui-select-match placeholder="输入关键词过滤">{{$select.selected.dicName}}</ui-select-match>
+          <ui-select-choices repeat="item in vm.dic.evaluateNature| filter: $select.search">
+            <div ng-bind-html="item.dicName | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="col-xs-3">
+        <button class="btn btn-label btn-xs btn-danger" ng-click="vm.removeProp('row35Deg')">
+          清除
+        </button>
+      </div>
+    </div>
+
+    <div class="divide-line">
+      <span class="divide-line__title">35℃下曲线区</span>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">体征项：</label>
+      <div class="col-xs-3">
+        <ui-select theme="bootstrap" ng-model="vm.formData.row35DegChart"   reset-search-input="false">
+          <ui-select-match placeholder="输入关键词过滤">{{$select.selected.dicName}}</ui-select-match>
+          <ui-select-choices repeat="item in vm.dic.evaluateNature| filter: $select.search">
+            <div ng-bind-html="item.dicName | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="col-xs-3">
+        <button class="btn btn-label btn-xs btn-danger" ng-click="vm.removeProp('row35DegChart')">
+          清除
+        </button>
+      </div>
+    </div>
+
+    <!-- 4H表体区 -->
+    <div class="divide-line">
+      <span class="divide-line__title">4H表体区（每4小时一次体征）</span>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">体征项：</label>
+      <div class="col-xs-5">
+        <ui-select multiple theme="bootstrap" ng-model="vm.formData.row4Hour"   close-on-select="false"
+          reset-search-input="false">
+          <ui-select-match placeholder="选择体征项">{{$item.dicName}}</ui-select-match>
+          <ui-select-choices repeat="item in vm.getFinalVitalItems() | filter: $select.search">
+            <div ng-bind-html="item.dicName | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">体征提取规则：</label>
+      <div class="col-xs-5">
+        <select class="form-control input-sm table-header__input-item" ng-model="vm.formData.extractRule" style="width: 180px"
+          name="extractRule">
+          <option value="{{item.dicCode}}" ng-repeat="item in vm.dic.tempExtractRule">{{item.dicName}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 同一时间点录入两次体征（4H表体区） -->
+    <div class="divide-line">
+      <span class="divide-line__title">同一时间点录入两次体征（针对4H表体区）</span>
+    </div>
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">体征项：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.clickToSetInputTwiceValue.length === 0 || !vm.formData.clickToSetInputTwiceValue">无</span>
+      
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.clickToSetInputTwiceValue"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.dicName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClickToSet4HourItem($event, vm.formData.clickToSetInputTwiceValue, $index)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.clickToSetInputTwiceValue, item)" uib-tooltip="点击添加"
+              ng-repeat="item in vm.clickToSet4HourSource" ng-click="vm.addClick4HourItem(item)" style="margin-right:3px; margin-bottom: 3px;">
+              {{item.dicName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12H表体区 -->
+    <div>
+      <div class="divide-line">
+        <span class="divide-line__title">12H表体区（每12小时一次体征）</span>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">体征项：</label>
+        <div class="col-xs-5">
+          <ui-select multiple theme="bootstrap" ng-model="vm.formData.row12Hour"   close-on-select="false"
+            reset-search-input="false">
+            <ui-select-match placeholder="选择体征项">{{$item.dicName}}</ui-select-match>
+            <ui-select-choices repeat="item in vm.getFinalVitalItems() | filter: $select.search">
+              <div ng-bind-html="item.dicName | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="row12HourEditType" class="control-label col-xs-2 partial-label">体征单编辑方式：</label>
+        <div class="col-xs-10">
+          <radio ng-model="vm.formData.row12HourEditType" options="[{text:'以4小时输入(默认))', value:'4Hour'},{text:'以12小时输入',value:'12Hour'}]"></radio>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.row12HourEditType=='12Hour'">
+        <label for="cate" class="control-label col-xs-2 partial-label">12小时输入绑定时间点：</label>
+        <div class="col-xs-10">
+          <div class="btn-group btn-radio">
+            <label class="btn btn-sm btn-primary" ng-repeat="item in vm.formData.timesInterval.split(',') track by $index"
+              ng-model="vm.formData.row12HourEditPoint1" uib-btn-radio="$index" ng-if="$index < 3" style="width:40px;">
+              {{item}}
+            </label>
+          </div>
+          <div class="btn-group btn-radio">
+            <label class="btn btn-sm btn-primary" ng-repeat="item in vm.formData.timesInterval.split(',') track by $index"
+              ng-model="vm.formData.row12HourEditPoint2" uib-btn-radio="$index-3" ng-if="$index >= 3" style="width:40px;">
+              {{item}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 24H表体区 -->
+    <div>
+      <div class="divide-line">
+        <span class="divide-line__title">24H表体区（每24小时一次体征）</span>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">体征项：</label>
+        <div class="col-xs-10">
+          <button class="btn btn-label btn-xs btn-primary" ng-class="{'btn-primary': vm.default24Hour.indexOf(item.dicCode) < 0, 'btn-success': vm.default24Hour.indexOf(item.dicCode) >= 0}"
+            ng-repeat="item in vm.formData.row24Hour" ng-click="item.isShowLabel = !item.isShowLabel" style="margin-right:3px; margin-bottom: 3px;">
+            <span uib-tooltip="点击{{item.isShowLabel ? '隐藏' : '显示'}}名称">{{item.dicName}}</span>
+            &nbsp;
+            <i class="fa fa-eye" ng-show="item.isShowLabel"></i>
+            <span ng-show="vm.default24Hour.indexOf(item.dicCode) < 0" class="btn-inner-close" uib-tooltip="移除"
+              ng-click="vm.removeItem($event, vm.formData.row24Hour, $index)">&nbsp;×</span>
+          </button>
+          <br />
+          <div class="row">
+            <div class="col-xs-8">
+              <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.row24Hour, item)"
+                uib-tooltip="点击添加" ng-repeat="item in vm.getFinalVitalItems()" ng-click="vm.formData.row24Hour.push(item)"
+                style="margin-right:3px; margin-bottom: 3px;">
+                {{item.dicName}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" ng-show="!vm.isInCollection(vm.formData.row24Hour, { dicCode: 'skinTestInfo' })">
+        <label for="cate" class="control-label col-xs-2 partial-label">皮试项目：</label>
+        <div class="col-xs-8">
+          <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.skinTest" style="margin-right:3px; margin-bottom: 3px;"
+            ng-click="item.isCustomValue = !item.isCustomValue">
+            <span uib-tooltip="{{item.isCustomValue ? '不需要' : '需要'}}自定义值">{{item.dicName}}</span>
+            <i class="fa fa-edit" ng-show="item.isCustomValue"></i>
+          </button>
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">自定义编辑行数：</label>
+        <div class="col-xs-8">
+          <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.rowCustomCount" type="number"
+            name="rowCustomCount" style="width: 100px" />
+        </div>
+      </div>
+    </div>
+    <!-- 患者事件区 -->
+    <div>
+      <div class="divide-line">
+        <span class="divide-line__title">患者事件</span>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-2 partial-label">体征单显示的事件类型</label>
+        <div class="col-xs-5">
+          <ui-select multiple theme="bootstrap" ng-model="vm.formData.visibleEvents"   close-on-select="false"
+            reset-search-input="false">
+            <ui-select-match placeholder="选择体征项">{{$item.dicName}}</ui-select-match>
+            <ui-select-choices repeat="item in vm.getFinalEventTypes() | filter: $select.search">
+              <div ng-bind-html="item.dicName | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="divide-line">
+      <span class="divide-line__title">交互设置</span>
+    </div>
+
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">选项选中赋值：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.clickToSetValue.length === 0 || !vm.formData.clickToSetValue">无</span>
+
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="(key, values) in vm.formData.clickToSetValue"
+          ng-click="vm.openClickToSetValue(key)" style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{vm.dic[key][0].dicTypeName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClickToSetItem(key)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="!vm.formData.clickToSetValue[key]" uib-tooltip="点击添加"
+              ng-repeat="(key, values) in vm.clickToSetSource" ng-click="vm.addClickItem(key, values)" style="margin-right:3px; margin-bottom: 3px;">
+              {{vm.dic[key][0].dicTypeName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="divide-line">
+      <span class="divide-line__title">批量录入设置</span>
+    </div>
+
+    <div class="form-group">
+      <label for="cate" class="control-label col-xs-2 partial-label">已选择体征：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.selectedVitals | orderBy: 'orderIndex'">
+
+          <span><b>{{item.orderIndex | mewsScore}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.selectedVitals, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.selectedVitals, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button uib-tooltip="点击在批量录入中{{item.isShowMeasureInBatch ? '隐藏' : '显示'}}此项目" class="btn btn-label btn-sm btn-default"
+            ng-click="item.isShowItemInBatch = !item.isShowItemInBatch" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.dicName}}&nbsp;|&nbsp;{{item.isShowItemInBatch ? '可见': '不可见'}}</span>
+            &nbsp;
+            <i class="fa fa-eye" ng-show="item.isShowItemInBatch"></i>
+          </button>
+          <button uib-tooltip="点击在批量录入中{{item.isShowMeasureInBatch ? '隐藏' : '显示'}}措施/方式" class="btn btn-label btn-sm btn-default"
+            ng-click="item.isShowMeasureInBatch = !item.isShowMeasureInBatch" style="margin-right:3px; margin-bottom: 3px;">
+            <span>措施/方式&nbsp;|&nbsp;{{item.isShowMeasureInBatch ? '可见': '不可见'}}</span>
+            <i class="fa fa-eye" ng-show="item.isShowMeasureInBatch"></i>
+          </button>
+          <select class="form-control input-sm" ng-model="item.inputType" uib-tooltip="输入类型" name="inputType" ng-show="item.dicCode !== 'skinTestInfo'"
+            style="display: inline-block;width: 6em;">
+            <option ng-repeat="inputType in vm.inputTypes" value="{{inputType.type}}">{{inputType.desc}}</option>
+          </select>
+          <input class="form-control input-sm" autocomplete="off" style="display: inline-block;width: 4em;"
+            uib-tooltip="宽度设置（px）" tooltip-append-to-body="true" ng-model="item.width"   name="width" />
+        </div>
+        <span style="color:red;" class="control-label">未分配序号的项目，在第一次项目调整后会进行分配</span>
+      </div>
+    </div>
+
+    <h4 class="bordered-bottom">表头编辑区</h4>
+    <nursing-doc-tpl-header-config tpl="vm.formData" image-in-header="false">
+    </nursing-doc-tpl-header-config>
+
+    <div class="estimate-preview">
+      <div ng-style="vm.getPageSize()" class="preview-table-container">
+        <div class="temperature-sheet-header">
+          <div class="text-center">
+            <h3 style="margin: 0;">{{vm.hospitalName}}</h3>
+            <h4 style="padding-bottom: 10px; border-bottom: 1px #000 solid;">体温单</h4>
+          </div>
+          <div class="row text-center">
+            科室：xxx &nbsp;&nbsp; 姓名：xxx &nbsp;&nbsp; 性别：x &nbsp;&nbsp; 年龄：22 &nbsp;&nbsp; 床号：01 &nbsp;&nbsp;
+            住院号：ZYxxxxxxxxxx &nbsp;&nbsp;
+            入院时间：xxxx-xx-xx xx:xx:xx
+          </div>
+        </div>
+        <temperature-sheet conf="vm.previewFormData" id="temperatureSheet" data=""></temperature-sheet>
+      </div>
+    </div>
+  </form>
+</div>

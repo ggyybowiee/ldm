@@ -1,0 +1,26 @@
+<div class="panel-body" full-page="reverse" style="padding: 0px; width: 100%; overflow: auto;">
+  <table class="patient-path-execute-summarize-table table thead-fixed" style="width: min-content;">
+    <thead>
+      <tr>
+        <th style="width: 100px;">
+          项目
+        </th>
+        <th ng-repeat="data in vm.pathSummaryData track by $index" style="width: 280px;">
+          {{data.nodeName}}({{data.nodeDate | idate}})
+        </th>
+      </tr>
+    </thead>
+    <tbody full-page="fix">
+      <tr ng-repeat="item in vm.pathSummaryKeys">
+        <td style="width: 100px;">{{item}}</td>
+        <td ng-repeat="data in vm.pathSummaryData track by $index" style="width: 280px;vertical-align: top;">
+          <p ng-repeat="text in data.executeSummary[item].childItems" class="bordered-bottom" style="display: flex; justify-content: space-between;margin: 10px 8px;padding: 0px;">
+            <span>{{text.itemNodeName.split(" ")[0]}}</span>
+            <span style="text-align: left;flex-grow: 1;margin-left: 10px;">{{text.itemNodeName.split(" ")[1]}}</span>
+            <span style="min-width: 30px;">{{text.itemNodeName.split(" ")[2]}}</span>
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,23 @@
+.interval-loading {
+  height: 3px;
+  width: 100%;
+  margin-top: -1px;
+  background-color: $brand-danger;
+}
+
+.interval-bar-animation {
+  animation-name: interval;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@keyframes interval {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0%;
+  }
+}

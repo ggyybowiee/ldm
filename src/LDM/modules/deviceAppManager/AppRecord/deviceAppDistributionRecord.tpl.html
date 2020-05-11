@@ -1,0 +1,87 @@
+<div class="panel panel-layout panel-default">
+  <div class="flex-box justify-between filter-bar form-inline">
+    <div class="filter-bar__search" style="width:50%;">
+      <search-input ng-model="vm.queryParams.softwareName" search="vm.load.func()" text="软件名称"></search-input>
+    </div>
+  </div>
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <label> 分发时间： </label>
+      <date-picker ng-model="vm.queryParams.startTime" ng-change="vm.load.func()"></date-picker>
+      <span>&nbsp-&nbsp</span>
+      <date-picker ng-model="vm.queryParams.endTime" ng-change="vm.load.func()"></date-picker>
+    </div>
+  </div>
+
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="table table-hover white-table" st-table="vm.recordsDisplay" st-safe-src="vm.records" sytle="table-layout: fixed">
+      <thead>
+        <tr>
+          <th width="10%" >序号</th>
+          <th width="20%">分发时间</th>
+          <th width="40%">软件</th>
+          <th width="20%">操作人</th>
+          <th width="10%" style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="row in vm.recordsDisplay | orderBy : '-createTime' : desc track by $index">
+        <tr class="splite-row"></tr>
+        <tr ng-class="{'top-table-blue' : row.showDetail}" class="row-shadow">
+          <td class="ng-binding" >{{$index + 1}}</td>
+          <td class="ng-binding">{{row.createTime}}</td>
+          <td class="ng-binding">{{row.names}}</td>
+          <td class="ng-binding">{{row.createPerson}}</td>
+          <td class="ng-binding" ng-click="vm.openDetail(row)" style="text-align: center">
+            <span class="text-primary"> {{row.showDetail ? '收缩' : '展开'}}</span>&nbsp&nbsp
+            <img style="width: 12px;" ng-class="{'turn-img': row.showDetail}" src="assets/images/devices/icon_xiala.png">
+          </td>
+        </tr>
+        <tr ng-show="row.showDetail === true" ng-class="{'under-table-blue' : row.showDetail}">
+          <td colspan="5">
+            <table class="table table-hover white-table sub-table" style="margin-bottom: 0px">
+              <thead>
+                <tr>
+                  <th width="10%"></th>
+                  <th width="20%"></th>
+                  <th width="40%"></th>
+                  <th width="20%"></th>
+                  <th width="10%"></th>
+                </tr>
+              </thead>
+              <tbody ng-repeat="device in row.detail track by $index">
+                <tr ng-repeat="software in device.softwares">
+                  <td class="ng-binding subTable-td" style="text-align: left;">
+                    <label>
+                      <i class="fa fa-dot-circle-o text-primary" style="margin-right: 5px;"></i>
+                      <span>{{device.deviceName}}</span>
+                    </label>
+                    <label>
+                  </td>
+                  <td class="ng-binding subTable-td">{{device.mac}}</td>
+                  <td class="ng-binding subTable-td">{{software.name}}</td>
+                  <td class="ng-binding subTable-td">{{device.wardCode && (vm.wards | filter: { wardCode: device.wardCode })[0].wardName}}</td>
+                  <td class="ng-binding subTable-td"style="text-align: center;"  ng-style="{'color': software.status === -1 ? 'red' : ''}">{{(vm.status | filter:{code : software.status})[0].info}}{{software.reason && " : " + software.reason}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="5">
+                    <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+        </tr>
+      </tbody>
+      </td>
+      <tfoot>
+        <tr>
+          <td colspan="8">
+            <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.records"></none-data-info>
+  </div>
+</div>

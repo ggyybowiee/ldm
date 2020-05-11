@@ -1,0 +1,47 @@
+<div class="manager-wrapper">
+  <div class="toolbar">
+    <div class="pull-left">
+      <div class="toolbar-item">
+          时间：
+        <date-picker style="width: 160px" ng-model="vm.params.beginTime" date-options="vm.dateOptions" ng-change="vm.loadData()"></date-picker>&nbsp;到&nbsp;
+        <date-picker style="width: 160px" ng-model="vm.params.endTime" date-options="vm.dateOptions" ng-change="vm.loadData()"></date-picker>
+      </div>
+    </div>
+  </div>
+  <div class="content-table"><!--loading-wrapper=""。-->
+    <table class="table white-borderd">
+      <thead>
+        <tr>
+          <th>检验号</th>
+          <th>姓名</th>
+          <th>住院号</th>
+          <th>病区</th>
+          <th>床号</th>
+          <th>检验项目</th>
+          <th>危急项</th>
+          <th>结果</th>
+          <th>危急值范围</th>
+          <th>报告人</th>
+          <th>主管医生</th>
+          <th>报告时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in vm.reportList">
+          <td>{{item.testCode}}</td>
+          <td>{{item.patName}}</td>
+          <td>{{item.displayCode}}</td>
+          <td>{{vm.wardName}}</td>
+          <td>{{item.bedCode}}</td>
+          <td>{{item.testCause}}</td>
+          <td>{{item.itemName}}</td>
+          <td>{{item.crisisValue}}</td>
+          <td>{{item.crisisRange}}</td>
+          <td>{{item.transcriptionist}}</td>
+          <td>{{item.doctorName}}</td>
+          <td>{{item.resultsRptDateTime.split('.')[0].replace('T', ' ')}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

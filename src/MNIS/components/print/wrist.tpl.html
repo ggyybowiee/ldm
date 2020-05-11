@@ -1,0 +1,74 @@
+<div class="custom-print-wrapper"> <style>
+  .custom-print-wrapper * {
+    font-family: 'microsoft yahei';
+    font-weight: 700;
+  }
+
+  .custom-print-wrapper .sm {
+    font-size: 2mm;
+  }
+
+  .custom-print-wrapper .middle {
+    font-size: 3mm;
+    line-height: 3mm;
+  }
+
+  .custom-print-wrapper .lg {
+    font-size: 3.5mm;
+  }
+
+  .custom-print-wrapper .bold {
+    font-weight: 900;
+  }
+
+  .custom-print-wrapper qrcode {
+    display: block;
+  }
+</style>
+<style>
+  .custom-print-wrapper img {
+    width: 50px;
+  }
+
+  table {
+    height: 100%;
+  }
+
+  .patient-text {
+    padding: 0 3mm;
+  }
+
+  .patient-img.first-line {
+    padding-left: 5mm;
+  }
+
+  .age-block {
+    margin-right: 3mm;
+  }
+</style>
+<table class="patient-content" style="width: 85mm; margin-left: 200mm;">
+  <tr class="patient-info">
+    <td class="patient-img first-line">
+      <qrcode data="{{patient.barCode}}" size="50" mode="img" version="1" error-correction-level="L"></qrcode>
+    </td>
+    <td class="patient-text"> 
+      <span class="middle">
+        <span class="age-block">姓名：{{patient.patName}}</span>
+        <span>床号：{{patient.bedCode}}</span>
+      </span><br>
+      <span class="middle">
+        <span class="age-block">年龄：{{patient.age}}</span>
+        <span>性别：{{getGender(patient.gender)}}</span>
+      </span><br>
+      <span class="middle">住院号：{{patient.displayCode}}</span><br> 
+      <span class="middle">入院日期：{{patient.inDate | idate}}</span><br> 
+      <span class="middle">病区：{{patient.deptName}}</span><br>
+      <span class="middle">联系电话：{{patient.contactPhone}}</span><br>
+    </td>
+      
+    <td class="patient-img">
+      <qrcode data="{{patient.barCode}}" size="50" mode="img" version="1" error-correction-level="L"></qrcode>
+    </td>
+  </tr>
+</table>
+</div>

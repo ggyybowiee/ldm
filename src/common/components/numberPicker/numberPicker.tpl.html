@@ -1,0 +1,7 @@
+<div class="number-picker-wrapper">
+  <div class="number-picker__container">
+    <span class="number-minus" ng-disabled="ngModel <= min" ng-click="minus()"><i class="fa fa-minus"></i></span>
+    <input type="text" class="form-control number-picker-input input-sm" ng-change="handleChange($event)" ng-model="ngModel" readonly>
+    <span class="number-plus" ng-disabled="ngModel >= max" ng-click="plus()"><i class="fa fa-plus"></i></span>
+  </div>
+</div>

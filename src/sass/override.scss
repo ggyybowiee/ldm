@@ -1,0 +1,115 @@
+@import "./overwrite/_table";
+@import "./overwrite/_form";
+@import "./overwrite/_modal";
+@import "./overwrite/_tabs";
+@import "./overwrite/_button";
+@import "./overwrite/_panel";
+@import "./overwrite/_grid";
+@import "./overwrite/_labels";
+@import "./overwrite/_alert";
+
+.dropdown-menu {
+  > li {
+    > a {
+      &.active {
+        background-color: lighten($primary, 10%);
+        color: white;
+      }
+    }
+  }
+}
+
+.control-label {
+  color: #888;
+  text-align: right;
+  line-height: 26px;
+  padding-top: 0!important;
+  padding-left: 0!important;
+}
+
+.input-group {
+  .input-group-btn {
+    vertical-align: top;
+    .btn-default {
+      color: #888;
+    }
+  }
+}
+
+.w5c-error {
+  color: $danger;
+}
+
+.toast-top-center {
+  top: 30px;
+}
+
+:focus {
+  outline: none;
+}
+
+.uib-datepicker-popup {
+  button {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .btn-info {
+    background-color: $info!important;
+    border-color: $info!important;
+  }
+
+  .btn-danger {
+    background-color: $danger!important;
+    border-color: $danger!important;
+  }
+}
+.btn-sm {
+  &.round-btn {
+    border-radius: 13px;
+    padding: 3px 16px;
+  }
+}
+
+.bg-success {
+  background-color: $success;
+  color: white;
+}
+
+.bg-primary {
+  background-color: $primary;
+  color: white;
+}
+
+.bg-danger {
+  background-color: $danger;
+  color: white;
+}
+
+.bg-warning {
+  background-color: $warning;
+  color: white;
+}
+
+.bg-info {
+  background-color: $info;
+  color: white;
+}
+
+.bg-purple {
+  background-color: $purple;
+  color: white;
+}
+
+mark, .mark {
+  background-color: transparent;
+  color: $danger;
+}
+
+.angular-bootstrap-contextmenu {
+  max-height: none!important;
+  // height: 100%!important;
+  .dropdown-menu {
+    border-radius: 0;
+  }
+}

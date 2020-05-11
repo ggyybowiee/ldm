@@ -1,0 +1,394 @@
+<div class="modal-content device-modal-content">
+  <div class="modal-header">
+    <button
+     
+      class="close"
+      ng-click="$dismiss()"
+      aria-label="Close"
+    >&times;</button>
+
+    <h5 class="modal-title">添加NDA配置</h5>
+  </div>
+
+  <form
+    class="form-horizontal"
+    role="form"
+    novalidate="novalidate"
+    w5c-form-validate="w5c-form-validate"
+    name="form"
+  >
+    <div class="modal-body">
+      <div class="base-field clearfix">
+        <div class="form-group col-xs-6">
+          <label
+            for="configName"
+            class="col-sm-3 control-label"
+          >配置名称：</label>
+
+          <div class="col-sm-9">
+            <input
+              type="text"
+              id="configName"
+              name="configName"
+              ng-model="vm.formData.configName"
+              class="form-control input-sm"
+              required="required"
+            ></input>
+          </div>
+        </div>
+
+        <div class="form-group col-xs-6">
+          <label
+            for="wardCode"
+            class="col-sm-3 control-label"
+          >所属科室：</label>
+
+          <div class="col-sm-9">
+            <select
+              name="wardCode"
+              id="wardCode"
+              class="form-control input-sm"
+              ng-options="item.wardCode as item.wardName for item in vm.wards"
+              ng-model="vm.formData.wardCode"
+              required="required"
+            ></select>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="mock-tabset"
+        mock-tabset="mock-tabset"
+      >
+        <div class="mock-tab-heads">
+          <div class="mock-tab-head">网络设置</div>
+
+          <div class="mock-tab-head">个性化设置</div>
+
+          <div class="mock-tab-head">其他设置</div>
+        </div>
+
+        <div class="mock-tabs">
+          <div class="mock-tab">
+            <div class="form-row">
+              <div class="col-xs-12">
+                <button class="btn btn-sm btn-success btn-round">添加AP</button>
+
+                <button class="btn btn-sm btn-primary btn-round">导入静态IP</button>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">SSID：</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    id="ssidName"
+                    name="ssidName"
+                    ng-model="vm.formData.ssidName"
+                    class="form-control input-sm"
+                    required="required"
+                  ></input>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">密码：</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">WLAN频带：</label>
+
+                <div class="col-xs-7">
+                  <select
+                    type="text"
+                    class="form-control input-sm"
+                  ></select>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">加密方式：</label>
+
+                <div class="col-xs-7">
+                  <select
+                    type="text"
+                    class="form-control input-sm"
+                  ></select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-12">WIFI漫游设置</div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-xs-6">
+                <label class="col-xs-3 control-label">漫游触发值：</label>
+
+                <div class="col-xs-4">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+
+                <label class="col-xs-1 control-label">db</label>
+              </div>
+
+              <div class="form-group col-xs-6">
+                <label class="col-xs-3 control-label">漫游增益值：</label>
+
+                <div class="col-xs-4">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+
+                <div class="col-xs-1 control-label">db</div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-12">
+                <label class="custom-checkbox">
+                  <input type="checkbox"></input>
+
+                  <span>是否绑定指定SSID</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">网关：</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    id="gateway"
+                    name="gateway"
+                    ng-model="vm.formData.gateway"
+                    class="form-control input-sm"
+                    required="required"
+                  ></input>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">掩码长度：</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">域名1：</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+
+              <div class="form-group col-xs-3">
+                <label class="col-xs-5 control-label">域名2：</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-tab">
+            <div class="form-row">
+              <div class="col-xs-4">
+                <label class="custom-checkbox">
+                  <input type="checkbox"></input>
+
+                  <span>限制桌面操作</span>
+                </label>
+              </div>
+
+              <div class="col-xs-4">
+                <label class="custom-checkbox">
+                  <input type="checkbox"></input>
+
+                  <span>显示快速设置Wi-Fi</span>
+                </label>
+              </div>
+
+              <div class="col-xs-4">
+                <label class="custom-checkbox">
+                  <input type="checkbox"></input>
+
+                  <span>显示快速设置蓝牙</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-12">
+                <label class="custom-checkbox">
+                  <input type="checkbox"></input>
+
+                  <span>显示快速设置旋转屏幕</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-12 form-inline">
+                <label class="control-label">设置桌面标题：</label>
+
+                <input
+                  type="text"
+                  class="input-sm form-control"
+                ></input>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-tab">
+            <div class="form-row">
+              <div class="col-xs-2">
+                <label class="control-label">终端时间与服务器同步</label>
+              </div>
+
+              <div class="col-xs-5">
+                <label class="col-xs-5 control-label">时间服务器</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+
+              <div class="col-xs-4">
+                <label class="col-xs-5 control-label">同步时间间隔</label>
+
+                <div class="col-xs-7">
+                  <select class="form-control input-sm"></select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-2">
+                <label class="control-label">启用系统密码设置</label>
+              </div>
+
+              <div class="col-xs-5">
+                <label class="col-xs-5 control-label">密码</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-2">
+                <label class="control-label">设置PDA扫描方式</label>
+              </div>
+
+              <div class="col-xs-5">
+                <div class="text-right">
+                  <label class="radio-inline custom-radio">
+                    <input
+                      type="radio"
+                      value="0"
+                    ></input>
+
+                    <span>广播接收方式</span>
+                  </label>
+
+                  <label class="radio-inline custom-radio">
+                    <input
+                      type="radio"
+                      value="1"
+                    ></input>
+
+                    <span>键盘键盘方式</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-2">
+                <label class="control-label">设置后台服务器地址</label>
+              </div>
+
+              <div class="col-xs-5">
+                <label class="col-xs-5 control-label">后台服务器地址</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-xs-2">
+                <label class="control-label">设置OTA地址</label>
+              </div>
+
+              <div class="col-xs-5">
+                <label class="col-xs-5 control-label">OTA升级地址</label>
+
+                <div class="col-xs-7">
+                  <input
+                    type="text"
+                    class="form-control input-sm"
+                  ></input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        class="btn btn-success btn-sm btn-round"
+        w5c-form-submit="vm.ok()"
+      >确定</button>
+
+      <button
+        class="btn btn-default btn-sm btn-round"
+        ng-click="$dismiss()"
+      >取消</button>
+    </div>
+  </form>
+</div>

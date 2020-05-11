@@ -1,0 +1,295 @@
+<div class="panel panel-layout">
+  <form class="form-horizontal w5c-form estimate-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption"
+    name="estimateConfigForm">
+    <div class="toolbar" id="estimateSave" ng-include="'MNIS/modules/estimateConfig/configForm/configFormHeader.tpl.html'"></div>
+    <div class="toolbar" top=".header-top" refraction="#estimateSave" ng-include="'MNIS/modules/estimateConfig/configForm/configFormHeader.tpl.html'"
+      fixed-top></div>
+
+    <div class="bordered-bottom" ng-if="!vm.formData.components.render || vm.formData.components.render==='v1'">
+      <button style="width:100%; margin:5px 0px;" class="btn btn-primary" ng-click="vm.updateTplVersion()">升级引擎版本至V1.1</button>
+      <div>
+        <span style="color:red">1、升级后可要重新调整行数与行高，否则可能显示不正常</span>
+        <br/>
+        <span style="color:red">2、升级后如果不能正常显示，即使已经保存模版，也可以将版本立即重置回V1.0版本，不会影响使用（立即=没有新增加数据，新增数据可能显示不正常，但是可以删除）</span>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <!-- 表基本头尾编辑区 -->
+      <div ng-show="vm.filter.showType===0">
+        <h4 class="bordered-bottom">病区编辑</h4>
+        <div class="form-group">
+          <label class="control-label col-xs-2 partial-label">所属病区： </label>
+          <div class="col-xs-10">
+            <transfer ward-list="vm.wardList" ng-model="vm.formData.wardCodes"></transfer>
+          </div>
+        </div>
+        <h4 class="bordered-bottom" >评估单属性编辑区</h4>
+        <div class="form-group">
+          <label for="score" class="control-label col-xs-2 partial-label">评估预警分值段：</label>
+          <div class="col-xs-10">
+            <div class="form-group" ng-repeat="riskLevel in vm.dic.riskLevel">
+              {{riskLevel.dicName}}：
+              <input class="form-control input-sm" style="width: 4em; display: inline-block;" required min="0" ng-model="vm.formData.components.risk[riskLevel.dicCode][0]"
+                required type="number" name="start{{riskLevel.dicCode}}" /> -
+              <input class="form-control input-sm" style="width: 4em; display: inline-block;" required ng-model="vm.formData.components.risk[riskLevel.dicCode][1]"
+                required type="number" name="end{{riskLevel.dicCode}}" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cate" class="control-label col-xs-2 partial-label">性质：</label>
+          <div class="col-xs-2">
+            <select class="form-control input-sm" ng-model="vm.formData.nature" name="nature">
+              <option ng-repeat="type in vm.dic.evaluateNature" value="{{type.dicCode}}">{{type.dicName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cate" class="control-label col-xs-2 partial-label">引擎版本</label>
+          <div class="col-xs-2">
+            <select class="form-control input-sm" ng-model="vm.formData.components.render" name="render">
+              <option value="v1">V1.0</option>
+              <option value="v1_1">V1.1</option>
+            </select>
+          </div>
+        </div>
+
+        <h4 class="bordered-bottom">表头编辑区</h4>
+        <nursing-doc-tpl-header-config tpl="vm.formData" image-in-header="true">
+        </nursing-doc-tpl-header-config>
+      </div>
+
+      <!-- 表格体编辑区 -->
+      <div ng-show="vm.filter.showType===1">
+        <div ng-if="!vm.formData.components.render || vm.formData.components.render==='v1'">
+          <div class="form-group" ng-repeat="table in vm.formData.components.tables">
+            <label for="cate" class="control-label col-xs-2 partial-label">表格头部项个数：</label>
+            <div class="col-xs-10">
+              <div class="form-group">
+                <div class="col-xs-4">
+                  <input class="form-control input-sm" uib-tooltip="行数：固定行数，到达行数后换页" ng-model="table.rowCount" required type="number" name="rowCount"></input>
+                </div>
+              </div>
+
+              <table ng-repeat="item in table.tableHeader track by item.id">
+
+              </table>
+
+              <uib-accordion>
+                <div uib-accordion-group class="panel-default" template-url="MNIS/modules/estimateConfig/configForm/configItem.tpl.html"
+                  ng-repeat="item in table.tableHeader track by item.id">
+                  <uib-accordion-heading>
+                    <div class="flex-box align-top table-header__right">
+                      <textarea class="form-control input-sm table-header__input-item" uib-tooltip="标题" ng-model="item.title" rows="3" style="width: 200px"
+                        name="title"></textarea>
+                      <div ng-if="vm.showTableConfigDetailConfig">
+                        <select class="form-control input-sm table-header__input-item" uib-tooltip="对齐方式" ng-model="item.textAlign" style="width: 80px"
+                          name="textAlign">
+                          <option value="center">居中</option>
+                          <option value="left">左对齐</option>
+                          <option value="right">右对齐</option>
+                        </select>
+                        <select class="form-control input-sm table-header__input-item" uib-tooltip="数据绑定所在层数" ng-model="item.dataBindTier" style="width: 50px"
+                          name="dataBindTier">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                        </select>
+                        <input class="form-control input-sm table-header__input-item" uib-tooltip="合并水平单元格" style="width: 4em" ng-model="item.colspan"
+                          required name="colspan"></input>
+                        <input class="form-control input-sm table-header__input-item" uib-tooltip="合并竖直单元格" style="width: 4em" ng-model="item.rowspan"
+                          required name="rowspan"></input>
+                        <select class="form-control input-sm table-header__input-item" uib-tooltip="输入类型" ng-change="vm.handleTypeChange(item)" ng-model="item.dataType"
+                          style="width: 4em" name="dataType">
+                          <option ng-repeat="inputType in vm.inputTypes" value="{{inputType.type}}">{{inputType.desc}}
+                          </option>
+                        </select>
+                        <select ng-show="['select', 'multiSelect','radio'].indexOf(item.dataType) > -1" class="form-control input-sm table-header__input-item"
+                          uib-tooltip="select选项列表" style="width: 4em" name="opts">
+                          <option ng-repeat="opt in item.opts" value="{{opt.dicCode}}">{{opt.shortcut || opt.dicName}}</option>
+                        </select>
+                        <button ng-show="['boolean'].indexOf(item.dataType) > -1" class="btn btn-xs btn-default btn-round" ng-click="vm.openSettings(item)">
+                          设置
+                        </button>
+                        <button ng-show="['select', 'multiSelect','radio'].indexOf(item.dataType) > -1" class="btn btn-xs btn-default btn-round"
+                          ng-click="vm.addOption(item)">
+                          编辑
+                        </button>
+                        <!-- <switch uib-tooltip="参与该行计算分数" name="countable" ng-model="item.countable" class="switch-xs table-header__input-item"></switch> -->
+                        <!-- <switch uib-tooltip="是否总和" name="isSum" ng-model="item.isSum" class="switch-xs table-header__input-item"></switch> -->
+                        <input uib-tooltip="参与该行计算分数" class="estimate-config-checkbox" type="checkbox" name="countable" ng-model="item.countable">
+                        <input uib-tooltip="是否总和" class="estimate-config-checkbox" type="checkbox" name="isSum" ng-model="item.isSum">
+                        <input uib-tooltip="显示评分等级" class="estimate-config-checkbox" type="checkbox" name="isLevel" ng-model="item.isLevel">
+                        <input type="checkbox" name="editable" uib-tooltip="是否可编辑" class="estimate-config-checkbox" ng-model="item.editable">
+                        <!-- <switch uib-tooltip="是否可编辑" name="editable" ng-model="item.editable" class="switch-xs table-header__input-item"></switch> -->
+                      </div>
+                      <input class="form-control input-sm table-header__input-item" uib-tooltip="绑定值" style="width: 10em" ng-model="item.dataBind"
+                        name="dataBind"></input>
+                      <button class="btn btn-xs btn-primary btn-round" type="button" ng-click="vm.appendChildCell(item)">
+                        <i class="fa fa-plus"></i>&nbsp;添加子项
+                      </button>
+                      &nbsp;
+                      <button class="btn btn-xs btn-danger btn-round" type="button" ng-click="vm.removeCell(table.tableHeader, $index)">
+                        <i class="fa fa-minus"></i>&nbsp;删除
+                      </button>
+                    </div>
+                  </uib-accordion-heading>
+                  <uib-accordion>
+                    <div uib-accordion-group class="sub-column" is-open="" ng-repeat="subItem in item.children track by subItem.id" template-url="MNIS/modules/estimateConfig/configForm/configItem.tpl.html">
+                      <uib-accordion-heading>
+                        <div class="flex-box align-top table-header__right">
+                          <textarea class="form-control input-sm table-header__input-item" uib-tooltip="标题" ng-model="subItem.title" rows="3" style="width: 200px"
+                            name="title"></textarea>
+                          <div ng-if="vm.showTableConfigDetailConfig">
+                            <select class="form-control input-sm table-header__input-item" uib-tooltip="对齐方式" ng-model="subItem.textAlign" style="width: 80px"
+                              name="textAlign">
+                              <option value="center">居中</option>
+                              <option value="left">左对齐</option>
+                              <option value="right">右对齐</option>
+                            </select>
+                            <input class="form-control input-sm table-header__input-item" uib-tooltip="合并水平单元格" style="width: 4em" ng-model="subItem.colspan"
+                              required name="colspan"></input>
+                            <input class="form-control input-sm table-header__input-item" uib-tooltip="合并竖直单元格" style="width: 4em" ng-model="subItem.rowspan"
+                              required name="rowspan"></input>
+                            <select class="form-control input-sm table-header__input-item" ng-change="vm.handleTypeChange(subItem)" uib-tooltip="输入类型"
+                              ng-model="subItem.dataType" style="width: 4em" name="dataType">
+                              <option ng-repeat="inputType in vm.inputTypes" value="{{inputType.type}}">{{inputType.desc}}
+                              </option>
+                            </select>
+                            <select ng-show="['select', 'multiSelect'].indexOf(subItem.dataType) > -1" class="form-control input-sm table-header__input-item"
+                              uib-tooltip="select选项列表" style="width: 4em" name="opts">
+                              <option ng-repeat="opt in subItem.opts" value="{{opt.dicCode}}">{{opt.shortcut || opt.dicName}}</option>
+                            </select>
+                            <button ng-show="['boolean'].indexOf(subItem.dataType) > -1" class="btn btn-xs btn-default btn-round" ng-click="vm.openSettings(subItem)">
+                              设置
+                            </button>
+                            <button ng-show="['select', 'multiSelect'].indexOf(subItem.dataType) > -1" class="btn btn-xs btn-default btn-round" ng-click="vm.addOption(subItem)">
+                              编辑
+                            </button>
+                            <!-- <switch uib-tooltip="参与该行计算分数" name="countable" ng-model="subItem.countable" class="switch-xs table-header__input-item"></switch> -->
+                            <!-- <switch uib-tooltip="是否总和" name="isSum" ng-model="subItem.isSum" class="switch-xs table-header__input-item"></switch> -->
+                            <input uib-tooltip="参与该行计算分数" class="estimate-config-checkbox" type="checkbox" name="countable" ng-model="subItem.countable">
+                            <input uib-tooltip="是否总和" class="estimate-config-checkbox" type="checkbox" name="isSum" ng-model="subItem.isSum">
+                            <input uib-tooltip="显示评分等级" class="estimate-config-checkbox" type="checkbox" name="isLevel" ng-model="subItem.isLevel">
+                            <!-- <switch uib-tooltip="是否可编辑" name="editable" ng-model="subItem.editable" class="switch-xs table-header__input-item"></switch> -->
+                            <input uib-tooltip="是否可编辑" class="estimate-config-checkbox" type="checkbox" name="editable" ng-model="subItem.editable">
+                          </div>
+                          <input class="form-control input-sm table-header__input-item" uib-tooltip="绑定值" style="width: 10em" ng-model="subItem.dataBind"
+                            name="dataBind"></input>
+                          <button class="btn btn-xs btn-primary btn-round" type="button" ng-click="vm.appendChildCell(subItem)">
+                            <i class="fa fa-plus"></i>&nbsp;添加子项
+                          </button>
+                          &nbsp;
+                          <button class="btn btn-xs btn-danger btn-round" type="button" ng-click="vm.removeCell(item.children, $index, item)">
+                            <i class="fa fa-minus"></i>&nbsp;删除
+                          </button>
+                        </div>
+                      </uib-accordion-heading>
+                      <div class="sub-column" ng-repeat="thirdItem in subItem.children track by thirdItem.id">
+                        <div class="flex-box align-top table-header__right">
+                          <textarea class="form-control input-sm table-header__input-item" uib-tooltip="标题" ng-model="thirdItem.title" rows="3" style="width: 200px"
+                            name="title"></textarea>
+                          <div ng-if="vm.showTableConfigDetailConfig">
+                            <select class="form-control input-sm table-header__input-item" uib-tooltip="对齐方式" ng-model="thirdItem.textAlign" style="width: 80px"
+                              name="textAlign">
+                              <option value="center">居中</option>
+                              <option value="left">左对齐</option>
+                              <option value="right">右对齐</option>
+                            </select>
+                            <input class="form-control input-sm table-header__input-item" uib-tooltip="合并水平单元格" style="width: 4em" ng-model="thirdItem.colspan"
+                              required name="colspan"></input>
+                            <input class="form-control input-sm table-header__input-item" uib-tooltip="合并竖直单元格" style="width: 4em" ng-model="thirdItem.rowspan"
+                              required name="rowspan"></input>
+                            <select class="form-control input-sm table-header__input-item" uib-tooltip="输入类型" ng-model="thirdItem.dataType" style="width: 4em"
+                              name="dataType" ng-change="vm.handleTypeChange(thirdItem)">
+                              <option ng-repeat="inputType in vm.inputTypes" value="{{inputType.type}}">{{inputType.desc}}
+                              </option>
+                            </select>
+                            <select ng-show="['select', 'multiSelect'].indexOf(thirdItem.dataType) > -1" class="form-control input-sm table-header__input-item"
+                              uib-tooltip="select选项列表" style="width: 4em" name="opts">
+                              <option ng-repeat="opt in thirdItem.opts" value="{{opt.dicCode}}">{{opt.shortcut || opt.dicName}}</option>
+                            </select>
+                            <button ng-show="['boolean'].indexOf(thirdItem.dataType) > -1" class="btn btn-xs btn-default btn-round" ng-click="vm.openSettings(thirdItem)">
+                              设置
+                            </button>
+                            <button ng-show="['select', 'multiSelect'].indexOf(thirdItem.dataType) > -1" class="btn btn-xs btn-default btn-round" ng-click="vm.addOption(thirdItem)">
+                              编辑
+                            </button>
+                            <!-- <switch uib-tooltip="参与该行计算分数" name="countable" ng-model="thirdItem.countable" class="switch-xs table-header__input-item"></switch> -->
+                            <!-- <switch uib-tooltip="是否总和" name="isSum" ng-model="thirdItem.isSum" class="switch-xs table-header__input-item"></switch> -->
+                            <input uib-tooltip="参与该行计算分数" class="estimate-config-checkbox" type="checkbox" name="countable" ng-model="thirdItem.countable">
+                            <input uib-tooltip="是否总和" class="estimate-config-checkbox" type="checkbox" name="isSum" ng-model="thirdItem.isSum">
+                            <input uib-tooltip="显示评分等级" class="estimate-config-checkbox" type="checkbox" name="isLevel" ng-model="thirdItem.isLevel">
+                            <!-- <switch uib-tooltip="是否可编辑" name="editable" ng-model="thirdItem.editable" class="switch-xs table-header__input-item"></switch> -->
+                            <input uib-tooltip="是否可编辑" class="estimate-config-checkbox" type="checkbox" name="editable" ng-model="thirdItem.editable">
+                          </div>
+                          <input class="form-control input-sm table-header__input-item" uib-tooltip="绑定值" style="width: 10em" ng-model="thirdItem.dataBind"
+                            name="dataBind"></input>
+                          <button class="btn btn-xs btn-danger btn-round" type="button" ng-click="vm.removeCell(subItem.children, $index, subItem)">
+                            <i class="fa fa-minus"></i>&nbsp;删除
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </uib-accordion>
+                </div>
+              </uib-accordion>
+              <button class="btn btn-xs btn-primary btn-round" type="button" ng-click="vm.appendCell(table.tableHeader)">
+                <i class="fa fa-plus"></i>&nbsp;添加表头
+              </button>
+              <button class="btn btn-xs btn-primary btn-round" type="button" ng-click="vm.addTable(vm.formData.components.tables)">
+                <i class="fa fa-plus"></i>&nbsp;添加表格
+              </button>
+              <button class="btn btn-xs btn-danger btn-round" ng-disabled="vm.formData.components.tables.length === 1" type="button" ng-click="vm.removeCell(vm.formData.components.tables, $index)">
+                <i class="fa fa-minus"></i>&nbsp;移除表格
+              </button>
+            </div>
+          </div>
+
+          <div class="estimate-preview">
+            <div ng-style="vm.getPageSize()" class="preview-table-container">
+              <div class="text-center">
+                <h3>{{vm.conf.hospitalName.configValue}}</h3>
+                <h4>{{vm.formData.tplName}}（预览）</h4>
+              </div>
+              <div class="flex-box doc-table__header">
+                <div class="align-center flex" ng-repeat="item in vm.formData.header">
+                  <div class="doc-table__header-label">{{item.dicName}}：</div>
+                  <div class="doc-table__header-value">XXXXXX</div>
+                </div>
+              </div>
+              <table class="original-table estimate-preview__table" ng-repeat="table in vm.prevoewColumns">
+                <thead>
+                  <tr ng-repeat="tr in table.tableHeader">
+                    <th ng-repeat="th in tr" rowspan="{{th.rowspan}}" style="text-align:{{th.textAlign}};" colspan="{{th.colspan}}">
+                      <div ng-bind-html="getHtml(th.title)"></div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in vm.getRowArray(table.rowCount) track by $index">
+                    <td ng-repeat="td in vm.formData.components.tables[$parent.$index].row track by td.id" style="text-align:{{td.textAlign}}"
+                      colspan="{{td.colspan}}">{{$index + 1}}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td ng-repeat="td in vm.formData.components.tables[$index].row track by td.id" colspan="{{td.colspan}}" st-ratio="{{td.width}}">
+                      <input class="form-control input-sm table-header__width" placeholder="宽度" type="number" ng-model="td.width"></input>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div class="doc-footer">
+                <p ng-bind-html="getHtml(vm.formData.footer)"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <estimate-doc-config ng-if="vm.formData.components.render==='v1_1'" tpl="vm.formData" is-tpl-edit="true"></estimate-doc-config>
+      </div>
+    </div>
+  </form>
+</div>

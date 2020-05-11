@@ -1,0 +1,22 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">{{vm.type}}路径</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="pathName" class="col-sm-3 control-label">名称：</label>
+        <div class="col-sm-6">
+          <input type="text" id="pathName" name="pathName" ng-model="vm.formData.pathName" class="form-control input-sm">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-round btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-round btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

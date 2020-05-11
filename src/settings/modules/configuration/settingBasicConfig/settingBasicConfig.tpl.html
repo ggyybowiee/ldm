@@ -1,0 +1,61 @@
+<div loading-wrapper="vm.loadConfiguration">
+  <div class="toolbar bordered-all">
+    <button class="toolbar-item btn btn-danger btn-xs" ng-click="vm.forceServerConfigCacheRefresh()">后台重新加载配置项目</button>
+    <span style="margin-left:5px; font-weight: bold;">当配置修改后建议手动刷新后台配置缓存</span>
+  </div>
+  <div class="basic-config-wrapper">
+    <div class="toolbar">
+      <select class="form-control input-sm" style="width:150px;margin-right: 10px;" ng-model="vm.filter.appResourceCode">
+        <option value="all">全部应用</option>
+        <option ng-repeat="app in vm.appResourceList" value="{{app.resourceCode}}">{{app.resourceName}}</option>
+      </select>
+      <input class="form-control input-sm" ng-model="vm.filter.filterText" autocomplete="off" placeholder="通过配置值|配置编码|配置描述检索"
+        style="width:350px;" />
+      <button class="btn btn-success btn-sm pull-right" ng-click="vm.addOrEditConfig()">添加配置</button>
+    </div>
+    <div>
+      <table class="table white-borderd tr-hover thead-fixed">
+        <thead>
+          <tr>
+            <th width="40px"></th>
+            <th width="70px">所属应用</th>
+            <th width="100px">所有者</th>
+            <th width="60px">类型</th>
+            <th width="150px" style="text-align:left;">编号</th>
+            <th style="text-align:left;">当前配置值</th>
+            <th width="250px" style="text-align:left;">描述</th>
+            <!-- <th width="80px" style="text-align:left;">有效值域</th> -->
+            <!-- <th width="60px">默认值</th> -->
+            <!-- <th width="50px">状态</th> -->
+            <th width="70px">操作</th>
+          </tr>
+        </thead>
+        <tbody full-page="fix" full-page-bottom="45">
+          <tr ng-repeat="config in vm.configList | filter:vm.appResourceFilter track by $index">
+            <td width="40px">{{$index + 1}}</td>
+            <td width="70px">{{vm.appResourceDic[config.appResourceId] ?
+              vm.appResourceDic[config.appResourceId].resourceName:'—'}}</td>
+            <td width="100px" style="text-align:center;">{{config.owner}}</td>
+            <td width="60px">{{vm.configTypeConverter(config.configType)}}</td>
+            <td width="150px" style="text-align:left;">{{config.configCode}}</td>
+            <td style="text-align:left;">{{config.configValue}}</td>
+            <td width="250px" style="text-align:left;">
+              <div ng-bind-html="config.configDesc|htmlcontent"></div>
+            </td>
+            <!-- <td width="80px" style="text-align:left;">{{config.configTypeRange}}</td> -->
+            <!-- <td width="60px">{{config.configDefaultValue}}</td> -->
+            <!-- <td width="50px">{{config.status=='01' ? '启用' : '停用'}}</td> -->
+            <td width="70px">
+              <button class="btn btn-link btn-xs warning-text" ng-click="vm.addOrEditConfig(config)">
+                <i class="fa fa-edit "></i>
+              </button>
+              <button class="btn btn-link btn-xs danger-text " confirm yes="vm.deleteConfig(config)" content="确定要删除该记录单？ ">
+                <i class="fa fa-trash "></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

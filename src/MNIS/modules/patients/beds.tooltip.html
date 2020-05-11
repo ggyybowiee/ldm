@@ -1,0 +1,90 @@
+<div class="beds-tooltip-wrapper">
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">姓名</div>：
+    <div class="beds-tooltip-value">{{item.patName}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">床号</div>：
+    <div class="beds-tooltip-value">{{item.bedCode}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">住院号</div>：
+    <div class="beds-tooltip-value">{{item.displayCode}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">病人条码</div>：
+    <div class="beds-tooltip-value">{{item.patCode}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">性别</div>：
+    <div class="beds-tooltip-value">{{gUtils.getGender(item.gender)}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">年龄</div>：
+    <div class="beds-tooltip-value">{{gUtils.getAge(item.birthDate)}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">出生年月</div>：
+    <div class="beds-tooltip-value">{{item.birthDate | idate}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">住址</div>：
+    <div class="beds-tooltip-value">{{item.contactAddress}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">电话</div>：
+    <div class="beds-tooltip-value">{{item.contactPhone }}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">联系人</div>：
+    <div class="beds-tooltip-value">{{item.contactPerson}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">入院时间</div>：
+    <div class="beds-tooltip-value">{{item.inDate | date:'yyyy-MM-dd HH:mm'}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">出院时间</div>：
+    <div class="beds-tooltip-value">{{(item.outDate | date:'yyyy-MM-dd HH:mm')}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">入院诊断</div>：
+    <div class="beds-tooltip-value">{{item.inDiag}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">付费方式</div>：
+    <div class="beds-tooltip-value">{{item.chargeTypeName}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">科室</div>：
+    <div class="beds-tooltip-value">{{item.wardName}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">主管医师</div>：
+    <div class="beds-tooltip-value">{{item.doctorName}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">饮食</div>：
+    <div class="beds-tooltip-value">{{item.dietName}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">病情</div>：
+    <div class="beds-tooltip-value">{{mnisUtils.getDangerLevel(item.dangerLevel)}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">路径</div>：
+    <div class="beds-tooltip-value">{{item.pathStatus | pathStatus}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">护理级别</div>：
+    <div class="beds-tooltip-value">{{mnisUtils.getNurseLevel(item.nurseLevel)}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">过敏信息</div>：
+    <div class="beds-tooltip-value" style="color: #FD5F71">{{item.allergen}}</div>
+  </div>
+  <div class="beds-tooltip-line">
+    <div class="beds-tooltip-label">备注</div>：
+    <div class="beds-tooltip-value">{{item.remark}}</div>
+  </div>
+</div>

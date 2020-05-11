@@ -1,0 +1,86 @@
+.mews-alert-panel {
+  background-color: white;
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 20px #bbb;
+}
+
+.mews-alert-header {
+  padding: 15px 15px 10px 15px;
+  border-radius: 5px 5px 0px 0px;
+  color: white;
+}
+
+.mews-alert-header-pat-panel {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 18px;
+  height: 18px;
+}
+
+.mews-alert-vital-panel {
+  background-color: rgb(241, 241, 241);
+  margin: 10px;
+  padding: 10px;
+  height: 140px;
+  color: #888;
+}
+
+.mews-alert-vital-detail-panel {
+  display: flex;
+  width: 100%;
+  margin: 2px 0px;
+  .mews-alert-vital-detail-line {
+    flex-grow: 1;
+    border: 1px dashed $border-3;
+    height: 2px;
+    margin: auto 5px;
+  }
+  .mews-alert-vital-detail-score {
+    width: 10px;
+  }
+}
+
+.mews-alert-process-panel {
+  margin: 10px;
+  >span {
+    color: $primary;
+    font-weight: bold;
+  }
+  >ul {
+    >li {
+      color: $font-2;
+      >span {
+        color: $border-2;
+      }
+    }
+  }
+}
+
+.mews-alert-transfer-nursing-doc {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.mews-alert-confirm {
+  padding: 10px;
+  height: 50px;
+  display: flex;
+}
+
+.mews-cancel-btn {
+  color: $font-2;
+  flex-basis: 35%;
+  border: 0px; // background-color: $back-4;
+  border-radius: 5px;
+}
+
+.mews-confirm-btn {
+  margin-left: 10px;
+  flex-basis: 65%;
+  border: 0px;
+  background-color: $primary;
+  border-radius: 5px;
+  color: white;
+}

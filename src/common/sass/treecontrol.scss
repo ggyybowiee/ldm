@@ -1,0 +1,91 @@
+.lachesis-custom-tree-control {
+  ul {
+    margin-top: 3px;
+  }
+
+  li {
+    line-height: 15px;
+  }
+
+  treeitem {
+
+    >ul {
+
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        display: block;
+        width: 16px;
+        height: 100%;
+        // background-color: red;
+        background: url('/assets/images/mnis/tree/ver_sep_line.svg') repeat-y !important;
+        // background-size: 100% 100% !important;
+
+      }
+
+      li.tree-leaf {
+        display: flex;
+        margin: 1px 0px;
+
+        i.tree-branch-head {
+
+          display: block;
+          background: url('/assets/images/mnis/tree/hor_sep_line.svg') no-repeat !important;
+          background-size: 100% 100% !important;
+        }
+      }
+    }
+  }
+
+
+
+
+  li.tree-expanded {
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+
+    i.tree-branch-head {
+      background: url('/assets/images/mnis/tree/expand.svg') no-repeat !important;
+      background-size: 100% 100% !important;
+    }
+  }
+
+  li.tree-collapsed {
+    margin-top: 5px !important;
+    margin-bottom: 3px;
+
+    i.tree-branch-head {
+      background: url('/assets/images/mnis/tree/collapse.svg') no-repeat !important;
+      background-size: 100% 100% !important;
+    }
+  }
+
+  .tree-leaf-head {
+    display: none !important;
+  }
+
+  div.tree-label {
+    width: 100%;
+    padding: 3px;
+    margin-right: 5px;
+
+
+    &.tree-selected {
+      border-radius: 3px;
+      font-weight: bold;
+      background-color: $primary !important;
+      color: white  !important;
+    }
+
+    &:hover {
+      border-radius: 3px;
+      font-weight: bold;
+      background-color: $primary;
+      color: white;
+    }
+  }
+}

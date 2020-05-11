@@ -1,0 +1,8 @@
+<div>
+  <div ng-repeat="opt in options track by $index">
+    <label class="estiamte-input-control custom-checkbox" style="width:100%;">
+      <input type="checkbox" ng-checked="opt|estimateCheckBoxChecked:ngModel" ng-click="updateSelection($event,opt)" style="width:100%;" />
+      <span>{{opt|optionSelectText}}</span>
+    </label>
+  </div>
+</div>

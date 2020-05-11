@@ -1,0 +1,51 @@
+<div>
+  <!-- 签名图片 -->
+  <div ng-if="contentType==='sign'" ng-class="{'table-seperate-line-td-r':seperatorType==='R'&&isShow, 'table-seperate-line-td-l':seperatorType==='L'&&isShow, 'divide-hidden': divideVisibility==false, 'divide-show': divideVisibility!=false}"
+    style="height:{{lineHeight}}px;" ng-style="{'font-size':'{{fontSize}}mm'}">
+    <user-sign ng-if="(seperatorType!='R' && seperatorType!='L') || !isShow" sign-content="leftValue" style="width: 100%;height: 100%;"></user-sign>
+    <div ng-if="seperatorType==='L'&&isShow">
+      <span style="right:0px !important; top:45% !important; height:50%;">
+        <div style="width: 95%;height: 100%; position:absolute;left:5%;">
+          <user-sign sign-content="rightValue" vertical-align="top"></user-sign>
+        </div>
+      </span>
+      <span style="left:0px !important; bottom:45% !important; height:50%;">
+        <div style="width: 95%;height: 100%; position:absolute;right:5%;">
+          <user-sign sign-content="leftValue" vertical-align="top"></user-sign>
+        </div>
+      </span>
+    </div>
+    <div ng-if="seperatorType==='R'&&isShow">
+      <span style="left:0px !important; top:45% !important; height:50%;">
+        <div style="width: 95%;height: 100%; position:absolute;left:5%;">
+          <user-sign sign-content="leftValue" vertical-align="top"></user-sign>
+        </div>
+      </span>
+      <span style="right:0px !important; bottom:45% !important; height:50%;">
+        <div style="width: 95%;height: 100%; position:absolute;right:5%;">
+          <user-sign sign-content="rightValue" vertical-align="top"></user-sign>
+        </div>
+      </span>
+    </div>
+  </div>
+
+  <!-- 文字 -->
+  <div ng-if="contentType!='sign'" ng-class="{'table-seperate-line-td-r':seperatorType==='R'&&isShow, 'table-seperate-line-td-l':seperatorType==='L'&&isShow,'divide-hidden': divideVisibility==false, 'divide-show': divideVisibility!=false}"
+    style="height:{{lineHeight}}px;" ng-style="{'font-size':'{{fontSize}}mm'}">
+    <div ng-if="(seperatorType!='R' && seperatorType!='L') || !isShow" style="height:{{lineHeight}}px;text-align:{{textAlign}};"
+      ng-bind-html="ngModel"></div>
+    <div ng-if="seperatorType==='L'&&isShow">
+      &nbsp
+      <span ng-bind="rightValue" style="right:5px !important; bottom:10% !important; height:{{fontSize}}mm; line-height:{{fontSize}}mm;"></span>
+      <span ng-bind="leftValue" style="left:5px !important; top:10% !important; height:90% !important; line-height:90%;"></span>
+      &nbsp
+    </div>
+    <div ng-if="seperatorType==='R'&&isShow">
+      &nbsp
+      <span ng-bind="leftValue" style="left:5px !important; bottom:10% !important; height:{{fontSize}}mm; line-height:{{fontSize}}mm; text-align:left;"></span>
+      <span ng-bind="rightValue" style="right:5px !important; top:10% !important; height:90% !important; line-height:90%; text-align:right;"></span>
+      &nbsp
+    </div>
+  </div>
+
+</div>

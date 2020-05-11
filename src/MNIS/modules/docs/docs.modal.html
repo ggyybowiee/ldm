@@ -1,0 +1,43 @@
+<div class="modal-content docs-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">新建文书</h5>
+  </div>
+  <div class="modal-body">
+    <div class="flex-box">
+      <div class="tpls-list">
+        <div class="tpl-item" ng-repeat="item in vm.dic.attendShowCategory" ng-class="{'active': item.dicCode === vm.selected}" ng-click="vm.changeList(item.dicCode)">{{item.dicName}}</div>
+        <!-- <div class="tpl-item" ng-class="{'active': null === vm.selected}" ng-click="vm.changeList(null)">其他</div> -->
+      </div>
+      <div class="table-wrapper flex">
+        <table class="table white-borderd tr-hover">
+          <thead>
+            <tr>
+              <th>名称</th>
+              <th>版本</th>
+              <th>更新人</th>
+              <th>更新时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.curList track by $index" ng-class="{'active': vm.curTpl === row}" ng-click="vm.curTpl = row">
+              <td>{{row.tplName}}</td>
+              <td>{{row.version}}</td>
+              <td>{{row.updatePerson}}</td>
+              <td>{{row.updateTime | idate: 'DH'}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div ng-if="vm.curList.length === 0">
+          暂无可用文书
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-sm btn-round" ng-disabled="!vm.curTpl" ng-click="vm.ok()">确定</button>
+    <button class="btn btn-warning btn-sm btn-round" ng-click="$dismiss()">取消</button>
+  </div>
+</div>

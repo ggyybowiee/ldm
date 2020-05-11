@@ -1,0 +1,54 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      &times;
+    </button>
+    <h5 class="modal-title">文书编辑</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="sortNo" class="col-sm-3 control-label">排序码：</label>
+        <div class="col-sm-9">
+          <input type="text" id="sortNo" name="sortNo" ng-model="vm.formData.sortNo" class="form-control input-sm" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sortNo" class="col-sm-3 control-label">文书类别：</label>
+        <div class="col-sm-9">
+          <select class="form-control input-sm" required ng-model="vm.formData.showType" name="showType" style="width: 200px">
+            <option ng-repeat="item in vm.metaData.dic.attendShowCategory" value="{{item.dicCode}}">{{item.dicName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sortNo" class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+          <div style="margin-top: 10px">
+            <label class="custom-checkbox">
+              <input type="checkbox" ng-model="vm.formData.duplicable">
+              <span>允许创建多个副本</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sortNo" class="col-sm-3 control-label">所属病区：</label>
+        <div class="col-sm-9">
+          <ui-select multiple theme="bootstrap" ng-model="vm.formData.wardCodes" close-on-select="false" reset-search-input="false">
+            <ui-select-match placeholder="选择病区">{{$item.wardName}}</ui-select-match>
+            <ui-select-choices repeat="item.wardCode as item in vm.metaData.wards | filter: $select.search" >
+              <div ng-bind-html="item.wardName | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

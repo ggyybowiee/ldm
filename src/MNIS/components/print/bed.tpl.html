@@ -1,0 +1,76 @@
+<div class="custom-print-wrapper">
+  <style>
+    .custom-print-wrapper * {
+      font-family: 'microsoft yahei';
+    }
+
+    .custom-print-wrapper .patient-text {
+      padding: 5mm 0 0 5mm;
+    }
+
+    .custom-print-wrapper .item-name {
+      font-size: 10mm;
+    }
+
+    .custom-print-wrapper .item-content {
+      font-size: 10mm;
+    }
+
+    .custom-print-wrapper qrcode {
+      display: block;
+    }
+
+    .custom-print-wrapper img {
+      width: 36mm;
+    }
+
+    .custom-print-wrapper .patient-img {
+      position: absolute;
+      left: 56mm;
+      bottom: 5mm;
+    }
+  </style>
+  <div class="patient-content">
+    <div class="patient-text">
+      <div class="item-row" style="line-height: 26mm">
+        <span>姓&nbsp;&nbsp;名：</span>
+        <span style="font-size:24mm">{{patient.patName}}</span>
+      </div>
+      <div class="item-row" style="line-height: 26mm">
+        <span>住院号：</span>
+        <span style="font-size:24mm">{{patient.displayCode}}</span>
+      </div>
+
+      <div class="item-row" style="line-height: 15mm">
+        <span class="item-name">年 &nbsp; &nbsp; &nbsp; 龄：</span>
+        <span class="item-content">{{patient.age}}</span>
+      </div>
+      <div class="item-row" style="line-height: 15mm">
+        <span class="item-name">性 &nbsp; &nbsp; &nbsp; 别：</span>
+        <span class="item-content">{{getGender(patient.gender)}}</span>
+      </div>
+      <div class="item-row" style="line-height: 15mm">
+        <span class="item-name">入院日期：</span>
+        <span class="item-content">{{patient.inDate | idate}}</span>
+      </div>
+      <div class="item-row" style="line-height: 15mm">
+        <span class="item-name">护理级别：</span>
+        <span class="item-content">{{getNurseLevel(patient.nurseLevel)}}</span>
+      </div>
+      <div class="item-row" style="line-height: 15mm">
+        <span class="item-name">饮食状况：</span>
+        <span class="item-content">{{patient.dietName}}</span>
+      </div>
+
+      <!-- <div class="item-row">床号：{{patient.bedCode}}床</div>
+      <div class="item-row">科别：{{patient.wardName}}</div>
+      <div class="item-row">责任护士：{{patient.dutyNurseName}}</div>
+      <div class="item-row">责任医生：{{patient.doctorName}}</div>
+      <div class="item-row">护理级别：{{getNurseLevel(patient.nurseLevel)}}</div>
+      <div class="item-row">饮食状况：{{patient.dietName}}</div> -->
+    </div>
+    <div class="patient-img">
+      <qrcode data="{{patient.barCode}}" size="50" mode="img" version="1" error-correction-level="L"></qrcode>
+    </div>
+  </div>
+</div>

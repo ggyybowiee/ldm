@@ -1,0 +1,183 @@
+.custom-tip {
+  opacity: 1 !important;
+}
+
+.custom-tip .tooltip-inner {
+  font-size: 14px;
+  background-color: $primary !important;
+  box-shadow: 1px 3px 10px #999;
+  color: white;
+  padding: 15px;
+}
+
+.custom-tip .tooltip-arrow {
+  border-top-color: $primary !important;
+}
+
+.patient-path-node-panel {
+
+  .nursing-path-config-table {
+
+    >thead {
+      >tr {
+        th {
+          color: $font-2;
+          padding: 0px 8px;
+          background-color: $back-5;
+          height: 35px;
+          line-height: 35px;
+          border: 1px solid $border-3 !important;
+          text-align: center;
+          font-weight: bold !important;
+          font-size: 14px;
+          vertical-align: middle;
+
+          &:first-child {
+            border-left: 0px;
+          }
+        }
+      }
+    }
+
+    >tbody {
+      >tr {
+
+        height: 40px;
+
+        td {
+          padding: 3px;
+          border: 1px solid $border-3 !important;
+          text-align: center;
+          vertical-align: middle;
+          font-size: 13px;
+
+          &.tree-expander-node {
+            cursor: pointer;
+          }
+
+          &.tree-expander-node:hover {
+            background-color: $back-4;
+          }
+
+          button {
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            padding: 0px;
+          }
+
+          >label {
+            margin-top: 5px;
+          }
+
+          input {
+            color: $font-1;
+            border: 0px;
+            text-align: center;
+            background-color: $back-4;
+
+            &:hover {
+              background-color: $primary;
+              color: white
+            }
+
+            &:focus {
+              background-color: $primary;
+              color: white
+            }
+
+            &.dirty {
+              background-color: $danger !important;
+              color: white;
+            }
+          }
+
+          >select {
+            color: $font-1;
+            border: 0px;
+            text-align: center;
+            text-align-last: center;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $primary;
+              color: white
+            }
+          }
+        }
+      }
+    }
+
+    .nursing-path-item-node {
+
+      width: 16px;
+      height: 16px;
+      margin: auto 0px;
+
+      &.parent-node {
+
+        cursor: pointer;
+
+        &.expanded {
+          background: url('/assets/images/mnis/tree/expand.svg') no-repeat;
+          background-size: 100% 100% !important;
+        }
+
+        &.collapsed {
+          background: url('/assets/images/mnis/tree/collapse.svg') no-repeat;
+          background-size: 100% 100%;
+        }
+      }
+    }
+  }
+
+  .nursing-path-doc-edit-panel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+
+    .accordion {
+      // height: 40px;
+      // line-height: 30px;
+      padding: 5px 0px;
+      border-bottom: 1px solid $border-3;
+
+      >button {
+        margin-left: 5px;
+        height: 30px;
+        width: 120px;
+      }
+
+      >div {
+        display: inline-block;
+        border-left: 1px solid $border-3;
+        margin-left: 15px;
+        padding-left: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        height: 30px;
+        line-height: 30px;
+      }
+    }
+
+    .edit-wrapper {}
+  }
+}
+
+#path-idoc-modal-container {
+  // height: 652px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 78;
+  width: 100%;
+  top: 0px;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+}

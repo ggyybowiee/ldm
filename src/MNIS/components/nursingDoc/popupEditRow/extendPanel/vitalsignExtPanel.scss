@@ -1,0 +1,28 @@
+.vital-sign-ext-panel {
+
+  .toolbar {
+    background-color: transparent;
+    padding: 5px 0px;
+    margin: 0px 0px;
+    
+    .toolbar-item:last-child{
+      margin-top: 5px;
+    }
+  }
+
+  .vital-sign-ext-data-panel {
+    margin-top: 5px;
+
+    table {
+
+      tr.nearest {
+        background-color: $primary !important;
+        color: white;
+      }
+
+      td {
+        border: 1px solid white;
+      }
+    }
+  }
+}

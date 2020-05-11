@@ -1,0 +1,33 @@
+.datePicker {
+  padding-left: 0px;
+}
+
+.remind-image {
+  height: 160px;
+  background-image: url('/assets/images/ldm/nb-remind.png');
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.small-image {
+  height: 140px;
+  width: 210px;
+  background-image: url('/assets/images/ldm/nb_remind_icon.png');
+  overflow: hidden;
+  background-size: cover;
+  position: absolute;
+  top: 10px;
+  left: 100px;
+}
+
+.remind-title {
+  position: absolute;
+  left: 350px;
+  top: 70px;
+}
+
+.standard-button {
+  width: 80px;
+}

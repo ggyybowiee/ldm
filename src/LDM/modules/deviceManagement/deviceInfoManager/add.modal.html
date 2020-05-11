@@ -1,0 +1,112 @@
+<div>
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">
+      填写设备信息
+    </h5>
+  </div>
+  <form class="form-horizontal w5c-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption" name="yearForm">
+
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="form-group">
+          <label for="eqpType" class="col-sm-3 control-label text-black"><span class="text-danger">＊</span>设备类型：</label>
+          <div class="col-sm-5">
+            <select class="form-control input-sm" required ng-change="vm.load.func()" ng-model="vm.formData.content.basicInfo.eqpType" name="eqpType" convert-to-number>
+              <option ng-repeat="item in vm.metaData.types" value="{{item.code}}">{{item.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eqpName" class="col-sm-3 control-label text-black"><span class="text-danger">＊</span>设备名称：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" required name="eqpName" id="eqpName" maxlength="30" type="text" ng-model="vm.formData.content.basicInfo.eqpName" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sn" class="col-sm-3 control-label text-black"><span class="text-danger">＊</span>型号：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" required name="model" id="model" type="text" ng-model="vm.formData.content.basicInfo.model" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sn" class="col-sm-3 control-label text-black"><span class="text-danger">＊</span>序列号：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" ng-required="vm.setRequired()" name="sn" id="sn" type="text" ng-model="vm.formData.content.basicInfo.sn" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mac" class="col-sm-3 control-label text-black">MAC地址：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" ng-required="vm.setRequired()" name="mac" id="mac" type="text" ng-model="vm.formData.content.basicInfo.mac" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="eqpBelong" class="col-sm-3 control-label text-black"><span class="text-danger">＊</span>所属病区：</label>
+          <div class="col-sm-5">
+            <select class="form-control input-sm" required ng-model="vm.formData.content.basicInfo.eqpBelong" ng-change="vm.getRooms()" id="eqpBelong" name="eqpBelong">
+              <option ng-repeat="item in vm.metaData.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eqpBelong" class="col-sm-3 control-label text-black">角色：</label>
+          <div class="col-sm-5">
+            <select class="form-control input-sm" ng-model="vm.formData.content.basicInfo.roleCode" id="roleCode" name="roleCode">
+              <option value="">无</option>
+              <option ng-repeat="item in vm.metaData.roles" value="{{item.roleCode}}">{{item.roleName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="defaultUrls" class="col-sm-3 control-label text-black">默认Urls：</label>
+          <div class="col-sm-5">
+            <textarea class="form-control input-sm" id="defaultUrls" maxlength="500" ng-model="vm.formData.content.basicInfo.defaultUrls"
+              rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="roomCode" class="col-sm-3 control-label text-black">房间号：</label>
+          <div class="col-sm-5">
+            <select id="roomCode" class="form-control input-sm" ng-model="vm.formData.content.basicInfo.roomCode" ng-change="vm.getBeds()" name="roomCode">
+              <option ng-repeat="item in vm.rooms" value="{{item}}">{{item}} 房</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bedCode" class="col-sm-3 control-label text-black">床号：</label>
+          <div class="col-sm-5">
+            <select id="bedCode" class="form-control input-sm" ng-model="vm.formData.content.basicInfo.bedCode" name="bedCode">
+              <option ng-repeat="item in vm.beds" value="{{item.bedCode}}">{{item.bedCode}}床</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eqpMfrs" class="col-sm-3 control-label text-black">生产厂家：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" name="eqpMfrs" id="eqpMfrs" type="text" ng-model="vm.formData.content.basicInfo.eqpMfrs" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eqpNotes" class="col-sm-3 control-label text-black">备注：</label>
+          <div class="col-sm-5">
+            <textarea class="form-control input-sm" id="eqpNotes" maxlength="500" ng-model="vm.formData.content.basicInfo.eqpNotes" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.ok()">保存</button>
+      <button class="btn btn-sm btn-default btn-round" ng-click="vm.cancel()">取消</button>
+    </div>
+  </form>
+
+</div>

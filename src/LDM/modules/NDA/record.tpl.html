@@ -1,0 +1,57 @@
+<div class="config-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      内容：
+
+      <input
+        type="text"
+        class="form-control input-sm"
+      ></input>
+    </div>
+
+    <div class="toolbar-item">
+      操作时间：
+
+      <date-picker></date-picker>
+      &nbsp;到&nbsp;
+
+      <date-picker></date-picker>
+    </div>
+  </div>
+
+  <div class="content-table">
+    <table class="table white-borderd">
+      <thead>
+        <tr>
+          <th>序号</th>
+
+          <th>操作时间</th>
+
+          <th>配置方式</th>
+
+          <th>配置内容</th>
+
+          <th>操作人</th>
+
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="row in vm.list">
+          <td>{{$index + 1}}</td>
+
+          <td>{{}}</td>
+
+          <td>{{}}</td>
+
+          <td>{{}}</td>
+
+          <td>{{}}</td>
+
+          <td>{{}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

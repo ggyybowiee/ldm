@@ -1,0 +1,51 @@
+.patient-event-list-panel {
+  padding: 10px 5px 0px 20px;
+
+  >div {
+    border: 1px solid $border-3;
+  }
+
+  .toolbar {
+    padding: 5px 10px;
+    margin-bottom: 0px;
+
+    .toolbar-item {
+
+      >span {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .patient-event-list-wrapper {
+    padding: 10px;
+  }
+}
+
+.patient-event-edit-type-panel {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+
+  .patient-event-edit-type-wrapper {
+    height: 22px;
+    line-height: 22px;
+    flex-basis: 18%;
+    border: 1px solid $border-3;
+    margin: 2px;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary;
+      color: white;
+    }
+
+    &.selected {
+      background-color: $primary;
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<div>
+
+  <div loading-wrapper="vm.loadNursingRecord">
+
+    <!-- 创建护理记录单 -->
+    <div style="text-align:center;" ng-if="!vm.isBindSheetExist()" full-page>
+      <div style="text-align:center;display: inline-block;margin: 0px auto;" ng-if="vm.loadNursingRecord.loaded">
+        <h3>该路径未生成护理记录单</h3>
+        <table class="table white-borderd tr-hover">
+          <thead>
+            <tr>
+              <th>文书模版名称</th>
+              <th>文书模版版本</th>
+              <th>文书模版更新人</th>
+              <th>文书模版更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in vm.nursingDocTpl" confirm content="是否确定创建此文书？" yes="vm.createNursingDoc(item)">
+              <td>{{item.tplName}}</td>
+              <td>{{item.version}}</td>
+              <td>{{item.updatePerson}}</td>
+              <td>{{item.updateTime | idate: 'DH'}}</td>
+              <td>
+                <button class="btn btn-sm btn-link">创建此模版文书</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 护理记录单 -->
+  <div class="nursing-doc-box" ng-if="vm.isBindSheetExist()">
+    <nursing-doc-panel cur-sheet="vm.currentSheet" all-sheets="vm.patientNursingDocSheetList" patient="patientInfo" edit-type="nursingPath"></nursing-doc-panel>
+  </div>
+
+</div>

@@ -1,0 +1,96 @@
+<div class="orders-wrapper">
+  <div class="flex-box">
+    <div class="patients-left-list" loading-wrapper="vm.load" loading-type="menu">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          患者列表
+        </div>
+        <!-- <div class="list-filter">
+          <input type="text" class="form-control input-sm" ng-model="vm.filterText" placeholder="床号">
+          <span class="fa fa-search"></span>
+        </div> -->
+        <div class="panel-body" full-page="fix">
+          <div checkbox-team="vm.selected" listener="vm.loadOrders.func">
+            <div class="check-all">
+              <label class="custom-checkbox">
+                <input type="checkbox" checkbox-all>
+                <span>全部</span>
+              </label>
+            </div>
+            <checkbox-group ng-model="vm.selected" class="bodysign-patients__checkbox" eles="vm.patients" options="vm.options"></checkbox-group>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex" loading-wrapper="vm.loadOrders">
+    <div class="toolbar">
+      <div class="toolbar-item">
+        时间：
+        <date-picker style="width: 160px" ng-model="vm.params.beginTime" date-options="vm.dateOptions" disabled="{{!vm.selected.length}}" ng-change="vm.loadOrders.func()"></date-picker>&nbsp;到&nbsp;
+        <date-picker style="width: 160px" ng-model="vm.params.endTime" date-options="vm.dateOptions" disabled="{{!vm.selected.length}}" ng-change="vm.loadOrders.func()"></date-picker>
+      </div>
+      <div class="toolbar-item">
+        类型：
+        <select class="form-control input-sm" ng-model="vm.params.isLongTerm" ng-change="vm.loadOrders.func()">
+          <option value="">全部</option>
+          <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderLongTerm">{{item.dicName}}</option>
+        </select>
+      </div>
+      <div class="toolbar-item">
+        用法：
+        <select class="form-control input-sm" ng-model="vm.params.execTypeCodes" ng-change="vm.loadOrders.func()">
+          <option value="">全部</option>
+          <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderType">{{item.dicName}}</option>
+        </select>
+      </div>
+      <div class="toolbar-item">
+        执行状态：
+        <select class="form-control input-sm" ng-model="vm.params.status" ng-change="vm.loadOrders.func()">
+          <option value="">全部</option>
+          <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderExeStatus">{{item.dicName}}</option>
+        </select>
+      </div>
+    </div>
+        <table class="table white-borderd thead-fixed">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>医嘱类型</th>
+              <th>计划时间</th>
+              <th>执行时间</th>
+              <th>执行护士</th>
+              <th>核对护士</th>
+              <th class="order-content">医嘱内容</th>
+              <th>剂量</th>
+              <th>规格</th>
+              <th>用法</th>
+              <th>频次</th>
+              <th>开立医生</th>
+              <th>开立时间</th>
+            </tr>
+          </thead>
+          <tbody full-page="fix">
+            <tr ng-repeat="row in vm.list track by row.groupUniqueCode">
+              <td>{{$index + 1}}</td>
+              <td>{{vm.dicHelper.getDicName('orderLongTerm', row.repeatIndicator)}}</td>
+              <td>{{row.planTime | idate: 'DH'}}</td>
+              <td>{{row.executeDate | idate: 'DH'}}</td>
+              <td>{{row.executePerson}}</td>
+              <td></td>
+              <td class="order-content">
+                <div ng-repeat="item in row.items">{{item.itemName}}</div>
+              </td>
+              <td>
+                <div ng-repeat="item in row.items">{{item.dosage}}{{item.dosageUnit}}</div>
+              </td>
+              <td>{{row.itemSpecification}}</td>
+              <td>{{row.administration}}</td>
+              <td>{{row.frequency}}</td>
+              <td>{{row.doctor}}</td>
+              <td>{{row.enterDateTime | idate: 'DH'}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>

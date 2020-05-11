@@ -1,0 +1,137 @@
+<div class="role-authentication-assign-panel">
+  <div class="setting-tabcontrol-page-header">
+    <div>
+      <h4>角色资源及权限分配</h4>
+      <span>★&nbsp;&nbsp;角色分配及权限分配完成后请重新登录使设置生效
+        &nbsp;&nbsp;&nbsp;<button class="btn btn-link danger-text btn-xs" ng-click="vm.logout()">重新登录</button>
+      </span>
+      <br />
+      <span>★&nbsp;&nbsp;所有操作在点击后立即保存</span>
+    </div>
+  </div>
+
+  <div loading-wrapper loading-type="content" loading-options="vm.loadRoleAndResource">
+    <div loading-wrapper loading-type="content" loading-options="vm.loadAuths">
+      <div class="role-resource-right-assign-panel">
+
+        <div class="role-list">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="fa fa-user"></i>
+              <span>角色列表</span>
+              <button class="btn btn-primary btn-xs pull-right" style="margin-top:2px;margin-right: 5px;" ng-click="vm.loadRoleAndResource.func()">
+                <i class="fa fa-refresh"></i>
+              </button>
+            </div>
+            <div class="panel-body padding-0" full-page="fix">
+              <ul class="panel-list">
+                <li ng-repeat="item in vm.authRoles" ng-class="{active: vm.activeRole === item}">
+                  <button ng-click="vm.loadAuths.func(item)">{{item.roleName}}({{item.roleCode}})</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-list">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="fa fa-cubes"></i>
+              <span>应用列表</span>
+            </div>
+            <div class="panel-body padding-0" full-page="fix">
+              <ul class="panel-list">
+                <li ng-repeat="item in vm.appResources track by $index" ng-class="{active: vm.activeAppResource === item}">
+                  <img ng-src="{{'/assets/images/settings/' + item.engine + '.png'}}" height="80%" style="margin-left:10px">
+                  <button ng-click="vm.selectAppResource(item)" style="max-width:290px;">
+                    {{[item.sortNo]}}&nbsp;|&nbsp;{{item.resourceName}}&nbsp;|&nbsp;{{item.ad||'-'}}</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource-assign-panel">
+          <div class="panel panel-default bordered-left">
+            <div class="panel-heading">
+              <i class="fa fa-tree"></i>
+              <span>角色资源分配树</span>
+              <div class="btn-group btn-radio pull-right" ng-show="vm.roleApplicationMapping">
+                <label class="btn btn-sm btn-primary" style="width:80px;" ng-model="vm.editRoleApplication"
+                  uib-btn-radio="0">设置应用权限</label>
+                <label class="btn btn-sm btn-primary" style="width:80px;" ng-repeat="(code, name) in vm.dic.resourceType track by $index"
+                  ng-model="vm.resourceTypeView" uib-btn-radio="{{$index+1}}">{{name}}</label>
+              </div>
+            </div>
+            <div class="panel-body padding-0" full-page="fix">
+              <treecontrol class="tree-light lachesis-custom-tree-control" tree-model="vm.resourceTree.appResourceTree"
+                on-selection="vm.onSelectedModuleResource(node)" options="vm.treeOption" expanded-nodes="vm.resourceTree.appResourceTreeExpandedNode"
+                selected-node="vm.editingItemNode.treeNode">
+                <span class="app-resource-module-node">
+                  {{node.resourceName}}
+                  <span>
+                    <label class="custom-checkbox" for="isMobileResource" ng-click="vm.assignRoleResource(vm.resourceDic[node.resourceCode])">
+                      <input class="form-control input-sm" type="checkbox" autocomplete="off" ng-checked="vm.resourceDic[node.resourceCode].roleResourceMapping.relation === '1'">
+                      <span></span>
+                    </label>
+                  </span>
+                </span>
+              </treecontrol>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource-right-assign-panel">
+          <div class="panel panel-default bordered-left">
+            <div class="panel-heading">
+              <i class="fa fa-certificate"></i>
+              <span>资源权限分配</span>
+              <div class="btn-group btn-radio pull-right" ng-show="vm.roleApplicationMapping">
+                <label class="btn btn-sm btn-primary" style="width:80px;" ng-model="vm.editRoleApplication"
+                  uib-btn-radio="0">设置应用权限</label>
+                <label class="btn btn-sm btn-primary" style="width:80px;" ng-repeat="(code, name) in vm.dic.resourceType track by $index"
+                  ng-model="vm.resourceTypeView" uib-btn-radio="{{$index+1}}">{{name}}</label>
+              </div>
+            </div>
+            <div class="panel-body padding-0" full-page="fix">
+              <div loading-wrapper loading-type="content" loading-options="vm.getRoleResourceElementMappingProc">
+                <div ng-if="vm.editRoleApplication===0">
+                  <table class="table white-borderd">
+                    <thead>
+                      <tr>
+                        <th>元素编码</th>
+                        <th>元素说明</th>
+                        <th>是否隐藏</th>
+                        <th>是否禁用</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="element in vm.resourceElementDic[vm.editingItemNode.treeNode.resourceCode]">
+                        <td>{{element.elementCode}}</td>
+                        <td>{{element.elementDesc}}</td>
+                        <td>
+                          <label class="custom-checkbox">
+                            <input class="form-control input-sm" type="checkbox" ng-checked="element.mapping.visibility==='1'"
+                              ng-click="vm.assignElementMapping('visibility', element)">
+                            <span></span>
+                          </label>
+                        </td>
+                        <td>
+                          <label class="custom-checkbox">
+                            <input class="form-control input-sm" type="checkbox" ng-checked="element.mapping.enable==='1'"
+                              ng-click="vm.assignElementMapping('enable', element)">
+                            <span></span>
+                          </label>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

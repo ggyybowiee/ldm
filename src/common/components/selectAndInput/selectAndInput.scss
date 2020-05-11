@@ -1,0 +1,45 @@
+.select-input {
+  position: relative;
+  width: 100%;
+
+  input {
+    width: 100% !important;
+  }
+}
+
+.select-input__options {
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  display: none;
+  overflow: auto;
+  padding: 4px 0;
+  position: absolute;
+  z-index: 9999;
+  background-color: #fff;
+  height: auto;
+  border: 1px #ddd solid;
+  box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+
+  .open & {
+    display: block;
+  }
+
+  li {
+    padding: 4px 10px;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $primary;
+      color: #fff;
+    }
+  }
+}
+
+.select-and-input-option-selected {
+  background-color: $primary;
+  color: #fff;
+}

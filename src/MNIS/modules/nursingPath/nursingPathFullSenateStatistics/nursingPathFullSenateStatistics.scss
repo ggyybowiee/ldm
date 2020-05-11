@@ -1,0 +1,72 @@
+.rowColorYellow {
+  background-color: #ffc !important;
+  cursor: not-allowed !important;
+}
+
+.searchNoResultTitle {
+    height: 48px;
+    line-height: 48px;
+    width: 100%;
+    text-align: center;
+    color: rgba(0,0,0,0.2);
+}
+
+.paginationStyle {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+
+  .pagination {
+    margin: 0px;
+  }
+
+  .pageItem {
+    display: inline-block;
+    margin-right: 20px;
+    height: 28px;
+    line-height: 28px;
+
+    select {
+      height: inherit;
+      border-radius: 4px;
+      padding: 0 5px;
+      border-color: #ddd;
+      color: #444;
+      line-height: 28px;
+    }
+  }
+}
+
+.iconWrap {
+  display: inline-block;
+  position: relative;
+
+  .fa-caret-up {
+    position: absolute;
+    top: -15px;
+    width: 12px;
+    cursor: pointer;
+    color: rgba($color: #000000, $alpha: 0.3);
+  }
+
+  .fa-caret-down {
+    position: absolute;
+    bottom: -7px;
+    width: 12px;
+    cursor: pointer;
+    color: rgba($color: #000000, $alpha: 0.3);
+  }
+
+  .fa-caret-up:hover {
+    color: rgba($color: #000000, $alpha: 1);
+  }
+
+  .fa-caret-down:hover {
+    color: rgba($color: #000000, $alpha: 1);
+  }
+
+  .selectIcon {
+    color: rgba($color: #000000, $alpha: 1);
+  }
+}
+

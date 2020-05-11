@@ -1,0 +1,33 @@
+.modal-input-modal-wrapper {
+  .tpls-list {
+    width: 360px;
+    max-height: 160px;
+    overflow: auto;
+    border-right: 1px solid $border-color;
+    .tpl-item {
+      line-height: 40px;
+      height: 40px;
+      padding: 0 10px;
+      @include text-overflow;
+      &:hover {
+        color: white;
+        background-color: lighten($primary, 30%);
+      }
+      &.active {
+        color: white;
+        background-color: lighten($primary, 5%);
+      }
+    }
+  }
+  .input-wrapper {
+    padding: 0 15px;
+    textarea {
+      min-height: 120px;
+    }
+  }
+}
+
+.modal-input {
+  line-height: 26px;
+  height: 26px;
+}

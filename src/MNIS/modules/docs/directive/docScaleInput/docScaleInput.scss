@@ -1,0 +1,11 @@
+.doc-scale-input {
+  >input {
+    border: 0px;
+    background-color: transparent;
+    text-align: center;
+  }
+
+  >button{
+    border: 1px solid $border-2;
+  }
+}

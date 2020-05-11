@@ -1,0 +1,73 @@
+<div class="keys-edit-wrapper" loading-wrapper="vm.load">
+  <div class="panel panel-default">
+    <div class="panel-heading form-inline">
+      <span class="workflow-name" ng-if="!vm.editModel">{{vm.data.name}}</span>
+      <input type="text" class="form-control input-sm" ng-model="vm.data.name" ng-if="vm.editModel">
+      <span class="workflow-version">V{{vm.data.version}}</span>
+      <span class="pull-right">
+        <!-- <button class="btn btn-info btn-sm btn-round" ng-if="!vm.editModel" ng-click="vm.editModel = true">编辑</button> -->
+        <!-- <button class="btn btn-success btn-sm btn-round" ng-click="vm.save()" ng-if="vm.editModel">保存</button> -->
+      </span>
+      <span class="pull-right">
+        <button class="btn btn-success btn-sm btn-round" file-bind="vm.file">创建新版本</button>
+      </span>
+    </div>
+    <div class="panel-body">
+      <div class="workflow-info">
+        <table class="table white-borderd">
+          <thead>
+            <tr>
+              <th>系统</th>
+              <th>名称</th>
+              <th>当前版本</th>
+              <th>最后更新人</th>
+              <th>最后更新时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{vm.data.category}}</td>
+              <td>{{vm.data.name}}</td>
+              <td>{{vm.data.version}}</td>
+              <td>{{vm.data.deployUserName}}</td>
+              <td>{{vm.data.deployTime | idate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="fields-wrapper">
+        <p>附件字段<span class="pull-right"><button class="btn btn-success btn-xs" ng-if="vm.editModel">添加</button></span></p>
+        <table class="table white-borderd">
+          <thead>
+            <tr>
+              <th>字段键</th>
+              <th>字段说明</th>
+              <th ng-if="vm.editModel">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.data.subs">
+              <td>{{row.key}}</td>
+              <td>{{row.desc}}</td>
+              <td ng-if="vm.editModel">
+                <button class="btn btn-info btn-xs">
+                  <i class="iconmoon icomoon-edit"></i>编辑
+                </button>
+                <button class="btn btn-danger btn-xs">
+                  <i class="fa fa-trash"></i>删除
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-warning">注意：编辑流程附加字段极可能影响业务系统功能使用，请确认后再做修改</p>
+      </div> -->
+      <div class="business-wrapper">
+        <p>业务流程<span class="pull-right"><button class="btn btn-sm btn-success btn-round" file-bind="vm.file" ng-if="vm.editModel">上传流程</button></span></p>
+        <div class="text-center">
+          <img ng-src="{{'/windranger/sys/showImg?url=' + vm.data.imgUrl}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

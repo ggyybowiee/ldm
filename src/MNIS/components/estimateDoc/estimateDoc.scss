@@ -1,0 +1,94 @@
+.key-table-row-btn__btn {
+  transition: opacity .2s;
+  border-radius: 0;
+  position: absolute;
+  left: 100%;
+  z-index: 88;
+  opacity: 0;
+}
+
+.estimate-doc__table {
+  margin-bottom: 10px;
+  // width: 100%;
+}
+
+.estimate-table-container {
+  overflow: visible;
+
+  @media screen {
+    margin: auto;
+  }
+
+  @media print {
+    overflow: hidden;
+  }
+
+  .estimate-btn-group {
+    right: 0;
+    left: auto;
+    bottom: 0;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+    color: #fff;
+    border: 1px $primary-hover solid;
+    background-color: $primary;
+
+    .dropdown-menu {
+      left: initial;
+      right: 0;
+      border-radius: 0;
+      font-size: 12px;
+      min-width: auto;
+    }
+  }
+}
+
+.doc-table__header {
+  flex-wrap: wrap;
+
+  .flex-box {
+    margin-right: 8px;
+    flex-wrap: wrap;
+    // flex-basis: auto;
+    // max-width: 16em;
+    // &:last-child {
+    //   text-align: right;
+    //   flex-basis: auto;
+    // }
+  }
+}
+
+.doc-table__header-label,
+.doc-table__header-value {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.doc-table__header-value {
+  text-align: left;
+}
+
+.doc-header {
+  .hospital-name {
+    font-size: 24px;
+  }
+
+  .tpl-name {
+    font-size: 16px;
+  }
+}
+
+.estimate-item-summary-tooltip {
+  width: 400px;
+
+  .tooltip-inner {
+    min-width: 100px;
+    max-width: 100%;
+  }
+
+  div {
+    text-align: left;
+  }
+}

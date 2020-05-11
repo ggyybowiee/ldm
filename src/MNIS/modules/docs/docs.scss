@@ -1,0 +1,620 @@
+.docs-wrapper {
+  position: relative;
+  border-top: 1px solid $border-color;
+
+  .patient-path-toolbar {
+    padding: 5px 0px;
+
+    span.toolbar-item {
+      margin-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+  .idocPrintMark {
+    font-size: 18px;
+    position: absolute;
+    color: #ff0011;
+    right: 144px;
+    top: -10px;
+  }
+
+  .docs-list {
+    width: 280px;
+    position: absolute;
+    z-index: 99;
+    background-color: #fff;
+    border-right: 1px solid $border-color;
+
+    .docs-list-line {
+      margin: 10px;
+
+      .btn-radio {
+        width: 100%;
+
+        label {
+          width: 50%;
+        }
+      }
+
+      .list-filter {
+        padding: 0;
+        border: none;
+
+        span {
+          left: 10px;
+        }
+      }
+
+      select {
+        width: 70%;
+      }
+
+      .doc-add {
+        width: 26%;
+        padding: 3px;
+        float: right;
+      }
+    }
+
+    .doc-tree {
+      padding: 0px 0px;
+      border: 1px solid $border-color;
+      border-right: 0;
+      border-top: 0px;
+    }
+  }
+
+  .accordion-inner {
+    overflow: auto;
+  }
+
+  .doc-detail {
+    // overflow: hidden;
+    // margin-left: 280px;
+    position: absolute;
+    width: 100%;
+    z-index: 79;
+    background-color: #fff;
+
+    .patient-sign {
+      .patient-sign-content {
+        padding: 10px 0;
+      }
+
+      .patient-sign-line {
+        line-height: 22px;
+      }
+    }
+  }
+
+  .patient-info-box {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 1px;
+  }
+
+  .patient-info {
+    position: relative;
+    top: -2px;
+    line-height: 27px;
+    padding: 0 10px;
+    font-size: 13px;
+
+    >span {
+      margin-right: 20px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      line-height: 1.4;
+      display: inline-block;
+      vertical-align: middle;
+
+      &.badge {
+        width: 70px;
+        background-color: $primary;
+      }
+
+      .pick-time {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.doc-wrapper {
+  // @media screen {
+  padding-top: 5mm;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 10mm;
+  padding-left: 10mm; // }
+  page-break-after: always;
+
+  @media screen {
+    margin-bottom: 14mm;
+  }
+
+  .doc-title {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+  }
+
+  .doc-footer {
+    // line-height: 50px;
+    text-align: left;
+
+    p {
+      word-break: break-all;
+    }
+  }
+
+  .pagination-footer {
+    line-height: 50px;
+    text-align: center;
+  }
+}
+
+.doc-edit-wrapper {
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 10mm;
+
+  .nursing-doc-table-wrapper {
+    .toolbar {
+      margin-top: 0;
+    }
+  }
+}
+
+.modal-content {
+  .modal-title-1 {
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid $border-3;
+    padding-bottom: 5px;
+  }
+}
+
+.docs-modal-wrapper {
+  .modal-body .flex-box {
+    // min-height: 200px;
+  }
+
+  .tpls-list {
+    width: 200px;
+    border-right: 1px solid $border-color;
+
+    .tpl-item {
+      line-height: 40px;
+      height: 40px;
+      padding: 0 10px;
+      @include text-overflow;
+
+      &:hover {
+        color: white;
+        background-color: lighten($primary, 30%);
+      }
+
+      &.active {
+        color: white;
+        background-color: lighten($primary, 5%);
+      }
+    }
+  }
+
+  .table-wrapper {
+    padding: 0 10px;
+
+    .table tbody tr {
+      &.active {
+        color: white;
+        background-color: lighten($primary, 15%) !important;
+
+        td {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.doc-tree__static {
+  li {
+    padding-left: 32px;
+    margin: 4px 0;
+    font-size: 12px;
+  }
+}
+
+.idoc-container {
+  display: none;
+  height: 652px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 78;
+  width: 100%;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.idoc-modal-container {
+  // height: 652px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 78;
+  width: 100%;
+  top: 50px;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.doc-toolbar {
+  padding: 10px;
+  border-bottom: 1px #ddd solid;
+}
+
+.history-patients {
+  .dropdown-menu {
+    width: 260px;
+    padding: 10px;
+    max-height: 600px;
+    overflow: auto;
+  }
+
+  #currentHistoryPatient {
+    color: #00f;
+  }
+
+  .btn {
+    margin: 0 6px 6px 0;
+  }
+}
+
+.dic-header-logo {
+  text-align: center;
+}
+
+.docs-list-patient-panel {
+  >div {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+
+    >select {
+      flex-grow: 1;
+      margin: 0px 10px;
+    }
+  }
+}
+
+.docs-list-add-doc-button-panel {
+  padding: 0px 10px;
+
+  >button {
+    width: 100%;
+  }
+}
+
+.docs-loadding-wrapper {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .7);
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+
+  >h1 {
+    color: white;
+    margin: auto auto;
+  }
+}
+
+.lachesis-custom-tree-control {
+  ul {
+    // margin-top: 0px !important;
+    cursor: default;
+  }
+
+  li {
+    line-height: 15px;
+  }
+
+  li.tree-leaf {
+    display: flex;
+    margin: 1px 0px;
+
+    .tree-label.tree-selected {
+      border-radius: 3px;
+      font-weight: bold;
+      background-color: $primary;
+      color: white;
+    }
+  }
+
+  li.tree-leaf:hover {
+    color: $primary;
+
+    .tree-label {
+      border-radius: 3px;
+      font-weight: bold;
+      background-color: $primary;
+      color: white;
+    }
+  }
+
+  li.tree-expanded {
+    margin-top: 3px;
+  }
+
+  li.tree-collapsed {
+    margin-top: 3px;
+  }
+
+  div.tree-label {
+    width: 100%;
+    padding: 3px;
+    margin-right: 5px;
+  }
+}
+
+.nursing-path-header {
+  display: flex;
+  height: 50px;
+  padding: 10px 10px;
+  border-bottom: 1px solid $border-3;
+
+  >span {
+    margin: auto 0px;
+    font-size: 14px;
+    color: $font-2;
+  }
+
+  >input {
+    flex-grow: 1;
+    border: 0px;
+    border-bottom: 1px solid $border-3;
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+.path-execute {
+  text-align: center;
+  padding: 10px 0px;
+}
+
+
+.nursing-doc-page-container {
+  background-color: #f2f2f2 !important;
+  padding: 30px 0px !important;
+}
+
+@media screen {
+  .nursing-doc-page-wrapper {
+    box-shadow: rgba(0, 0, 0, 0.12) 0 2px 10px 1px !important;
+    background-color: white !important;
+
+    &.left-algins {
+      margin-left: 20px;
+    }
+  }
+}
+
+@media print {
+  .nursing-doc-page-wrapper {
+    background-color: white !important;
+  }
+}
+
+.path-summary {
+  padding: 0px 0px 0px 35px;
+}
+
+.right-table {
+  .tree-light ul:first-child+li {
+    padding: 0;
+  }
+
+  .tree-selected {
+    font-weight: 400 !important;
+  }
+
+  .tree-branch-head {
+    position: absolute;
+    left: 0;
+    height: 16px;
+    top: 5px;
+    z-index: 99;
+  }
+
+  .tree-label {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  li.tree-leaf {
+    display: flex;
+    margin: 1px 0px;
+
+    .tree-label.tree-selected {
+      border-radius: 3px;
+      font-weight: 400;
+      background-color: #fff;
+      color: #333 !important;
+    }
+  }
+
+  li.tree-leaf:hover {
+    color: $primary;
+
+    .tree-label {
+      border-radius: 3px;
+      font-weight: 400;
+      background-color: #fff;
+      color: #333 !important;
+    }
+  }
+
+}
+
+.self-defined-table {
+  color: #272e37;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #fafafa;
+
+  li {
+    text-align: center !important;
+    display: inline-block;
+    padding: 8px;
+  }
+}
+
+.item-table {
+  vertical-align: text-top;
+  display: flex;
+  justify-content: space-around;
+
+  li {
+    text-align: center;
+    display: inline-block !important;
+    line-height: 26px;
+  }
+}
+
+.item-patient-table {
+  border-bottom: 1px solid #ccc;
+}
+
+.virtual-grid {
+  .row {
+    border: 1px solid #ccc;
+    height: 36px;
+    border-bottom: none;
+  }
+
+  .row:last-child {
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.zxxm {
+  width: 212px;
+  text-align: left !important;
+  padding-left: 0;
+}
+
+.gcx {
+  width: 12em;
+
+  input {
+    width: 100%;
+  }
+}
+
+.ws {
+  width: 10em;
+}
+
+.zxpl,
+.zxzt {
+  width: 7em;
+}
+
+.bx {
+  width: 5em;
+}
+
+.hlzd {
+  width: 6em;
+}
+
+.zxsj {
+  width: 14em;
+}
+
+.zxhs {
+  width: 14em;
+}
+
+.col-md-12 {
+  width: 100%;
+}
+
+.col-md-11 {
+  width: 91.66666667%;
+}
+
+.col-md-10 {
+  width: 83.33333333%;
+}
+
+.col-md-9 {
+  width: 75%;
+}
+
+.col-md-8 {
+  width: 66.66666667%;
+}
+
+.col-md-7 {
+  width: 58.33333333%;
+}
+
+.col-md-6 {
+  width: 50%;
+}
+
+.col-md-5 {
+  width: 41.66666667%;
+}
+
+.col-md-4 {
+  width: 33.33333333%;
+}
+
+.col-md-3 {
+  width: 25%;
+}
+
+.col-md-2 {
+  width: 16.66666667%;
+}
+
+.col-md-1 {
+  width: 8.33333333%;
+}
+
+.tooltip-inner {
+  text-align: left;
+}
+
+.patient-docs-list-tabset {
+
+  &.hide-tabs {
+    >ul {
+      display: none;
+    }
+  }
+
+  >.nav-tabs {
+    border: 0px;
+    border-bottom: 3px solid $border-3;
+  }
+}

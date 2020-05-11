@@ -1,0 +1,14 @@
+.modal-header.warning {
+  background: $gray-lighter;
+  // color: $danger;
+  .close {
+    color: initial;
+  }
+
+  // border-top: 4px solid $danger;
+}
+
+.confirm-modal__icon {
+  font-size: 14px;
+  margin-right: 8px;
+}

@@ -1,0 +1,41 @@
+.temp-sheet__week-count {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+.temp-sheet-toolbar {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  display: flex;
+  z-index: 100;
+  background-color: #E6E6E6 !important;
+
+
+  .temp-sheet-toolbar-patient {
+    width: 250px;
+  }
+
+  .temp-sheet-toolbar-week {
+    // flex-grow: 1;
+    margin: 0px auto;
+  }
+
+  .temp-sheet-toolbar-print {
+    width: 250px;
+    padding-right: 5px;
+    >button {
+      margin-left: 5px;
+    }
+  }
+}
+
+.printMark {
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  color: #ff0011;
+}

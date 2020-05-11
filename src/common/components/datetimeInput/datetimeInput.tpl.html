@@ -1,0 +1,19 @@
+<div class="datetime-input-container">
+  <span ng-if="year.visible">
+    <input class="datetime-input datetime-input-year {{inputClass}}" type="text" placeholder="yyyy" ng-model="year.value" 
+    ng-change="handleChange('year')"  ng-blur="onBlur('year')" ng-focus="onFocus($event)"/> /
+  </span>
+  <span ng-if="month.visible">
+    <input class="datetime-input datetime-input-month"  type="text" placeholder="MM" ng-model="month.value" ng-change="handleChange('month')"  ng-blur="onBlur('month')" ng-focus="onFocus($event)"/> /
+  </span>
+  <span ng-if="day.visible">
+    <input class="datetime-input datetime-input-day" ype="text" placeholder="dd" ng-model="day.value" ng-change="handleChange('day')"  ng-blur="onBlur('day')" ng-focus="onFocus($event)"/>
+  </span>
+  <span ng-if="hour.visible">
+    <input class="datetime-input datetime-input-hour" type="text" placeholder="HH" ng-model="hour.value" ng-change="handleChange('hour')" ng-blur="onBlur('hour')" ng-focus="onFocus($event)"/>:
+  </span>
+  <span ng-if="minute.visible">
+    <input class="datetime-input datetime-input-minute" type="text" placeholder="mm" ng-model="minute.value"
+      ng-change="handleChange('minute')"  ng-blur="onBlur('minute')" ng-focus="onFocus($event)"/>
+  </span>
+</div>

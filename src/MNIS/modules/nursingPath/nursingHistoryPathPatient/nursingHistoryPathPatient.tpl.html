@@ -1,0 +1,93 @@
+<div class="device-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      <form ng-submit="vm.search()" novalidate>
+        <div class="input-group">
+          <input type="text" class="form-control input-sm" style="width:180px;" ng-model="vm.params.searchKey" placeholder="输入床号|姓名|住院号查询患者">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-sm btn-default">
+              <i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <div class="toolbar-item">
+      入径时间：
+      <date-picker class="dateTimePicker" ng-model="vm.params.beginTime"></date-picker>&nbsp;到&nbsp;
+      <date-picker class="dateTimePicker" ng-model="vm.params.endTime"></date-picker>
+    </div>
+    <div class="toolbar-item">
+      路径：
+      <select class="form-control input-sm" ng-model="vm.params.pathTplId" ng-change="vm.search()">
+        <option value="">全部</option>
+        <option value="{{item.pathTplId}}" ng-repeat="item in vm.pathList">{{item.pathName}}</option>
+      </select>
+    </div>
+    <div class="toolbar-item">
+      出径原因：
+      <select class="form-control input-sm" ng-model="vm.params.exitReason" ng-change="vm.search()">
+        <option value="">全部</option>
+        <option value="{{item.dicCode}}" ng-repeat="item in vm.exitList">{{item.dicName}}</option>
+      </select>
+    </div>
+    <div class="pull-right toolbar-item">
+      <button class="btn btn-sm btn-round btn-sm btn-success" ng-click="vm.search()">查询</button>
+      <a class="btn btn-sm btn-round btn-sm btn-primary" download ng-href="{{vm.exportExcel()}}">导出</a>
+    </div>
+  </div>
+  <div class="content-table" loading-wrapper="vm.load">
+    <h4 class="searchNoResultTitle" ng-if="vm.list.length === 0">暂无数据</h4>
+    <table class="table white-borderd tr-hover" ng-if="vm.list.length > 0">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>床号</th>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>年龄</th>
+          <th>住院号</th>
+          <th>入院诊断</th>
+          <th>入院日期</th>
+          <th>出院日期</th>
+          <th>路径</th>
+          <th>入径日期</th>
+          <th>出径日期</th>
+          <th>出径原因</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-click="vm.goDoc(row)" ng-repeat="row in vm.list track by $index">
+          <td>{{ $index + 1 }}</td>
+          <td>{{ row.bedCode }}</td>
+          <td>{{ row.patName }}</td>
+          <td>{{ mnisUtils.getGender(row.gender) }}</td>
+          <td>{{ row.age }}</td>
+          <td>{{ row.displayCode }}</td>
+          <td class="text-overflow">{{ row.inDiag }}</td>
+          <td>{{ row.inDate|idate:'D' }}</td>
+          <td>{{ row.outDate|idate:'D' }}</td>
+          <td>{{ row.pathName }}</td>
+          <td>{{ row.enterDate|idate:'D' }}</td>
+          <td>{{ row.exitDate|idate:'D' }}</td>
+          <td class="text-overflow">{{ row.exitReason }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="paginationStyle" ng-if="vm.list.length > 0">
+      <div class="pageItem">
+        <label for="firstname" class="control-label">每页显示条数：</label>
+        <select ng-model="vm.pageItem.count" name="count" id="count" ng-change="vm.queryList(1)">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <ul uib-pagination total-items="vm.pageItem.totalItems" previous-text="上一页" next-text="下一页" first-text="首页" rotate="false"
+        last-text="最后一页" ng-change="vm.queryList(vm.pageItem.page)" ng-model="vm.pageItem.page" items-per-page="vm.pageItem.count"
+        class="pagination-sm" boundary-links="true" boundary-link-numbers="true" max-size="vm.pageItem.maxSize">
+      </ul>
+    </div>
+  </div>
+</div>

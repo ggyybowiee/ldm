@@ -1,0 +1,99 @@
+.table-header__input-item {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.column {
+  margin-bottom: 10px;
+
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+.sub-column {
+  margin-left: 10px;
+  padding: 5px 0 5px 10px;
+  background-image: url('/assets/images/data_tier.png');
+  background-repeat: no-repeat;
+  background-position: 0 1px;
+  position: relative;
+
+  &:after {
+    position: absolute;
+    display: block;
+    left: 0;
+    height: 100%;
+    top: 1px;
+    content: ' ';
+    width: 10px;
+    background-image: url('/assets/images/data_line.png');
+    background-repeat: repeat-y;
+    background-position: left bottom;
+  }
+
+  &:last-child {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.table-header__width {
+  border-radius: 0!important;
+  padding: 0;
+  text-align: center;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+  }
+}
+
+.table-header__right {
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.preview-table-container {
+  overflow: hidden;
+  margin: auto;
+}
+
+.grid-empty-line {
+  background-image: url('/assets/images/data_empty_line.png');
+}
+
+.grid-line {
+  background-image: url('/assets/images/data_line.png');
+}
+
+// .estimate-preview {
+//   overflow: auto;
+//   padding: 10px;
+//   border: 1px #ddd solid;
+// }
+
+.estimate-preview__table {
+  width: 100%;
+  margin-bottom: 10px;
+
+  tr > th {
+    vertical-align: middle!important;
+  }
+}
+
+.tempSheet-unit-input {
+  position: absolute;
+  width: 6em;
+  top: 6px;
+  right: 6px;
+}
+
+.panel {
+  box-shadow: none;
+}

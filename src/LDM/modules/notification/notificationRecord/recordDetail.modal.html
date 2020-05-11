@@ -1,0 +1,84 @@
+<div class="modal-content device-modal-content">
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">消息推送记录详情</h5>
+  </div>
+
+  <div class="modal-body">
+    <h5>设备执行情况：</h5>
+    <table class="white-borderd table table-hover device-table" st-table="vm.metaData.detail">
+      <thead>
+        <tr>
+          <th>设备名称</th>
+          <th>MAC地址</th>
+          <th>设备类型</th>
+          <th>所属科室</th>
+          <th>消息状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.metaData.detail track by $index">
+          <td class="ng-binding">{{ row.basicInfo.eqpName }}</td>
+          <td class="ng-binding">{{ row.basicInfo.mac }}</td>
+          <td class="ng-binging">{{ vm.metaData.deviceTypes && (vm.metaData.deviceTypes | filter: { code: row.basicInfo.eqpType})[0].name}}</td>
+          <td class="ng-binding">{{ vm.metaData.wards && (vm.metaData.wards | filter: { wardCode: row.basicInfo.eqpBelong })[0].wardName}}</td>
+          <td class="ng-binding">{{(vm.metaData.status | filter: { code: row.status })[0].name}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+            <td colspan="5">
+              <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+            </td>
+          </tr>
+        </tfoot>
+    </table>
+
+    <form class="form-horizontal static-form" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+
+      <div class="divide-line">
+        <span class="divide-line__title">推送内容</span>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">消息类型：</label>
+          <span class="control-value">{{vm.metaData.msgType && (vm.metaData.msgType | filter: {code: vm.metaData.detail[0].msgType})[0].name}}</span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">添加时间：</label>
+          <span class="control-value">{{vm.metaData.detail[0].createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">推送时间：</label>
+          <span class="control-value">{{vm.metaData.detail[0].createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <label class="col-xs-6 control-label">操作人：</label>
+          <span class="control-value">{{vm.metaData.detail[0].createPerson}}</span>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <!-- <label class="col-xs-6 control-label">MAC地址：</label>
+          <span class="control-value">{{vm.metaData.detail[0].deviceMac}}</span> -->
+        </div>
+
+        <div class="form-group col-xs-4"></div>
+
+        <div class="form-group col-xs-2" style="padding-right: 0px;">
+          <label class="col-xs-12 control-label">消息内容：</label>
+        </div>
+        <div class="form-group col-xs-10">
+        </div>
+        <div class="form-group col-xs-12">
+          <div class="form-group col-xs-2" style="margin-right: -5px;"></div>
+          <textarea class="col-xs-9" style="margin-left: 10px; margin-top: 6px; position: relative;top: -27px;     height: 150px;" readonly>{{vm.metaData.detail[0].content.message}}</textarea>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<div>
+
+  <div class="form-group">
+    <label for="header" class="control-label col-xs-2 partial-label">表头显示项：</label>
+    <div class="col-xs-10">
+      <ui-select multiple theme="bootstrap" ng-model="tpl.header" name="header" close-on-select="false"
+        reset-search-input="false">
+        <ui-select-match placeholder="选择表头项">{{$item.dicName}}</ui-select-match>
+        <ui-select-choices repeat="item in vm.dic.docPatInfo | filter: $select.search">
+          <div ng-bind-html="item.dicName | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cate" class="control-label col-xs-2 partial-label"> 表头显示项宽度设置：</label>
+    <div class="col-xs-10">
+      <div style="margin-bottom: 8px" ng-repeat="item in tpl.header">
+        {{item.dicName}}：
+        <input class="form-control input-sm" autocomplete="off" style="display: inline-block;width: 4em;" uib-tooltip="宽度（mm）"
+          tooltip-append-to-body="true" ng-model="item.width" name="width" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="header" class="control-label col-xs-2 partial-label">修正项：</label>
+    <div class="col-xs-10">
+      <ui-select multiple theme="bootstrap" ng-model="tpl.retouch" name="retouch" close-on-select="false"
+        reset-search-input="false">
+        <ui-select-match placeholder="选择修正项">{{$item.dicName}}</ui-select-match>
+        <ui-select-choices repeat="item in vm.dic.patDiagnosisInfo | filter: $select.search">
+          <div ng-bind-html="item.dicName | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cate" class="control-label col-xs-2 partial-label">修正项宽度设置：</label>
+    <div class="col-xs-10">
+      <div style="margin-bottom: 8px" ng-repeat="item in tpl.retouch">
+        {{item.dicName}}：
+        <input class="form-control input-sm" autocomplete="off" style="display: inline-block;width: 4em;" uib-tooltip="宽度（mm）"
+          tooltip-append-to-body="true" ng-model="item.width" name="width" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="headerFormItems" class="control-label col-xs-2 partial-label">表头录入项：</label>
+    <div class="col-xs-10">
+      <div class="header-form-wrap flex-box" ng-repeat="formItem in tpl.headerFormItems">
+        <div class="header-form__item flex-box">
+          <div class="header-form__item-label">标签：</div>
+          <input class="form-control input-sm" ng-model="formItem.label" type="text" name="label" />
+        </div>
+        <div class="header-form__item flex-box">
+          <div class="header-form__item-label">绑定值：</div>
+          <input class="form-control input-sm" type="text" ng-model="formItem.dataBind" name="dataBind" />
+        </div>
+        <div class="header-form__item flex-box">
+          <div class="header-form__item-label">宽度(mm)：</div>
+          <input class="form-control input-sm" type="text" style="width: 60px" ng-model="formItem.width" name="width" />
+        </div>
+        <div class="header-form__item flex-box">
+          <div class="header-form__item-label">输入类型：</div>
+          <select class="form-control input-sm table-header__input-item" uib-tooltip="输入类型" ng-model="formItem.dataType"
+            style="width: 8em" name="dataType">
+            <option ng-repeat="inputType in vm.headInputTypes" value="{{inputType.type}}">{{inputType.desc}}</option>
+          </select>
+          <button ng-show="['select', 'select2', 'multiSelect', 'radio', 'selectAndInput'].indexOf(formItem.dataType) > -1" class="btn btn-xs btn-default btn-round"
+            ng-click="vm.addOption(formItem)">
+            编辑
+          </button>
+          &nbsp;
+          <button class="btn btn-xs btn-danger btn-round" ng-click="vm.removeFormItem($index)">
+            删除
+          </button>
+        </div>
+      </div>
+      <div class="header-form-wrap flex-box">
+        <button class="btn btn-xs btn-default btn-round" style="margin-top: 10px" ng-click="vm.addHeaderItem()">
+          新增录入项
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="imageInHeader" class="form-group">
+    <label for="cate" class="control-label col-xs-2 partial-label">图片：</label>
+    <div class="col-xs-6">
+      <upload-image ng-model="tpl.image.url" options="vm.imageOptions"></upload-image>
+    </div>
+  </div>
+
+  <div ng-if="imageInHeader" class="form-group">
+    <label for="cate" class="control-label col-xs-2 partial-label">图片尺寸：</label>
+    <div class="col-xs-6">
+      <input class="form-control input-sm" style="width: 8em; display: inline-block;" autocompelete="off" min="0"
+        ng-model="tpl.image.width" type="number" name="width" /> x
+      <input class="form-control input-sm" style="width: 8em; display: inline-block;" autocompelete="off" ng-model="tpl.image.height"
+        type="number" name="height" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cate" class="control-label col-xs-2 partial-label">页尾内容：</label>
+    <div class="col-xs-10">
+      <textarea class="form-control input-sm" ng-model="tpl.footer" name="footer" rows="5" placeholder="页尾备注等信息"></textarea>
+    </div>
+  </div>
+
+  <div class="bordered-bottom" style="margin-bottom:5px;">
+    <h5>表头预览</h5>
+    <span>只预览页面宽度及左|上|右边距，高度请脑补或在整面预览中查看</span>
+  </div>
+  <div class="table-header-priview" style="width:{{vm.pageSize.width}}mm;padding-top:{{vm.pageSize.padding.top}}mm;padding-left:{{vm.pageSize.padding.left}}mm;padding-right:{{vm.pageSize.padding.right}}mm;">
+    <div class="doc-header" style="margin:auto auto;">
+      <div class="text-center">
+        <div class="hospital-name" ng-if="!hospitalLogo || !tpl.logoVisible">{{hospitalName}}</div>
+        <img ng-if="hospitalLogo && tpl.logoVisible" url-to-base64 ng-src="{{hospitalLogo}}" alt="{{hospitalName}}"
+          height="50" width="auto" imageonload="vm.reloadEstiamteTable()">
+        <div class="tpl-name">{{tpl.tplName}}</div>
+      </div>
+      <div class="flex-box doc-table__header">
+        <patient-info-bar items="tpl.header" demonstration="true">
+          <retouch diagnosis="" items="tpl.retouch" date-time=""></retouch>
+          <doc-header-form sheet="sheet" items="tpl.headerFormItems" callback="reloadSheets()"></doc-header-form>
+          <img ng-src="windranger/sys/sysAttachment/{{tpl.image.url}}/file" width="{{tpl.image.width || 'auto'}}"
+            height="{{tpl.image.height || 'auto'}}" alt="">
+        </patient-info-bar>
+      </div>
+    </div>
+  </div>
+</div>

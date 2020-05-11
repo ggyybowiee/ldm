@@ -1,0 +1,134 @@
+<div class="estimate-preview nursing-doc-page-container ">
+
+  <estimate-item-edit ng-if="vm.isEditPanelShow" hlpgd="hlpgd" edit-data="vm.editingData" close-panel="vm.dataRowEditOnClose"></estimate-item-edit>
+
+  <div class="esitmate-doc-table-wrapper" ng-class="{'left-aligns': vm.isEditPanelShow}">
+    <div style="transform: scale({{pageScale/100}},{{pageScale/100}});transform-origin:0 0;">
+      <div class="nursing-doc-page-wrapper">
+        <div class="estimate-config-page-panel" id="estimate-print-frame">
+          <div class="estimate-config-page-inner-panel" style="height: 100%; width:100%;">
+            <style>
+              @media print {
+                @page {
+                  size: {{vm.pageSize.width}} {{vm.pageSize.height}};
+                  margin: {{vm.margin}};
+                  overflow: hidden;
+                }
+                .estimate-config-page-inner-panel {
+                  outline: 0px;
+                }
+                .estimate-config-page-panel {
+                  border: 0 !important;
+                  width: {{vm.innerSize.width}};
+                  height: auto;
+                }
+              }
+
+              @media screen {
+                .estimate-config-page-panel {
+                  padding: {{vm.margin}};
+                  width: {{vm.pageSize.width}};
+                  height: {{vm.pageSize.height}};
+                }
+                .estimate-config-page-inner-panel {
+                  outline: 0px;
+                }
+              }
+            </style>
+
+            <!-- 表头 -->
+            <div class="doc-header" style="position:relative">
+              <div class="shield" ng-if="openOuter"></div>
+              <div class="text-center">
+                <div class="hospital-name" ng-if="!hospitalLogo || !hlpgd.tpl.logoVisible">{{hospitalName}}</div>
+                <img ng-if="hospitalLogo && hlpgd.tpl.logoVisible" url-to-base64 ng-src="{{hospitalLogo}}" alt="{{hospitalName}}" height="50"
+                  width="auto" imageonload="vm.reloadEstiamteTable()">
+                  <span class="pull-right printMark" id="printMark" ng-if="!hlpgd.showByPrinting && hlpgd.printFlag" style="top: -15px;">
+                    <img src="../../../assets/images/mnis/printIcon.svg" alt="" width="65">
+                  </span>
+                <div class="tpl-name">{{hlpgd.tpl.tplName}}</div>
+              </div>
+              <div class="flex-box doc-table__header">
+                <patient-info-bar items="hlpgd.tpl.header" patient="patInfo" start-time="vm.startTime" end-time="vm.endTime" headers="hlpgd.headers">
+                  <retouch diagnosis="" items="hlpgd.tpl.retouch" patient="patInfo" sheet-id="sheet.sheetId"
+                    date-time=""></retouch>
+                  <doc-header-form sheet="sheet" items="hlpgd.tpl.headerFormItems" callback="reloadSheets()"></doc-header-form>
+                  <img ng-if="hlpgd.tpl.image" ng-src="windranger/sys/sysAttachment/{{hlpgd.tpl.image.url}}/file" width="{{hlpgd.tpl.image.width || 'auto'}}" height="{{hlpgd.tpl.image.height || 'auto'}}"
+                    alt="">
+                </patient-info-bar>
+              </div>
+            </div>
+
+            <!-- 横向表体 -->
+            <table class="estimate-edit-table" id="estiamte-edit-table-{{$index}}" ng-if="vm.horizonTableVisible($index)"
+              style="height: {{vm.pageSize.tableHeight}};margin-bottom: {{hlpgd.tpl.components.tableSpace}}px;" ng-repeat="table in hlpgd.tpl.components.tablesV11 track by $index">
+              <tbody>
+                <tr ng-repeat="headerRow in hlpgd.tpl.components.showTableHeader[$index] track by $index">
+                  <th ng-class="{'table-seperate-line-td-r':header.crossline=='R', 'table-seperate-line-td-l':header.crossline=='L'}" ng-repeat="header in headerRow track by $index" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}" table-Index="$parent.$parent.$index"
+                    style="text-align:{{header.textAlign}};width:{{header.colWidth}}mm;" class="divide-show">
+                    <span ng-if="!header.crossline || header.crossline=='N'" ng-bind-html="header.title|htmlcontent"></span>
+                    <div ng-if="header.crossline=='R'||header.crossline=='L'">
+                      <span ng-bind-html="header.title|htmlcontent"></span>
+                      <span ng-bind-html="header.titleSecond|htmlcontent"></span>
+                    </div>
+                  </th>
+                </tr>
+                <tr ng-repeat="dataRow in pageEcho.recordDataInPage[$parent.$index] track by $index" context-menu="vm.contextMenuConfig" style="max-height: {{hlpgd.tpl.lineHeight}}px">
+                  <td class="estimate-hide-text" ng-repeat="col in hlpgd.tpl.components.dataTableHeader[$parent.$index] track by $index"
+                    style="height: {{hlpgd.tpl.lineHeight}}px;cursor:pointer;text-align:{{col.textAlign}};"
+                    colspan="{{col.colspan}}" ng-mouseenter="vm.colMouseEnterWhenVertical($parent.$parent.$index, $parent.$index)"
+                    ng-mouseleave="vm.colMouseLeaveWhenVertical($parent.$parent.$index, $parent.$index)" ng-click="vm.editDataOnClick(dataRow, hlpgd.tpl.components.dataTableHeader[$parent.$parent.$index], $parent.$parent.$index, $parent.$index)"
+                    ng-class="vm.getColSytleWhenVertical(dataRow, $parent.$parent.$index, $parent.$index)">
+
+                    <div ng-if="col.dataType!=='signature'&&col.dataType!=='verifySignature'&&col.dataType!=='signatureImage'" style="max-height: {{hlpgd.tpl.lineHeight}}px;">
+                      {{vm.getDisplayTextForCell(dataRow.data[col.dataBind], col, $parent.$parent.$index, $parent.$parent.$parent.$parent.$index)}}
+                    </div>
+
+                    <user-sign ng-if="col.dataType==='signature'||col.dataType==='verifySignature'||col.dataType==='signatureImage'"
+                      style="max-height: {{hlpgd.tpl.lineHeight}}px;"
+                      sign-content="vm.getDisplayTextForCell(dataRow.data[col.dataBind], col, $parent.$parent.$index, $parent.$parent.$parent.$parent.$index)">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <!-- 纵向表体,不支持多个表格 -->
+            <table class="estimate-edit-table" id="estiamte-edit-table-{{$index}}" ng-repeat="table in hlpgd.tpl.components.tablesV11 track by $index" ng-if="hlpgd.tpl.orientation==='vertical' && $index==0"
+              style="height: {{vm.pageSize.tableHeight}};table-layout:auto !important;">
+              <tr ng-repeat="headerRow in hlpgd.tpl.components.showTableHeader[$parent.$index] track by $index">
+                <td ng-class="{'table-seperate-line-td-r':header.crossline=='R', 'table-seperate-line-td-l':header.crossline=='L'}" class="divide-show"
+                  ng-repeat="header in headerRow track by $index" rowspan="{{header.rowspan}}" colspan="{{header.colspan}}" style="text-align:{{header.textAlign}};height:{{header.colWidth}}px">
+                  <span ng-if="!header.crossline || header.crossline=='N'" ng-bind-html=header.title|htmlcontent></span>
+                  <div ng-if="header.crossline=='R'||header.crossline=='L'">
+                      <span ng-bind-html="header.title|htmlcontent"></span>
+                      <span ng-bind-html="header.titleSecond|htmlcontent"></span>
+                  </div>
+                </td>
+                <td class="estimate-hide-text" ng-repeat="header in vm.getVerticalDataTableHeader($parent.$parent.$index, $index) track by $index"
+                  context-menu="vm.contextMenuConfig"
+                  rowspan="{{header.rowspan}}" style="width: {{hlpgd.tpl.lineHeight}}px;text-align:{{header.textAlign}};cursor: pointer;" ng-mouseenter="vm.colMouseEnterWhenVertical($parent.$parent.$index,$index)"
+                  ng-mouseleave="vm.colMouseLeaveWhenVertical($parent.$parent.$index, $index)" ng-click="vm.editDataOnClick(pageEcho.recordDataInPage[$parent.$parent.$index][$index], hlpgd.tpl.components.dataTableHeader[$parent.$parent.$index], $parent.$parent.$index, $index)"
+                  ng-class="vm.getColSytleWhenVertical(pageEcho.recordDataInPage[$parent.$parent.$index][$index], $parent.$parent.$index, $index)">
+                  <div ng-if="header.dataType!=='signature'&&header.dataType!=='verifySignature'&&header.dataType!=='signatureImage'"  style="max-height:{{header.colWidth}}px" >
+                    {{vm.getDisplayTextForCell(pageEcho.recordDataInPage[$parent.$parent.$parent.$index][$index].data[header.dataBind])}}
+                  </div>                  
+                  <user-sign ng-if="header.dataType==='signature'||header.dataType==='verifySignature'||header.dataType==='signatureImage'"
+                    style="max-height:{{header.colWidth}}px"
+                    sign-content="vm.getDisplayTextForCell(pageEcho.recordDataInPage[$parent.$parent.$parent.$parent.$index][$index].data[header.dataBind])">
+                </td>
+              </tr>
+            </table>
+
+            <!-- 表尾 -->
+            <div class="doc-footer" style="page-break-before: avoid;">
+              <div ng-bind-html="vm.getHtml(hlpgd.tpl.footer)"></div>
+              <div style="text-align: center">第 {{pageEcho.curPage}} 页</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

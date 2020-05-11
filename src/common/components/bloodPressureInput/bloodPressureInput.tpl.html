@@ -1,0 +1,6 @@
+<div class="blood-pressure-input">
+  <input style="width:100%" autocomplete="off" type="text" name="{{name}}" ng-model="ngModel" ng-change="handleChange()"
+    class="{{inputClass}}" ng-class="{'input-content-warning':!bloodPressureValid, 'input-content-success':bloodPressureValid}" style="{{style}}" ng-keydown="onKeydown($event)"
+    ng-focus="onFocus($event)" />
+  {{isValid}}
+</div>

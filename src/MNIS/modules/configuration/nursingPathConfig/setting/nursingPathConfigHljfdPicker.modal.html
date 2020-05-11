@@ -1,0 +1,40 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form" name="deviceBindForm" role="form" novalidate w5c-form-validate="vm.validationOption"
+    form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title">设置绑定的护理记录单</h5>
+    </div>
+    <div class="modal-body">
+      <div class="bordered-bottom">
+        <input class="form-control input-sm" ng-model="vm.filterText" placeholder="输入名称或编号进行查找" style="width:300px;" />
+      </div>
+      <div class="nursing-path-hlpgd-picker-list-panel">
+        <table class="table white-borderd tr-hover">
+          <thead>
+            <tr>
+              <th>文书模版名</th>
+              <th>文书类别</th>
+              <th>更新人</th>
+              <th>更新时间</th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="item in vm.metaData.nursingDocList | filter: {'category': 'hljld'} | filter: {'tplName': vm.filterText}">
+            <tr ng-click="vm.selectedTpl(item)" ng-dblclick="vm.ok()" ng-class="{'selected': vm.formData.selectedTpl == item}">
+              <td style="text-align:left;">{{item.tplName}}</td>
+              <td>{{vm.metaData.attendShowCategoryDic[item.showType].dicName}}</td>
+              <td>{{item.updatePerson}}</td>
+              <td>{{item.updateTime | idate: 'DH'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

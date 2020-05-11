@@ -1,0 +1,48 @@
+<div class="panel panel-layout panel-default">
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <label>分析时段： </label>
+      <date-picker ng-model="vm.queryParams.startTime"></date-picker>
+      <span class="title-text"> 至 </span>
+      <date-picker ng-model="vm.queryParams.endTime"></date-picker>
+    </div>
+    <button class="btn btn-sm btn-primary round-btn" ng-click="vm.load.func()">查询</button>
+  </div>
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="white-borderd table table-hover device-table" st-table="vm.devicesDisplay" st-safe-src="vm.collision">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>设备名称</th>
+          <th>型号</th>
+          <th>设备类型</th>
+          <th>所属病区</th>
+          <th>Mac地址</th>
+          <th>IP地址</th>
+          <th>接入时间</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.devicesDisplay track by $index">
+          <td class="ng-binding">{{$index + 1}}</td>
+          <td class="ng-binding">{{row.device.content.basicInfo.eqpName}}</td>
+          <td class="ng-binding">{{row.device.content.basicInfo.model}}</td>
+          <td class="ng-binding">{{vm.types && (vm.types | filter : {code: row.device.content.basicInfo.eqpType})[0].name}}</td>
+          <td class="ng-binding">{{vm.belongs && (vm.belongs | filter : {wardCode: row.device.content.basicInfo.eqpBelong})[0].wardName}}</td></td>
+          <td class="ng-binding">{{row.device.content.basicInfo.mac}}</td>
+          <td class="ng-binding">{{row.ip}}</td>
+          <td class="ng-binding">{{row.device.addedTime  | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8">
+            <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.collision"></none-data-info>
+  </div>
+
+</div>

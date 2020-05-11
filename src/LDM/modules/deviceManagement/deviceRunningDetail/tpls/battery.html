@@ -1,0 +1,15 @@
+<div class="container-fluid monitoring__battery">
+  <div class="flex-box justify-center align-base">
+    <div class="monitoring__item">
+      <img src="assets/images/ldm/ldm_battery.jpg" alt="网络状况">
+    </div>
+    <div class="monitoring__item">
+      <p>充电状态</p>
+      <span class="monitoring__large-text" ng-class="{'warning-text': vm.metaData.batteryInfo.content.status == 1}">{{ (vm.metaData.codes | filter: { type: 'batteryStatus', code: vm.metaData.batteryInfo.content.status })[0].name || '--' }}</span>
+    </div>
+    <div class="monitoring__item">
+      <p>剩余电量</p>
+      <span class="monitoring__large-text">{{vm.metaData.batteryInfo.content.residualCapacity || '--'}}</span>%
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="tip-modal">
+  <div class="modal-header">
+    <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">
+      打印确认
+    </h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>您打印成功了吗？</h4>
+        <p ng-if="!vm.formData.printFlag">建议使用Lodop打印，无需确认打印结果，<a class="text-primary" href="/assets/download/CLodop.zip">去下载</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-danger btn-round" type="button" ng-click="vm.ok()">是的，已打印</button>
+    <button class="btn btn-sm btn-default btn-round" type="button" ng-click="vm.cancel()">没有</button>
+  </div>
+</div>

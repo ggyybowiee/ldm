@@ -1,0 +1,66 @@
+.node-text {
+  > p {
+    margin-bottom: 0px;
+  }
+}
+
+.under-border {
+  height: 70px;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: relative;
+  left: 14px;
+  top: 30px;
+}
+
+.above-border {
+  height: 70px;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: relative;
+  left: 14px;
+  top: 30px;
+}
+
+.both-border {
+  .parent {
+    border-left: 2px dashed lightgrey;
+  }
+}
+
+.ap-device-box {
+  width: 220px;
+  background-color: #ebebeb;
+  border-radius: 10px;
+  padding-left: 0px;
+  max-width: 280px;
+  min-width: 200px;
+  &:hover {
+    background-color: #e6e6e6;
+  }
+  &:active{
+    background-color: #e6e6e6;
+  }
+}
+
+.ap-devcie-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px 0px 0px 10px;
+  justify-content: center;
+  background-color: #68a3fd;
+  &:hover {
+    background-color: #3f78bf;
+  }
+  &:active {
+    background-color: #3f78bf;
+  }
+}
+
+.ap-device-info {
+  &:hover {
+    background-color: e6e6e6;
+  }
+}

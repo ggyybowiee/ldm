@@ -1,0 +1,121 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">文书模版编辑</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="tplName" class="col-sm-3 control-label">名称：</label>
+        <div class="col-sm-6">
+          <input type="text" id="tplName" name="tplName" ng-model="vm.formData.raw.tplName" class="form-control input-sm" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category" class="col-sm-3 control-label">编辑器：</label>
+        <div class="col-sm-6">
+          <select type="text" id="category" name="category" ng-model="vm.formData.raw.category" class="form-control input-sm" required>
+            <option value="hljld">护理记录单</option>
+            <option value="hlpgd">护理评估单</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category" class="col-sm-3 control-label">文书类别：</label>
+        <div class="col-xs-6">
+          <select type="text" id="showType" name="showType" ng-model="vm.formData.raw.showType" class="form-control input-sm" required>
+            <option ng-repeat="item in vm.formData.dic.attendShowCategory" value="{{item.dicCode}}">{{item.dicName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="showTplId" class="col-sm-3 control-label">编号：</label>
+        <div class="col-sm-6">
+          <input type="text" id="showTplId" name="showTplId" ng-model="vm.formData.raw.showTplId" class="form-control input-sm" required>
+          <div style="margin-top: 10px">
+            <label class="custom-checkbox">
+              <input type="checkbox" ng-model="vm.formData.raw.showTplIdVisible">
+              <span>显示编号</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sortNo" class="col-sm-3 control-label"></label>
+        <div class="col-sm-6">
+          <div>
+            <label class="custom-checkbox">
+              <input type="checkbox" ng-model="vm.formData.raw.logoVisible">
+              <span>是否显示医院logo图片</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="rowNum" class="col-sm-3 control-label">行数：</label>
+        <div class="col-sm-6">
+          <input type="text" id="rowNum" name="rowNum" ng-model="vm.formData.raw.rowNum" class="form-control input-sm" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lineHeight" class="col-sm-3 control-label">行高：</label>
+        <div class="col-sm-6">
+          <input type="text" id="lineHeight" name="lineHeight" ng-model="vm.formData.raw.lineHeight" class="form-control input-sm"
+            required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="orientation" class="col-sm-3 control-label">布局方式：</label>
+        <div class="col-sm-6">
+          <select type="text" id="orientation" name="orientation" ng-model="vm.formData.raw.orientation" class="form-control input-sm"
+            required>
+            <option value="horizon">横向</option>
+            <option value="vertical">纵向</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="margin" class="col-sm-3 control-label">打印边距(mm)：</label>
+        <div class="col-sm-6">
+          <div class="print-margin-wrap">
+            <div class="flex-box text-center" style="justify-content: center">
+              5mm +
+              <input type="number" id="marginTop" style="width: 5em" placeholder="上边距" name="marginTop" ng-model="vm.formData.raw.margin.top"
+                class="form-control input-sm">
+            </div>
+            <div class="flex-box text-center" style="justify-content: space-between">
+              <div>
+                10mm +
+                <input type="number" style="width: 5em" id="marginLeft" placeholder="左边距" name="marginLeft" ng-model="vm.formData.raw.margin.left"
+                  class="form-control input-sm">
+              </div>
+              <div>
+                10mm +
+                <input type="number" style="width: 5em" id="marginRight" placeholder="右边距" name="marginRight" ng-model="vm.formData.raw.margin.right"
+                  class="form-control input-sm">
+              </div>
+            </div>
+            <div class="flex-box text-center" style="justify-content: center">
+              <input type="number" id="marginBottom" style="width: 5em" placeholder="下边距" name="marginBottom" ng-model="vm.formData.raw.margin.bottom"
+                class="form-control input-sm">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="size" class="col-sm-3 control-label">尺寸：</label>
+        <div class="col-sm-6">
+          <select type="text" id="size" name="size" ng-model="vm.formData.raw.size" class="form-control input-sm" required>
+            <option value="{{item.value}}" ng-repeat="item in vm.sizes">{{item.label}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-round btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-warning btn-round btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

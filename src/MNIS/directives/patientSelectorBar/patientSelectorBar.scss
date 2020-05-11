@@ -1,0 +1,186 @@
+.selector-bar-panel {
+  margin: 0px !important;
+  display: flex;
+  padding: 0px 0px !important;
+
+  .selector-button-panel {
+    min-width: 280px;
+    width: 280px;
+    flex-basis: 280px;
+  }
+
+  .selector-pat-info-panel {
+    flex-grow: 1;
+    display: flex;
+    margin-left: 5px;
+    margin: 5px 0px;
+  }
+}
+
+.selector-pat-info-brief-panel {
+  display: flex;
+  width: 280px;
+  border-right: 1px $border-3 solid;
+
+  >span {
+    flex-grow: 1;
+  }
+
+  >button {
+    height: 35px;
+    width: 35px;
+    margin: auto 10px;
+  }
+
+  .selector-dropdown-toggle-title {
+    flex-grow: 1;
+    color: $primary;
+    height: 35px;
+    line-height: 35px;
+    font-size: 20px;
+    // margin: 0px 10px;
+    text-align: center;
+  }
+
+  .selector-dropdown-toggle {
+    display: flex;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+}
+
+.selector-dropdown-menu {
+  margin: 0px !important;
+  padding: 10px;
+}
+
+.selector-pat-info-detail-panel {
+  display: flex;
+  justify-content: left;
+  margin: 0px 5px;
+
+  >div {
+    height: 35px;
+    min-width: 80px;
+    max-width: 180px;
+    padding: 0px 5px;
+    border-right: 1px solid $border-3;
+
+    &.control{
+      line-height: 35px;
+    }
+
+    >div {
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .selector-title {
+      height: 15px;
+      line-height: 15px;
+      color: $font-2;
+    }
+
+    .selector-value {
+      height: 20px;
+      line-height: 20px;
+      font-size: 14px;
+      text-emphasis: emphasis;
+    }
+  }
+}
+
+.patient-selector-btn-panel {
+  border-bottom: 1px solid $border-3;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  >span {
+    display: flex;
+    width: 420px !important;
+
+    >input {
+      flex-grow: 1;
+    }
+
+    >button {
+      width: 50px;
+      margin-left: 10px;
+    }
+  }
+
+  >div {
+    margin: auto 0px;
+  }
+}
+
+.patient-selector-inhos-panel {
+  margin-top: 10px;
+  overflow: scroll;
+  max-height: 450px;
+  width: 650px;
+  min-height: 300px;
+
+  >input {
+    width: 100%;
+    margin: 10px 0px;
+  }
+}
+
+.pateint-selector-inhos-code-input {
+  border: 0px solid $border-3;
+  text-align: center;
+  height: 20px;
+  width: 90px;
+  color: $primary;
+}
+
+.patient-selector-bar-todo-count {
+  background-color: transparent;
+  border-radius: 5px;
+  color: black;
+}
+
+.patient-selector-bar-todo-count.danger {
+  background-color: $danger;
+  border-radius: 5px;
+  color: white;
+}
+
+.patient-selector-bar-todo-panel {
+  width: 400px;
+  max-height: 500px;
+  overflow: auto !important;
+  padding: 10px;
+}
+
+.patient-selector-bar-todo-type-panel {
+  >h5 {
+    text-align: left;
+    margin: 10px 0px 5px 0px;
+  }
+
+  >table {
+    flex-grow: 1;
+    width: 100%;
+
+    td {
+      border: 1px solid $border-3;
+      padding: 5px 5px;
+    }
+  }
+}
+
+.color-green {
+  color:  #2DC26b !important;
+}
+
+.indiagText {
+  width: 112px;
+  overflow: hidden;
+  word-break: keep-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,32 @@
+<div class="">
+  <div role="tab" id="{{::headingId}}" style="border-color: #fff; background-color: #fff;align-items: center" aria-selected="{{isOpen}}" class="panel-heading flex-box" style="" ng-keypress="toggleOpen($event)">
+    <button
+      data-toggle="collapse"
+      href
+      aria-expanded="{{isOpen}}"
+      aria-controls="{{::panelId}}"
+      tabindex="0"
+      uib-accordion-transclude="heading"
+      class="accordion-toggle btn btn-xs btn-default"
+      ng-click="toggleOpen()"
+      style="margin-right: 10px;"
+      ng-disabled="isDisabled">
+      <i class="fa " ng-class="{'fa-plus': !isOpen, 'fa-minus': isOpen}"></i>
+    </button>
+    <div
+      data-toggle="collapse"
+      href
+      aria-expanded="{{isOpen}}"
+      aria-controls="{{::panelId}}"
+      tabindex="0"
+      uib-accordion-transclude="heading"
+      ng-disabled="isDisabled"
+      uib-tabindex-toggle>
+      <span uib-accordion-header ng-class="{'text-muted': isDisabled}">{{heading}}</span>
+    </div>
+  </div>
+  <div id="{{::panelId}}" aria-labelledby="{{::headingId}}" aria-hidden="{{!isOpen}}" role="tabpanel" class="panel-collapse collapse" uib-collapse="!isOpen">
+    <div class="panel-body" ng-transclude></div>
+  </div>
+
+</div>

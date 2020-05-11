@@ -1,0 +1,22 @@
+<div class="top-nav">
+  <div class="nav-wrapper">
+    <div class="container">
+      <div class="nav-menu">
+        <div uib-dropdown>
+          <a id="inner-nav-button" class="dropdown-link" uib-dropdown-toggle>
+            <span class="icomoon icomoon-unfolded"></span>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="inner-nav-button" >
+            <li ng-repeat="item in navs">
+              <a ui-sref="main.{{item.resourceContent}}" ui-sref-active="active" ng-if="item.resourceContent[0] !== '/'">{{item.resourceName}}</a>
+              <a href="{{item.resourceContent}}" ui-sref-active="active" ng-if="item.resourceContent[0] === '/'">{{item.resourceName}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="dropdown-breadcrumb">
+        <div id="breadcrumbPlaceholder"></div>
+      </div>
+    </div>
+  </div>
+</div>

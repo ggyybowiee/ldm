@@ -1,0 +1,76 @@
+<div class="panel panel-layout" style="margin: 0" ng-controller="tempEditController as temp">
+  <div loading-wrapper="temp.loadInhosPatTemperatureSheet" loading-type="content">
+    <div class="temp-sheet-toolbar toolbar" style="margin: 0; padding: 5px 10px;">
+      <div class="temp-sheet-toolbar-patient">
+        <doc-scale-input ng-model="temp.docShowScale">
+          <doc-scale-input>
+      </div>
+      <div class="temp-sheet-toolbar-week">
+        <div>
+          <button class="btn btn-sm btn-default" ng-click="temp.prevWeek(true)">
+            <span class="fa fa-step-backward"></span>
+          </button>
+          <button class="btn btn-sm btn-default" ng-click="temp.prevWeek()">
+            <i class="fa fa-angle-left"></i>
+          </button>
+          <h5 class="temp-sheet__week-count">
+            第
+            <input type="number" name="weekCount" autocompelete="off" class="form-control input-sm" id="weekCount"
+              ng-change="temp.changeWeek(temp.weekCount)" style="width: 50px;text-align:center" value="n" ng-model="temp.weekCount">
+            周
+          </h5>
+          <button class="btn btn-sm btn-default" ng-click="temp.nextWeek()">
+            <i class="fa fa-angle-right"></i>
+          </button>
+          <button class="btn btn-sm btn-default" ng-click="temp.nextWeek(true)">
+            <span class="fa fa-step-forward"></span>
+          </button>
+        </div>
+      </div>
+      <div class="temp-sheet-toolbar-print toolbar-item">
+        <button class="btn btn-sm btn-primary pull-right" tooltip-class="btn-custom-tip" ng-click="temp.printPage()" uib-tooltip="打印"
+          tooltip-append-to-body="true"><span class="fa fa-print"></span>
+        </button>
+        <button class="btn btn-sm btn-primary pull-right" tooltip-class="btn-custom-tip" ng-click="temp.printCurrentPage()" uib-tooltip="打印当前页"
+          tooltip-append-to-body="true"><span class="fa fa-file"></span>
+        </button>
+        <span class="pull-right">&nbsp;&nbsp;|&nbsp;</span>
+        <button class="btn btn-sm btn-success pull-right" ng-if="!vm.openOuter" tooltip-class="btn-custom-tip" ng-click="temp.addPatientEvent()"
+          uib-tooltip="添加患者事件" tooltip-append-to-body="true"><span class="fa fa-clock-o"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nursing-doc-page-container panel-body" full-page="fix" style="display: flex;justify-content: center; padding-bottom:70px !important">
+      <div style="transform: scale({{temp.docShowScale/100}},{{temp.docShowScale/100}});transform-origin:0 0;">
+        <temperature-sheet conf="temp.tpl" id="temperatureSheet" week="temp.weekCount" data="temp.tplData" load-data="/Mnis/singleDayDatas"
+          class="nursing-doc-page-wrapper" patient-info="vm.patient" event-datas="temp.eventData" url="/Mnis/tempSheetDatas"
+          surge-date-url="/Mnis/latestSsFmEvent" in-date="temp.inDate" out-date="temp.outDate" page-start-date="temp.getStartDate(temp.weekCount)"
+          page-end-date="temp.getEndDate(temp.weekCount)">
+          <div class="temperature-sheet-header">
+            <div class="text-center">
+              <div class="" ng-if="vm.hospitalLogo && temp.tpl.logoVisible" style="min-height: 50px;">
+                <img url-to-base64 ng-src="{{vm.hospitalLogo}}" alt="{{vm.hospitalName}}" height="50" width="auto">
+              </div>
+              <span class="pull-right printMark" id="printMark" ng-if="!temp.showByPrinting && temp.printFlag">
+                <img src="../../../assets/images/mnis/printIcon.svg" alt="" width="65">
+              </span>
+              <h3 ng-if="!temp.tpl.logoVisible" style="margin: 0px;padding: 0px;min-height: 50px;">{{vm.hospitalName}}</h3>
+              <h3 style="padding:0px 0px 10px 0px;margin: 0px;">体温单</h3>
+            </div>
+            <div class="flex-box" style="margin-left: 10px; flex-wrap: wrap;">
+              <patient-info-bar items="temp.tpl.header" patient="vm.patient" start-time="temp.queryParams.startDate"
+                end-time="temp.queryParams.endDate" headers="temp.headers">
+                <retouch diagnosis="" items="temp.tpl.retouch" patient="vm.patient" sheet-id="'temperatureSheet'"
+                  date-time="temp.queryParams.startDate"></retouch>
+              </patient-info-bar>
+            </div>
+          </div>
+        </temperature-sheet>
+      </div>
+    </div>
+
+    <custom-print print-html="temp.printHtml"></custom-print>
+
+  </div>
+</div>

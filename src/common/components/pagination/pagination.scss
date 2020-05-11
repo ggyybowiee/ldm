@@ -1,0 +1,30 @@
+.pagination-wrapper {
+  display: block;
+  text-align: center;
+  padding: 0 10px;
+
+  li a{
+    color: $primary;
+  }
+  .active {
+    a {
+      background-color: $primary!important;
+      border-color: $primary!important;
+    }
+  }
+}
+.pagination {
+  vertical-align: middle;
+  li > a, li > span {
+    padding: 4px 10px;
+  }
+}
+.pagination-total {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.pagination-select {
+  display: inline-block;
+  margin-left: 10px;
+}

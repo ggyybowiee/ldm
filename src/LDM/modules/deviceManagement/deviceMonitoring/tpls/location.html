@@ -1,0 +1,17 @@
+<div class="container-fluid monitoring__location">
+  <div class="flex-box justify-center align-base">
+    <div class="monitoring__item">
+      <img src="assets/images/ldm/ldm_location.jpg" alt="位置信息">
+    </div>
+    <div class="monitoring__item">
+      <p>
+        <!-- -- -->
+        当前位置
+      </p>
+      <span class="monitoring__large-text">
+        <!-- 住院部二楼201 -->
+        {{vm.metaData.locationInfo.content.location || '未获取到位置信息'}}
+      </span>
+    </div>
+  </div>
+</div>

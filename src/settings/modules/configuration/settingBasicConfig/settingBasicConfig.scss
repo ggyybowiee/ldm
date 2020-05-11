@@ -1,0 +1,58 @@
+.basic-config-wrapper {
+  .toolbar {
+    padding: 10px;
+
+    > input {
+      border: 1px solid $border-3;
+    }
+  }
+
+  margin-top: 5px;
+  border: 1px solid $border-3;
+
+  > div:last-child {
+    margin: 10px 10px 0px 10px;
+
+    > table {
+      td {
+        word-wrap: break-word;
+        vertical-align: text-top;
+      }
+    }
+  }
+}
+
+.config-list-item-list {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: flex-start;
+  justify-content: space-between;
+}
+
+.config-list-item-panel {
+  flex-basis: 49%;
+  display: flex;
+  padding: 2px;
+  margin: 5px 0px;
+  border: 1px solid $border-3;
+  border-radius: 2px;
+
+  > input {
+    background-color: transparent;
+    flex-grow: 1;
+    border: 0px;
+    border-bottom: 1px solid $border-3;
+  }
+  > button {
+    margin: 0px 2px;
+  }
+}
+
+.config-list-item-panel.selected {
+  background-color: $primary;
+  color: white;
+  >button{
+    color: white;
+  }
+}

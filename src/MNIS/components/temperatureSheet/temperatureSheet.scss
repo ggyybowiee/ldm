@@ -1,0 +1,417 @@
+@media print {
+  @page {
+    size: portrait
+  }
+}
+
+.temperature-sheet-container {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.temperature-sheet__under-grid {
+  position: absolute;
+  border: 1px #000 solid;
+  border-bottom: 0;
+}
+
+.temperature-sheet__row {
+  border-bottom: 1px #000 solid; // overflow: hidden;
+  white-space: nowrap;
+}
+
+.temperature-sheet__row-label {
+  border-right: 1px #000 solid;
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  color: #000;
+  text-align: left;
+  padding-left: 2px;
+  font-size: 10px;
+}
+
+.temperature-sheet__row-value {
+  border-right: 1px #000 solid;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  color: #00f;
+  height: 100%;
+  position: relative;
+  font-size: 10px;
+  word-break: break-all;
+
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+.temperature-sheet__row-value.hover {
+  background-color: $border-3;
+}
+
+.up-down:nth-of-type(2n + 1) {
+  background-color: #f50;
+
+  .temperature-sheet__row-inner {
+    bottom: 0;
+    top: inherit;
+  }
+}
+
+.temperature-sheet__row-inner {
+  .up-down__even & {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  .up-down__odd & {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: inherit;
+  }
+
+  .has-symbol & {
+    bottom: 0 !important;
+    top: initial;
+  }
+}
+
+.temperature-sheet__row-symbol {
+  position: absolute;
+  left: 1px;
+  top: 0;
+}
+
+.temperature-mask {
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  justify-content: flex-start;
+  background-color: transparent;
+}
+
+.temperature-mask__item {
+  flex-basis: 12.5%;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+// .temperature-mask__item:hover {
+//   background-color: $back-4;
+// }
+.temperature-form__labels {
+  width: 100px;
+}
+
+.temperature-form__label {
+  line-height: 26px;
+  margin: 5px 0;
+  text-align: right;
+}
+
+.temperature-form__main {
+  .form-group {
+    height: 27px;
+    overflow: hidden;
+  }
+
+  .form-control {
+    color: #00f;
+  }
+}
+
+.temperature-form__time-label {
+  text-align: center;
+}
+
+.temperature-form__input {
+  padding: 0px 5px;
+  margin: 0px 0px;
+  color: #00f;
+  justify-content: space-between;
+
+  input,
+  select {
+    color: inherit;
+
+    &.disabled {
+      cursor: not-allowed;
+      color: black;
+      border: 0px;
+    }
+  }
+}
+
+.custom-row {
+
+  input,
+  select {
+    color: #00f;
+  }
+}
+
+.temperature-sheet-header {
+  padding: 10px 0 0 0; // height: 113px;
+  overflow: hidden;
+}
+
+.temperature-form__inputs {
+  display: flex;
+  margin-left: 110px;
+}
+
+.temperature-form__column {
+  flex: 1;
+}
+
+.temperature-form-loading-wrapper {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  >div {
+    display: inline-block;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    width: 400px;
+    height: 40px;
+  }
+}
+
+.row6times-table {
+  // margin: 10px auto 5px auto;
+  margin: 5px 0px;
+  width: 100%;
+  table-layout: fixed;
+
+  .doc-custom-column {
+    height: auto !important;
+    ;
+  }
+
+  td {
+    padding: 0px 2px;
+    border: 1px solid $border-3;
+    height: 30px;
+    text-align: right;
+    width: 14%;
+    max-width: 14%;
+
+    select {
+      background: $back-4;
+      border: 0px solid $border-3;
+      height: 20px;
+      width: 100%;
+      text-align: center;
+      text-align-last: center;
+      color: #00f;
+
+      &.temperature-form__input__dirty {
+        color: $danger;
+        font-weight: bold;
+        border-color: $danger;
+      }
+
+      &:focus {
+        background-color: $back-5;
+
+      }
+    }
+
+    .temperature-form__input__dirty {
+      >input {
+        color: $danger;
+        font-weight: bold;
+        border-color: $danger;
+      }
+    }
+
+    input {
+      border: 0px solid $border-3;
+      border-bottom-width: 1px;
+      margin: 0px;
+      padding: 0px;
+      height: 20px;
+      text-align: center;
+      color: #00f;
+
+      &.temperature-form__input__dirty {
+        color: $danger;
+        font-weight: bold;
+        border-color: $danger;
+      }
+
+      &:focus {
+        background-color: rgb(240, 240, 240);
+      }
+    }
+
+    >div {
+      display: flex;
+    }
+  }
+
+  th {
+    padding: 2px;
+    border: 1px solid $border-3;
+    height: 30px;
+  }
+}
+
+.row24-label {
+  float: left;
+  width: 100px;
+  color: #333;
+  padding-left: 20px;
+}
+
+.temperature-sheet__row-value--short {
+  line-height: 1.5;
+}
+
+.custom-row {
+  &>div {
+    margin-bottom: 10px;
+  }
+
+  .control-label {
+    position: relative;
+
+    &:after {
+      position: absolute;
+      right: 0;
+      width: 10px;
+      height: 100%;
+      bottom: 0;
+      content: ':';
+    }
+  }
+}
+
+.temperature-form-skin-input-panel {
+  justify-content: left !important;
+  margin: auto 0px;
+
+  >select {
+    width: auto !important;
+    margin: auto 0px;
+  }
+
+  >label {
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    margin: auto 5px !important;
+  }
+
+  >span {
+    margin: auto 0px !important;
+  }
+
+  >button {
+    height: 20px;
+    margin: auto 5px !important;
+  }
+
+  >input {
+    margin: auto 5px !important;
+  }
+}
+
+.temperature-sheet-wrap {
+  @media screen {
+    background-color: #fff;
+  }
+}
+
+#dpi {
+  height: 1in;
+  left: -100%;
+  position: absolute;
+  top: -100%;
+  width: 1in;
+}
+
+.temperature-sheet-column {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.temperature-sheet-column.hover {
+  fill: $back-3;
+}
+
+.temperature-form-modal-header {
+  position: relative;
+
+  .temperature-form-not-today-warning {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    background-color: $danger;
+    margin: 2px 0px;
+    border-radius: 5px;
+    padding: 2px 0px;
+  }
+
+  >div:last-child {
+    display: flex;
+    justify-content: space-between;
+    z-index: 10000;
+
+    >span {
+      width: 100px;
+    }
+
+    >span:last-child {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    >space {
+      flex-grow: 1;
+    }
+  }
+}
+
+.temperature-form-date-picker {
+  input {
+    text-align: center;
+    border: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    color: $primary;
+    cursor: pointer;
+  }
+}
+
+.temperature-form__customrow_list {
+
+  display: flex;
+  flex-wrap: wrap;
+
+  .temperature-form__customrow_wrapper {
+    flex-basis: 33%;
+    display: flex;
+    height: 30px;
+
+    >div {
+      border-right: 1px solid $border-3;
+      border-bottom: 1px solid $border-3;
+    }
+  }
+}

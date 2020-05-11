@@ -1,0 +1,27 @@
+<div style="margin:15px 0px;">
+
+  <div class="form-group">
+    <label for="resourceCode" class="col-xs-3  control-label ">原有签名图片:</label>
+    <div class="col-xs-6">
+      <label class="form-control input-sm" style="border: 0px !important;">
+        <img class="user-table-image" ng-if="ngModel.dataSign" ng-src="/windranger/hospital/userDataSign/{{ngModel.userCode}}" />
+      </label>
+      <button ng-if="ngModel.dataSign" class="btn btn-danger" ng-click="deleteUserSignData()">删除签名图片</button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="resourceCode" class="col-sm-3 control-label required-field">用户签名文件:</label>
+    <div class="col-sm-6">
+      <input type="file" id="resourceCode" name="resourceCode" style="border: 0px !important;" autocomplete="off" class="form-control input-sm"
+        required accept="image/*" file-model="images" required onchange="angular.element(this).scope().imageSelected(this.files)" />
+    </div>
+  </div>
+  <!-- <div class="form-group">
+    <label for="resourceCode" class="col-xs-3  control-label ">选中的文件:</label>
+    <div class="col-xs-6">
+      <img ng-src="base64Data" ng-if="base64Data" />
+      <label style="border: 0px !important;" class="form-control input-sm">未选择图片</label>
+    </div>
+  </div> -->
+</div>

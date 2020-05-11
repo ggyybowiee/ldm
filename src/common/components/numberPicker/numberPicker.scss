@@ -1,0 +1,70 @@
+.number-picker-wrapper {
+  display: inline-block;
+
+  width: 120px;
+
+  text-align: center;
+  vertical-align: top;
+  user-select: none;
+  .number-picker-input {
+    font-size: 20px;
+
+    display: inline-block;
+
+    width: 50px;
+    margin: 0 15px;
+
+    text-align: center;
+
+    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    font-weight: bold;
+    line-height: 26px;
+  }
+  .number-minus,
+  .number-plus {
+    font-size: 10px;
+    // line-height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all .2s;
+
+    width: 14px;
+    height: 14px;
+
+    cursor: pointer;
+    // vertical-align: 20%;
+
+    border: 1px solid $primary;
+
+    .fa {
+      height: 8px;
+    }
+  }
+  .number-minus {
+    color: $primary;
+  }
+  .number-plus {
+    color: white;
+    background-color: $primary;
+  }
+
+  &:hover {
+    .number-minus,
+    .number-plus {
+      opacity: 1;
+
+      &[disabled] {
+        opacity: .5;
+      }
+    }
+  }
+}
+
+.number-picker__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

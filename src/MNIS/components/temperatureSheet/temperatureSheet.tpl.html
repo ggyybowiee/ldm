@@ -1,0 +1,215 @@
+<div class="temperature-sheet-wrap" style="overflow: visible;position:relative;">
+  <div id="dpi"></div>
+  <div id="docHeaderPlaceholder"></div>
+  <style>
+    @media print {
+      @page {
+        margin: {{config.margin.top + 'mm'}} {{config.margin.right + 'mm'}} {{config.margin.bottom + 'mm'}} {{config.margin.left + 'mm'}};
+        size: {{containerWidth}} {{containerHeight}};
+      }
+    }
+
+    @media screen {
+      .temperature-sheet-wrap {
+        height: {{containerHeight}};
+        width: {{containerWidth}};
+        /* box-sizing: content-box; */
+        padding: {{config.margin.top + 'mm'}} {{config.margin.right + 'mm'}} {{config.margin.bottom + 'mm'}} {{config.margin.left + 'mm'}};
+      }
+    }
+
+    .temperature-sheet__footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 20px;
+    }
+  </style>
+  <div class="temperature-sheet-container" style="height: {{underGridHeight + svgHeight + 50}}px;" ng-click="vm.handleDblClick($event, dateArr)">
+    <svg ng-mousemove="chartMouseMove($event)" ng-mouseleave="chartMouseLeave($event)">
+
+      <rect ng-if="isReady" class="temperature-sheet-column" x="{{12.5 * ($index + 1)}}%" width="12.5%" height="100%"
+        ng-class="{hover:$index==hoverIndex}" ng-repeat="date in dateArr track by $index">
+      </rect>
+      <line ng-repeat="line in columnLineData" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}" ng-attr-x2="{{line.end.x2}}"
+        ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}" ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+      <text ng-repeat="text in textArray" ng-attr-x="{{text.x}}" ng-attr-y="{{text.y}}" ng-attr-letter-spacing="{{text.letterSpacing || 0}}"
+        ng-attr-font-size="{{text.fontSize || 12}}" ng-attr-fill="{{text.color || '#000'}}">
+        {{text.text}}
+      </text>
+
+      <!-- 日期等 -->
+      <text ng-repeat="text in daysText" ng-attr-x="{{text.x}}" ng-attr-y="{{text.y}}" ng-attr-letter-spacing="{{text.letterSpacing || 0}}"
+        ng-attr-font-size="{{text.fontSize || 12}}" ng-attr-fill="{{text.color || '#000'}}">
+        {{text.text}}
+      </text>
+      <circle ng-repeat="circle in circleArray" ng-attr-cx="{{circle.cx}}" ng-attr-cy="{{circle.cy}}" ng-attr-r="{{circle.radius}}"
+        ng-attr-fill="{{circle.color || ''}}" ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-stroke-width="{{circle.strokeWidth || 1}}"></circle>
+
+      <!-- 图表点 -->
+      <circle ng-repeat="circle in pointData" ng-attr-cx="{{circle.cx}}" ng-attr-cy="{{circle.cy}}" ng-attr-r="{{circle.radius}}"
+        ng-attr-fill="{{circle.color || ''}}" ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-stroke-width="{{circle.strokeWidth || 1}}"></circle>
+
+      <!-- 降温体温连线 -->
+      <line ng-repeat="line in cooledTemperatureLine" stroke-dasharray="5,5" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}"
+        ng-attr-x2="{{line.end.x2}}" ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}"
+        ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+
+      <!-- 脉搏心率不同的连线 -->
+      <line ng-repeat="line in heartRatePulseLine" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}"
+        ng-attr-x2="{{line.end.x2}}" ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}"
+        ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+
+      <!-- 体温连线 -->
+      <line ng-repeat="line in temperatureLine" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}" ng-attr-x2="{{line.end.x2}}"
+        ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}" ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+
+      <!-- 脉搏连线 -->
+      <line ng-repeat="line in pulseLine" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}" ng-attr-x2="{{line.end.x2}}"
+        ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}" ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+
+      <!-- 心率连线 -->
+      <line ng-repeat="line in heartRateLine" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}" ng-attr-x2="{{line.end.x2}}"
+        ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}" ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+
+      <!-- 体温交叉点（腋温） -->
+      <line ng-repeat="line in temperatureCrossData" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}"
+        ng-attr-x2="{{line.end.x2}}" ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}"
+        ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+
+      <circle ng-repeat="circle in temperatureCrossDataForHover" ng-attr-cx="{{circle.cx}}" ng-attr-cy="{{circle.cy}}"
+        uib-tooltip="体温：{{circle.value}}℃" tooltip-append-to-body="true" style="cursor:pointer" ng-attr-r="{{circle.radius}}"
+        ng-attr-fill="{{circle.color || ''}}" ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-stroke-width="{{circle.strokeWidth || 1}}"></circle>
+
+      <!-- 体温点 -->
+      <circle ng-repeat="circle in temperaturePointData" ng-attr-cx="{{circle.cx}}" uib-tooltip="体温：{{circle.value}}℃"
+        tooltip-append-to-body="true" style="cursor:pointer" ng-attr-cy="{{circle.cy}}" ng-attr-r="{{circle.radius}}"
+        ng-attr-fill="{{circle.color || ''}}" ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-stroke-width="{{circle.strokeWidth || 1}}"></circle>
+
+      <!-- 降温体温点 -->
+      <circle ng-repeat="circle in cooledTemperaturePointData" ng-attr-cx="{{circle.cx}}" uib-tooltip="降温后体温：{{circle.value}}℃"
+        tooltip-append-to-body="true" style="cursor:pointer" ng-attr-cy="{{circle.cy}}" ng-attr-r="{{circle.radius}}"
+        ng-attr-fill="{{circle.color || ''}}" ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-stroke-width="{{circle.strokeWidth || 1}}"></circle>
+
+      <!-- 脉搏点 -->
+      <circle ng-repeat="circle in pulsePointData" ng-attr-cx="{{circle.cx}}" uib-tooltip="脉搏：{{circle.value}}次/分"
+        tooltip-append-to-body="true" style="cursor:pointer" ng-attr-cy="{{circle.cy}}" ng-attr-r="{{circle.radius}}"
+        ng-attr-fill="{{circle.color || ''}}" ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-display="{{circle.display || 'block'}}"
+        ng-attr-stroke-width="{{circle.strokeWidth || 1}}" style="cursor:pointer"></circle>
+
+      <!-- 心率点 -->
+      <circle ng-repeat="circle in heartRatePointData" ng-attr-cx="{{circle.cx}}" ng-attr-cy="{{circle.cy}}" uib-tooltip="心率：{{circle.value}}次/分"
+        tooltip-append-to-body="true" style="cursor:pointer" ng-attr-r="{{circle.radius}}" ng-attr-fill="{{circle.color || ''}}"
+        ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-display="{{circle.display || 'block'}}" ng-attr-stroke-width="{{circle.strokeWidth || 1}}"></circle>
+
+      <!-- 35°下的曲线连线 -->
+      <line ng-repeat="line in row35DegLine" ng-attr-x1="{{line.start.x1}}" ng-attr-y1="{{line.start.y1}}" ng-attr-x2="{{line.end.x2}}"
+        ng-attr-y2="{{line.end.y2}}" ng-attr-stroke="{{line.color || '#000'}}" ng-attr-stroke-width="{{line.strokeWidth || 1}}"></line>
+
+      <!-- 35°下点 -->
+      <circle ng-repeat="circle in row35DegChartData" ng-attr-cx="{{circle.cx}}" ng-attr-cy="{{circle.cy}}" uib-tooltip="{{config.row35DegChart.dicName}}：{{circle.value}}"
+        tooltip-append-to-body="true" style="cursor:pointer" ng-attr-r="{{circle.radius}}" ng-attr-fill="{{circle.color || ''}}"
+        ng-attr-stroke="{{circle.stroke || ''}}" ng-attr-stroke-width="{{circle.strokeWidth || 1}}"></circle>
+
+      <!-- 事件 -->
+      <text ng-repeat="event in eventData" ng-attr-x="{{event.x}}" ng-attr-y="{{event.y}}" ng-attr-font-size="{{event.fontSize}}"
+        ng-attr-fill="{{event.color}}" writing-mode="tb-rl">{{event.text}}</text>
+
+      <!-- 35°下描述区 -->
+      <text ng-repeat="desc in row35DegData" ng-attr-x="{{desc.x}}" ng-attr-y="{{desc.y}}" ng-attr-font-size="{{desc.fontSize}}"
+        ng-attr-fill="{{desc.color}}" ng-writing-mode="{{desc.mode === 'normal' ? '' : 'tb-rl'}}">{{desc.text}}</text>
+
+    </svg>
+    <div class="temperature-sheet__under-grid" ng-show="isReady">
+      <!-- 4小时区 -->
+      <div class="row-4-hour">
+        <div class="temperature-sheet__row" ng-repeat="row in config.row4Hour" style="height: {{rowHeight}}px;line-height: {{rowHeight - 2}}px;">
+          <div class="temperature-sheet__row-label" style="width: {{rowLabelWidth}}px;">
+            {{row.dicName}}
+          </div><div class="temperature-sheet__row-value" ng-class="{'has-symbol': cell.symbol, 'up-down__odd': cell.isOdd, 'up-down__even': cell.isEven, 'hover':hoverIndex * 6 <= $index && (hoverIndex + 1) * 6 > $index && $index / 6 < dateArr.length}"
+            ng-repeat="cell in row4HourData[row.dicCode] track by $index" style="width: {{row4HourValueWidth}}px;"
+            ng-mouseenter="tableMouseEnter($index, 6)" ng-mouseleave="tableMouseLeave($index, 6)">
+            <span class="temperature-sheet__row-symbol" ng-if="cell.symbol" style="line-height: {{rowHeight / 2}}px">{{cell.symbol}}</span>
+            <span class="temperature-sheet__row-inner" style="line-height: {{rowHeight / 2}}px">{{cell.value}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- 12小时区 -->
+      <div class="row-12-hour">
+        <div class="temperature-sheet__row" ng-repeat="row in config.row12Hour" style="height: {{rowHeight}}px;line-height: {{rowHeight - 2}}px;">
+          <div class="temperature-sheet__row-label" style="width: {{rowLabelWidth}}px;">
+            {{row.dicName}}
+          </div><div class="temperature-sheet__row-value" ng-style="showNameInSheetArr.indexOf(cell.label) > -1 && {'line-height': rowHeight / 2 + 'px'}"
+            ng-class="{'temperature-sheet__row-value--short': showNameInSheetArr.indexOf(cell.label) > -1, 'hover':hoverIndex * 2 <= $index && (hoverIndex + 1) * 2 > $index && $index / 2 < dateArr.length}"
+            ng-repeat="cell in row12HourData[row.dicCode] track by $index" style="width: {{row12HourValueWidth}}px;"
+            ng-mouseenter="tableMouseEnter($index, 2)" ng-mouseleave="tableMouseLeave($index, 2)">
+            <div class="show-name-in-sheet">
+              {{showNameInSheetArr.indexOf(cell.label) > -1 ? cell.label : ''}}
+            </div>
+            {{cell.value}}
+          </div>
+        </div>
+      </div>
+      <!-- 24小时区 -->
+      <div class="row-24-hour">
+        <div class="temperature-sheet__row" ng-repeat="row in config.row24Hour" ng-if="row.dicCode !== 'skinTestInfo'"
+          style="height: {{rowHeight}}px;line-height: {{rowHeight - 2}}px;">
+          <div class="temperature-sheet__row-label" style="width: {{rowLabelWidth}}px;">
+            {{row.dicName}}
+          </div><div class="temperature-sheet__row-value" ng-repeat="cell in row24HourData[row.dicCode] track by $index" style="width: {{row24HourValueWidth}}px;"
+            ng-class="{'hover':hoverIndex == $index && $index < dateArr.length}" ng-mouseenter="tableMouseEnter($index, 1)"
+            ng-mouseleave="tableMouseLeave($index, 1)">
+            {{row.isShowLabel && cell.value && cell.label ? cell.label + ':' : ''}}{{cell.value}}
+          </div>
+        </div>
+      </div>
+      <!-- 皮试 -->
+      <div class="row-24-hour" ng-if="skinTest">
+        <div class="temperature-sheet__row" style="height: {{rowHeight}}px;line-height: {{rowHeight - 2}}px;">
+          <div class="temperature-sheet__row-label" style="width: {{rowLabelWidth}}px;">
+            {{skinTest.dicName}}
+          </div><div class="temperature-sheet__row-value" ng-repeat="cell in skinTestInfo track by $index" ng-style="{
+                position: 'relative',
+                width: row24HourValueWidth + 'px',
+                'line-height': cell[0].value.length > 8 || cell.length > 1 ? (rowHeight / 2) + 'px' : rowHeight + 'px',
+                'white-space': 'normal'
+              }"
+            ng-class="{'hover':hoverIndex == $index && $index < dateArr.length}" ng-mouseenter="tableMouseEnter($index, 1)"
+            ng-mouseleave="tableMouseLeave($index, 1)">
+            <span style="position: absolute; top: 50%; transform: translateY(-50%); left: 0;">
+              <span ng-repeat="testItem in cell" ng-style="{
+                    color: testItem.color,
+                  }">
+                {{testItem.value}}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- 自定义 -->
+      <div class="row-24-hour">
+        <div class="temperature-sheet__row" ng-repeat="row in rowCustomConfig track by $index" style="height: {{rowHeight}}px;line-height: {{rowHeight - 2}}px;">
+          <div class="temperature-sheet__row-label" style="width: {{rowLabelWidth}}px;">
+            {{row}}
+          </div><div class="temperature-sheet__row-value" ng-style="{position: 'relative',
+                'line-height': ('' + cell.value).length > 8 ? (rowHeight / 2) + 'px' : rowHeight + 'px', 
+                width: row24HourValueWidth + 'px',
+                'white-space': 'normal'}"
+            ng-repeat="cell in rowCustom[row] track by $index" style="color: #053FF9"
+            ng-class="{'hover':hoverIndex == $index && $index < dateArr.length}" ng-mouseenter="tableMouseEnter($index, 1)"
+            ng-mouseleave="tableMouseLeave($index, 1)">
+            <span style="position: absolute; top: 50%; transform: translateY(-50%); left: 0;width:100%">
+              <span>
+                {{cell.value}}
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  &nbsp;
+  <div class="row text-center temperature-sheet__footer">
+    第{{week || 1}}周
+  </div>
+</div>

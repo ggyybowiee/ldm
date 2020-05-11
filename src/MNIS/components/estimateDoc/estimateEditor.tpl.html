@@ -1,0 +1,79 @@
+<div class="estimate-doc-panel panel-layout" full-page="fix">
+  <div class="panel-body estimate-doc-panel-body">
+    <div loading-wrapper="vm.loadEstimateData">
+      <div full-page="fix" full-page-bottom="40">
+        <estimate-doc ng-if="!vm.hlpgd.tpl.components.render || vm.hlpgd.tpl.components.render==='v1'" hlpgd="vm.hlpgd"
+          tpl="vm.hlpgd.tpl" sign-type="vm.signType" pat-info="patient" header-form="curSheet.headerForm" inhos-code="patient.inhosCode"
+          insert="vm.insert" remove="vm.remove" save="vm.save" sheet="curSheet" reload-sheets="vm.loadSheets.func()"></estimate-doc>
+        <estimate-table-edit ng-if="vm.hlpgd.tpl.components.render==='v1_1'" hlpgd="vm.hlpgd" pat-info="patient"
+          header-form="curSheet.headerForm" page-echo="vm.pageEcho" new-data-echo="vm.newDataEcho" page-scale="vm.docShowScale"
+          inhos-code="patient.inhosCode" sheet="curSheet" save="vm.save" remove="vm.remove" reload-sheets="vm.loadSheets.func()"></estimate-table-edit>
+      </div>
+    </div>
+  </div>
+
+  <div class="estimate-toolbar" style="margin: 0">
+
+    <div class="estimate-toolbar-two-side" style="flex-direction:row">
+      <doc-scale-input ng-if="vm.hlpgd.tpl.components.render==='v1_1'" ng-model="vm.docShowScale" style="margin-left:5px;">
+        <doc-scale-input>
+    </div>
+
+    <div class="page-panel" ng-if="vm.hlpgd.tpl.components.render==='v1_1'">
+      <button class="btn btn-sm btn-default" ng-click="vm.pageEcho.firstPage()" ng-disabled="vm.pageEcho.curPage == 1">
+        <span class="fa fa-step-backward"></span>
+      </button>
+      <button class="btn btn-sm btn-default" ng-click="vm.pageEcho.previewPage()" ng-disabled="vm.pageEcho.curPage == 1">
+        <span class="fa fa-angle-left"></span>
+      </button>
+      <form class="page-form" ng-submit="vm.confirmCurPage(vm.editPage)" novalidate>
+        <input uib-tooltip="按“回车”前往" tooltip-class="btn-custom-tip" type="text" class="page-index input-sm form-control" ng-model="vm.editPage"
+          ng-disabled="vm.pageEcho.curPage == 1 && vm.pageEcho.totalPage == 1" required ng-change="vm.pageEcho.pageInputChange(vm.editPage)"
+          ng-blur="vm.pageEcho.pageInputBlur()" />
+      </form>
+      &nbsp;/&nbsp;&nbsp; {{vm.pageEcho.totalPage}}
+      <button class="btn btn-sm btn-default" ng-click="vm.pageEcho.nextPage()" ng-disabled="vm.pageEcho.curPage == vm.pageEcho.totalPage || vm.pageEcho.totalPage == 0">
+        <span class="fa fa-angle-right"></span>
+      </button>
+      <button class="btn btn-sm btn-default" ng-click="vm.pageEcho.lastPage()" ng-disabled="vm.pageEcho.curPage == vm.pageEcho.totalPage || vm.pageEcho.totalPage == 0">
+        <span class="fa fa-step-forward"></span>
+      </button>
+    </div>
+    <div class="estimate-toolbar-two-side">
+      
+      <custom-print print-html="vm.printHtml"></custom-print>
+      <div class="toolbar-item pull-right" ng-if="vm.hlpgd.tpl.components.render==='v1_1'" style="padding-right:10px;">
+        <button class="btn btn-success btn-sm " tooltip-class="btn-custom-tip" ng-click="vm.insertAtLastRow()" uib-tooltip="新建" tooltip-append-to-body="true"><span
+            class="fa fa-plus"></button>
+        <button class="btn btn-success btn-sm " tooltip-class="btn-custom-tip" ng-click="vm.saveHeaderForm()" uib-tooltip="保存表头"
+          tooltip-append-to-body="true"><span class="fa fa-save"></button>
+        &nbsp;|&nbsp;
+        <span ng-if="(''|nursingDocSignType) == 'CA'">
+          <button class="btn btn-primary btn-sm btnIconGroup" tooltip-class="btn-custom-tip" ng-click="vm.signAllPage()" uib-tooltip="整页签名"
+            tooltip-append-to-body="true">
+            <span class="fa fa-pencil"></button>
+          </button>
+          &nbsp;|&nbsp;
+        </span>
+        <button class="btn btn-sm btn-primary" tooltip-class="btn-custom-tip" ng-click="vm.printCurrent()" ng-if="editorType!='nursingPath'"
+          uib-tooltip="打印当前页" tooltip-append-to-body="true">
+          <span class="fa fa-file"></button>
+        <button class="btn btn-sm btn-primary btnIconGroup" tooltip-class="btn-custom-tip" ng-click="vm.printAll()" ng-if="editorType!='nursingPath'"
+          uib-tooltip="打印" tooltip-append-to-body="true">
+          <span class="fa fa-print"></button>
+        </button>
+      </div>
+
+      <!-- v1.0版本 -->
+      <div class="toolbar-item pull-right" ng-if="!vm.hlpgd.tpl.components.render" style="padding-right:10px;">
+        <button class="btn btn-success btn-sm " tooltip-class="btn-custom-tip" ng-click="vm.saveHeaderForm()" uib-tooltip="保存表头" tooltip-append-to-body="true"><span
+            class="fa fa-save"></button>
+        &nbsp;|&nbsp;
+        <button class="btn btn-sm btn-primary btnIconGroup" tooltip-class="btn-custom-tip" ng-click="vm.choosePrintType()" ng-if="editorType!='nursingPath'"
+          uib-tooltip="打印" tooltip-append-to-body="true">
+          <span class="fa fa-print"></button>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

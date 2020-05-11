@@ -1,0 +1,251 @@
+<div class="paper-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      时间：
+
+      <date-picker
+        style="width: 160px"
+        ng-model="vm.tmpDate"
+        ng-change="vm.reloadMenuContent()"
+      ></date-picker>
+    </div>
+
+    <div class="toolbar-item">
+      长临类别：
+
+      <select
+        class="form-control input-sm"
+        ng-model="vm.params.isLongTerm"
+        ng-change="vm.loadContent.func()"
+      >
+        <option value="">全部</option>
+
+        <option
+          value="{{item.dicCode}}"
+          ng-repeat="item in vm.dicHelper.dic.orderLongTerm"
+        >{{item.dicName}}</option>
+      </select>
+    </div>
+
+    <div class="toolbar-item">
+      执行状态：
+
+      <select
+        class="form-control input-sm"
+        ng-model="vm.params.status"
+        ng-change="vm.loadContent.func()"
+      >
+        <option value="">全部</option>
+
+        <option
+          value="{{item.dicCode}}"
+          ng-repeat="item in vm.dicHelper.dic.orderExeStatus"
+        >{{item.dicName}}</option>
+      </select>
+    </div>
+
+    <div class="toolbar-item">
+      打印：
+
+      <select
+        class="form-control input-sm"
+        ng-model="vm.params.isPrint"
+        ng-change="vm.loadContent.func()"
+      >
+        <option value="">全部</option>
+
+        <option
+          value="{{item.dicCode}}"
+          ng-repeat="item in vm.dicHelper.dic.printState"
+        >{{item.dicName}}</option>
+      </select>
+    </div>
+
+    <div class="pull-right toolbar-item">
+      <button 
+        class="btn btn-success btn-sm btn-round" 
+        print-landscape 
+        common-print-btn="vm.syncPrint"
+        print-btn="print-btn">打印</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div
+      class="toolbar-item"
+      checkbox-team="vm.params.execTypeCodes"
+      listener="vm.loadContent.func"
+    >
+      <label class="custom-checkbox">
+        <input
+          type="checkbox"
+          checkbox-all="checkbox-all"
+        ></input>
+
+        <span>全部</span>
+      </label>
+
+      <checkbox-group
+        ng-model="vm.params.execTypeCodes"
+        eles="vm.dicHelper.dic.orderType"
+        options="{text: 'dicName', value: 'dicCode'}"
+      ></checkbox-group>
+    </div>
+  </div>
+
+  <div class="flex-box">
+    <div
+      class="patients-left-list"
+      loading-wrapper="vm.loadMenu"
+      loading-type="menu"
+    >
+      <div class="panel panel-default">
+        <div class="panel-heading">患者列表</div>
+
+        <div
+          class="panel-body"
+          full-page="reverse"
+        >
+          <div
+            checkbox-team="vm.params.inhosCodes"
+            listener="vm.loadContent.func"
+          >
+            <div class="check-all">
+              <label class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  checkbox-all="checkbox-all"
+                ></input>
+
+                <span>全部</span>
+              </label>
+            </div>
+
+            <checkbox-group
+              ng-model="vm.params.inhosCodes"
+              class="bodysign-patients__checkbox"
+              eles="vm.patients"
+              danger-item="{status: '0'}"
+              options="{value: 'inhosCode'}"
+            ></checkbox-group>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex"
+      loading-wrapper="vm.loadContent"
+    >
+      <div
+        class="paper"
+        full-page="fix"
+        print-table="vm.list"
+      >
+        <div
+          class="patient-sheet"
+          ng-repeat="sheet in vm.list track by $index"
+        >
+          <div class="patient-info clearfix">
+            <span class="col-xs-3">
+              病区：{{vm.wardHelper.getWardName(sheet.wardCode)}}
+            </span>
+
+            <span class="col-xs-2">床号：{{sheet.bedCode}}</span>
+
+            <span class="col-xs-2">姓名：{{sheet.patName}}</span>
+
+            <span class="col-xs-1">
+              [{{vm.dicHelper.getDicName('orderType', sheet.administrationCode)}}]
+            </span>
+
+            <span class="col-xs-3">
+              执行日期：{{sheet.executeDate | date: 'yy-MM-dd'}}
+            </span>
+
+            <span class="text-right col-xs-1 padding-0">
+              [{{vm.dicHelper.getDicName('orderLongTerm', sheet.repeatIndicator)}}]
+            </span>
+          </div>
+
+          <table class="table white-borderd group-table">
+            <thead>
+              <tr>
+                <th>药物/项目</th>
+
+                <th>剂量</th>
+
+                <th>频次</th>
+
+                <th>执行时间</th>
+
+                <th>执行&nbsp;/&nbsp;核对签名</th>
+
+                <th>备注</th>
+              </tr>
+            </thead>
+
+            <tbody ng-repeat="(key, arr) in sheet.orderList">
+              <tr ng-repeat="row in arr">
+                <td
+                  ng-if="$first"
+                  rowspan="{{arr.length}}"
+                >
+                  <div ng-if="row.orderStatus == 3" class="text-danger">[停]</div>
+
+                  <div ng-repeat="text in vm.pluck(row.items, 'itemName') track by $index">{{text}}</div>
+                </td>
+
+                <td
+                  ng-if="$first"
+                  rowspan="{{arr.length}}"
+                >
+                  <div ng-repeat="text in vm.pluck(row.items, 'dosage') track by $index">
+                    {{text}}{{vm.pluck(row.items, 'dosageUnit')[$index]}}
+                  </div>
+                </td>
+
+                <td
+                  ng-if="$first"
+                  rowspan="{{arr.length}}"
+                >{{row.frequency}}</td>
+
+                <td>
+                  {{row.executeDate | idate: 'dh'}}
+                </td>
+
+                <td>
+                  {{row.executePerson}}&nbsp;/&nbsp;{{row.checkPerson}}
+                </td>
+
+                <td
+                  edit-text="row.remark"
+                  cb="vm.saveRemark(row)"
+                ></td>
+              </tr>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td
+                  colspan="6"
+                  class="text-left"
+                >
+                  <div class="clearfix">
+                    <span class="col-xs-4">
+                      打印时间：{{sheet.printTime | idate: 'DH'}}
+                    </span>
+
+                    <span class="col-xs-4">打印者签名：{{sheet.printPerson}}</span>
+
+                    <span class="col-xs-4"></span>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

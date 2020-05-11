@@ -1,0 +1,34 @@
+<div class="keys-wrapper">
+  <div class="panel panel-default">
+    <div class="panel-heading"><i class="fa fa-key"></i>钥匙串</div>
+    <div class="panel-body">
+      <div class="app-list">
+        <div class="col-xs-4" ng-repeat="item in vm.apps">
+          <div class="app-card">
+            <div class="app-title">{{item.resourceName}}</div>
+            <div class="app-content flex-box">
+              <div class="icon-info">
+                <img class="app-icon" ng-src="{{gUtils.getImageURL(item.resourceIcon)}}" alt="{{item.resourceName}}">
+              </div>
+              <div class="bind-info flex">
+                <div class="has-bind" ng-if="item.key">
+                  <button class="btn btn-default unbind-btn" confirm yes="vm.unbind(item.key.seqId)" content="确定取消绑定？">
+                    <span class="default-info">已绑定到用户{{item.key.useCodeOut}}</span>
+                    <span class="hover-info">解绑</span>
+                  </button>
+                  <button class="btn btn-sm btn-default edit-btn" ng-click="vm.open(item.resourceCode, item.key)"><i
+                      class="iconmoon icomoon-edit"></i></button>
+                </div>
+                <div class="no-bind" ng-if="!item.key">
+                  <button class="btn btn-default bind-btn" ng-click="vm.open(item.resourceCode)">
+                    <span class="default-info">未绑定</span>
+                    <span class="hover-info">去绑定</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

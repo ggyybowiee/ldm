@@ -1,0 +1,23 @@
+.modal-content .tab-content {
+  padding: 20px 0;
+}
+
+.url-tabs {
+  margin-bottom: 10px;
+}
+
+.url-tabs__item {
+  text-align: center;
+  padding: 6px 0;
+  border: 1px $primary solid;
+  margin-right: -1px;
+  color: $primary;
+  &:last-child {
+    margin-right: 0;
+  }
+  &.active {
+    color: #fff;
+    border-color: darken($primary, 1%);
+    background: $primary;
+  }
+}

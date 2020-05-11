@@ -1,0 +1,94 @@
+<div class="modal-content device-modal-content">
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">添加设备</h5>
+  </div>
+
+  <form class="form-horizontal" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+    <div class="modal-body">
+      <div class="filter-bar form-inline">
+
+        <div class="filter-item">
+          所属科室：
+          <select name="wardCode" id="wardCode" ng-model="vm.queryParams.eqpBelong" class="form-control input-sm" ng-change="vm.getDevices()">
+            <option value="">全部</option>
+            <option ng-repeat="item in vm.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+            设备类型：
+            <select name="deviceType" id="deviceType" ng-model="vm.queryParams.eqpType" class="form-control input-sm" ng-change="vm.getDevices()">
+              <option value="">全部</option>
+              <option ng-repeat="item in vm.deviceTypes" value="{{item.code}}">{{item.name}}</option>
+            </select>
+          </div>
+
+        <div class="filter-item">
+            设备名称：
+          <input type="text" name="keyword" class="form-control input-sm" ng-model="vm.queryParams.eqpName" placeholder="设备名称" ng-change="vm.getDevices()"
+          />
+        </div>
+
+        <!-- <div class="filter-item">
+          <button class="btn btn-success btn-sm btn-round" ng-click="vm.getDevices()">搜索</button>
+        </div> -->
+      </div>
+
+      <div class="panel-body">
+        <table class="white-borderd table table-hover" st-table="vm.devicesDisplay"  table-check="vm.devicesDisplay" key="content.basicInfo.mac" selected="vm.checked" st-safe-src="vm.devices">
+          <thead>
+            <tr>
+              <th>
+                <label class="custom-checkbox">
+                    <input type="checkbox" table-check-all>
+                  <span></span>
+                </label>
+              </th>
+              <th>序号</th>
+              <th>设备名称</th>
+              <th>型号</th>
+              <th>设备类型</th>
+              <th>序列号</th>
+              <th>MAC地址</th>
+              <th>所属病区</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.devicesDisplay track by $index">
+              <td>
+                <label class="custom-checkbox">
+                    <input table-check-all-item type="checkbox" value="row.content.basicInfo.mac">
+                  <span></span>
+                </label>
+              </td>
+              <td class="ng-binding">{{$index + 1}}</td>
+              <td class="ng-binding">{{row.content.basicInfo.eqpName}}</td>
+              <td class="ng-binding">{{row.content.basicInfo.model}}</td>
+              <td class="ng-binding">{{ (vm.deviceTypes | filter: { code: row.content.basicInfo.eqpType })[0].name }}</td>
+              <td class="ng-binding">{{row.content.basicInfo.sn}}</td>
+              <td class="ng-binding">{{row.content.basicInfo.mac}}</td>
+              <td class="ng-binding">{{ row.content.basicInfo.eqpBelong && (vm.belongs | filter: { wardCode: row.content.basicInfo.eqpBelong })[0].wardName
+                }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="8">
+                <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <none-data-info list="vm.devices"></none-data-info>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

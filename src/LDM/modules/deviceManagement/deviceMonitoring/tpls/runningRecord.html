@@ -1,0 +1,47 @@
+<div class="container-fluid monitoring__record">
+  <div class="flex-box justify-center align-base">
+    <div class="monitoring__item">
+      <img src="assets/images/ldm/ldm_runRecord.jpg" alt="运行记录">
+    </div>
+    <div class="monitoring__item">
+      <p>设备已{{ (vm.metaData.codes | filter: { type: 'operationStatus', code: vm.metaData.record.content.status })[0].name ||
+        '--' }}:</p>
+      <span class="monitoring__large-text">{{(vm.metaData.record.duration / 60) > 60 ? (vm.metaData.record.duration / 60 / 60 | number : 2) : ((vm.metaData.record.duration / 60 | number : 2)|| '--')}}</span>
+      {{(vm.metaData.record.duration / 60) >= 60 ? '小时' : '分钟'}}
+    </div>
+    <div class="monitoring__item">
+      <p>
+        最近开机时间
+      </p>
+      <span class="monitoring__large-text">{{(vm.metaData.record.updateTime && vm.metaData.record.updateTime | date: 'HH:mm:ss') || '--'}}</span> {{vm.metaData.record.updateTime
+      | date: 'yyyy-MM-dd' || '--'}}
+    </div>
+    <div class="monitoring__item">
+      <p>
+        总开机时间
+      </p>
+      <span class="monitoring__large-text">{{(vm.metaData.record.totalPowerOnTime / 60) > 60 ? (vm.metaData.record.totalPowerOnTime / 60 / 60 | number : 2)
+        : ((vm.metaData.record.totalPowerOnTime / 60 | number : 2) || '--') }}</span> {{(vm.metaData.record.totalPowerOnTime
+      / 60) > 60 ? '小时' : '分钟'}}
+    </div>
+  </div>
+  <br/>
+  <div class="container-fluid detail-scroll-table">
+    <table class="white-borderd table table-hover">
+      <thead>
+        <tr>
+          <th>操作</th>
+          <th>操作时间</th>
+          <th>剩余电量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.metaData.recordDetail track by $index">
+          <td class="ng-binding">{{ (vm.metaData.codes | filter: { type: 'operationStatus', code: row.status })[0].name || '--' }}</td>
+          <td class="ng-binding">{{row.updateTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td class="ng-binding">{{row.residualCapacity}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

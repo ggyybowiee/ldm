@@ -1,0 +1,12 @@
+.edit-text-wrapper {
+  position: relative;
+  height: 17px;
+  &.input-mode {
+    height: 26px;
+  }
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

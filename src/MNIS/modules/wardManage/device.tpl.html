@@ -1,0 +1,71 @@
+<div class="device-wrapper">
+  <div class="toolbar">
+    <span class="toolbar-item">
+      <select name="type" class="form-control input-sm" ng-model="vm.filter.option" ng-change="vm.optionChange()">
+        <option value="0">床号</option>
+        <option value="1">姓名</option>
+        <option value="2">住院号</option>
+      </select>
+    </span>
+    <span class="toolbar-item">
+      <form ng-submit="vm.search()" novalidate>
+        <div class="input-group">
+          <input type="text" class="form-control input-sm" ng-model="vm.text">
+          <span class="input-group-btn"><button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button></span>
+        </div>
+      </form>
+    </span>
+    <span class="toolbar-item">
+      <div class="btn-group btn-radio">
+        <label class="btn btn-sm btn-primary" ng-model="vm.filter.cate" uib-btn-radio="0"><i class="icon icomoon-hospital"></i></label>
+        <label class="btn btn-sm btn-primary" ng-model="vm.filter.cate" uib-btn-radio="1"><i class="icon icomoon-people"></i></label>
+      </div>
+    </span>
+    <div class="pull-right toolbar-item">
+      <button class="btn btn-sm btn-round btn-primary" wrist-print="vm.filterList">打印腕带</button>
+      <button class="btn btn-sm btn-round btn-primary" bed-print="vm.filterList">打印床头卡</button>
+    </div>
+  </div>
+  <div class="content-table" loading-wrapper="vm.load">
+    <table class="table white-borderd" checkbox-team="vm.checked" listener="vm.printFilter">
+      <thead>
+        <tr>
+          <th print-remove>
+            <label class="custom-checkbox">
+              <input type="checkbox" checkbox-all>
+              <span></span>
+            </label>
+          </th>
+          <th>床号</th>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>年龄</th>
+          <th>住院号</th>
+          <th>饮食</th>
+          <th>入院诊断</th>
+          <th>条码</th>
+          <th>信息</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.list | filter: vm.listFilter track by row.patCode" ng-class="{'0': 'specisl-level', '1': 'one-level', '2': 'two-level', '3': 'three-level'}[row.nurseLevel]">
+          <td print-remove>
+            <label class="custom-checkbox">
+              <input type="checkbox" value="{{row.patCode}}" check-list="vm.checked" ng-checked="vm.checked.indexOf(row.patCode) > -1">
+              <span></span>
+            </label>
+          </td>
+          <td>{{ row.bedCode }}</td>
+          <td>{{ row.patName }}</td>
+          <td>{{ mnisUtils.getGender(row.gender) }}</td>
+          <td>{{ row.age }}</td>
+          <td>{{ row.displayCode }}</td>
+          <td>{{ row.dietName }}</td>
+          <td class="text-overflow">{{ row.inDiag }}</td>
+          <td>{{ row.barCode }}</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

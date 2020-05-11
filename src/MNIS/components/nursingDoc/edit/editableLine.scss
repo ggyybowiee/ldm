@@ -1,0 +1,83 @@
+.editable-line__input-control {
+  display: none;
+  font-family: 'Courier New';
+  width: 100%;
+  word-break: break-all;
+}
+
+.editable-line__text {
+  text-align: inherit;
+  font-family: 'Courier New';
+  word-break: break-all;
+  page-break-inside: avoid;
+
+  & > div {
+    white-space: nowrap;
+  }
+}
+
+.editable-line__text__wrap {
+  text-align: inherit;
+  font-family: 'Courier New';
+  word-break: break-all;
+  page-break-inside: avoid;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.div-no-wrap div {
+  white-space: nowrap !important;
+}
+
+.editing-line {
+  background-color: transparentize(lighten($primary, 40%), 0.3)!important;
+  .editable-line__input-control {
+    position: relative;
+    z-index: 9;
+
+    display: table;
+
+    padding: 0;
+
+    color: #333;
+    text-align: center;
+    &:focus {
+      box-shadow: inset 0 0 0 1px $warning;
+    }
+  }
+
+  .indent-control {
+    text-indent: 2em;
+  }
+
+  .editable-line__text {
+    display: none;
+  }
+  .form-control {
+    line-height: normal;
+
+    height: 26px;
+    padding: 3px;
+
+    border-radius: 0;
+  }
+}
+
+.editable-line__sign {
+  // white-space: nowrap;
+  word-break: break-all;
+}
+
+
+.total-in-out-wrap {
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Courier New';
+}
+
+.editable-line__input-control {
+  .select-input__options li {
+    padding: 2px 5px;
+    font-size: 12px;
+  }
+}

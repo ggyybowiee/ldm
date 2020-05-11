@@ -1,0 +1,18 @@
+<div>
+  <div class="wrapper mnis-wrapper" style="min-width:1160px;">
+    <span ng-if="!vm.openOuter">
+      <common-header contain-nav="true" style="min-width:1160px;" />
+    </span>
+
+    <div ng-class="{container: !fullPage}" style="min-width:1160px;" id="idoc-body">
+      <!-- IDOC容器 -->
+      <div class="idoc-container"></div>
+      <div ui-view ng-style="noHeader"></div>
+    </div>
+  </div>
+  <!-- MEWS提醒框 -->
+  <div class="mnis-alert-panel">
+    <mews-alert-popup ng-repeat="alert in vm.mewsRisks track by $index" ng-style="vm.getAlertPopupStyle($index)" alert="alert"
+      process="vm.alertOnProcess" wait="vm.alertOnWait"></mews-alert-popup>
+  </div>
+</div>

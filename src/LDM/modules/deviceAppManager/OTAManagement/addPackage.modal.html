@@ -1,0 +1,59 @@
+<div>
+    <div class="modal-header">
+      <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h5 class="modal-title">
+        上传升级包
+      </h5>
+    </div>
+    <form class="form-horizontal w5c-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption" name="yearForm">
+
+      <div class="modal-body">
+        <div class="container-fluid">
+            <div class="form-group">
+                <label for="softMark" class="col-sm-3 control-label text-black">支持的设备类型：</label>
+                    <div class="col-sm-5">
+                        <select class="form-control input-sm" ng-model="vm.formData.deviceType" name="deviceType" required convert-to-number>
+                                <!-- <option value="">全部</option> -->
+                                <option ng-repeat="item in vm.metaData.deviceTypes" value="{{item.code}}">{{item.name}}</option>
+                        </select>
+                    </div>
+            </div>
+          <div class="form-group">
+            <label for="softPath" class="col-sm-3 control-label text-black">选择升级包：{{vm.modalVm.metaData.progress.uploadStatus}}</label>
+            <div class="col-sm-5">
+              <div ng-if="vm.fileName || vm.metaData.uploader.queue[0]">{{vm.fileName || vm.getFilenameFromPath(vm.formData.softPath) }}</div>
+              <div class="btn btn-xs btn-default btn-round btn-file-selector" role="button">
+                {{vm.fileName ? '替换文件' : '选择文件'}}
+                <input class="form-control input-sm input-file--hidden" nv-file-select="" uploader="vm.metaData.uploader" required name="softPath" id="softPath" type="file" />
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12" ng-if="vm.metaData.progress && vm.metaData.progress.uploadStatus === 0" style="text-align: center">
+            <span><i class="fa fa-spinner fa-spin"></i>&nbsp正在加载...</span>
+          </div>
+          <div class="col-xs-12" ng-if="vm.metaData.progress && vm.metaData.progress.uploadStatus === 1">
+              <div class="justify-center progress progress-striped" ng-if="vm.metaData.progress" style="margin-bottom: 0px;margin-top: 10px;">
+                  <div class="progress-bar active" role="progressbar"
+                       aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                       ng-style="{width: (vm.metaData.progress.uploadRate*100) + '%'}"
+                       style="border-radius: 5px;">
+                       <span>{{vm.metaData.progress.uploadRate*100 | number: 0}}%</span>
+                      <!--<span>{{vm.metaData.progress.timeElapsed/(vm.metaData.progress.timeElapsed + vm.metaData.progress.timeToExpired) | number: 0}}%</span>-->
+                  </div>
+              </div>
+              <div ng-if="vm.metaData.progress">{{vm.metaData.progress.uploadedSize/(1024*1024) | number: 2}}
+                {{'/' + (vm.metaData.progress.fileSize/(1024*1024)  | number: 2) + 'M'}}
+                <span ng-if="vm.metaData.progress && vm.metaData.progress.uploadRate !== 1">正在上传</span>
+                <span ng-if="vm.metaData.progress && vm.metaData.progress.uploadRate === 1">上传完成，正在解压...</span>
+              </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-success btn-round" ng-disabled="!(vm.fileName && vm.formData.deviceType) || vm.metaData.buttonDis" w5c-form-submit="vm.ok(vm.formData.deviceType)">确定</button>
+        <button class="btn btn-sm btn-default btn-round" ng-disabled="vm.metaData.buttonDis" ng-click="vm.cancel()">取消</button>
+      </div>
+    </form>
+
+  </div>

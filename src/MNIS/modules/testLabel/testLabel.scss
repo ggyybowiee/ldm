@@ -1,0 +1,81 @@
+.orders-wrapper {
+  .check-all {
+    padding: 0 10px 10px;
+    margin: 0 -10px 10px -10px;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .reportWrapper {
+    margin-bottom: 10px;
+
+    .reportList {
+      list-style: none;
+      display: inline-block;
+      margin-left: 20px; 
+      li {
+        margin-right: 10px;
+        display: inline-block;
+      }
+    }
+  }
+  
+  .toolbar {
+    margin: 0;
+    border: none;
+  }
+
+  .tag {
+    padding: 2px;
+    color: white;
+    + .tag {
+      margin-left: 10px;
+    }
+    &.new-tag {
+      background-color: #02D538;
+    }
+    &.stop-tag {
+      background-color: #808080;
+    }
+  }
+
+  .order-content {
+    width: 20%;
+  }
+
+  th.sm, td.sm {
+    width: 40px;
+  }
+
+}
+
+.compareModel {
+  .patInfo {
+    font-size: 14px;
+  
+    ul {
+      li {
+        margin: 0 10px;
+        list-style: none;
+        display: inline-block;
+      }
+    }
+  }
+
+  .tableHeader {
+    border-bottom: 1px #e5e5e5 dashed;
+  }
+
+  tr {
+    padding: 5px 0;
+    line-height: 30px;
+  }
+  
+  td {
+    border-bottom: 1px #e5e5e5 dashed;
+  }
+
+  .reportListBox {
+    width: 100%;
+    padding: 10px;
+  }
+}

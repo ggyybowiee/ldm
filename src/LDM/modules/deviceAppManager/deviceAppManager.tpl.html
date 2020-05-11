@@ -1,0 +1,57 @@
+<div class="panel panel-layout panel-default">
+  <div class="flex-box justify-between filter-bar form-inline">
+    <div class="filter-bar__search" style="width:50%;">
+      <search-input ng-model="vm.queryParams.softName" search="vm.load.func()" text="关键字"></search-input>
+    </div>
+    <div class="filter-item">
+      <button class="btn btn-default btn-round" ng-click="vm.openAdd()">
+        <i class="fa fa-upload"></i>&nbsp;上传软件
+      </button>
+    </div>
+  </div>
+
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table st-table="vm.softwaresDisplay" st-safe-src="vm.softwares" class="white-borderd table table-hover device-table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>软件标识</th>
+          <th>名称</th>
+          <th>版本号</th>
+          <th>版本名称</th>
+          <th>更新时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.softwaresDisplay track by $index">
+          <td class="ng-binding">{{$index + 1}}</td>
+          <td class="ng-binding">{{row.softMark}}</td>
+          <td class="ng-binding">{{row.softName}}</td>
+          <td class="ng-binding">{{row.softVersion}}</td>
+          <td class="ng-binding">{{row.versionName}}</td>
+          <td class="ng-binding">{{row.updateTime | date: 'yyyy-MM-dd HH:mm'}}</td>
+          <td class="flex-box justify-around">
+            <a class="btn btn-link btn-xs success-text" download ng-href="{{vm.downloadFile(row.attachmentId)}}">
+              <i class="fa fa-download"></i>
+            </a>
+            <button class="btn btn-link btn-xs primary-text" ng-click="vm.openAdd(row)">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-link btn-xs danger-text" confirm yes="vm.del(row)" content="确定删除该软件吗？">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8">
+            <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.softwares"></none-data-info>
+  </div>
+</div>

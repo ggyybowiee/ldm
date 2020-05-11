@@ -1,0 +1,124 @@
+<div class="panel panel-layout panel-default NDASwitchgear">
+
+  <div class="filter-bar form-inline">
+      <div class="filter-item">
+          <input class="form-control input-sm" type="text" ng-model="vm.queryParams.key" placeholder="关键字">
+        </div>
+    <div class="filter-item">
+      <label>所属病区： </label>
+      <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.queryParams.wardCode" name="eqpBelong" convertToNumber>
+        <option value="">全部</option>
+        <option ng-repeat="item in vm.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+      </select>
+    </div>
+    <div class="filter-item">
+      <label>统计时段： </label>
+      <date-picker ng-model="vm.queryParams.startTime"></date-picker>
+      <span> 至 </span>
+      <date-picker ng-model="vm.queryParams.endTime"></date-picker>
+    </div>
+  </div>
+
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <label>设备类型：</label>
+      <label class="radio-inline custom-radio">
+        <input type="radio" value="1001" ng-model="vm.queryParams.deviceType"/>
+        <span>NDA</span>
+      </label>
+      <label class="radio-inline custom-radio">
+        <input type="radio" value="1002" ng-model="vm.queryParams.deviceType" />
+        <span>医生推车</span>
+      </label>
+      <label class="radio-inline custom-radio">
+        <input type="radio" value="1003" ng-model="vm.queryParams.deviceType" />
+        <span>护士推车</span>
+      </label>
+    </div>
+    <button class="btn btn-sm btn-primary round-btn button-size" ng-click="vm.load.func()">查询</button>
+    <button class="btn btn-sm btn-success round-btn button-size" style="margin-left: 20px;" ng-click="vm.load.func()"
+   >刷新</button>
+  </div>
+
+<div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="table table-hover white-table" st-table="vm.historyDisplay" st-safe-src="vm.history" sytle="table-layout: fixed">
+      <thead>
+        <tr>
+          <th width="10%" style="text-align: center">序号</th>
+          <th width="20%">设备名称</th>
+          <th width="20%">设备类型</th>
+          <th width="20%">MAC地址</th>
+          <th width="10%">所属病区</th>
+          <th width="10%">放电次数</th>
+          <th width="10%" style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="row in vm.historyDisplay | orderBy : createTime : desc track by $index" >
+          <tr class="splite-row"></tr>
+        <tr ng-class="{'top-table-blue' : row.showDetail}" class="row-shadow">
+          <td class="ng-binding" style="text-align: center">{{$index + 1}}</td>
+          <td class="ng-binding">{{row.deviceInfo.content.basicInfo.eqpName}}</td>
+          <td class="ng-binding">{{vm.types && (vm.types | filter : {code: row.deviceInfo.content.basicInfo.eqpType})[0].name}}</td>
+          <td class="ng-binding">{{row.deviceInfo.content.basicInfo.mac}}</td>
+          <td class="ng-binding">{{vm.belongs && (vm.belongs | filter : {wardCode: row.deviceInfo.content.basicInfo.eqpBelong})[0].wardName}}</td>
+          <td class="ng-binding">
+            <span ng-class="vm.setColor(row.connectedNum)">
+              <strong class="fz-16">{{row.count}}</strong>&nbsp次</span>
+          </td>
+          <td class="ng-binding" ng-click="vm.clickRow(row)" ng-disabled="row.batteryRecordList.length == 0" style="text-align: center">
+            <span class="text-primary"> {{row.showDetail ? '收缩' : '展开'}}</span>&nbsp&nbsp
+            <img style="width: 12px;" ng-class="{'turn-img': row.showDetail}" src="assets/images/devices/icon_xiala.png">
+          </td>
+        </tr>
+        <tr ng-show="row.showDetail === true" ng-class="{'under-table-blue' : row.showDetail}">
+          <td colspan="7">
+            <table class="table table-hover white-table sub-table" style="margin-bottom: 0px" st-table="row.batteryRecordListDisplay" st-safe-src="row.batteryRecordList">
+              <thead>
+                <tr>
+                    <th width="10%"></th>
+                    <th width="20%">开始使用电池时间</th>
+                    <th width="20%">开始使用电池电量</th>
+                    <th width="20%">结束使用电池时间</th>
+                    <th width="10%">结束使用电池电量</th>
+                    <th width="10%">使用时长(小时)</th>
+                    <th width="10%" style="text-align: center">使用电量(%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="record in row.batteryRecordListDisplay">
+                  <td></td>
+                  <!-- <td class="ng-binding subTable-td">{{record.powerOnTime | date: 'yyyy-MM-dd HH-mm-ss'}}</td> -->
+                  <td class="ng-binding subTable-td">
+                      <label>
+                        <i class="fa fa-dot-circle-o text-primary" style="margin-right: 5px;"></i>
+                        <span>{{record.powerOnTime | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+                      </label>
+                    </td>
+                  <td class="ng-binding subTable-td">{{record.startCapacity}}</td>
+                  <td class="ng-binding subTable-td">{{record.powerOffTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                  <td class="ng-binding subTable-td">{{record.residualCapacity}}</td>
+                  <td class="ng-binding subTable-td">{{record.period}}</td>
+                  <td class="ng-binding subTable-td" style="text-align: center">{{record.consumeCapacity}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="7">
+                    <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <!-- <none-data-info list="vm.statuses"></none-data-info> -->
+  </div>
+</div>

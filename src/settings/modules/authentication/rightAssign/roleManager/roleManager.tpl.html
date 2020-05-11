@@ -1,0 +1,52 @@
+<div>
+
+  <div class="setting-tabcontrol-page-header">
+    <div class="bordered-bottom">
+      <h4>系统角色管理</h4>
+      <span>系统角色用于该角色在应用场景下拥有的系统访问权限，包括资源与权限，资源控制可以访问哪些模块，权限控制控制是否可以使用模块下具体的功能</span>
+    </div>
+    <br />
+    <div class="toolbar" style="border:0;padding:0px;">
+      <div class="toolbar-item">
+        <input type="text" name="keyword" style="width: 40em;" class="form-control input-sm" ng-model="vm.userFilterText"
+          placeholder="输入角色编号或角色名检索" autocomplete="off" />
+      </div>
+      <div class="toolbar-item">
+        <button class="btn btn-primary btn-sm" ng-click="vm.loadRoles.func()">刷新</button>
+      </div>
+      <div class="toolbar-item pull-right">
+        <button class="btn btn-success btn-sm" ng-click="vm.openRole()">添加角色</button>
+      </div>
+    </div>
+  </div>
+
+  <div loading-wrapper loading-type="content" loading-options="vm.loadRoles">
+    <table class="table white-borderd  thead-fixed">
+      <thead>
+        <tr>
+          <th>角色码</th>
+          <th>角色名</th>
+          <th>创建时间</th>
+          <th>创建人</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody full-page="fix" full-page-bottom="0">
+        <tr ng-repeat="item in vm.roles | filter:vm.userFilterText">
+          <td>{{item.roleCode}}</td>
+          <td>{{item.roleName}}</td>
+          <td>{{item.createTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td>{{item.createPerson}}</td>
+          <td>
+            <button class="btn btn-link btn-xs success-text" ng-click="vm.openRole(item)">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-link btn-xs danger-text" confirm yes="vm.delRole(item)" content="确定要删除该角色？">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

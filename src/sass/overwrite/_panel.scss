@@ -1,0 +1,25 @@
+.panel-default {
+  & > .panel-heading {
+    border-radius: 3px 3px 0 0;
+    // background: #fff;
+  }
+}
+.panel {
+  & > .panel-heading {
+    font-size: 14px;
+    line-height: 26px;
+
+    position: relative;
+    & > .fa {
+      margin-right: 5px;
+    }
+  }
+}
+
+.panel-grey {
+  & > .panel-heading {
+    border-radius: 0;
+    background: #e3e3e3;
+  }
+  border: 1px #ddd solid;
+}

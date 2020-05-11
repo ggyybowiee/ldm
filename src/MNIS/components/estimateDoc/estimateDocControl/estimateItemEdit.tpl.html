@@ -1,0 +1,35 @@
+<div class="estimate-item-edit-root">
+  <div class="estiamte-item-edit-disable-panel" ng-click="vm.saveEditButton()">
+  </div>
+  <div class="estimate-item-edit-panel">
+    <div loading-wrapper="vm.savingRecordProc">
+      <div class="estimate-item-edit-header-panel">
+        <div></div>
+        <span>编辑数据</span>
+        <div>
+          <button class="btn btn-danger" content="是否确定放弃修改？" confirm yes="vm.cancelEditButton()">取消</button>
+          <button class="btn btn-success" ng-click="vm.saveEditButton()">保存</button>
+        </div>
+      </div>
+      <div class="estimate-item-edit-form-panel" full-page="fix" full-page-bottom="45">
+        <table class="estiamte-item-table">
+          <tbody>
+            <tr class="estimate-item-title-tr" ng-repeat="item in editingData.row track by $index">
+              <td class="estiamte-item-title-td" uib-tooltip-html="item.summary|trusthtmlcontent" tooltip-class="estimate-item-summary-tooltip"
+                tooltip-append-to-body="true" tooltip-placement="left" colspan="{{!item.isValueHeader ? 2 : 1}}"
+                ng-class="{'nocontent': !editingData.rowdata.data[item.dataBind], 'description':!item.isValueHeader}">
+                <label>
+                  <span>{{item.title}}</span>
+                  <span>{{item.title2}}</span>
+                </label>
+              </td>
+              <td ng-if="item.isValueHeader" class="estiamte-item-val-td">
+                <estimate-item-edit-cell edit-data="editingData.rowdata" header="item" hlpgd="hlpgd" on-change="valueChanged"></estimate-item-edit-cell>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

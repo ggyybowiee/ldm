@@ -1,0 +1,81 @@
+<div>
+  <div loading-wrapper="vm.loadExams">
+    <div class="patient-exam-list-panel">
+      <div class="patient-exam-list-wrapper">
+        <div class="toolbar">
+          检查报告列表({{vm.examList.length}})
+        </div>
+        <div full-page="fix" full-page-bottom="3">
+          <div class="patient-exam-brief-panel" ng-repeat="examReport in vm.examList " ng-click="vm.selectExam(examReport)"
+            ng-class="{'selected': vm.selectedExam == examReport}">
+            <span>{{examReport.patExamMaster.examDateTime | idate:'D'}}</span>
+            <span>{{examReport.patExamMaster.localIdClass}}&nbsp;&nbsp;|&nbsp;&nbsp;{{examReport.patExamMaster.clinSymp}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="patient-exam-report-panel" full-page="fix" full-page-bottom="3">
+
+        <!-- 医院LOGO -->
+        <div class="patient-test-report-hospital-wrapper text-center">
+          <div class="hospital-name" ng-if="!vm.hospitalInfo.hospitalLogo">{{hospitalName}}</div>
+          <img ng-if="vm.hospitalInfo.hospitalLogo " url-to-base64 ng-src="{{vm.hospitalInfo.hospitalLogo}}" alt="{{vm.hospitalInfo.hospitalName}}"
+            height="50" width="auto">
+          <h3>检查报告单</h3>
+          <div class="patient-test-code">
+            检查单号：{{vm.selectedExam.patExamMaster.examCode}}
+          </div>
+        </div>
+        <!-- 化验单表头 -->
+        <div class="patient-test-report-test-header-wrapper">
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  姓名：{{patientInfo.patName}}
+                </td>
+                <td>
+                  病人病区：{{patientInfo.wardName}}&nbsp;&nbsp;|&nbsp;&nbsp;{{patientInfo.bedCode}}床
+                </td>
+                <td>
+                  部位：{{vm.selectedExam.patExamMaster.examClass}}
+                </td>
+                <td>
+                  住院号：{{patientInfo.displayCode}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  性别：{{patientInfo.gender|gender}}
+                </td>
+                <td>
+                  申请医生：{{vm.selectedExam.patExamMaster.orderingProvider}}
+                </td>
+                <td>
+                  状态：{{vm.selectedExam.patExamMaster.resultStatus}}
+                </td>
+                <td>申请时间：{{vm.selectedExam.patExamMaster.examDateTime|idate:'DH'}}</td>
+              </tr>
+              <tr>
+                <td>年龄：{{patientInfo.birthDate|age}}</td>
+                <td colspan="2">临床诊断：{{vm.selectedExam.patExamMaster.relevantClinicDiag}}</td>
+                <td>
+                  报告时间：{{vm.selectedExam.patExamMaster.reportDateTime|idate:'DH'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <h5 class="bordered-bottom">[检查参数]</h5>
+        <p>{{vm.selectedExam.patExamReport.examPara}}</p>
+        <h5 class="bordered-bottom">[检查所见]</h5>
+        <p>{{vm.selectedExam.patExamReport.description}}</p>
+        <h5 class="bordered-bottom">[检查印象]</h5>
+        <p>{{vm.selectedExam.patExamReport.impression}}</p>
+        <h5 class="bordered-bottom">[检查建议]</h5>
+        <p>{{vm.selectedExam.patExamReport.recommendation}}</p>
+      </div>
+    </div>
+  </div>
+</div>

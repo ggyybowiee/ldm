@@ -1,0 +1,15 @@
+.patient-order-ext-panel {
+
+  .toolbar {
+    background-color: transparent;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+
+  table {
+    tr.selected {
+      background-color: $primary !important;
+      color: white;
+    }
+  }
+}

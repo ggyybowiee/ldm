@@ -1,0 +1,81 @@
+.custom-column-edit-item-panel {
+  margin: 5px 0px;
+
+  .toolbar {
+    padding: 5px 0px;
+    margin: 0px 0px 5px 0px;
+    border-bottom: 1px solid $border-3;
+    background-color: transparent !important;
+
+    >span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    >div {
+      float: right;
+    }
+  }
+
+  .table {
+    height: 260px;
+    overflow: auto;
+    border: 1px solid $border-3;
+    padding-right: 1px;
+
+    >table {
+      width: 100%;
+
+      >thead {
+        th {
+          border-right: 1px solid $border-3;
+          border-bottom: 1px solid $border-3;
+          background-color: $back-4;
+          padding: 5px 5px;
+        }
+      }
+
+      >tbody {
+        td {
+          border: 1px solid $border-3;
+          padding: 2px 5px;
+          text-emphasis: emphasis;
+          word-wrap: break-word;
+          word-break: break-all;
+        }
+        tr:hover {
+          background-color: $primary;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.custom-column-batch-edit-title-panel {
+  display: flex;
+  font-size: 14px;
+  margin-bottom: 20px;
+
+  >div {
+    margin: 0px 0px;
+    flex-basis: 50%;
+    display: flex;
+
+    >span{
+      margin:auto 0px;
+    }
+
+    input {
+      padding: 0px 5px;
+      border: 1px solid $border-3;
+      text-align: left;
+      flex-grow: 1;
+    }
+  }
+
+  >div:first-child {
+    padding: 0px 10px 0px 0px;
+  }
+
+}

@@ -1,0 +1,72 @@
+<div class="workload-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      查询类型：
+      <select class="form-control input-sm" ng-model="vm.params.type">
+        <option value="0">我的工作量</option>
+        <option value="1">按护士统计</option>
+        <option value="2">按类型统计</option>
+      </select>
+    </div>
+    <div class="pull-right">
+      <div class="toolbar-item">
+        <button class="btn btn-sm btn-round btn-info" ng-click="vm.thisSeason()">本季</button>
+        <button class="btn btn-sm btn-round btn-info" ng-click="vm.thisMonth()">本月</button>
+      </div>
+      <div class="toolbar-item">
+        时间：
+        <date-picker style="width: 160px" ng-model="vm.params.beginTime"></date-picker>&nbsp;到&nbsp;
+        <date-picker style="width: 160px" ng-model="vm.params.endTime"></date-picker>
+      </div>
+      <div class="toolbar-item">
+        <button class="btn btn-sm btn-round btn-primary" ng-click="vm.load.func()">查询</button>
+      </div>
+    </div>
+  </div>
+  <div class="content-table" loading-wrapper="vm.load">
+    <table class="table white-borderd tr-hover" ng-if="vm.curType == 0">
+      <thead>
+        <tr>
+          <th>工作类别</th>
+          <th>工作量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, value) in vm.data.detail" ng-click="vm.openMy(value.detail)">
+          <td>{{vm.dicHelper.getDicName('workloadType', key)}}</td>
+          <td>{{value.total || 0}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table white-borderd tr-hover" ng-if="vm.curType == 1">
+      <thead>
+        <tr>
+          <th>护士工号</th>
+          <th>护士名称</th>
+          <th>个人总工作量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in vm.data" ng-click="vm.openNurse(item.detail)">
+          <td>{{item.hisCode}}</td>
+          <td>{{item.userName}}</td>
+          <td>{{item.total}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table white-borderd tr-hover" ng-if="vm.curType == 2">
+      <thead>
+        <tr>
+          <th>工作类别</th>
+          <th>工作总量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, value) in vm.data.detail" ng-click="vm.openCate(value.detail)">
+          <td>{{vm.dicHelper.getDicName('workloadType', key)}}</td>
+          <td>{{value.total}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

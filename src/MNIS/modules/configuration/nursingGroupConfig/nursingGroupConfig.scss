@@ -1,0 +1,71 @@
+.nursing-group-panel {
+  display: flex;
+  .flex {
+    display: flex;
+  }
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.nursing-duty-config-panel {
+  flex-grow: 1;
+  span {
+    margin: auto 0px;
+  }
+}
+
+.nursing-duty-item-panel {
+  cursor: pointer;
+  padding: 5px 10px;
+  >div {
+    margin: 5px 0px;
+  }
+}
+
+.nursing-duty-item-panel:hover {
+  background-color: $back-4;
+}
+
+.nursing-group-config-panel {
+  margin-left: 10px;
+  padding-left: 10px;
+  flex-grow: 1;
+}
+
+.mews-title-panel {
+  display: flex;
+  >span {
+    margin: auto 5px;
+    color: $font-color2;
+  }
+  >div {
+    flex-grow: 1;
+    height: 30px;
+    margin: auto 0px;
+  }
+}
+
+.nursing-group-item-panel {
+  height: 50px;
+  line-height: 50px;
+  padding: 0px 10px;
+  span {
+    margin: auto 0px;
+  }
+  input {
+    margin: auto 0px;
+  }
+}
+
+.nursing-duty-item-selected {
+  border-radius: 5px;
+  width: 15px;
+  background-color: transparent;
+  margin: 5px 10px 5px 0px !important;
+}
+
+.duty-item-selected {
+  background-color: $primary !important;
+}

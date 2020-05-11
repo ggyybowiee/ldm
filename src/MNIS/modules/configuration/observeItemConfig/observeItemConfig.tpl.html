@@ -1,0 +1,81 @@
+<div>
+  <div class="toolbar-item-panel bordered-bottom" style="margin-top: 16px;">
+    <h3 style="display: inline-block;margin: 0px;">配置观察项</h3>
+  </div>
+  <div class="observer-item-toolbar-panel">
+    <div class="flex-box">
+      <span>科室过滤:</span>
+      <select class="form-control input-sm" ng-model="vm.queryArgs.wardCode" ng-change="vm.loadobserveItemList.func()">
+        <option value="">全院</option>
+        <option ng-repeat="ward in vm.wardList" value={{ward.wardCode}}>{{ward.wardName}}</option>
+      </select>
+      <span style="margin-left: 20px;">体征类型:</span>
+      <div class="observer-item-toolbar-obsritemtype">
+        <label class="custom-checkbox">
+          <input type="checkbox" ng-model="vm.queryArgs.checkall" ng-change="vm.selectAllObsrItemType()">
+          <span>全选</span>
+        </label>
+        <label class="custom-checkbox" ng-repeat="obsrItem in vm.obsrItemTypeDic track by $index">
+          <input type="checkbox" ng-model="vm.queryArgs.typeList[$index]" ng-change="vm.selectObsrItemType($index)">
+          <span style="{'checked':vm.queryArgs.typeList[$index]==obsrItem.dicCode}">{{obsrItem.dicName}}</span>
+        </label>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-sm btn-success" ng-click="vm.openEditPanel()">添加</button>
+    </div>
+  </div>
+  <div loading-wrapper="vm.loadobserveItemList">
+    <table class="table white-borderd thead-fixed">
+      <thead>
+        <tr>
+          <th style="width:80px">序号</th>
+          <th style="width:80px">项目名称</th>
+          <th style="width:70px">拼音代码</th>
+          <th style="width:110px">体征类型</th>
+          <th style="width:60px;">最小值</th>
+          <th style="width:60px;">最大值</th>
+          <th style="width:80px;">预警最小值</th>
+          <th style="width:80px;">预警最大值</th>
+          <th>输入类型</th>
+          <th>单位</th>
+          <th>智能设备</th>
+          <th style="width: 50px;">启用</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody full-page="fix">
+        <tr ng-repeat="item in vm.observeItemList track by $index">
+          <td style="width:80px">{{$index + 1}}</td>
+          <td style="width:80px">{{item.itemName}}</td>
+          <td style="width:70px">{{item.pinyin}}</td>
+          <td style="width:110px">
+            <select class="form-control input-sm" ng-model="item.type" ng-change="vm.saveItem($index)">
+              <option ng-repeat="obsrItem in vm.obsrItemTypeDic" value="{{obsrItem.dicCode}}">{{obsrItem.dicName}}</option>
+            </select>
+          </td>
+          <td style="width:60px;">{{item.minValue}}</td>
+          <td style="width:60px;">{{item.maxValue}}</td>
+          <td style="width:80px;">{{item.minWarningValue}}</td>
+          <td style="width:80px;">{{item.maxWarningValue}}</td>
+          <td>{{item.inputType}}</td>
+          <td>{{item.unit}}</td>
+          <td>
+            <select class="form-control input-sm" ng-model="item.smartDeviceType" ng-change="vm.saveItem($index)">
+              <option ng-repeat="smartDevice in vm.smartDeviceDic" value="{{smartDevice.dicCode}}">{{smartDevice.dicName}}</option>
+            </select>
+          </td>
+          <td style="width: 50px;" class="observeitem-table-click-td" ng-click="vm.setItemStatus($index, item)">{{item.status==0 ? '' :
+            '√'}}</td>
+          <td>
+            <button class="btn btn-link btn-xs warning-text " ng-click="vm.openEditPanel(item) ">
+              <i class="fa fa-edit "></i>
+            </button>
+            <button class="btn btn-link btn-xs danger-text " confirm yes="vm.deleteItem($index, item) " content="确定要删除该记录单？ ">
+              <i class="fa fa-trash "></i>
+            </button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

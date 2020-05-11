@@ -1,0 +1,8 @@
+<div class="clearfix doc-header-form-wrap" ng-class="{editing: editable}">
+  <div ng-repeat="item in items" class="pull-left flex-box align-center" style="flex-wrap: nowrap !important" ng-class="{'disabled': sheetForm.date}" ng-style="{width: item.width ? item.width + 'mm' : 'auto'}">
+    <span style="white-space: nowrap">{{item.label ? item.label + '：' : ''}}</span>
+    <span class="doc-header-form__value">
+      <editable-form-item type="item.dataType" callback="save()" options="item.opts" name="item.dataBind" ng-model="sheetForm.headerForm[item.dataBind]"></editable-form-item>
+    </span>
+  </div>
+</div>

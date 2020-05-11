@@ -1,0 +1,36 @@
+<div class="container-fluid detail-scroll-table">
+  <div style="margin-bottom: 10px;">
+    <label ng-if="vm.metaData.isGetLog">记录上传可能需要几分钟，请稍后打开查看</label>
+    <button class="btn btn-primary btn-round pull-right" ng-click="vm.getLog()" style="margin-bottom: 10px;">获取日志</button>
+  </div>
+  <table class="white-borderd table table-hover" st-table="vm.metaData.logInfo">
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>文件</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in vm.metaData.logInfo">
+        <td class="ng-binding">{{row.createTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="ng-binding">{{row.fileName}}</td>
+        <td class="ng-binding">
+          <a class="btn btn-xs btn-round btn-success" style="width: 80px;" download
+            ng-href="{{vm.downloadFile(row.attachmentId)}}">下载</a>
+          <!-- <button class="btn btn-xs btn-info btn-round" uib-tooltip="下载" tooltip-append-to-body="true" ng-click="vm.downloadLogFile(row.attachmentUrl)">
+            <i class="fa fa-download"></i>
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="8">
+          <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  <none-data-info list="vm.metaData.logInfo"></none-data-info>
+</div>

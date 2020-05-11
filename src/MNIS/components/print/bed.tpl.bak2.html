@@ -1,0 +1,99 @@
+<div class="custom-print-wrapper">
+  <style>
+    .custom-print-wrapper * {
+      font-family: 'microsoft yahei';
+      font-weight: 700;
+    }
+
+    .custom-print-wrapper qrcode {
+      display: block;
+    }
+
+    .custom-print-wrapper .patient-content {
+      padding: 5mm;
+    }
+
+    .custom-print-wrapper .patient-content table {
+      width: 100%;
+      height: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    .custom-print-wrapper .patient-content td {
+      width: 16.66%;
+      text-align: center;
+      border: 1px solid #333;
+    }
+
+    .custom-print-wrapper .patient-content .qrcodeCon {
+      position: absolute;
+      top: 9mm;
+      right: 25mm;
+    }
+  </style>
+
+  <div class="patient-content">
+    <table>
+      <tr>
+        <td>姓名</td>
+        <td>{{patient.patName}}</td>
+        <td>床号</td>
+        <td>{{patient.bedCode}}</td>
+        <td colspan="2" rowspan="2">
+
+        </td>
+      </tr>
+      <tr>
+        <td>性别</td>
+        <td>{{getGender(patient.gender)}}</td>
+        <td>年龄</td>
+        <td>{{patient.age}}</td>
+      </tr>
+      <tr>
+        <td>住院号</td>
+        <td>{{patient.displayCode}}</td>
+        <td>入院日期</td>
+        <td>{{patient.inDate | idate}}</td>
+        <td>过敏史</td>
+        <td>{{patient.allergen}}</td>
+      </tr>
+      <tr>
+        <td>护理级别</td>
+        <td>{{getNurseLevel(patient.nurseLevel)}}</td>
+        <td>日期</td>
+        <td>{{patient.currentDate | idate}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>饮食</td>
+        <td>{{patient.dietName}}</td>
+        <td>科主任</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>护士长</td>
+        <td></td>
+        <td>主管医生</td>
+        <td>{{patient.doctorName}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>主管护士</td>
+        <td>{{patient.dutyNurseName}}</td>
+        <td>费用类型</td>
+        <td>{{patient.chargeTypeName}}</td>
+        <td>科室电话</td>
+        <td></td>
+      </tr>
+    </table>
+
+    <div class="qrcodeCon">
+      <qrcode data="{{patient.barCode}}" size="100" mode="img" version="1" error-correction-level="L"></qrcode>
+    </div>
+  </div>
+</div>

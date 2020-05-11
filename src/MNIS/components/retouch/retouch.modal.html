@@ -1,0 +1,42 @@
+<div class="modal-content">
+    <form class="form-inlne form-horizontal w5c-form" name="retouchForm" role="form" novalidate w5c-form-validate="vm.validationOption" form="retouchForm">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title">编辑修正项</h5>
+      </div>
+      <div class="modal-body">
+        <table st-table="vm.softwaresDisplay" st-safe-src="vm.softwares" class="white-borderd table table-hover">
+          <thead>
+            <tr>
+              <th ng-repeat="th in vm.items">{{th.dicName}}</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.formData track by $index">
+              <td ng-repeat="td in vm.items">
+                <textarea class="form-control input-sm" ng-if="!vm.isDateTime(td.dicCode)" ng-model="row[td.dicCode]"></textarea>
+                <div style="width: 330px; display: flex" ng-if="vm.isDateTime(td.dicCode)">
+                  <date-picker no-icon="true" class="print-remove" name="{{row[td.dicCode]}}" ng-model="row[td.dicCode]"></date-picker>
+                  <time-picker show-now="true" ng-model="row.time"></time-picker>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-primary btn-round" type="button" ng-disabled="vm.loading[$index]" ng-click="vm.save($index)">{{vm.loading[$index] ? '正在保存...': '保存'}}</button>
+                <button class="btn btn-sm btn-danger btn-round" type="button" ng-disabled="vm.loading[$index]" ng-click="vm.removeRow($index)">删除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <button class="btn btn-sm btn-default btn-round" type="button" ng-click="vm.addRow()">新增</button>
+        </div>
+      </div>
+      <div class="modal-footer clearfix">
+        <button class="btn btn-sm btn-default btn-round" type="button" ng-click="$dismiss()">关闭</button>
+      </div>
+    </form>
+  </div>
+  

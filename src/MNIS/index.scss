@@ -1,0 +1,52 @@
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+@import '../sass/variables';
+@import '../sass/mnis_variables';
+
+.mnis-wrapper {
+
+  .toolbar {
+    background-color: white;
+    // margin-top: -10px;
+    // border-bottom: none;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  [class*="icomoon-"] {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  .patients-left-list {
+    width: 180px;
+    margin-right: 10px;
+    .patients-list {
+      li {
+        margin: 10px 0;
+      }
+    }
+  }
+  .table {
+    margin-bottom: 0;
+  }
+  .abs-right {
+    // position: absolute;
+    float: right;
+    right: 20px;
+    top: 0;
+    height: 100%;
+    // line-height: 40px;
+  }
+  .abs-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    line-height: 40px;
+  }
+}
+
+// injector
+// endinjector

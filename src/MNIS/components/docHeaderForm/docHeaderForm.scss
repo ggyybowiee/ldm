@@ -1,0 +1,112 @@
+.editable-doc-item__text {
+  display: block;
+
+  .editing & {
+    display: none;
+  }
+}
+
+.editable-doc-item__input-control {
+  display: none;
+
+  .editing & {
+    display: block;
+  }
+
+  &.doc-header-form-select-and-input {
+    input {
+      border: 0px;
+      border-bottom: black 1px solid;
+    }
+
+    ul{
+      li{
+        padding: 0px 10px;
+      }
+    }
+  }
+}
+
+.doc-header-form-wrap {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  &:hover .doc-header-form-btn-warp {
+    display: block;
+  }
+
+  &>div {
+    line-height: 26px;
+    display: flex;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &.disabled {
+      position: relative;
+
+      &:after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        z-index: 999;
+      }
+    }
+
+    .header-form-control,
+    .multi-selector__value {
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px #333 solid;
+    }
+  }
+
+  @media print {
+    .header-form-control {
+      display: none !important;
+    }
+
+    .header-form-text {
+      display: inline-block;
+    }
+  }
+}
+
+.doc-header-form-btn-warp {
+  position: absolute;
+  display: none;
+  right: -10px;
+  bottom: -10%;
+  z-index: 12;
+  opacity: .5;
+  transition: all .1s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.doc-header-form-edit-btn {
+  // position: absolute;
+}
+
+.doc-header-form__value {
+  flex-grow: 1;
+}
+
+@media print {
+  .doc-header-form-btn-warp {
+    display: none !important;
+  }
+
+  .doc-header-form-btn {
+    display: none !important;
+  }
+}

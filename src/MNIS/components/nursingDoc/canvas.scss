@@ -1,0 +1,100 @@
+.doc-custom-column {
+  position: relative;
+  height: 100%;
+
+  textarea {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    border-color: rgba(16, 142, 233, 0.46);
+    box-shadow: inset 0 0 1px #108ee9;
+  }
+}
+
+.nursing-doc-table-wrapper {
+  position: relative;
+  background-color: transparent;
+
+  >.blank-page-notice{
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    font-weight: bold;
+    font-size: 30px;  
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: $font-2;
+    >div{
+      margin-top: 50px;
+    }
+  }
+}
+
+.doc-custom-options {
+  top: 100%;
+  left: 0;
+  display: none;
+  width: auto;
+  position: absolute;
+  z-index: 999;
+  background-color: #fff;
+  height: auto;
+  border: 1px #ddd solid;
+  box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+
+  .open & {
+    display: block;
+  }
+
+  li {
+    padding: 4px 10px;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $primary;
+      color: #fff;
+    }
+  }
+}
+
+.diff {
+  background-color: transparentize($danger, 0.7);
+}
+
+.custom-column__item {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-column {
+  cursor: pointer;
+}
+
+.custom-column:hover {
+  background-color: $back-3;
+}
+
+.row-editing {
+  position: absolute;
+  z-index: -99;
+  visibility: hidden;
+  font-family: 'Courier New';
+}
+
+.row-editing__cell {
+  display: inline-block;
+  word-break: break-all;
+}
+
+.header-item__textarea {
+  height: 100%!important;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}

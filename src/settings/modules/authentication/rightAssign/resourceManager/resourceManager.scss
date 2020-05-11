@@ -1,0 +1,75 @@
+.resource-manager-flex-box {
+
+  display: flex;
+
+  >div:first-child {
+    flex-basis: 430px;
+    min-width: 430px;
+    border: 1px solid $border-3;
+
+    li {
+
+      height: 35px;
+      border-bottom: 1px dotted $border-3;
+      font-size: 14px;
+
+      >button {
+        width: 100%;
+        height: 100%;
+
+        border: 0px;
+        background-color: transparent;
+        text-align: left;
+      }
+
+      >span {
+
+        margin: 5px 5px;
+        background-color: white;
+        border-radius: 5px;
+
+        .edit-button {
+          height: 25px;
+          width: 25px;
+          border: 0px;
+          background-color: transparent;
+        }
+      }
+
+      &.active {
+        background-color: $primary;
+        color: white;
+      }
+
+      &:hover {
+        background-color: lighten($primary, 10%);
+        color: white;
+      }
+    }
+  }
+
+  >div:nth-child(2) {
+    flex-basis: 450px;
+    min-width: 450px;
+    border: 1px solid $border-3;
+    border-left: 0px;
+  }
+
+  >div:last-child {
+    flex-grow: 1;
+    border: 1px solid $border-3;
+    border-left: 0px;
+  }
+
+  treecontrol li {
+    line-height: 20px;
+  }
+}
+
+.app-resource-module-node {
+  >span {
+    background-color: white;
+    border-radius: 5px;
+    color: black;        
+  }
+}

@@ -1,0 +1,22 @@
+<div class="operation-ext-panel">
+  <table class="table white-borderd tr-hover">
+    <thead>
+      <tr>
+        <th>手术时间</th>
+        <th style="text-align:left;">手术名称</th>
+        <th style="text-align:left;">麻醉方式</th>
+        <th>手术医生</th>
+        <th>麻醉医师</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="surgery in vm.surgeryList track by $index" ng-dblclick="vm.insertOperation(surgery)">
+        <td>{{surgery.actualStartTime|idate:'DM'}}</td>
+        <td style="text-align:left;">{{surgery.surgeryName}}</td>
+        <td style="text-align:left;">{{surgery.anesthesiaMethod}}</td>
+        <td>{{surgery.mainDoctorName}}</td>
+        <td>{{surgery.anesthesiologist1Name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

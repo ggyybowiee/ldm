@@ -1,0 +1,28 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <i class="fa fa-times"></i>
+    </button>
+    <h5 class="modal-title">医嘱详情</h5>
+  </div>
+    <div class="modal-body">
+      <table class="table white-borderd">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>计划执行时间</th>
+            <th>执行时间</th>
+            <th>执行人</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in vm.list" ng-class="{'doing': row.executeStatus == 2}">
+            <td>{{$index + 1}}</td>
+            <td>{{row.planTime | idate: 'DH'}}</td>
+            <td>{{row.executeDate | idate: 'DH'}}</td>
+            <td>{{row.executePerson}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

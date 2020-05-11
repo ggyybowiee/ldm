@@ -1,0 +1,64 @@
+<div class="estimate-doc-panel panel-layout" full-page="fix" ng-controller="estimateEditController as estimate">
+  <div class="panel-body estimate-doc-panel-body">
+    <div loading-wrapper="estimate.loadEstimateData">
+      <div full-page="fix" full-page-bottom="40">
+        <estimate-doc ng-if="!estimate.hlpgd.tpl.components.render || estimate.hlpgd.tpl.components.render==='v1'"
+          hlpgd="estimate.hlpgd" tpl="estimate.hlpgd.tpl" sign-type="estimate.signType" pat-info="vm.patient"
+          header-form="vm.selectedNode.headerForm" inhos-code="vm.patient.inhosCode" insert="estimate.insert" remove="estimate.remove"
+          save="estimate.save" sheet="vm.selectedNode" reload-sheets="vm.loadSheets.func()"></estimate-doc>
+        <estimate-table-edit ng-if="estimate.hlpgd.tpl.components.render==='v1_1'" hlpgd="estimate.hlpgd" sign-type="estimate.signType"
+          pat-info="vm.patient" header-form="vm.selectedNode.headerForm" page-echo="estimate.pageEcho" new-data-echo="estimate.newDataEcho"
+          inhos-code="vm.patient.inhosCode" sheet="vm.selectedNode" save="estimate.save" remove="estimate.remove"
+          reload-sheets="vm.loadSheets.func()"></estimate-table-edit>
+      </div>
+    </div>
+  </div>
+
+  <div class="estimate-toolbar" style="margin: 0">
+
+    <div class="estimate-toolbar-two-side"></div>
+
+    <div class="page-panel" ng-if="estimate.hlpgd.tpl.components.render==='v1_1'">
+      <button class="btn btn-sm btn-default" ng-click="estimate.pageEcho.firstPage()" ng-disabled="estimate.pageEcho.curPage == 1">
+        第一页
+      </button>
+      <button class="btn btn-sm btn-default" ng-click="estimate.pageEcho.previewPage()" ng-disabled="estimate.pageEcho.curPage == 1">
+        上一页
+      </button>
+      第
+      <form class="page-form" ng-submit="estimate.pageEcho.refreshPageRecordData()" novalidate>
+        <input uib-tooltip="按“回车”前往" tooltip-class="btn-custom-tip" type="text" class="page-index input-sm form-control" ng-model="estimate.pageEcho.curPage"
+          ng-disabled="estimate.pageEcho.curPage == 1 && estimate.pageEcho.totalPage == 1"
+          required ng-change="estimate.pageEcho.pageInputChange(estimate.pageEcho.curPage)" ng-blur="estimate.pageEcho.pageInputBlur()"/>
+      </form>页
+      <button class="btn btn-sm btn-default" ng-click="estimate.pageEcho.nextPage()" ng-disabled="estimate.pageEcho.curPage == estimate.pageEcho.totalPage || estimate.pageEcho.totalPage == 0">
+        下一页
+      </button>
+      <button class="btn btn-sm btn-default" ng-click="estimate.pageEcho.lastPage()" ng-disabled="estimate.pageEcho.curPage == estimate.pageEcho.totalPage || estimate.pageEcho.totalPage == 0">
+        最后一页
+      </button>
+      &nbsp;&nbsp;共{{estimate.pageEcho.totalPage}}页
+    </div>
+
+    <div class="estimate-toolbar-two-side">
+      <div class="toolbar-item pull-right" ng-if="!estimate.hlpgd.tpl.components.render || estimate.hlpgd.tpl.components.render==='v1'">
+        <button class="btn btn-success btn-sm btn-round" ng-click="estimate.saveHeaderForm()" ng-if="!vm.openOuter">保存表头</button>
+        <button class="btn btn-success btn-sm btn-round" ng-click="vm.loadSheets.func()">刷新</button>
+        <button class="btn btn-sm btn-primary btn-round" ng-if="estimate.hlpgd.tpl.components.tables.length > 1" ng-click="estimate.choosePrintType()">
+          打印</button>
+        <button class="btn btn-sm btn-primary btn-round" ng-if="estimate.hlpgd.tpl.components.tables.length === 1"
+          estimate-print-btn>
+          打印 </button>
+      </div>
+
+      <custom-print print-html="estimate.printHtml"></custom-print>
+
+      <div class="toolbar-item pull-right" ng-if="estimate.hlpgd.tpl.components.render==='v1_1'">
+        <button class="btn btn-success btn-sm btn-round" ng-click="estimate.saveHeaderForm()" ng-if="!vm.openOuter">保存表头</button>
+        <button class="btn btn-success btn-sm btn-round" ng-click="estimate.insertAtLastRow()" ng-if="!vm.openOuter">新建</button>
+        <button class="btn btn-sm btn-primary btn-round" ng-click="estimate.printAll()"> 打印</button>
+        <button class="btn btn-sm btn-primary btn-round" ng-click="estimate.printCurrent()"> 打印当前页</button>
+      </div>
+    </div>
+  </div>
+</div>

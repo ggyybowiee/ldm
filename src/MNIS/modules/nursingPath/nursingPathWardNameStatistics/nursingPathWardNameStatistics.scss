@@ -1,0 +1,38 @@
+.rowColorYellow {
+  background-color: #ffc !important;
+  cursor: not-allowed !important;
+}
+
+.searchNoResultTitle {
+    height: 48px;
+    line-height: 48px;
+    width: 100%;
+    text-align: center;
+    color: rgba(0,0,0,0.2);
+}
+
+.paginationStyle {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+
+  .pagination {
+    margin: 0px;
+  }
+
+  .pageItem {
+    display: inline-block;
+    margin-right: 20px;
+    height: 28px;
+    line-height: 28px;
+
+    select {
+      height: inherit;
+      border-radius: 4px;
+      padding: 0 5px;
+      border-color: #ddd;
+      color: #444;
+      line-height: 28px;
+    }
+  }
+}

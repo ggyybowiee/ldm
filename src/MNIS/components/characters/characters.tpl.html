@@ -1,0 +1,20 @@
+<div class="emoji-wrap" ng-class="{open: vm.isOpen}">
+  <table class="table white-borderd thead-fixed emoji-table">
+    <thead>
+      <tr>
+        <td colspan="6">特殊字符
+          <button type="button" class="close" ng-click="vm.toggleOpen()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in vm.characters track by $index">
+        <td ng-repeat="cell in row track by $index" ng-click="vm.setValue(cell)">
+          {{cell}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

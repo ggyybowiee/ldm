@@ -1,0 +1,36 @@
+<div uib-dropdown auto-close="outsideClick" style="display:inline-block;" on-toggle="vm.menuToggle()">
+  <div uib-dropdown-toggle>
+    <button class="btn btn-primary btn-sm btn-nursing-doc-tool" uib-tooltip="按时间搜索" tooltip-class="btn-custom-tip btn-nursing-nav-custom-tip">
+      <span class="fa fa-search"></span>
+    </button>
+  </div>
+  <div uib-dropdown-menu loading-wrapper="vm.loadSheetPageDates" class="nursing-doc-search-dropdown">
+    <div>
+      <div class="nursing-doc-search-dropdown-head">
+        <input class="nursing-doc-search-filter-input form-control" auto-compelete="off" placeholder="输入日期过滤(例：20160901)"
+          ng-model="vm.filterText" />
+        <button class="btn btn-primary btn-sm" ng-click="vm.loadSheetPageDates.func()">
+          <span class="fa fa-refresh"></span>
+        </button>
+      </div>
+      <div class="nursing-doc-search-dropdown-content">
+        <table class="table white-borderd tr-hover thead-fixed">
+          <thead>
+            <tr>
+              <th width="30%">日期</th>
+              <th width="30%">时间</th>
+              <th width="40%">所在位置</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in vm.datesPageList | filter:vm.filterText" ng-click="vm.directToPage(item.pageNo)">
+              <td width="30%">{{item.dateString}}</td>
+              <td width="30%">{{item.timeString}}</td>
+              <td width="40%">第{{item.pageNo}}页，第{{item.pageRow}}行</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

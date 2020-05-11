@@ -1,0 +1,136 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">记录单{{vm.type}}</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="ruleType" class="col-sm-3 control-label">规则类型：</label>
+        <div class="col-sm-6">
+          <select type="text" id="ruleType" name="ruleType" ng-model="vm.formData.ruleType" class="form-control input-sm"
+            required ng-change="vm.ruleTypeChange(vm.formData.ruleType)">
+            <option value="{{key}}" ng-repeat="(key, value) in vm.ruleType">{{value}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ruleName" class="col-sm-3 control-label">规则名称：</label>
+        <div class="col-sm-6">
+          <input type="text" id="ruleName" name="ruleName" ng-model="vm.formData.ruleName" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ageMin" class="col-sm-3 control-label">年龄下限：</label>
+        <div class="col-sm-6">
+          <input type="number" id="ageMin" name="ageMin" ng-model="vm.formData.ageMin" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ageMax" class="col-sm-3 control-label">年龄上限：</label>
+        <div class="col-sm-6">
+          <input type="number" id="ageMax" name="ageMax" ng-model="vm.formData.ageMax" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="eventType" class="col-sm-3 control-label">关联事件：</label>
+        <div class="col-sm-6">
+          <select type="text" id="eventType" name="eventType" ng-model="vm.formData.eventType" class="form-control input-sm"
+            required>
+            <option value="{{item.dicCode}}" ng-repeat="item in vm.eventType">{{item.dicName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="longTerm" class="col-sm-3 control-label">长临类型：</label>
+        <div class="col-sm-6">
+          <select type="text" id="longTerm" name="longTerm" ng-model="vm.formData.longTerm" class="form-control input-sm"
+            required>
+            <option value="{{key}}" ng-repeat="(key, value) in vm.longTerm">{{value}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="periodType" class="col-sm-3 control-label">周期类型：</label>
+        <div class="col-sm-6">
+          <select type="text" id="periodType" name="periodType" ng-model="vm.formData.periodType" class="form-control input-sm"
+            required>
+            <option value="{{key}}" ng-repeat="(key, value) in vm.periodType">{{value}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="duration" class="col-sm-3 control-label">持续天数：</label>
+        <div class="col-sm-6">
+          <input type="number" id="duration" name="duration" ng-model="vm.formData.duration" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="startDay" class="col-sm-3 control-label">开始天数：</label>
+        <div class="col-sm-6">
+          <input type="number" id="startDay" name="startDay" ng-model="vm.formData.startDay" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="interval" class="col-sm-3 control-label">间隔天数：</label>
+        <div class="col-sm-6">
+          <input type="text" id="interval" name="interval" ng-model="vm.formData.interval" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cycleTime" class="col-sm-3 control-label">次数：</label>
+        <div class="col-sm-6">
+          <input type="number" id="cycleTime" name="cycleTime" ng-model="vm.formData.cycleTime" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="measureTimes" class="col-sm-3 control-label">计划时间：</label>
+        <div class="col-sm-6">
+          <label class="custom-checkbox" ng-repeat="item in vm.measureTimes" style="margin: 5px 20px 5px 0px;">
+            <input type="checkbox" ng-checked="item.selected" ng-click="vm.measureTimesPress(item)">
+            <span>{{item.value}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="visible" class="col-sm-3 control-label">提醒时间</label>
+        <div class="col-sm-6">
+            <radio ng-model="vm.formData.visible" options="[{text:'可变', value:'true'}, {text:'固定', value:'false'}]"></radio>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bindItem" class="col-sm-3 control-label">计划项目：</label>
+        <div class="col-sm-6" ng-show="vm.formData.ruleType === 'vitalSign'">
+          <select type="text" id="bindItem" name="vitalSign" ng-model="vm.formData.bindItem" class="form-control input-sm"
+            required>
+            <option value="{{item.dicCode}}" ng-repeat="item in vm.bindItem">{{item.dicName}}</option>
+          </select>
+        </div>
+        <div class="col-sm-6" ng-show="vm.formData.ruleType !== 'vitalSign'">
+          <select type="text" id="bindItem" name="evaluate" ng-model="vm.formData.bindItem" class="form-control input-sm"
+            required>
+            <option value="{{item.tplId}}" ng-repeat="item in vm.bindItem">{{item.tplName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ruleValue" class="col-sm-3 control-label">规则数值：</label>
+        <div class="col-sm-6">
+          <input type="text" id="ruleValue" name="ruleValue" ng-model="vm.formData.ruleValue" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="content" class="col-sm-3 control-label">提示语句：</label>
+        <div class="col-sm-6">
+          <input type="text" id="content" name="content" ng-model="vm.formData.content" class="form-control input-sm">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-round btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-round btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

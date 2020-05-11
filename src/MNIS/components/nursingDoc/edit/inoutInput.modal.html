@@ -1,0 +1,56 @@
+<div class="modal-content modal-input-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">出入量编辑</h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" >
+      <div class="form-group">
+        <label for="date" class="col-sm-3 control-label">日期：</label>
+        <div class="col-sm-7">
+          <date-picker no-icon="true" ng-model="vm.formData.date"></date-picker>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="time" class="col-sm-3 control-label">时间：</label>
+        <div class="col-sm-7">
+          <time-picker ng-model="vm.formData.time"></time-picker>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="totalIn" class="col-sm-3 control-label">总入量：</label>
+        <div class="col-sm-7">
+          <input type="number" id="totalIn" name="totalIn" ng-model="vm.formData.totalIn" class="form-control input-sm">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inRemark" class="col-sm-3 control-label">入量备注：</label>
+        <div class="col-sm-7">
+          <textarea type="text" rows="3" id="inRemark" name="inRemark" ng-model="vm.formData.inRemark" class="form-control input-sm"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="totalOut" class="col-sm-3 control-label">总出量：</label>
+        <div class="col-sm-7">
+          <input type="number" id="totalOut" name="totalOut" ng-model="vm.formData.totalOut" class="form-control input-sm">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="outRemark" class="col-sm-3 control-label">出量备注：</label>
+        <div class="col-sm-7">
+          <textarea type="text" rows="3" id="outRemark" name="outRemark" ng-model="vm.formData.outRemark" class="form-control input-sm"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-sm btn-round" ng-disabld="!vm.text" ng-click="vm.ok()">确定</button>
+    <button class="btn btn-warning btn-sm btn-round" ng-click="$dismiss()">取消</button>
+  </div>
+</div>

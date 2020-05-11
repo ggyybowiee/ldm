@@ -1,0 +1,34 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      &times;
+    </button>
+    <h5 class="modal-title">我的科室配置</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="col-sm-3 control-label">默认科室：</label>
+        <div class="col-sm-9">
+          <select class="form-control input-sm" ng-model="vm.formData.wardCode" name="wardCode">
+            <option value="" ng-if="vm.formData.wardCode === ''">请选择</option>
+            <option ng-repeat="item in vm.wards" value="{{item.wardCode}}">{{item.wardName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">当前分组：</label>
+        <div class="col-sm-9">
+          <select class="form-control input-sm" ng-model="vm.formData.userShift" name="wardCode">
+            <option value="" ng-if="vm.formData.userShift === ''">请选择</option>
+            <option ng-repeat="item in vm.shifts|orderBy: ['shiftName','teamName']" value="{{item.teamCode}}">{{item.shiftName}}班-{{item.teamName}}组</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

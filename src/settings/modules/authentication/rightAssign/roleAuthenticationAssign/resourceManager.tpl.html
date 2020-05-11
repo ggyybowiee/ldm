@@ -1,0 +1,108 @@
+<div class="panel panel-layout panel-default">
+
+  <div class="panel-body">
+
+    <div loading-wrapper loading-type="content" loading-options="vm.loadResources">
+      <div loading-wrapper loading-type="content" loading-options="vm.saveResources">
+        <div class="resource-manager-flex-box">
+
+          <!-- 应用资源 -->
+          <div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <i class="fa fa-user"></i>
+                <span>应用列表</span>
+                <button class="btn btn-success btn-xs pull-right" style="margin-top:2px;" ng-click="vm.addAppResource()">
+                  <i class="fa fa-plus"></i>
+                </button>
+                <button class="btn btn-primary btn-xs pull-right" style="margin-top:2px;margin-right: 5px;" ng-click="vm.loadResources.func()">
+                  <i class="fa fa-refresh"></i>
+                </button>
+              </div>
+              <div class="panel-body padding-0" full-page="fix">
+                <ul class="panel-list">
+                  <li ng-repeat="item in vm.appResources track by $index"
+                    ng-class="{active: vm.activeAppResource === item}">
+                    <img ng-src="{{'/assets/images/settings/' + item.engine + '.png'}}" height="80%" style="margin-left:10px">
+                    <button ng-click="vm.selectAppResource(item)" style="max-width:290px;">
+                      {{[item.sortNo]}}&nbsp;|&nbsp;{{item.resourceName}}&nbsp;|&nbsp;{{item.ad||'-'}}</button>
+                    <span class="pull-right">
+                      <button class="edit-button " ng-click="vm.resourceSetOrder(item, -1)" uib-tooltip="上移"
+                        tooltip-append-to-body="true">
+                        <i class="fa fa-arrow-up primary-text"></i>
+                      </button>
+                      <button class="edit-button " ng-click="vm.resourceSetOrder(item, 1)" uib-tooltip="下移"
+                        tooltip-append-to-body="true">
+                        <i class="fa fa-arrow-down primary-text"></i>
+                      </button>
+                      <button class="edit-button " uib-tooltip="删除应用" tooltip-append-to-body="true">
+                        <i class="fa fa-trash danger-text" confirm content="确定要删除该应用吗？" yes="vm.delResource(item)"></i>
+                      </button>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!--资源树 -->
+          <div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <i class="fa fa-tree"></i>
+                <span>资源菜单树</span>
+                <button class="btn btn-primary btn-xs pull-right" ng-if="vm.activeAppResource.engine=='react'" ng-click="vm.setAsMainPage()"
+                style="margin-top:2px;">设置为主页(React)</button>
+              </div>
+              <div class="panel-body padding-0" full-page="fix">
+                <treecontrol class="tree-light lachesis-custom-tree-control" tree-model="vm.resourceTree.appResourceTree"
+                  on-selection="vm.onSelectedModuleResource(node)" options="vm.treeOption" expanded-nodes="vm.resourceTree.appResourceTreeExpandedNode"
+                  selected-node="vm.editingItemNode.treeNode">
+                  <span class="app-resource-module-node">
+                    {{'L' + node.nodeLevel}}-{{node.sortNo}}&nbsp;&nbsp;|&nbsp;{{node.resourceName}}
+                    <span>
+                      &nbsp;
+                      <span>
+                        <span uib-tooltip="上移" tooltip-append-to-body="true" ng-click="vm.resourceSetOrder(node, -1)">
+                          <i class="fa fa-arrow-up primary-text"></i>
+                        </span>
+                        <span uib-tooltip="下移" tooltip-append-to-body="true" ng-click="vm.resourceSetOrder(node, 1)">
+                          <i class="fa fa-arrow-down primary-text"></i>
+                        </span>
+                      </span>
+                      <span ng-if="node.nodeLevel <= 2" uib-tooltip="添加子模块" tooltip-append-to-body="true" ng-click="vm.addNewResourceToParent(node)">
+                        &nbsp;|&nbsp;
+                        <i class="fa fa-plus text-success"></i>
+                      </span>
+                      <span ng-if="node.nodeLevel == 3 || !node.children.length" uib-tooltip="删除模块"
+                        tooltip-append-to-body="true">
+                        &nbsp;|&nbsp;
+                        <i confirm yes="vm.delResource(node)" content="确定要删除该功能模块？" class="fa fa-trash text-danger"></i>
+                      </span>
+                      &nbsp;
+                    </span>
+                  </span>
+                </treecontrol>
+              </div>
+            </div>
+          </div>
+
+          <!-- 资源详情 -->
+          <div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <i class="fa fa-certificate"></i>
+                <span>资源详情</span>
+              </div>
+              <div class="panel-body padding-0" full-page="fix">
+                <resource-editor resource="vm.editingItemNode.editResource" parent-resource="vm.editingItemNode.editResourceParent"
+                  on-resource-saved="vm.onResourceSaved" app-resource-tree-getter="vm.getAppResourceTree" app-resources="vm.appResources"
+                  active-app-resource="vm.activeAppResource"></resource-editor>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

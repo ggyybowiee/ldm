@@ -1,0 +1,53 @@
+<div class="workflow-wrapper">
+  <div class="panel panel-default">
+    <div class="panel-heading"><i class="fa fa-level-down"></i>工作流配置</div>
+    <div class="toolbar">
+      <div class="toolbar-item">
+        <label>系统： </label>
+        <select class="form-control input-sm" ng-model="vm.queryParams.category" name="category" ng-change="vm.load.func()">
+          <option value="" disabled>请选择</option>
+          <option ng-repeat="item in vm.apps | filter: {appType: '0'}" value="{{item.resourceCode}}">{{item.ad}}</option>
+        </select>
+      </div>
+      <div class="toolbar-item pull-right">
+        <button class="btn btn-success btn-sm btn-round" file-bind="vm.file">添加</button>
+      </div>
+    </div>
+      <div class="workflow-list" loading-wrapper="vm.load">
+        <table class="table white-borderd">
+          <thead>
+            <tr>
+              <th>名称</th>
+              <!-- <th>子节点</th> -->
+              <th>当前版本</th>
+              <!-- <th>历史版本</th> -->
+              <th>最后更新人</th>
+              <th>最后更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.list">
+              <td>{{ row.name }}</td>
+              <!-- <td>{{ row.subs.length }}</td> -->
+              <td>{{ row.version }}</td>
+              <!-- <td>{{ row.history }}</td> -->
+              <td>{{ row.deployUserName }}</td>
+              <td>{{ row.deployTime | idate: 'DH' }}</td>
+              <td>
+                <a class="btn btn-info btn-xs" ui-sref="main.workflowHistory({id: row.deploymentId, key: row.key})">
+                  <i class="fa fa-history"></i>历史记录
+                </a>
+                <a class="btn btn-success btn-xs" ui-sref="main.workflowDetail({id: row.deploymentId})">
+                  <i class="iconmoon icomoon-edit"></i>查看
+                </a>
+                <!-- <button class="btn btn-danger btn-xs">
+                  <i class="fa fa-trash"></i>删除
+                </button> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <none-data-info list="vm.list"></none-data-info>
+      </div>
+</div>

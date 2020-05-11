@@ -1,0 +1,99 @@
+{
+  "name": "nqms",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "echarts": "^3.2.2",
+    "angular-animate": "~1.4.2",
+    "angular-cookies": "~1.4.2",
+    "angular-touch": "~1.4.2",
+    "angular-sanitize": "~1.4.2",
+    "angular-messages": "~1.4.2",
+    "angular-aria": "~1.4.2",
+    "angular-resource": "~1.4.2",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap-sass": "~3.3.5",
+    "angular-bootstrap": "*",
+    "angular-w5c-validator": "~2.4.14",
+    "malarkey": "yuanqing/malarkey#~1.3.1",
+    "angular-toastr": "~1.5.0",
+    "moment": "~2.10.6",
+    "animate.css": "~3.4.0",
+    "angular": "~1.4.2",
+    "angularPrint": "^0.4.0",
+    "angular-smart-table": "^2.1.8",
+    "echarts-ng": "^0.3.13",
+    "angular-tree-control": "^0.2.27",
+    "angular-file-upload": "^2.3.4",
+    "angular-ui-select2": "^0.0.5",
+    "angular-timeline": "^1.7.0",
+    "restangular": "^1.6.0",
+    "d3": "^4.4.1",
+    "angular-qrcode": "^7.2.0",
+    "angular-bootstrap-contextmenu": "^0.9.9",
+    "jquery.pin": "^1.0.3",
+    "mark.js": "^8.9.0",
+    "ng-switchery": "^1.0.0-alpha7",
+    "particles.js": "^2.0.0",
+    "pinyin": "https://github.com/hotoo/pinyin.git",
+    "angular-ui-select": "^0.19.8",
+    "angular-bootstrap-colorpicker": "^3.0.31",
+    "urijs": "uri.js#^1.18.10",
+    "countUp.js-angular1": "^1.0.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.2"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.scss",
+        "assets/fonts/bootstrap/FontAwesome.otf",
+        "assets/fonts/bootstrap/fontawesome-webfont.eot",
+        "assets/fonts/bootstrap/fontawesome-webfont.svg",
+        "assets/fonts/bootstrap/fontawesome-webfont.ttf",
+        "assets/fonts/bootstrap/fontawesome-webfont.woff",
+        "assets/fonts/bootstrap/fontawesome-webfont.woff2"
+      ]
+    },
+    "waveform-playlist": {
+      "main": [
+        "dist/waveform-playlist/css/main.css",
+        "dist/waveform-playlist/js/waveform-playlist.var.js"
+      ]
+    },
+    "mark.js": {
+      "main": [
+        "dist/jquery.mark.js"
+      ]
+    },
+    "col-resizable": {
+      "main": [
+        "colResizable-1.6.js"
+      ]
+    },
+    "pinyin": {
+      "main": [
+        "dist/bundle.js"
+      ]
+    },
+    "angular-file-upload": {
+      "main": "dist/angular-file-upload.js"
+    }
+  },
+  "resolutions": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.2"
+  },
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

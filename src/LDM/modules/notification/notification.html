@@ -1,0 +1,94 @@
+<div class="panel panel-layout panel-default NDAconfigContent" style="max-width: 1200px" ui-view>
+
+  <form class="form-horizontal nda-config-form" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+    <div class="base-field clearfix">
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">推送消息</span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-4 form-group" style="min-width: 250px;">
+        <label class="col-xs-2"></label>
+        <div class="col-xs-5 control-label" style="text-align: left;">
+          <label class="radio-inline custom-radio control-label">
+              <input type="radio" value="general_message" ng-model="vm.messageTemplate.msgType"/>
+              <span>普通消息</span>
+            </label>
+        </div>
+        <div class="col-xs-5 control-label" style="text-align: left;">
+          <label class="radio-inline custom-radio control-label">
+              <input type="radio" value="cmd_message" ng-model="vm.messageTemplate.msgType"/>
+              <span>命令消息</span>
+            </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row" style="margin-bottom: 0px">
+      <div class="col-xs-4 form-group" style="margin-bottom: 0px">
+        <label class="col-xs-2"></label>
+        <div class="col-xs-5 control-label" style="text-align: left">内容
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 form-group">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10" style="position: relative; left: -4%;">
+        <textarea class="form-control" style="height: 108px; width: 100%" ng-model="vm.messageTemplate.content" maxlength=”5000></textarea>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">应用设备</span>
+      </div>
+    </div>
+
+    <div class="form-row form-colored-field">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10" style="position: relative; left: -4%;">
+        <button class="btn btn-label btn-sm btn-default" ng-repeat="mac in vm.selectedDevices" style="margin-right:3px; margin-bottom: 3px;">
+          <i class="fa fa-mobile-phone fa-lg"></i>
+          &nbsp;
+          <span>{{mac}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.deleteDevice(mac)">&nbsp;×</span>
+        </button>
+      </div>
+      <div class="col-xs-1"></div>
+      <div class="col-xs-1"></div>
+      <div class="col-xs-10 text-center nda-config-form__add-device" style="position: relative; left: -4%;">
+        <button class="btn btn-primary btn-sm btn-round" w5c-form-submit="vm.ok()" ng-click="vm.openDevicesModal()">添加设备</button>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-6 form-group">
+        <label class="col-xs-2"></label>
+        <div class="col-xs-3 control-label" style="text-align: left">
+          <label class="custom-checkbox" for="isTimedSending">
+            <input type="checkbox" id="isTimedSending" name="isTimedSending" ng-model="vm.isTimedSending"/>
+            <span>定时发送</span>
+          </label>
+        </div>
+        <div class="col-xs-3">
+          <date-picker ng-model="vm.date" style="width: 120px"></date-picker>
+        </div>
+        <div class="col-xs-4">
+          <time-picker ng-model="vm.time" style="width: 140px; font-size: 12px; font-weight: normal;"></time-picker>
+        </div>
+      </div>
+    </div>
+      <div class="form-row">
+          <div class=" flex-box form-inline col-xs-10 filter-item justify-right">
+            <button class="btn btn-default btn-round active button-wide" ng-click="vm.reset()">重置</button>
+            <button class="btn btn-primary btn-round" style="margin-left: 15px;" ng-click="vm.postMessage()" ng-disabled="vm.messageTemplate.content.length == 0 || vm.selectedDevices.length == 0">开始推送</button>
+          </div>
+      </div>
+  </form>
+  </div>

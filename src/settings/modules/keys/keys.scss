@@ -1,0 +1,84 @@
+.keys-wrapper {
+  .app-list {
+    .app-card {
+      height: 150px;
+      margin-bottom: 20px;
+
+      border: 1px solid $border-color;
+      .app-title {
+        font-size: 15px;
+        line-height: 30px;
+
+        text-align: center;
+
+        border-bottom: 1px solid $border-color;
+      }
+      .app-content {
+        height: 117px;
+        .icon-info {
+          padding: 28px 10px;
+        }
+        .app-icon {
+          width: 60px;
+        }
+        .bind-info {
+          line-height: 61px;
+
+          position: relative;
+
+          padding: 28px 0;
+
+          text-align: center;
+          .edit-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            display: none;
+
+            border-top: none;
+            border-right: none;
+            border-radius: 0;
+            .fa {
+              margin-right: 0;
+            }
+          }
+          .btn {
+            .hover-info {
+              display: none;
+            }
+            &:hover {
+              .default-info {
+                display: none;
+              }
+              .hover-info {
+                display: inline;
+              }
+            }
+          }
+          .bind-btn {
+            width: 180px;
+            &:hover {
+              background-color: $success;
+              border-color: darken($success, 10%);
+              color: white;
+            }
+          }
+          .unbind-btn {
+            width: 180px;
+            &:hover {
+              background-color: $danger;
+              border-color: darken($danger, 10%);
+              color: white;
+            }
+          }
+          &:hover {
+            .edit-btn {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}

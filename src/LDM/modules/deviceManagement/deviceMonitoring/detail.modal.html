@@ -1,0 +1,33 @@
+<div>
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">
+      设备运行详情
+    </h5>
+  </div>
+  <div class="modal-body">
+    <uib-tabset active="active" class="deviceMonitoring-tabs">
+      <uib-tab index="0" heading="基本信息">
+        <div ng-include src="'LDM/modules/deviceManagement/deviceMonitoring/tpls/baseinfo.html'"></div>
+      </uib-tab>
+      <uib-tab index="1" heading="网络连接">
+        <div ng-include src="'LDM/modules/deviceManagement/deviceMonitoring/tpls/network.html'"></div>
+      </uib-tab>
+      <uib-tab index="2" heading="运行记录">
+        <div ng-include src="'LDM/modules/deviceManagement/deviceMonitoring/tpls/runningRecord.html'"></div>
+      </uib-tab>
+      <uib-tab index="3" heading="位置信息">
+        <div ng-include src="'LDM/modules/deviceManagement/deviceMonitoring/tpls/location.html'"></div>
+      </uib-tab>
+      <uib-tab index="4" heading="电池信息">
+        <div ng-include src="'LDM/modules/deviceManagement/deviceMonitoring/tpls/battery.html'"></div>
+      </uib-tab>
+      <uib-tab index="5" heading="异常信息">
+        <div ng-include src="'LDM/modules/deviceManagement/deviceMonitoring/tpls/error.html'"></div>
+      </uib-tab>
+      <uib-tab index="6" heading="设备日志">
+        <div ng-include src="'LDM/modules/deviceManagement/deviceMonitoring/tpls/log.html'"></div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+</div>

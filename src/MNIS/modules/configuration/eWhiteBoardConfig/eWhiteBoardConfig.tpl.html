@@ -1,0 +1,542 @@
+<div class="panel panel-layout">
+  <form class="form-horizontal w5c-form estimate-form" role="form" novalidate w5c-form-validate name="form">
+    <div class="toolbar" id="whiteBoard">
+      <div class="toolbar-item">
+        <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.save()">
+          保存</button>
+      </div>
+    </div>
+    <div class="toolbar" top=".header-top" refraction="#whiteBoard" fixed-top>
+      <div class="toolbar-item">
+        <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.save()">
+          保存</button>
+      </div>
+    </div>
+
+    <!-- 基础配置 -->
+    <div class="divide-line">
+      <span class="divide-line__title">基础配置</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="bedCodeRegex" class="control-label col-xs-2 partial-label">床位简写正则匹配表达式：</label>
+      <div class="col-xs-5">
+        <input class="form-control input-sm" autocomplete="off" ng-model="vm.formData.basicConfig.bedCodeRegex" name="bedCodeRegex">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="nursingLevelColor" class="control-label col-xs-2 partial-label">护理等级对应颜色：</label>
+      <div class="col-xs-10">
+        <div style="margin-bottom: 8px" ng-repeat="item in vm.nurseLevel">
+          {{item.dicName}}：
+          <input class="form-control input-sm color-picker-input" uib-tooltip="颜色" tooltip-append-to-body="true"
+            colorpicker="hex" style="background-color: {{vm.formData.basicConfig.nursingLevelColor[item.dicName]}};"
+            autocomplete="off" ng-model="vm.formData.basicConfig.nursingLevelColor[item.dicName]" name="nursingLevelColor" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nursingLevelColor" class="control-label col-xs-2 partial-label">危、重对应颜色：</label>
+      <div class="col-xs-10">
+        <div style="margin-bottom: 8px" ng-repeat="item in vm.dangerLevel">
+          {{item.dicName}}：
+          <input class="form-control input-sm color-picker-input" uib-tooltip="颜色" tooltip-append-to-body="true"
+            colorpicker="hex" style="background-color: {{vm.formData.basicConfig.dangerLevelColor[item.dicName]}};"
+            autocomplete="off" ng-model="vm.formData.basicConfig.dangerLevelColor[item.dicName]" name="dangerLevelColor" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="themeColor" class="control-label col-xs-2 partial-label">界面主题：</label>
+      <div class="col-xs-5">
+        <select class="form-control input-sm table-header__input-item" ng-model="vm.formData.basicConfig.themeColor" name="themeColor"
+          style="width: 100px;">
+          <option value="{{theme.key}}" ng-repeat="theme in vm.pageThemes track by $index">{{theme.value}}</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="flipOverInterval" class="control-label col-xs-2 partial-label">翻页频率(秒)：</label>
+      <div class="col-xs-5">
+        <input class="form-control input-sm" type="number" autocomplete="off" name="flipOverInterval" ng-model="vm.formData.basicConfig.flipOverInterval">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="refreshInterval" class="control-label col-xs-2 partial-label">数据刷新频率(秒)：</label>
+      <div class="col-xs-5">
+        <input class="form-control input-sm" type="number" autocomplete="off" name="refreshInterval" ng-model="vm.formData.basicConfig.refreshInterval">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="jumpToDefaultInterval" class="control-label col-xs-2 partial-label">自动跳转到主页时限(秒)：</label>
+      <div class="col-xs-5">
+        <input class="form-control input-sm" type="number" autocomplete="off" name="jumpToDefaultInterval" ng-model="vm.formData.basicConfig.jumpToDefaultInterval">
+      </div>
+    </div>
+
+    <!-- 移动护理首页左侧边栏配置 -->
+    <div class="divide-line">
+      <span class="divide-line__title">移动护理首页左侧边栏配置</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="showECGDeviceOnBedList" class="col-sm-2 control-label">是否显示ECG设备绑定界面：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.leftSideConfig.showECGDeviceOnBedList">
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="showMEWSPathOnBedList" class="col-sm-2 control-label">是否显示MEWS与路径分组信息：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.leftSideConfig.showMEWSPathOnBedList">
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="showCritical" class="col-sm-2 control-label">是否显示病危信息：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.leftSideConfig.showCritical">
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="showSevere" class="col-sm-2 control-label">是否显示病重信息：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.leftSideConfig.showSevere">
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="showDischarged" class="col-sm-2 control-label">是否显示出院信息：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.leftSideConfig.showDischarged">
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="showSurgery" class="col-sm-2 control-label">是否显示手术信息：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.leftSideConfig.showSurgery">
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 病区概况配置 -->
+    <div class="divide-line">
+      <span class="divide-line__title">病区概况配置</span>
+    </div>
+
+    <div class="form-group">
+      <label for="wardOverviewConfig" class="control-label col-xs-2 partial-label">病区动态项目：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.wardOverviewConfig.wardInfosToShow.length === 0 || !vm.formData.wardOverviewConfig.wardInfosToShow">无</span>
+      
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.wardOverviewConfig.wardInfosToShow | orderBy: 'orderIndex'" style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.wardOverviewConfig.wardInfosToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.wardOverviewConfig.wardInfosToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.wardInfosToShow" ng-click="vm.addClickWardOverviewConfig(item, 'wardInfosToShow')" style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="wardOverviewConfig" class="control-label col-xs-2 partial-label">已选择的病区动态项目：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.formData.wardOverviewConfig.wardInfosToShow | orderBy: 'orderIndex'">
+      
+          <span><b>{{$index}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.wardOverviewConfig.wardInfosToShow, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.wardOverviewConfig.wardInfosToShow, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button uib-tooltip="点击是{{!item.showEmptyItem ? '‘常驻项’' : '‘非常驻项’'}}" class="btn btn-label btn-sm btn-default"
+            ng-click="item.showEmptyItem = !item.showEmptyItem" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.itemName}}&nbsp;|&nbsp;{{item.showEmptyItem ? '常驻项': '非常驻项'}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nursingContentsToShow" class="control-label col-xs-2 partial-label">护理内容项目：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.wardOverviewConfig.nursingContentsToShow.length === 0 || !vm.formData.wardOverviewConfig.nursingContentsToShow">无</span>
+    
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.wardOverviewConfig.nursingContentsToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.wardOverviewConfig.nursingContentsToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.wardOverviewConfig.nursingContentsToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.nursingContentsToShow" ng-click="vm.addClickWardOverviewConfig(item, 'nursingContentsToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="nursingContentsToShow" class="control-label col-xs-2 partial-label">已选择的护理内容项目：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.formData.wardOverviewConfig.nursingContentsToShow | orderBy: 'orderIndex'">
+    
+          <span><b>{{$index}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.wardOverviewConfig.nursingContentsToShow, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.wardOverviewConfig.nursingContentsToShow, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button uib-tooltip="点击是{{!item.showEmptyItem ? '常驻项' : '非常驻项'}}" class="btn btn-label btn-sm btn-default"
+            ng-click="item.showEmptyItem = !item.showEmptyItem" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.itemName}}&nbsp;|&nbsp;{{item.showEmptyItem ? '常驻项': '非常驻项'}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="specialInspectionsToShow" class="control-label col-xs-2 partial-label">特殊检查项目：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.wardOverviewConfig.specialInspectionsToShow.length === 0 || !vm.formData.wardOverviewConfig.specialInspectionsToShow">无</span>
+    
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.wardOverviewConfig.specialInspectionsToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.wardOverviewConfig.specialInspectionsToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.wardOverviewConfig.specialInspectionsToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.specialInspectionsToShow" ng-click="vm.addClickWardOverviewConfig(item, 'specialInspectionsToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="specialInspectionsToShow" class="control-label col-xs-2 partial-label">已选择的特殊检查项目：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.formData.wardOverviewConfig.specialInspectionsToShow | orderBy: 'orderIndex'">
+    
+          <span><b>{{$index}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.wardOverviewConfig.specialInspectionsToShow, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.wardOverviewConfig.specialInspectionsToShow, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button uib-tooltip="点击是{{!item.showEmptyItem ? '常驻项' : '非常驻项'}}" class="btn btn-label btn-sm btn-default"
+            ng-click="item.showEmptyItem = !item.showEmptyItem" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.itemName}}&nbsp;|&nbsp;{{item.showEmptyItem ? '常驻项': '非常驻项'}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 床位列表 -->
+    <div class="divide-line">
+      <span class="divide-line__title">床位列表</span>
+    </div>
+
+    <div class="form-group">
+      <label for="patientInfosToShow" class="control-label col-xs-2 partial-label">基本信息：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.bedListConfig.patientInfosToShow.length === 0 || !vm.formData.bedListConfig.patientInfosToShow">无</span>
+    
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.bedListConfig.patientInfosToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.bedListConfig.patientInfosToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.bedListConfig.patientInfosToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.patientInfosToShow" ng-click="vm.addClickWardBedListConfig(item, 'patientInfosToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="sortNo" class="col-sm-2 control-label">是否做隐私处理：</label>
+      <div class="col-sm-3">
+        <div style="margin-top: 5px">
+          <label class="custom-checkbox">
+            <input type="checkbox" ng-model="vm.formData.bedListConfig.usePrivateName">
+            <span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nursingInfosToShow" class="control-label col-xs-2 partial-label">病情与护理信息：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.bedListConfig.nursingInfosToShow.length === 0 || !vm.formData.bedListConfig.nursingInfosToShow">无</span>
+    
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.bedListConfig.nursingInfosToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.bedListConfig.nursingInfosToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.bedListConfig.nursingInfosToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.nursingInfosToShow" ng-click="vm.addClickWardBedListConfig(item, 'nursingInfosToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" ng-if="vm.showNursingLevel">
+      <label for="nursingLevelShowType" class="control-label col-xs-2 partial-label">护理级别表示方式：</label>
+      <div class="col-xs-5">
+        <select class="form-control input-sm table-header__input-item" ng-model="vm.formData.bedListConfig.nursingLevelShowType" name="nursingLevelShowType"
+          style="width: 100px;">
+          <option value="{{way.key}}" ng-repeat="way in vm.showWays track by $index">{{way.value}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="evalNaturesToShow" class="control-label col-xs-2 partial-label">护理风险项目：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.bedListConfig.evalNaturesToShow.length === 0 || !vm.formData.bedListConfig.evalNaturesToShow">无</span>
+    
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.bedListConfig.evalNaturesToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.bedListConfig.evalNaturesToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.bedListConfig.evalNaturesToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.evaluateNature" ng-click="vm.addClickWardBedListConfig(item, 'evalNaturesToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 护理计划 -->
+    <div class="divide-line">
+      <span class="divide-line__title">护理计划</span>
+    </div>
+
+    <div class="form-group">
+      <label for="taskPlanConfig" class="control-label col-xs-2 partial-label">医嘱执行单类型：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.taskPlanConfig.ordersToShow.length === 0 || !vm.formData.taskPlanConfig.ordersToShow">无</span>
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.taskPlanConfig.ordersToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.taskPlanConfig.ordersToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.taskPlanConfig.ordersToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.orderType" ng-click="vm.addClickTaskPlanConfig(item, 'ordersToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="ordersToShow" class="control-label col-xs-2 partial-label">已选择的医嘱执行单类型：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.formData.taskPlanConfig.ordersToShow | orderBy: 'orderIndex'">
+    
+          <span><b>{{$index}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.taskPlanConfig.ordersToShow, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.taskPlanConfig.ordersToShow, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button class="btn btn-label btn-sm btn-default" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.itemName}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="evalNaturesToShow" class="control-label col-xs-2 partial-label">评估项目：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.taskPlanConfig.evalTaskToShow.length === 0 || !vm.formData.taskPlanConfig.evalTaskToShow">无</span>
+    
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.taskPlanConfig.evalTaskToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.taskPlanConfig.evalTaskToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.taskPlanConfig.evalTaskToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.evaluateNature" ng-click="vm.addClickTaskPlanConfig(item, 'evalTaskToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="evalTaskToShow" class="control-label col-xs-2 partial-label">已选择的评估项目：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.formData.taskPlanConfig.evalTaskToShow | orderBy: 'orderIndex'">
+    
+          <span><b>{{$index}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.taskPlanConfig.evalTaskToShow, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.taskPlanConfig.evalTaskToShow, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button class="btn btn-label btn-sm btn-default" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.itemName}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="evalNaturesToShow" class="control-label col-xs-2 partial-label">体征项目：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.taskPlanConfig.vitalTaskToShow.length === 0 || !vm.formData.taskPlanConfig.vitalTaskToShow">无</span>
+    
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.taskPlanConfig.vitalTaskToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.taskPlanConfig.vitalTaskToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.taskPlanConfig.vitalTaskToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.vitalItem" ng-click="vm.addClickTaskPlanConfig(item, 'vitalTaskToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="vitalTaskToShow" class="control-label col-xs-2 partial-label">已选择的体征项目：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.formData.taskPlanConfig.vitalTaskToShow | orderBy: 'orderIndex'">
+    
+          <span><b>{{$index}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.taskPlanConfig.vitalTaskToShow, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.taskPlanConfig.vitalTaskToShow, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button class="btn btn-label btn-sm btn-default" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.itemName}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 异常体征 -->
+    <div class="divide-line">
+      <span class="divide-line__title">异常体征</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="vitalEventConfig" class="control-label col-xs-2 partial-label">异常体征类型：</label>
+      <div class="col-xs-10">
+        <span class="label label-default" ng-show="vm.formData.vitalEventConfig.vitalEventsToShow.length === 0 || !vm.formData.vitalEventConfig.vitalEventsToShow">无</span>
+        <button class="btn btn-label btn-xs btn-primary" ng-repeat="item in vm.formData.vitalEventConfig.vitalEventsToShow | orderBy: 'orderIndex'"
+          style="margin-right:3px; margin-bottom: 3px;">
+          <span>{{item.itemName}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.removeClick($event, vm.formData.vitalEventConfig.vitalEventsToShow, item.itemCode)">&nbsp;×</span>
+        </button>
+        <br />
+        <div class="row">
+          <div class="col-xs-8">
+            <button class="btn btn-label btn-xs btn-default" ng-show="vm.isInCollection(vm.formData.vitalEventConfig.vitalEventsToShow, item)"
+              uib-tooltip="点击添加" ng-repeat="item in vm.patVitalEvent" ng-click="vm.addClickVitalEventConfig(item, 'vitalEventsToShow')"
+              style="margin-right:3px; margin-bottom: 3px;">
+              {{item.itemName}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="vitalEventsToShow" class="control-label col-xs-2 partial-label">已选择的异常体征类型：</label>
+      <div class="col-xs-10">
+        <div class="" ng-repeat="item in vm.formData.vitalEventConfig.vitalEventsToShow | orderBy: 'orderIndex'">
+    
+          <span><b>{{$index}}</b>&nbsp;&nbsp;&nbsp;</span>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.vitalEventConfig.vitalEventsToShow, 'up', item.orderIndex)">&nbsp;↑&nbsp;</button>
+          <button class="btn btn-label btn-primary btn-sm" style="margin-right:3px; margin-bottom: 3px;" ng-click="vm.move(vm.formData.vitalEventConfig.vitalEventsToShow, 'down', item.orderIndex)">&nbsp;↓&nbsp;</button>
+          <button class="btn btn-label btn-sm btn-default" style="margin-left:10px; margin-right:3px; margin-bottom: 3px;">
+            <span>{{item.itemName}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

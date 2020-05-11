@@ -1,0 +1,89 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">添加或编辑配置项信息</h5>
+  </div>
+  <form class="form-horizontal" name="basicDictionary" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="appResourceId" class="col-sm-2 control-label">所属应用：</label>
+        <div class="col-sm-9">
+          <select id="appResourceId" name="appResourceId" ng-model="vm.formData.appResourceId" class="form-control input-sm"
+            required>
+            <option value="generic">通用配置</option>
+            <option ng-repeat="app in vm.metaData.appResourceList" value="{{app.resourceCode}}">{{app.resourceName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="configOwner" class="col-sm-2 control-label">配置所有者：</label>
+        <div class="col-sm-9">
+          <input type="text" id="configOwner" name="configOwner" ng-model="vm.formData.owner" autocomplete="off" class="form-control input-sm"
+            required />
+          <span style="color:red;font-weight:bold;"><br />！！！创建者必须写上自己的属名，便于后期跟踪配制作用！！！</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="configCode" class="col-sm-2 control-label">配置编码：</label>
+        <div class="col-sm-9">
+          <input type="text" id="configCode" name="configCode" ng-model="vm.formData.configCode" autocomplete="off"
+            class="form-control input-sm" ng-disabled="vm.metaData.type!='new'" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="configType" class="col-sm-2 control-label">配置类型：</label>
+        <div class="col-sm-9">
+          <select id="configType" name="configType" ng-model="vm.formData.configType" class="form-control input-sm"
+            required>
+            <option value="0">值</option>
+            <option value="1">序列</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="configValue" class="col-sm-2 control-label">配置值：</label>
+        <div class="col-sm-9">
+          <textarea ng-show="vm.formData.configType=='0'" id="configValue" name="configValue" style="height:120px"
+            ng-model="vm.formData.configValue" class="form-control input-sm" required></textarea>
+          <div ng-if="vm.formData.configType=='1'">
+            <span style="line-height:26px;font-weight:bold;">设定值：{{vm.formData.configValue?vm.formData.configValue:"未选定"}}</span>
+            <button class="btn btn-primary btn-xs pull-right" ng-click="vm.addConfigListItem()">添加配置选项</button>
+            <div class="config-list-item-list">
+              <div class="config-list-item-panel" ng-repeat="item in vm.formData.configRangeList track by $index"
+                ng-class="{'selected':vm.formData.configValue==item}">
+                <input class="input-xs" ng-model="item.value" />
+                <button class="btn btn-xs btn-link" ng-click="vm.setConfigValueInList($index)">选中</button>
+                <button class="btn btn-xs btn-link" ng-click="vm.deleteConfigListItem($index)">X</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="configDesc" class="col-sm-2 control-label">配置说明：</label>
+        <div class="col-sm-9">
+          <textarea id="configDesc" name="configDesc" style="height:120px" ng-model="vm.formData.configDesc" class="form-control input-sm"
+            required></textarea>
+          <span style="color:red;font-weight:bold;"><br />不认真写描述的人，都没有升职——来自软件部的古老传说</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="configDefaultValue" class="col-sm-2 control-label">默认值(出厂设置)：</label>
+        <div class="col-sm-6">
+          <textarea id="configDefaultValue" name="configDefaultValue" style="height:50px" ng-model="vm.formData.configDefaultValue"
+            class="form-control input-sm" required></textarea>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-primary btn-round btn-xs" ng-click="vm.setConfigValueAsDefault()">以当前值为默认值</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-round btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-warning btn-round btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

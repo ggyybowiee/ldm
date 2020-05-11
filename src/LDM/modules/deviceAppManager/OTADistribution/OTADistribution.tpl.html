@@ -1,0 +1,90 @@
+<div class="panel panel-layout panel-default">
+  <div class="flex-box justify-between filter-bar form-inline">
+    <div class="filter-bar__search" style="width:50%;">
+      <search-input ng-model="vm.queryParams.eqpName" search="vm.load.func()" text="关键字"></search-input>
+    </div>
+    <div class="filter-item">
+      <button class="btn btn-link icon-btn primary-text" uib-tooltip="刷新" ng-click="vm.load.func()">
+        <i class="iconmoon icomoon-refresh"></i>
+      </button>
+    </div>
+  </div>
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <div class="filter-item">
+        <label>设备类型： </label>
+        <select class="form-control input-sm" ng-change="vm.load.func(true)" ng-model="vm.queryParams.eqpType" name="eqpType" convert-to-number>
+          <option ng-repeat="item in vm.deviceTypes" value="{{item.code}}">{{item.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-item">
+      <label>所属科室： </label>
+      <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.queryParams.eqpBelong" name="eqpBelong" convertToNumber>
+        <option value="">全部</option>
+        <option ng-repeat="item in vm.wards" value="{{item.wardCode}}">{{item.wardName}}</option>
+      </select>
+    </div>
+    <div class="filter-item">
+      <label>系统版本： </label>
+      <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.queryParams.version" name="version" convertToNumber>
+        <option value="">全部</option>
+        <option ng-repeat="itemV in vm.versions" value="{{itemV}}">{{itemV}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="white-borderd table table-hover device-table" st-table="vm.devicesDisplay" st-safe-src="vm.devices">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>设备名称</th>
+          <th>设备类型</th>
+          <th>MAC地址</th>
+          <th>所属科室</th>
+          <th>系统版本</th>
+          <th>选择升级包
+            <div>
+              <select class="form-control input-sm" ng-model="vm.allVersion" name="version" ng-change="vm.setAllVersion(vm.allVersion)" convertToNumber>
+                <option value="">请选择</option>
+                <option ng-repeat="itemM in vm.packages" value="{{itemM.id}}">{{itemM.version}}</option>
+              </select>
+            </div>
+          </th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.devicesDisplay | orderBy: 'row.content.basicInfo.mac' track by $index" ng-init="row.clicked=false">
+          <td class="ng-binding">{{$index + 1}}</td>
+          <td class="ng-binding">{{row.content.basicInfo.eqpName}}</td>
+          <td class="ng-binding">{{(row.content.basicInfo.eqpType && (vm.deviceTypes | filter: { code: row.content.basicInfo.eqpType })[0].name)
+            || '' }}</td>
+          <td class="ng-binding">{{row.content.basicInfo.mac}}</td>
+          <td class="ng-binding">{{(row.content.basicInfo.eqpBelong && (vm.wards | filter: { wardCode: row.content.basicInfo.eqpBelong })[0].wardName)
+            || '' }}</td>
+          <td class="ng-binding">{{row.content.basicInfo.version}}</td>
+          <td class="ng-binding">
+            <select class="form-control input-sm" ng-model="row.id" name="id">
+              <option value="">请选择</option>
+              <option ng-repeat="itemS in vm.packages" value="{{itemS.id}}">{{itemS.version}}</option>
+            </select>
+          </td>
+          <td class="flex justify-around">
+            <button class="btn btn-link btn-xs success-text" ng-disabled="row.clicked || !row.id" ng-click="vm.pushUpgrade(row)">
+              推送升级
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8">
+            <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.devices"></none-data-info>
+  </div>
+</div>

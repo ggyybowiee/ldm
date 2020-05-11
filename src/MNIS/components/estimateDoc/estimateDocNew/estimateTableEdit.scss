@@ -1,0 +1,85 @@
+.estiamte-data-container-hover {
+  background-color: #eee;
+}
+
+.estimate-edit-table {
+  width: 100%;
+  table-layout: fixed;
+  overflow: hidden;
+}
+
+.estimate-edit-table td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.estimate-edit-table th {
+  border: 1px solid black;
+  text-align: center;
+  font-weight: normal
+}
+
+.data-row-edit-disable-panel {
+  background-color: rgba(0, 0, 0, 0.411);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 999;
+}
+
+.estimate-hide-text {
+  display: table-cell;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: center;
+  vertical-align: middle;
+
+  >div {
+    width: 100%;
+
+    >span {
+      margin: auto;
+    }
+  }
+}
+
+.data-row-edit-panel {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: white;
+  width: 450px;
+  height: 100%;
+  box-shadow: darkgrey -10px -10px 30px 5px;
+}
+
+.estiamte-data-container-hover {
+  background-color: $back-4;
+}
+
+.estiamte-data-container-disable {
+  cursor: not-allowed !important;
+}
+
+.doc-footer {
+  position: absolute;
+  // bottom: 0;
+  width: 100%;
+}
+
+.estimate-config-page-inner-panel {
+  position: relative;
+}
+
+.esitmate-doc-table-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-left: 0px;
+
+  &.left-aligns {
+    justify-content: left;
+    padding-left: 20px;
+  }
+}

@@ -1,0 +1,23 @@
+.nursing-doc-modal-tpl-ext-panel {
+  ul {
+    >li {
+      margin: 3px 0px;
+      padding: 5px;
+      background-color: $back-4;
+      border-radius: 5px;
+      cursor: pointer;
+
+      >button {
+        width: 100%;
+        border: 0px;
+        background-color: transparent;
+        text-align: left;
+      }
+    }
+
+    >li:hover {
+      background-color: $primary;
+      color: white;
+    }
+  }
+}

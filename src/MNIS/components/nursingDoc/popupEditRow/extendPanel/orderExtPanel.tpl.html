@@ -1,0 +1,50 @@
+<div class="patient-order-ext-panel">
+
+  <div loading-wrapper="vm.loadOrders">
+    <div class="toolbar">
+      <div class="toolbar-item">
+        类型：
+        <select class="form-control input-sm" ng-model="vm.params.isLongTerm" ng-change="vm.loadOrders.func()">
+          <option value="">全部</option>
+          <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderLongTerm">{{item.dicName}}</option>
+        </select>
+      </div>
+      <div class="toolbar-item">
+        状态：
+        <select class="form-control input-sm" ng-model="vm.params.status" ng-change="vm.loadOrders.func()">
+          <option value="">全部</option>
+          <option value="{{item.dicCode}}" ng-repeat="item in vm.dicHelper.dic.orderStatus">{{item.dicName}}</option>
+        </select>
+      </div>
+      <div class="toolbar-item pull-right">
+        <button class="btn btn-primary btn-sm" ng-click="vm.insertOrder(vm.selectedOrder)">引用</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.insertOrderShortcut(vm.selectedOrder)">引用简称</button>
+      </div>
+    </div>
+
+    <table class="table white-borderd tr-hover thead-fixed">
+      <thead>
+        <tr>
+          <th width="120px">开立时间</th>
+          <th width="30px">组</th>
+          <th style="text-align:left;">医嘱内容</th>
+          <th width="70px">剂量</th>
+          <th width="80px">执行方式</th>
+          <th width="80px">频率</th>
+        </tr>
+      </thead>
+      <tbody full-page="fix">
+        <tr ng-repeat="row in vm.list track by $index" ng-click="vm.selectOrder(row)" ng-dblclick="vm.insertOrder(row)"
+          ng-class="{'selected':vm.selectedOrder == row}">
+          <td width="120px">{{row.enterDateTime | idate: 'DM' | orderGourpItemVisible:row}}</td>
+          <td width="30px">{{row.groupType}}</td>
+          <td style="text-align:left;">{{row.itemName}}</td>
+          <td width="40px" style="text-align:right;">{{row.dosage}}</td>
+          <td width="30px">{{row.dosageUnit}}</td>
+          <td width="80px">{{row.administration}}</td>
+          <td width="80px">{{row.frequency | orderGourpItemVisible:row}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

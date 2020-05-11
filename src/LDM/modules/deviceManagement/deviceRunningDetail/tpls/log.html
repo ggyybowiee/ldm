@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <table class="white-borderd table table-hover">
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>文件</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in vm.metaData.logInfo">
+        <td class="ng-binding">{{row.createTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="ng-binding">{{row.attachmentUrl}}</td>
+        <td class="ng-binding">
+          <button class="btn btn-xs btn-info btn-round" uib-tooltip="下载" tooltip-append-to-body="true" ng-click="vm.downloadLogFile(row.attachmentUrl)">
+            <i class="fa fa-download"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

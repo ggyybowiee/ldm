@@ -1,0 +1,49 @@
+.observer-item-toolbar-panel {
+  margin: 10px 0px;
+  display: flex;
+
+  //   justify-content: space-between;
+  >div {
+    display: inline-block;
+
+    >button {
+      margin-right: 5px;
+      min-width: 80px;
+    }
+
+    >span {
+      margin: auto 5px auto 0px;
+    }
+
+    >button:hover {
+      border-color: $primary;
+      background-color: $primary;
+      color: white;
+    }
+  }
+
+  >div:first-child {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+
+    select {
+      width: 100px;
+    }
+  }
+
+  .observer-item-toolbar-obsritemtype {
+    >label {
+      margin: 5px 5px 0px 0px !important
+    }
+  }
+}
+
+.observeitem-table-click-td {
+  cursor: pointer;
+}
+
+.observeitem-table-click-td:hover {
+  background-color: $primary;
+  color: white;
+}

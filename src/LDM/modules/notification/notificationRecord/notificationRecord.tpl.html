@@ -1,0 +1,55 @@
+<div class="config-wrapper">
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <input type="text" name="keyword" class="form-control input-sm" ng-model="vm.queryParams.key" placeholder="内容" />
+    </div>
+    <div class="filter-item">
+      <label>推送时间： </label>
+      <date-picker ng-model="vm.queryParams.startTime"></date-picker>
+      <span>&nbsp-&nbsp</span>
+      <date-picker ng-model="vm.queryParams.endTime"></date-picker>
+    </div>
+    <div class="filter-item">
+      <button class="btn btn-success btn-sm btn-round button-wide" ng-click="vm.load.func()">搜索</button>
+    </div>
+  </div>
+
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="white-borderd table table-hover" st-table="vm.recordsDisplay" st-safe-src="vm.records">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>类型</th>
+          <th>推送时间</th>
+          <th>内容</th>
+          <th>操作人</th>
+          <th>添加时间</th>
+          <th style="width: 120px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.recordsDisplay | orderBy: '-sendTime' track by $index">
+          <td class="ng-binding">{{$index + 1}}</td>
+          <td class="ng-binding">{{vm.msgType && (vm.msgType | filter: {code: row.msgType})[0].name}}</td>
+          <td class="ng-binding">{{row.sendTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td class="ng-binding">{{row.content.message}}</td>
+          <td class="ng-binding">{{row.createPerson}}</td>
+          <td class="ng-binding">{{row.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td class="ng-binding">
+            <button class="btn btn-link btn-s success-text" ng-click="vm.openDetailModal(row)">
+              <i class="fa fa-files-o"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.records"></none-data-info>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      &times;
+    </button>
+    <h5 class="modal-title">选择父结点</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="bordered-bottom">
+        <h4>当前编辑的模块：{{vm.metaData.editingResource.resourceName}}&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.metaData.editingResource.resourceCode}}</h4>
+      </div>
+      <div style="display:flex">
+        <div style="flex-basis: 400px;min-width:400px;">
+          <ul class="app-resource-panel-list">
+            <li ng-repeat="item in vm.metaData.appResources | orderBy:['engine']  track by $index" ng-class="{active: vm.metaData.selectedAppResoure.resourceCode === item.resourceCode}">
+              <img ng-src="{{'/assets/images/settings/' + item.engine + '.png'}}" height="80%" style="margin-left:10px">
+              <button ng-click="vm.onSelecteAppResource(item)" style="max-width:260px;">{{item.resourceName}}&nbsp;|&nbsp;{{item.ad||'-'}}</button>
+            </li>
+          </ul>
+        </div>
+        <div class="bordered-left" style="flex-grow: 1;margin-left: 10px;">
+          <treecontrol class="tree-light lachesis-custom-tree-control" tree-model="vm.metaData.tree.appResourceTree"
+            on-selection="" expanded-nodes="vm.metaData.tree.appResourceTreeExpandedNode" selected-node="vm.formData">
+            <span class="app-resource-module-node" ng-class="{'parent-node':node.resourceCode == vm.metaData.editingResource.parentResourceCode}">
+              {{node.resourceName}}
+            </span>
+            <span ng-if="node.resourceCode == vm.metaData.editingResource.parentResourceCode">
+              (原父结点)
+            </span>
+            <i class="fa fa-check-circle-o success-text" ng-if="node.resourceCode == vm.metaData.editingResource.parentResourceCode"></i>
+          </treecontrol>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

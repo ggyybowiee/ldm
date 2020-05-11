@@ -1,0 +1,57 @@
+.custom-column-options-items-panel {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 250px;
+  overflow: auto;
+
+  >span {
+    height: 26px;
+    line-height: 26px;
+  }
+
+  >div {
+    flex-basis: 20%;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    margin: 2px 0px;
+    padding: 0px 2px;
+
+    >div {
+      border: 1px solid $border-3;
+      cursor: pointer;
+    }
+
+    >div:hover {
+      background-color: $primary;
+      color: white;
+    }
+
+    .custom-option-selected {
+      background-color: $primary;
+      color: white;
+    }
+  }
+}
+
+.custom-column-config.table-header {
+  color: $back-2;
+
+  div {
+    border-color: $border-3 !important;
+  }
+
+  .custom-column-highlight {
+    background-color: rgb(140, 140, 140);
+    color: white;
+    cursor: pointer;
+  }
+
+  .custom-column-highlight.selected {
+    background-color: $primary;
+  }
+
+  .custom-column-highlight:hover {
+    background-color: $primary;
+  }
+}

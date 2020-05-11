@@ -1,0 +1,15 @@
+<div class="nursing-doc-modal-tpl-ext-panel">
+  <div full-page="fix">
+    <span>      
+      <input class="form-control input-sm" style="margin:5px 0px;" ng-model="vm.filterText" autocomplete="off" placeholder="在此处过滤模版内容"/>
+    </span>
+    <ul ng-if="extendEcho.extendsData.tpls">
+      <li ng-repeat="tpl in extendEcho.extendsData.tpls | filter:vm.filterText track by $index">
+        <button clipboard="{{tpl}}" ng-dblclick="vm.addTplText(tpl)" ng-click="vm.copyToClipboard(tpl)">{{tpl}}</button>
+      </li>
+    </ul>
+    <h3 ng-if="!extendEcho.extendsData.tpls">
+      选中的单元格没有设置模版
+    </h3>
+  </div>
+</div>

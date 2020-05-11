@@ -1,0 +1,66 @@
+.content-wrapper {
+  position: relative;
+  padding: 60px 20px 20px;
+}
+
+.content-flatten-wrapper {
+  position: relative;
+  padding-top: 51px;
+}
+
+.page-left-menu {
+  width: $page-left-width;
+  padding-right: 10px;
+  position: fixed;
+  treecontrol > ul {
+    padding-top: 10px;
+    padding-bottom: 26px;
+    > li {
+      padding-left: 8px;
+    }
+  }
+  .panel-heading {
+    font-size: 14px;
+  }
+  .panel-body {
+    padding: 0;
+  }
+  .list-content {
+    overflow-y: scroll;
+  }
+  .tree-selected {
+    background: $primary;
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 2px;
+    height: 20px;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.page-right-content {
+  margin-left: $page-left-width;
+}
+
+.right-content {
+  margin-left: 180px;
+
+  body.min-mode & {
+    margin-left: 50px;
+  }
+
+  transition: margin .2s;
+}
+
+.panel-layout {
+  border: none;
+   & > .panel-body {
+    padding: 0;
+  }
+}
+
+.no-padding {
+  padding: 0;
+}

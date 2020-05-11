@@ -1,0 +1,22 @@
+<div class="modal-content modal-input-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">内容编辑</h5>
+  </div>
+  <div class="modal-body">
+    <div class="flex-box">
+      <div class="tpls-list">
+        <div class="tpl-item" title="{{item}}" ng-repeat="item in vm.tpls" ng-class="{'active': vm.active === $index}" ng-click="vm.choose($index)">{{item}}</div>
+      </div>
+      <div class="input-wrapper flex">
+        <textarea class="form-control auto-focus" ng-model="vm.text" ng-keypress="vm.handleEnter($event)"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-sm btn-round" ng-disabld="!vm.text" ng-click="vm.ok()">确定</button>
+    <button class="btn btn-warning btn-sm btn-round" ng-click="$dismiss()">取消</button>
+  </div>
+</div>

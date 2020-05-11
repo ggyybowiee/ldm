@@ -1,0 +1,24 @@
+<div class="select-input">
+  <input ng-focus="openOptions($event)" class="form-control {{innerClass}}" ng-blur="hideOptions($event, item.key)"
+    ng-model="ngModel" placeholder="{{item.text}}" ng-keydown="keyDown($event)" />
+  <div class="select-input__options" ng-style="{display:!isOpen?'none':'block'}">
+    <ul>
+      <li ng-repeat="option in options track by $index" ng-class="selectIndex==$index ? 'select-and-input-option-selected' : '' "
+        ng-click="setValue($index)" style="height:20px;">{{option|selecteAndInputType:type}}</li>
+    </ul>
+  </div>
+
+  <!-- <div class="select-input">
+  <input ng-if="type !== 'textarea'" ng-focus="openOptions($event)" class="form-control {{innerClass}}" ng-model="ngModel"
+    placeholder="{{item.text}}" ng-keydown="keyDown($event)" />
+  <textarea ng-if="type === 'textarea'" ng-focus="openOptions($event)" class="form-control {{innerClass}}" ng-model="ngModel"
+    placeholder="{{item.text}}" ng-keydown="keyDown($event)">
+  </textarea>
+  <div class="select-input__options" ng-style="{display:!isOpen?'none':'block'}">
+    <ul>
+      <li ng-repeat="option in options track by $index" ng-class="selectIndex==$index ? 'select-and-input-option-selected' : '' "
+        ng-click="setValue($index)" style="height:20px;">{{option}}</li>
+    </ul>
+  </div>
+</div> -->
+</div>

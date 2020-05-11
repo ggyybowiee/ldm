@@ -1,0 +1,25 @@
+.search-input {
+  display: flex;
+  min-width: 400px;
+  .form-control {
+    border-radius: 0;
+    border-color: $primary;
+    border-width: 2px;
+    flex: 1;
+    border-right: 0;
+  }
+
+  .btn {
+    background-color: $primary;
+    border-color: $primary;
+    padding: 0 20px;
+    font-size: 14px;
+    border-width: 2px;
+    border-radius: 0;
+    color: #fff;
+  }
+
+  .w5c-error {
+    display: none;
+  }
+}

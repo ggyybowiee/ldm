@@ -1,0 +1,92 @@
+<div>
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">
+      发现新设备
+    </h5>
+  </div>
+  <!-- style="max-height: 600px;overflow-y:scroll;" -->
+  <div class="modal-body">
+
+    <p ng-if="vm.formData.newDevices.length > 0">
+      <i class="fa fa-check-circle success-text"></i> 已扫描到{{vm.formData.newDevices.length}}台新设备
+    </p>
+    <p ng-if="vm.formData.newDevices.length === 0">
+      <i class="fa fa-info-circle warning-text"></i> 未发现新设备
+    </p>
+    <div class="filter-bar form-inline">
+        <div class="filter-item">
+          <label> 发现时间： </label>
+          <date-picker ng-model="vm.metaData.startTime" ng-change="vm.search()"></date-picker>
+          <span> 至 </span>
+          <date-picker ng-model="vm.metaData.endTime" ng-change="vm.search()"></date-picker>
+        </div>
+      </div>
+    <table class="white-borderd table table-hover device-table" st-table="vm.formData.newDevicesDisplay" st-safe-src="vm.formData.newDevices">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>设备类型</th>
+          <th>型号</th>
+          <th>序列号</th>
+          <th>MAC地址</th>
+          <th>设备名称</th>
+          <th>所属病区</th>
+          <th>房间号</th>
+          <th>床号</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.formData.newDevicesDisplay track by $index">
+          <td class="ng-binding">{{row.seqNum + 1}}</td>
+          <td class="ng-binding">{{ (vm.metaData.types | filter: { code: row.content.basicInfo.eqpType })[0].name }}</td>
+          <td class="ng-binding">{{row.content.basicInfo.model}}</td>
+          <td class="ng-binding">{{row.content.basicInfo.sn}}</td>
+          <td class="ng-binding">{{row.content.basicInfo.mac}}</td>
+          <td class="ng-binding" colspan="5">
+            <form class="form-horizontal w5c-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption" name="newDeviceForm">
+              <div class="row">
+                <div class="form-group col-sm-3" style="margin: 0;">
+                  <input type="text" required class="input input-sm form-control" ng-model="row.content.basicInfo.eqpName" name="eqpName">
+                </div>
+                <div class="form-group col-sm-3" style="margin: 0;">
+                  <select class="form-control input-sm" required ng-change="vm.getRooms(row.seqNum, row.content.basicInfo.eqpBelong)" ng-model="row.content.basicInfo.eqpBelong" name="eqpBelong">
+                    <option ng-repeat="item in vm.metaData.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-2" style="margin: 0;">
+                  <select id="roomCode" class="form-control input-sm" ng-change="vm.getBeds(row.seqNum, row.content.basicInfo.eqpBelong, row.content.basicInfo.roomCode)" ng-model="row.content.basicInfo.roomCode" name="roomCode">
+                    <option ng-repeat="item in vm['rooms' + row.seqNum]" value="{{item}}">{{item}} 房</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-2" style="margin: 0;">
+                  <select id="bedCode" class="form-control input-sm" ng-model="row.content.basicInfo.bedCode" name="bedCode">
+                    <option ng-repeat="item in vm['beds' + row.seqNum]" value="{{item.bedCode}}">{{item.bedCode}}床</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-2" style="margin: 0;">
+                  <button class="btn btn-round btn-xs btn-success" w5c-form-submit="vm.add(row.seqNum)">
+                      <i class="fa fa-plus"></i>
+                      添加
+                    </button>
+                </div>
+              </div>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+            <td colspan="10">
+              <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+            </td>
+          </tr>
+        </tfoot>
+    </table>
+    <div class="text-center" style="padding:20px 0" ng-show="vm.isLoading">
+      正在发现设备...
+    </div>
+  </div>
+
+</div>

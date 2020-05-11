@@ -1,0 +1,44 @@
+<div class="orders-wrapper">
+  <div class="flex-box">
+    <!-- <div class="flex" loading-wrapper="vm.loadOrders"> -->
+    <div class="flex">
+      <div class="toolbar">
+        <div class="toolbar-item">
+          时间：
+          <date-picker style="width: 160px" ng-model="vm.getExamLabelParams.begin" date-options="vm.dateOptions" ng-change="vm.loadOrders.func()"></date-picker>&nbsp;到&nbsp;
+          <date-picker style="width: 160px" ng-model="vm.getExamLabelParams.end" date-options="vm.dateOptions" ng-change="vm.loadOrders.func()"></date-picker>
+        </div>
+      </div>
+      <div class="content-table" auto-scroll="vm.list" style="padding: 10px">
+        <table class="table white-borderd tr-hover thead-fixed">
+          <thead>
+            <tr>
+              <th>状态</th>
+              <th>姓名</th>
+              <th>检查项目</th>
+              <th>检查部位</th>
+              <th>检查日期</th>
+              <th>报告日期</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody full-page="fix">
+            <tr ng-repeat="item in vm.examLabelList">
+              <td>已报告</td>
+              <td>{{item.patExamMaster.inhosName}}</td>
+              <td>{{item.patExamMaster.examClass}}</td>
+              <td>{{item.patExamMaster.examSubClass}}</td>
+              <td>{{item.patExamMaster.examDateTime.split('.')[0].replace('T', ' ')}}</td>
+              <td>{{item.patExamMaster.reportDateTime.split('.')[0].replace('T', ' ')}}</td>
+              <td class="flex justify-around">
+                <button class="btn btn-link btn-xs success-text" ng-click="vm.detail(item)" type="button">
+                  <i class="fa fa-files-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

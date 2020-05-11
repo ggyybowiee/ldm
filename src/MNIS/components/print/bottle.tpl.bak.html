@@ -1,0 +1,116 @@
+<div class="custom-print-wrapper">
+  <style>
+    .custom-print-wrapper * {
+      font-family: 'microsoft yahei';
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .custom-print-wrapper .sm {
+      font-size: 2mm;
+    }
+    .custom-print-wrapper .middle {
+      font-size: 3mm;
+    }
+    .custom-print-wrapper .lg {
+      font-size: 3.5mm;
+    }
+    .custom-print-wrapper .bold {
+      font-weight: 900;
+    }
+    .custom-print-wrapper qrcode {
+      display: block;
+    }
+  </style>
+  <style>
+    .custom-print-wrapper img {
+      width: 50px;
+    }
+    .custom-print-wrapper .patient-info {
+      position: relative;
+      height: 50px;
+    }
+    .custom-print-wrapper .patient-img {
+      position: absolute;
+      right: 0;
+    }
+    .custom-print-wrapper .patient-text {
+      position: absolute;
+      left: 0;
+    }
+    .custom-print-wrapper .info-line {
+      line-height: 17px;
+    }
+    .custom-print-wrapper .label {
+      width: 16mm;
+      display: inline-block;
+    }
+    .custom-print-wrapper .order-content table {
+      width: 100%;
+      border: none;
+      table-layout: fixed;
+    }
+    .custom-print-wrapper .order-content thead th {
+      border-bottom: .5mm solid black;
+      text-align: left;
+    }
+    .custom-print-wrapper .text-overflow {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .order-no {
+      position: absolute;
+      right: 0;
+    }
+    .middle-line {
+      line-height: 1.5;
+      position: relative;
+    }
+    .middle-line .adm {
+      margin-left: 10px;
+    }
+    .fre {
+      position: absolute;
+      right: 0;
+    }
+    .half {
+      width: 50%!important;
+    }
+  </style>
+  <div class="patient-content bottle__content">
+    <!-- <div class="middle">审核：{{order.nurse}} <span class="order-no">{{order.orderSortNo}}</span></div> -->
+    <div class="info-line">
+      <span class="label middle half">配药：</span><span class="label middle right-half">审核：</span>
+    </div>
+    <div class="patient-info">
+      <div class="patient-img">
+        <qrcode data="{{order.orderbar}}" size="50" mode="img" version="1" error-correction-level="L"></qrcode>
+      </div>
+      <div class="patient-text">
+        <div class="info-line"><span class="label middle">{{order.patient.bedCode}}床</span><span class="middle">{{order.patient.patName}}</span></div>
+        <div class="info-line"><span class="label middle">住院号：</span><span class="middle">{{order.patient.displayCode}}</span></div>
+        <div class="info-line"><span class="label middle">{{order.administration}}</span><span class="middle">{{order.frequency}}-{{order.orderSortNo}}</span></div>
+      </div>
+    </div>
+    <!-- <div class="middle middle-line">
+      <span>日期：{{order.planTime | idate}}</span>
+      <span class="adm">{{order.administration}}</span>
+      <span class="fre">{{order.frequency}}-{{order.orderSortNo}}</span>
+    </div> -->
+  </div>
+  <div class="order-content">
+    <table>
+      <thead>
+        <tr>
+          <th class="middle" width="75%">药品名称</th>
+          <th class="middle">用量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in order.items">
+          <td class="sm text-overflow">{{item.itemName}}</td>
+          <td class="sm">{{item.dosage}}{{item.dosageUnit}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div style="padding-top: 5px;">
+  <div class="patients-left-list" loading-wrapper="vm.loadInhosRecord" loading-type="list">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        患者列表
+      </div>
+      <div class="list-filter">
+        <input type="text" class="form-control input-sm" ng-model="vm.filterText" placeholder="床号">
+        <span class="fa fa-search"></span>
+      </div>
+      <div class="panel-body" full-page="fix">
+        <ul class="patients-list">
+          <li ng-repeat="item in vm.patients | filter: vm.patientsFilter">
+            <label class="radio-inline custom-radio">
+              <input type="radio" name="curPat" value="{{item.inhosCode}}" ng-model="vm.patientInhosCode" >
+              <span>{{item.bedCode}}床&nbsp;{{item.patName}}</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

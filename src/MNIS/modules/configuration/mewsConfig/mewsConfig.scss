@@ -1,0 +1,286 @@
+.config-title-panel {
+  display: flex;
+  >span {
+    margin: auto 5px;
+    color: $font-color2;
+  }
+  >div {
+    flex-grow: 1;
+    height: 30px;
+    margin: auto 0px;
+  }
+}
+
+.alert-behavior-config-panel {
+  border-radius: 5px;
+  display: flex;
+}
+
+h4 {
+  font-weight: bold;
+  margin: 20px 0px;
+}
+
+.alert-behavior-config-panel {
+  >div {
+    margin: 10px 0px 10px 40px;
+  }
+}
+
+.score-config-panel {
+  margin-top: 20px;
+}
+
+.score-config-item-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.score-config-item-list-panel {
+  flex-basis: 50%;
+  padding: 5px 0px;
+}
+
+.score-config-item-list-border-panel {
+  flex-basis: 50%;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.odd-panel {
+  padding-right: 5px;
+}
+
+.even-panel {
+  padding-left: 5px;
+}
+
+.score-config-item-title-panel {
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 10px;
+  margin-bottom: 30px;
+  justify-content: space-between;
+  >label {
+    font-size: 20px;
+    margin: auto 0px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  >button {
+    background-color: transparent;
+    border: 0px;
+    color: $primary;
+    font-weight: bold;
+  }
+  >div {
+    margin-top: 8px;
+    margin-right: 20px;
+  }
+}
+
+.score-config-item-range-panel {
+  margin: 10px 0px;
+  padding: 0px 10px;
+  display: flex;
+  >span {
+    margin-right: 10px;
+  }
+}
+
+.score-config-disable {
+  color: gray !important;
+}
+
+.score-config-item-range-item-title-panel {
+  height: 40px;
+  line-height: 30px;
+  min-width: 55px;
+  cursor: default !important;
+  label {
+    cursor: default !important;
+  }
+  span {
+    cursor: default !important;
+  }
+  div {
+    cursor: default !important;
+  }
+}
+
+.score-config-item-range-item-panel {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  >button {
+    background-color: transparent;
+    border: 0px;
+    color: $primary;
+    font-weight: bold;
+    height: 30px;
+    margin-top: 5px;
+    text-align: center;
+  }
+  >div {
+    flex-basis: 100%;
+    margin: auto 0px;
+  }
+  .score-config-item-range-item-input-panel {
+    flex-basis: 35%;
+    display: flex;
+    >input {
+      color: $font-color;
+      padding: 0px 10px;
+      margin: 5px 0px 5px 10px;
+      min-width: 0px;
+      height: 30px;
+      border-radius: 5px;
+    }
+    >input:hover {
+      border-color: $primary;
+    }
+    >input:disabled {
+      border-color: $border-3;
+      background-color: rgba($color: #000000, $alpha: .05);
+      cursor: not-allowed;
+    }
+    button {
+      display: none;
+      margin-bottom: 20px;
+      margin-left: -10px;
+      border-radius: 50%;
+      border: 0px;
+      height: 20px;
+      width: 20px;
+      background-color: $back-3;
+    }
+  }
+  .score-config-item-range-item-input-panel:hover button {
+    display: inline;
+  }
+}
+
+.add-item-panel {
+  position: absolute;
+  z-index: 999;
+}
+
+.vitalsign-list-panel {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.vitalsign-item-panel {
+  padding: 5px;
+  flex-basis: 20%;
+  >div {
+    background-color: $back-3;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90px;
+  }
+  >div:hover {
+    color: white;
+    background-color: $primary;
+  }
+}
+
+.alert-rule-config-panel {
+  margin-top: 30px;
+}
+
+.alert-rule-config-item-panel {
+  display: flex;
+  cursor: pointer;
+  padding: 15px 0px;
+}
+
+.alert-rule-config-item-panel:hover {
+  background-color: $back-5;
+}
+
+.alert-rule-config-item-title-panel {
+  width: 120px;
+  display: flex;
+  height: 26px;
+  line-height: 26px;
+  justify-content: space-between;
+  margin-right: 15px;
+  padding-left: 15px;
+  >div {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    margin: auto 0px auto 15px;
+  }
+}
+
+.alert-rule-config-item-detail-panel {
+  flex-grow: 1;
+  .alert-rule-config-item-condtion-panel {
+    display: flex;
+    width: 85%;
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 10px;
+    >span {
+      flex-basis: 90px;
+      text-align: right;
+    }
+    >input {
+      flex-grow: 5;
+      width: auto;
+    }
+    >label {
+      flex-grow: 0;
+      margin: 0px 10px;
+    }
+    >select {
+      flex-grow: 3;
+      width: auto;
+    }
+    >div {
+      flex-basis: 120px;
+      padding-left: 15px;
+      >button {
+        width: 40px;
+        background-color: transparent;
+        color: $primary;
+        border: 0px;
+      }
+    }
+  }
+  .alert-rule-config-item-suggest-panel {
+    display: flex;
+    width: 85%;
+    line-height: 26px;
+    margin-bottom: 10px;
+    >span {
+      flex-basis: 90px;
+      text-align: right;
+    }
+    >textarea {
+      height: 100px;
+      flex-grow: 1;
+      width: auto;
+    }
+    >input {
+      flex-grow: 1;
+      width: auto;
+    }
+    >div {
+      flex-basis: 120px;
+    }
+  }
+}
+
+.alert-rule-config-item-use-panel {
+  height: 25px;
+  line-height: 25px;
+  width: 150px;
+  display: flex;
+}

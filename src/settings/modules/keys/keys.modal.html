@@ -1,0 +1,28 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <i class="fa fa-times"></i>
+    </button>
+    <h5 class="modal-title">绑定账号</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="useCodeOut" class="col-sm-3 control-label">账号：</label>
+        <div class="col-sm-9">
+          <input type="text" id="useCodeOut" name="useCodeOut" ng-model="vm.formData.useCodeOut" class="form-control input-sm" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="usePwdOut" class="col-sm-3 control-label">密码：</label>
+        <div class="col-sm-9">
+          <input type="text" id="usePwdOut" name="usePwdOut" ng-model="vm.formData.usePwdOut" class="form-control input-sm" required>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-warning btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

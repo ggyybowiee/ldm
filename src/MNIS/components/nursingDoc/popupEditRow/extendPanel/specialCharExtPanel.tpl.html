@@ -1,0 +1,16 @@
+<div>
+  <div full-page="fix">
+    <div class="btn-group btn-radio" style="width:100%;margin-top:5px;">
+      <label class="btn btn-sm btn-primary" ng-repeat="set in vm.charactersSet track by $index" ng-model="vm.showIndex"
+        style="width:{{100/vm.charactersSet.length}}%" uib-btn-radio="{{$index}}">{{set.type}}</label>
+    </div>
+    <div class="nursing-doc-special-char-ext-panel" ng-show="vm.charactersSet[vm.showIndex].characters.length > 0">
+      <div ng-repeat="item in vm.charactersSet[vm.showIndex].characters track by $index">
+        <button clipboard="{{item}}" ng-dblclick="vm.addText(item)">{{item}}</button>
+      </div>
+    </div>
+    <h4 ng-show="!vm.charactersSet || vm.charactersSet.length == 0" style="text-align: center;">
+      未配置特殊字符字典
+    </h4>
+  </div>
+</div>

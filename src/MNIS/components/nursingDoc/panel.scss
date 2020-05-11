@@ -1,0 +1,58 @@
+@media screen {
+  .doc-header {
+    &.blank-page {
+      opacity: 0;
+    }
+  }
+}
+
+.nursing-doc-edit-panel {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%; //   background-color: green;
+  background-color: rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.nursing-doc-row-edit-panel {
+  width: 650px;
+  background-color: white;
+  position: absolute;
+  height: 100%;
+  right: 0px;
+  //   box-shadow: darkgrey -5px -5px 5px 5px;
+}
+
+.btn-nursing-doc-tool {
+  padding: 3px 10px !important;
+}
+
+.iconCommonStyle {
+  width: 16px;
+  position: absolute;
+  left: 7px;
+  top: 2px;
+}
+
+.setCustomPage {
+  width: 18px;
+  position: absolute;
+  left: 6px;
+  top: 1px;
+}
+
+.btnIconGroup {
+  position: relative;
+  width: 32px;
+  height: 26px;
+}
+
+.btn-custom-tip .tooltip-inner {
+  font-size: 18px;
+}
+
+.btn-nursing-nav-custom-tip .tooltip-inner {
+  width: 106px;
+}

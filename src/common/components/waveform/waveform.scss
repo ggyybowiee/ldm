@@ -1,0 +1,118 @@
+.waveform-wrapper {
+  .waveform-main {
+  }
+  .waveform-controller {
+    width: 120px;
+    margin-right: 20px;
+    .btn {
+      font-size: 50px;
+
+      width: 120px;
+      height: 120px;
+
+      border-radius: 10px;
+    }
+  }
+  .playlist {
+    display: inline-block;
+    overflow: visible!important;
+
+    margin: 0;
+    .playlist-time-scale {
+      overflow: hidden;
+      .time {
+        font-size: 12px;
+
+        color: #808183;
+      }
+    }
+    .playlist-tracks {
+      overflow: hidden!important;
+      .channel-wrapper {
+        .channel {
+          position: static!important;
+
+          background-color: white;
+          .channel-progress {
+            background-color: white;
+          }
+        }
+        .cursor {
+          background-color: #f6575c;
+          &:before {
+            display: none;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+
+            width: 8px;
+            height: 8px;
+            margin-top: -4px;
+            margin-left: -4px;
+
+            border-radius: 50%;
+            background-color: #f6575c;
+            box-sizing: border-box;
+          }
+        }
+        .selection {
+          &.segment {
+            background-color: rgba(0, 0, 0, .2);
+            border: 1px solid #CC2A1B;
+          }
+        }
+        &.silent {
+          .channel {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .state-cursor,
+    .state-select {
+      cursor: default;
+    }
+    &.playing {
+      .playlist-tracks {
+        .channel-wrapper {
+          .cursor {
+            &:before {
+              display: block;
+              animation: playing 1s infinite alternate;
+            }
+          }
+        }
+      }
+    }
+  }
+  .selection-chart {
+    position: relative;
+
+    height: 200px;
+    margin-bottom: 6px;
+    .selection-cover {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 160px;
+      background-image: linear-gradient(to bottom, #5BC9CA 0%, #6076E5 100%);
+    }
+    .waveform {
+      overflow: hidden;
+    }
+  }
+}
+
+@keyframes playing
+{
+  0 {
+    box-shadow: 0 0 0 1px rgba(#f6575c, .5);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(#f6575c, .5);
+  }
+  100% {
+    box-shadow: 0 0 0 2px rgba(#f6575c, .5);
+  }
+}

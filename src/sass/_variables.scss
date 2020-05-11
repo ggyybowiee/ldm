@@ -1,0 +1,70 @@
+$icon-font-path: '../../bower_components/bootstrap-sass/assets/fonts/bootstrap/';
+//UI规范：start
+$primary: #3f78bf !default;
+$success: #2dc26b !default;
+$info: #5bc0de !default;
+$warning: #ebac00 !default;
+$danger: #ea5445 !default;
+$brand-primary: $primary !default;
+$brand-success: $success !default;
+$brand-info: $info !default;
+$brand-warning: $warning !default;
+$brand-danger: $danger !default;
+$state-primary-text: $primary !default;
+$state-success-text: $success !default;
+$state-info-text: $info !default;
+$state-warning-text: $warning !default;
+$state-danger-text: $danger !default;
+$back-1: #333;
+$back-2: #ccc;
+$back-3: #e0e0e0;
+$back-4: #e5e5e5;
+$back-5: #FAFAFA;
+$back-6: #E6E6E6; //select背景
+$back-7: #E5F1FF;
+$back-8: #FBFBFB;
+$back-9: #DCDCDC;
+$back-10: #F0F0F0;
+$back-1-0: #4C4C4C; //背景1的hover、active状态
+$back-2-0: #DFDFDF; //背景2的正常状态
+$border-1: #b2b2b2;
+$border-2: #ccc;
+$border-3: #DEDEDE;
+$font-1: #333;
+$font-2: #666;
+$th-color: #ccc;
+$light-grey:  #F5F5F5;
+$dark-grey: #EBEBEB;
+//UI规范：end
+
+$primary-hover: darken($primary, 5%) !default;
+$success-hover: darken($success, 5%) !default;
+$info-hover: darken($info, 5%) !default;
+$warning-hover: darken($warning, 5%) !default;
+$danger-hover: darken($danger, 5%) !default;
+$navbar-inverse-link-color: #5aadbb;
+$panel-border-radius: 0 !default;
+$panel-body-padding: 10px !default;
+$panel-heading-padding: 8px 10px !default; // nav-tabs
+$border-radius-zero: 0 !default;
+$nav-link-padding: 6px 10px !default;
+$navbar-theme: #fff;
+$back-color: #e5e5e5;
+$font-color: #272e37;
+$font-color2: #7e8387;
+$border-color: #dce1e5;
+$nav-gray: #f5f5f5;
+$gray-base: #333 !default;
+$md-black: #666666;
+$page-left-width: 190px;
+$side-nav-width: 180px;
+$side-nav-min-width: 50px;
+
+$grey: #BDBDBD;
+$purple: #846CCA;
+
+$white-borderd__th-color: #E0E0E0;
+$btn-group-back-color: #ddd;
+$text-light-color: #7E8387;
+
+$scrollbar-width: 6px;

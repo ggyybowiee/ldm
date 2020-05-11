@@ -1,0 +1,109 @@
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+@import '../sass/variables';
+@import '../sass/ldm_variables';
+
+.content-wrapper {
+  .toolbar {
+    background-color: transparent;
+  }
+}
+// injector
+// endinjector
+
+// .device-table {
+//   font-size: 16px;
+//   td{
+//     height: 48px;
+//     color: #333333;
+//   }
+//   th{
+//     color: #333333;
+//   }
+// }
+
+// label {
+//   font-size: 16px;
+// }
+.title-text {
+  font-size: 14px;
+}
+
+.sm-warning-text {
+  font-size: 14px;
+}
+
+.md-modal-font {
+  font-size: 14px;
+}
+
+.sub-table {
+  >thead >tr {
+    height: 0px;
+    border-top: 1px solid lightgray;
+    > th {
+      height: 0px;
+      border-top: 1px solid;
+      background-color: white;
+    }
+  }
+  >tbody > td {
+    background-color: white;
+  }
+}
+
+.subTable-td{
+  border: 2px solid white;
+}
+
+.text-black {
+  color: black;
+}
+
+.middle-size-panel {
+  width: 1200px;
+}
+
+.distribution-bgcolor {
+  background-color: #f7f9fa;
+}
+
+.standard-img {
+  width: 34px;
+}
+
+.row-bottom-margin {
+  margin-bottom: 20px;
+}
+
+.button-size {
+  width: 80px;
+}
+
+.divide-line-margin {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  &:after {
+    content: " ";
+    display: block;
+    height: 1px;
+    background-color: #ccc;
+    width: 100%;
+    flex: 1;
+    margin-right: 30px;
+  }
+}
+
+.filter-bottom{
+  margin-bottom: 15px;
+}
+
+.splite-row{
+  height:10px;
+  box-shadow: 0px 0px 5px 5px #f8f8f8 inset;
+}
+
+.row-shadow{
+  box-shadow: 0px 0px 5px 5px #f8f8f8;
+}

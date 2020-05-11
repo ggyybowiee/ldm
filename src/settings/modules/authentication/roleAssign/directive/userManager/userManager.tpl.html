@@ -1,0 +1,120 @@
+<div>
+
+  <div class="setting-tabcontrol-page-header">
+
+    <div class="bordered-bottom">
+      <h4>系统用户</h4>
+      <span style="color:red">★&nbsp;&nbsp;注意：如果用户已经签名图片，上传新的照片后需要刷新页面后才能正常显示！！！</span>
+      <br />
+      <span>★&nbsp;&nbsp;系统用户用于描述用户与系统访问权限的关系，如用户登录验证，可以访问哪些应用，哪些模块;</span>
+      <br />
+      <span>★&nbsp;&nbsp;用户有哪些病区、科室的访问权属于应用业务权限，请在医院HIS用户模块进行编辑;
+        &nbsp;&nbsp;&nbsp;<button class="btn btn-link primary-text btn-xs">跳转到HIS用户管理模块</button>
+      </span>
+      <br />
+      <span></span>
+    </div>
+    <br />
+    <div class="toolbar" style="border:0;padding:0px;">
+      <div class="toolbar-item">
+        <form ng-submit="vm.search()" novalidate>
+          <div class="input-group">
+            <input type="text" name="keyword" style="width: 40em;" class="form-control input-sm" ng-model="vm.params.searchKey"
+              placeholder="输入用户编号(不支持模糊查找)查找用户" autocomplete="off" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-sm btn-default">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="toolbar-item">
+        <button class="btn btn-danger btn-sm" ng-click="">手动同步HIS权限</button>
+        <button class="btn btn-primary btn-sm" ng-click="vm.loadUsers.func()">刷新</button>
+      </div>
+      <div class="toolbar-item pull-right">
+        <button class="btn btn-success btn-sm" ng-click="vm.openUser()">添加用户</button>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="panel panel-layout panel-default">
+    <div class="paginationStyle" ng-if="vm.users.length > 0">
+      <div class="pageItem">
+        <label for="firstname" class="control-label">每页显示条数：</label>
+        <select ng-model="vm.pageItem.count" name="count" id="count" ng-change="vm.queryList(1)">
+          <option value="5">5</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <ul uib-pagination total-items="vm.pageItem.totalItems" previous-text="上一页" next-text="下一页" first-text="首页"
+        rotate="false" last-text="最后一页" ng-change="vm.queryList(vm.pageItem.page)" ng-model="vm.pageItem.page"
+        items-per-page="vm.pageItem.count" class="pagination-sm" boundary-links="true" boundary-link-numbers="true"
+        max-size="vm.pageItem.maxSize">
+      </ul>
+    </div>
+    <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.loadUsers">
+      <table class="table white-borderd">
+        <thead>
+          <tr>
+            <th width="80px">照片</th>
+            <th width="120px">用户编号</th>
+            <th width="120px">用户名</th>
+            <th width="150px">密码</th>
+            <th width="120px">绑定的HIS用户</th>
+            <th width="120px">签名图片</th>
+            <th>分配的角色</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in vm.users | filter:vm.params.searchKey track by $index">
+            <td>
+              <button class="btn btn-link  btn-xs text-success" ng-if="!item.imageAttachmentUrl" ng-click="vm.uploadUserImage(item)">
+                <i class="fa fa-upload"></i>
+              </button>
+              <img class="user-table-image" ng-if="item.imageAttachmentUrl" src="{{item.imageAttachmentUrl}}" ng-click="vm.uploadUserImage(item)" />
+            </td>
+            <td>{{item.userCode}}</td>
+            <td>{{item.userName}}</td>
+            <td>
+              <button class="btn btn-xs btn-link" confirm type="notice" content="用户的密码为：{{item.userPassword}}">{{item.userPassword|passwordHidden}}</button>
+            </td>
+            <td>{{item.hisCode|valuelessContent}}</td>
+            <td>
+              <button class="btn btn-link  btn-xs text-success" ng-if="!item.dataSign" ng-click="vm.uploadUserSignImage(item)">
+                <i class="fa fa-upload"></i>
+              </button>
+              <img class="user-table-image" ng-if="item.dataSign" ng-src="/windranger/hospital/userDataSign/{{item.userCode}}"
+                ng-click="vm.uploadUserSignImage(item)" />
+            </td>
+            <td>
+              <span ng-repeat="role in item.roleMappingList">
+                <span ng-if="!$first">&nbsp;|&nbsp;</span>
+                {{role.roleName}}</span>
+            </td>
+            <td>
+              <!-- <button class="btn btn-xs btn-link " ng-click="vm.openUser(item)" uib-tooltip="设置角色权限"
+                tooltip-append-to-body="true">
+                <i class="fa fa-certificate"></i>
+              </button> -->
+              <button class="btn btn-xs btn-link " ng-disabled="true" uib-tooltip="编辑用户" tooltip-append-to-body="true">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button class="btn btn-link danger-text btn-xs" ng-disabled="true" confirm yes="vm.delUser(item)" content="确定要删除该用户？"
+                uib-tooltip="删除用户" tooltip-append-to-body="true">
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <none-data-info list="vm.users"></none-data-info>
+    </div>
+  </div>
+</div>

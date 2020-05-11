@@ -1,0 +1,35 @@
+<div class="">
+
+  <nav class="navbar nav-horizontal" ng-class="theme === 'transparent' ? 'navbar-transparent' : 'navbar-default ' ">
+    <div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li uib-dropdown ng-repeat="item in navs" is-open="item.isOpen" ng-mouseleave="mouseLeave(item)" ng-mouseenter="mouseEnter(item)">
+            <a class="nav-link" class="dropdown-link" uib-dropdown-toggle ng-if="item.subResource && item.subResource.length > 0">
+              {{item.resourceName}}&nbsp;
+              <i class="fa fa-angle-down"></i>
+            </a>
+
+            <ul uib-dropdown-menu role="menu" ng-if="item.subResource && item.subResource.length > 0" style="margin-top:-1px;">
+              <li class="nav-horizontal-subItem-panel" ng-repeat="subItem in item.subResource" style="padding:5px 0px;">
+                <a ng-click="go(item)" ui-sref="main.{{subItem.resourceContent}}" ui-sref-active="active">
+                  {{subItem.resourceName}}
+                </a>
+              </li>
+            </ul>
+            <a class="nav-link" ng-if="!item.subResource || item.subResource.length === 0" ui-sref-active="active" ui-sref="main.{{item.resourceContent}}">{{item.resourceName}}</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  <div class="nav-horizontal__breadcrumb" ng-if="transcludeElem.length > 0">
+    <div>
+      <div id="breadcrumbPlaceholder"></div>
+    </div>
+  </div>
+</div>

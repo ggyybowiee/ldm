@@ -1,0 +1,50 @@
+<div class="mews-alert-panel">
+  <div class="mews-alert-header" style="background-color:{{alert|mewsScoreColor}};background-image:url(assets/images/mnis/mews/{{alert|mewsAlertHeadImage}})">
+    <div>
+      <span>MEWS预警</span>
+      <span class="pull-right">{{alert.alertTime|idate:'DM'}}</span>
+    </div>
+    <br/>
+    <div style="display: flex;">
+      <span style="font-size: 16px; flex-basis: 80%;">
+        {{alert.bedCode}}床&nbsp;&nbsp;{{alert.patName}}
+        <br/>
+        <div class="mews-alert-header-pat-panel" style="font-size: 10px;">
+          {{alert.age}}&nbsp;|&nbsp;{{alert.gender|gender}}&nbsp;|&nbsp;{{alert.nurseLevel|nurseLevel }}&nbsp;|&nbsp;{{alert.diagnoise}}
+        </div>
+      </span>
+      <label style="text-align: right; font-size:30px; flex-basis: 20%;">
+        {{alert.totalScore}}
+      </label>
+      <span style="margin:20px 0px 0px 3px;">分</span>
+    </div>
+  </div>
+  <div class="mews-alert-content">
+    <div class="mews-alert-vital-panel">
+      <div style="margin-bottom:10px;">
+        <span style="font-size: 12px">得分详情:</span>
+        <div class="pull-right">
+          <input type="checkbox" ng-model="alert.transferToDoc" />&nbsp;转入护理记录
+        </div>
+      </div>
+      <div class="mews-alert-vital-detail-panel" ng-repeat="vitalSign in alert.vitals track by $index">
+        <div class="mews-alert-vital-detail-vital">
+          <span>{{vm.vitalSignTypeDic[vitalSign.vitalSign].dicName}}:{{vitalSign.value}}</span>
+        </div>
+        <div class="mews-alert-vital-detail-line"></div>
+        <div class="mews-alert-vital-detail-score">{{vitalSign.score}}</div>
+      </div>
+    </div>
+    <div class="mews-alert-process-panel">
+      <span>建议：</span>
+      <ul>
+        <li style="margin:5px 0px 5px 20px;" ng-repeat="item in vm.getAdviceList(alert.nursingAdvice)">
+          <span>●&nbsp;</span>{{item}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mews-alert-confirm clearfix">
+    <button class="mews-cancel-btn" ng-click="vm.handlerMewsAlert(false)">稍后提醒</button>
+    <button class="mews-confirm-btn" ng-click="vm.handlerMewsAlert(true)" style="background-color:{{alert|mewsScoreColor}}">知道了</button>
+  </div>
+</div>

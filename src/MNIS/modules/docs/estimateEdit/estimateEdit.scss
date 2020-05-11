@@ -1,0 +1,251 @@
+.table-header__input-item {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.column {
+  margin-bottom: 10px;
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+.sub-column {
+  margin-left: 10px;
+  padding: 5px 0 5px 10px;
+  background-image: url('/assets/images/data_tier.png');
+  background-repeat: no-repeat;
+  background-position: 0 1px;
+  position: relative;
+  &:after {
+    position: absolute;
+    display: block;
+    left: 0;
+    height: 100%;
+    top: 1px;
+    content: ' ';
+    width: 10px;
+    background-image: url('/assets/images/data_line.png');
+    background-repeat: repeat-y;
+    background-position: left bottom;
+  }
+  &:last-child {
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.table-header__width {
+  border-radius: 0 !important;
+  padding: 0;
+  text-align: center;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+  }
+}
+
+.original-table {
+  &>tbody>tr,
+  &>thead>tr {
+    &>td,
+    &>th {
+      border: 1px #333 solid;
+      padding: 2px;
+      font-weight: normal;
+      height: 20px;
+      line-height: 15px;
+      font-size: 12px;
+    }
+  }
+}
+
+.preview-table-container {
+  overflow: auto;
+  margin: auto;
+}
+
+.grid-empty-line {
+  background-image: url('/assets/images/data_empty_line.png');
+}
+
+.grid-line {
+  background-image: url('/assets/images/data_line.png');
+}
+
+.estimate-preview {
+  border: 0 !important;
+}
+
+.estimate-preview__table {
+  width: 100%;
+  margin-bottom: 10px;
+  tr>th {
+    vertical-align: middle !important;
+  }
+}
+
+.estimate-doc-panel {
+  padding-bottom: 40px;
+  position: relative;
+  .estimate-toolbar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 26px;
+    padding: 7px 10px 7px 0;
+    text-align: center;
+    background-color: $back-6;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+  }
+  .estimate-toolbar-two-side {
+    display: flex;
+    width: 400px;
+    flex-direction: row-reverse;
+  }
+  .panel-body {
+    overflow-x: auto;
+    height: 100%;
+  }
+  .toolbar-item {
+    display: inline-block;
+  }
+  .page-panel {
+    display: inline-block;
+  }
+  .page-panel button {
+    display: inline-block;
+  }
+  .page-panel form {
+    display: inline-block;
+  }
+  .page-index {
+    display: inline-block;
+    text-align: center;
+    margin: 0 5px;
+    width: 40px;
+  }
+}
+
+.type-wrap {
+  display: flex;
+  justify-content: space-around;
+  .btn {
+    height: 60px;
+    font-size: 16px;
+    flex-basis: 45%;
+  }
+}
+
+.estimate-panel-body {
+  margin: 0px auto 0px auto;
+}
+
+.estimate-item-edit-root {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.estimate-item-edit-panel {
+  width: 400px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top-width: 4px;
+  border-top-style: solid;
+  border-top-color: black;
+  box-shadow: -4px -4px 10px #888888;
+  z-index: 9999;
+}
+
+.estiamte-item-edit-disable-panel {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+.estimate-item-edit-panel h1 {
+  font-size: 25px;
+  margin: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  border: 1px solid black;
+  border-width: 0px 0px 1px 0px;
+  position: absolute;
+  width: 100%;
+  height: 35px;
+  top: 0px;
+  background: white;
+}
+
+.estiamte-item-table {
+  width: 100%;
+  font-size: 14px;
+  td {
+    height: 20px;
+    text-align: right;
+    border: 1px solid #ccc;
+    padding: 3px 10px 3px 5px;
+    >label {
+      margin: auto 0px;
+    }
+  }
+}
+
+.uib-datepicker-popup table td {
+  padding: 0;
+}
+
+.estimate-edit-cell-panel {
+  text-align: left;
+}
+
+.estimate-edit-cell-panel input {
+  border-width: 0px;
+  text-align: left;
+}
+
+.estimate-edit-cell-control {
+  background-color: transparent;
+  width: 100%;
+  text-align: left;
+  >input {
+    font-size: 14px !important;
+  }
+}
+
+.estimate-edit-cell-control:focus {
+  background-color: #ccc;
+}
+
+.estiamte-edit-cell-text-input {
+  border-bottom: 1px solid $border-2 !important;
+}
+
+.estimate-edit-cell-panel textarea {
+  border: 0px;
+  margin: 5px 0px 0px 0px;
+  height: 120px;
+}
+
+.esitmate-print-page-panel {
+  display: flex;
+  
+}

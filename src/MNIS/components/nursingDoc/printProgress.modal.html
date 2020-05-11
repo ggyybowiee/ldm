@@ -1,0 +1,24 @@
+<div class="modal-content print-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">装载进度</h5>
+  </div>
+  <div class="modal-body text-center">
+    <div class="progress">
+      <div
+        class="progress-bar"
+        ng-class="{
+          'progress-bar-success': vm.totalPage === vm.printPageNo,
+          'progress-bar-striped': vm.totalPage !== vm.printPageNo,
+          active: vm.totalPage !== vm.printPageNo
+        }"
+        role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+        style="width: {{ vm.printPageNo * 100 / vm.totalPage }}%">
+      </div>
+    </div>
+    <span ng-if="vm.totalPage !== vm.printPageNo">
+      正在装载页面数据，当前为第{{vm.printPageNo}}页，还剩{{vm.totalPage - vm.printPageNo + vm.offsetPage}}页...
+    </span>
+    <span ng-if="vm.totalPage === vm.printPageNo">已全部装载完~</span>
+  </div>
+</div>

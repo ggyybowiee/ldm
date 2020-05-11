@@ -1,0 +1,44 @@
+<div class="config-wrapper">
+  <div class="filter-bar__search" style="width:50%;">
+    <search-input ng-model="vm.queryParams.eqpName" search="vm.search()" text="输入关键字"></search-input>
+  </div>
+
+  <div class="filter-bar form-inline">
+    <div class="filter-item">
+      <label>所属科室： </label>
+      <select class="form-control input-sm" ng-change="vm.searchWithBelong()" ng-model="vm.queryParams.eqpBelong" name="eqpBelong">
+        <option value="">全部</option>
+        <option ng-repeat="item in vm.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="content-table">
+    <table class="table white-borderd device-table">
+      <thead>
+        <tr>
+          <th>设备名称</th>
+          <th>型号</th>
+          <th>设备类型</th>
+          <th>序列号</th>
+          <th>MAC地址</th>
+          <th>所属科室</th>
+          <th>查找设备</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.dateCopy">
+          <td class="ng-binding">{{row.content.basicInfo.eqpName}}</td>
+          <td class="ng-binding">{{row.content.basicInfo.model}}</td>
+          <td class="ng-binding">{{ (vm.types | filter: { code: row.content.basicInfo.eqpType })[0].name }}</td>
+          <td class="ng-binding">{{row.content.basicInfo.sn}}</td>
+          <td class="ng-binding">{{row.content.basicInfo.mac}}</td>
+          <td class="ng-binding">{{ row.content.basicInfo.eqpBelong && (vm.belongs | filter: { wardCode: row.content.basicInfo.eqpBelong })[0].wardName }}</td>
+          <td class="ng-binding">{{row.status}}
+            <button class="btn btn-success btn-sm btn-round button-size" ng-click="vm.openSearchDevicesModal(row)">查找</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

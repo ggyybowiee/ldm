@@ -1,0 +1,149 @@
+.transferWrapper {
+  width: 100%;
+  padding: 0;
+  height: auto;
+  position: relative;
+  overflow:hidden;
+
+  .iconBox {
+    // background: red;
+    float: left;
+    height: 100%;
+    position: relative;
+    height: 100%;
+    margin: 0 10px;
+
+    div {
+      width: 30px;
+      height: 30px;
+    }
+    .icon {
+      margin-top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  
+  .dataOrigin {
+    float: left;
+    min-width: 100px;
+    min-width: 25%;
+    width: auto;
+    padding-bottom: 5px;
+    border: 1px #CCCCCC solid;
+    border-radius: 4px;
+    overflow: hidden;
+  
+    .originTitle {
+      width: 100%;
+      font-size: 16px;
+      color: #303133;
+      background-color: #F5F7FA;
+      padding: 10px;
+      border-bottom: 1px #CCCCCC solid;
+      margin-bottom: 5px;
+    }
+
+    .searchInput {
+      width: 100%;
+      color: #303133;
+      border-bottom: 1px #CCCCCC solid;
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 5px;
+
+      input {
+        border: 1px #CCCCCC solid;
+        outline: none;
+        font-size: 14px;
+        width: 100%;
+        border-radius: 16px;
+        padding: 5px 10px;
+      }
+
+      input:focus { 
+        outline: none;
+        border: 1px #3A88FD solid;
+      }
+    }
+  
+    .listWrapper {
+      width: 100%;
+      overflow:auto;
+      height: auto;
+      max-height: 230px; 
+      float: left; 
+  
+      ul li {
+        padding: 0 10px;
+        font-size: 14px;
+        height: 34px;
+        line-height: 34px;
+        cursor: pointer;
+        color: #606266;
+      }
+    
+      .selectBox {
+        float: left;
+        display: inline-block;
+        height: 16px;
+        width: 16px;
+        border-radius: 2px;
+        margin-right: 5px;
+        margin-top: 8px;
+        border: 1px #CCCCCC solid;
+      }
+    }
+  }
+
+  .leftBox {
+    height: auto;
+
+    .listWrapper {
+
+      li:hover { 
+        color:#3A88FD;
+
+        .selectBox {
+          float: left;
+          display: inline-block;
+          height: 16px;
+          width: 16px;
+          border-radius: 2px;
+          margin-right: 5px;
+          margin-top: 8px;
+          // background-color: #3A88FD;
+          border: 1px #3A88FD solid
+        }
+      }
+    }
+  }
+
+  .rightBox {
+    height: 100%;
+
+    .listWrapper {
+  
+      ul li {
+        color: #888;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.selectedBox {
+  float: left;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border-radius: 2px;
+  margin-right: 5px;
+  margin-top: 8px;
+  background-color: #3A88FD;
+}
+
+.selectedText {
+  color: #3A88FD;
+}
+
+

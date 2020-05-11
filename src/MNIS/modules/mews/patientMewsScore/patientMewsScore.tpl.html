@@ -1,0 +1,113 @@
+<div class="flex-box">
+  <div>
+    <patient-list-selector on-patient-selected="vm.onPaitentChanged"></patient-list-selector>
+  </div>
+  <div style="margin-top: 5px;width:100%;" loading-wrapper="vm.loadInhosPatMewsScore">
+
+    <div class="toolbar mews-patient-toolbar">
+      <div>
+        <div>姓名:
+          <label ng-bind="vm.selectedInhosRecord.patName"></label>
+        </div>
+        <div>主管医师:
+          <label ng-bind="vm.selectedInhosRecord.doctorInCharge"></label>
+        </div>
+      </div>
+      <div>
+        <div>性别:
+          <label ng-bind="mnisUtils.getGender(vm.selectedInhosRecord.gender)"></label>
+        </div>
+        <div>护理级别:
+          <label ng-bind="vm.selectedInhosRecord.nurseLevel|nurseLevel"></label>
+        </div>
+      </div>
+      <div>
+        <div>出生年月:
+          <label ng-bind="vm.selectedInhosRecord.birthDate|idate: 'D'"></label>
+        </div>
+        <div>入院日期:
+          <label ng-bind="vm.selectedInhosRecord.inDate|idate: 'D'"></label>
+        </div>
+      </div>
+      <div class="mews-patient-info-inhoscode">
+        <div>住院号:
+          <label ng-bind="vm.selectedInhosRecord.displayCode"></label>
+        </div>
+        <div>入院诊断:
+          <label ng-bind="vm.selectedInhosRecord.inDiag"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="toolbar-item">
+        操作时间：
+        <date-picker style="width: 160px" ng-model="vm.filter.beginTime" date-options="vm.dateOptions" ng-change="vm.loadInhosPatMewsScore.func()"></date-picker>&nbsp;&nbsp;—&nbsp;&nbsp;
+        <date-picker style="width: 160px" ng-model="vm.filter.endTime" date-options="vm.dateOptions" ng-change="vm.loadInhosPatMewsScore.func()"></date-picker>
+      </div>
+      <span class="toolbar-item pull-right">
+        <div class="btn-group btn-radio">
+          <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="0">
+            表格
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="1">
+            曲线
+          </label>
+        </div>
+      </span>
+    </div>
+    <div class="content">
+
+      <div>
+        <h5>实时评分</h5>
+      </div>
+
+      <div>
+        <h5>历史评分</h5>
+        <table class="mews-table table white-borderd" ng-show="vm.filter.showType===0">
+          <thead>
+            <th>评估时间</th>
+            <th>总分</th>
+            <th>体温</th>
+            <th>心率</th>
+            <th>呼吸</th>
+            <th>收缩压 </th>
+            <th>意识</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="score in vm.scoreData | orderBy:'createTime':true track by $index">
+              <td>{{score.createTime|idate: 'DM'}}</td>
+              <td>
+                <label style="color:{{vm.ruleDic[score.alertLevel].color}};font-weight:bold;font-size:16px;">{{score.totalScore|mewsScore}}</label>
+              </td>
+              <td>
+                <label class="mews-value-label">{{score.temperature.value|mewsScore}}</label>
+                <label class="mews-score-label" ng-if="score.temperature" style="color:{{vm.ruleDic[score.temperature.alertLevel].color}};">({{score.temperature.score}}分)</label>
+              </td>
+              <td>
+                <label class="mews-value-label">{{score.heartRate.value|mewsScore}}</label>
+                <label class="mews-score-label" ng-if="score.heartRate" style="color:{{vm.ruleDic[score.heartRate.alertLevel].color}};">({{score.heartRate.score}}分)</label>
+              </td>
+              <td>
+                <label class="mews-value-label">{{score.breath.value|mewsScore}}</label>
+                <label class="mews-score-label" ng-if="score.breath" style="color:{{vm.ruleDic[score.breath.alertLevel].color}};">({{score.breath.score}}分)</label>
+              </td>
+              <td>
+                <label class="mews-value-label">{{score.bloodPress.value|mewsScore}}</label>
+                <label class="mews-score-label" ng-if="score.bloodPress" style="color:{{vm.ruleDic[score.bloodPress.alertLevel].color}};">({{score.bloodPress.score}}分)</label>
+              </td>
+              <td>
+                <label class="mews-value-label">{{score.sense.value|mewsScore}}</label>
+                <label class="mews-score-label" ng-if="score.sense" style="color:{{vm.ruleDic[score.sense.alertLevel].color}};">({{score.sense.score}}分)</label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div ng-show="vm.filter.showType === 1" class="echarts-wrap" echarts="vm.chart.identity" echarts-dimension="vm.chart.dimension"
+          config="vm.chart.config">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

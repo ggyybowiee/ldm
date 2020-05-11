@@ -1,0 +1,136 @@
+<div class="panel panel-layout">
+
+  <form class="form-horizontal w5c-form estimate-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption"
+    name="estimateConfigForm">
+
+    <div id="mewsConfigSave" class="toolbar-item-panel toolbar">
+      <button class="btn btn-sm btn-primary pull-right" w5c-form-submit="vm.saveMewsConfig()" style="width: 80px; height:35px;">
+        保存
+      </button>
+    </div>
+    <div class="toolbar" top=".header-top" refraction="#mewsConfigSave" fixed-top>
+      <button class="btn btn-sm btn-primary pull-right" w5c-form-submit="vm.saveMewsConfig()" style="width: 80px; height:35px;">
+        保存
+      </button>
+    </div>
+
+    <div loading-wrapper="vm.loadMewsConfig">
+      <div class="alert-config-panel">
+        <div class="config-title-panel">
+          <h4>报警设置</h4>
+          <span>(配置说明：声音和弹框的设置，仅对PC端生效。移动端的是否有声音，与PDA系统的声音大小设置相关)</span>
+        </div>
+        <div class="alert-behavior-config-panel bordered-all">
+          <div>
+            声音:&nbsp;&nbsp;
+            <radio ng-model="vm.mewsConfig.soundOn" options="vm.switchOptions" de-selected="false"></radio>
+          </div>
+          <div>
+            报警弹框：&nbsp;&nbsp;
+            <radio ng-model="vm.mewsConfig.alertWindowOn" options="vm.switchOptions" de-selected="false"></radio>
+          </div>
+        </div>
+      </div>
+      <div class="score-config-panel">
+        <div class="config-title-panel">
+          <h4>计分规则配置</h4>
+          <span>(使用“~”表示连续区间，如36.1~38.0表示 36.1(包含)到38.0(包含)的数字范围；使用“&lt;”，“&gt;”表示其它情况 )</span>
+          <div>
+            <button class="btn btn-sm btn-success btn-round pull-right" ng-click="vm.addConfigButtonOnClick()">添加配置</button>
+          </div>
+        </div>
+
+        <div class="score-config-item-list">
+          <div ng-repeat="config in vm.mewsConfig.mewsScorecard track by $index" class="score-config-item-list-panel"
+            ng-class="$index%2==0 ? 'odd-panel': 'even-panel'">
+            <div class="score-config-item-list-border-panel bordered-all">
+              <div class="score-config-item-title-panel bordered-bottom">
+                <label ng-bind="vm.getVitalSignTypeName(config.scoreType)"></label>
+                <button class="pull-right" ng-if="config.deletable" confirm yes="vm.deleteScoreConfig(config)" content="确定删除该配置吗？">删除</button>
+                <div class="pull-right">
+                  <switch class="switch-xs" ng-model="config.inUse" on-color="'#3f78bf'" off-color="'#aaa'"></switch>
+                </div>
+                <span class="pull-right">是否启动：</span>
+              </div>
+              <div class="bordered-bottom">
+                <div class="score-config-item-range-panel" ng-repeat="rangeKey in vm.scoreRangeDic track by $index">
+                  <div class="score-config-item-range-item-title-panel">
+                    <label class="radio-inline custom-radio">
+                      <input ng-disabled="!config.inUse" />
+                      <span ng-class="{'checked': vm.scoreRangeButtonStatus(rangeKey, config)}">{{rangeKey}}分</span>
+                    </label>
+                  </div>
+                  <div class="score-config-item-range-item-panel ">
+                    <div ng-if="config.scoreType!='sense' " class="score-config-item-range-item-input-panel " ng-repeat="rangeItem
+                      in config.scoreRange[rangeKey] track by $index ">
+                      <input class="bordered-all " ng-model="config.scoreRange[rangeKey][$index] " ng-pattern="/(^-?[0-9]*\.?[0-9]+--?[0-9]*\.?[0-9]+?$)|(^[=><]?-?[0-9]*\.?[0-9]+)/"
+                        required="required " ng-disabled="!config.inUse " ng-class="config.inUse? '':
+                      'score-config-disable' ">
+                      <button ng-show="config.inUse " ng-click="vm.deleteRangeItemOnClick(config.scoreRange[rangeKey], $index) ">×</button>
+                    </div>
+                    <button ng-if="config.scoreType!='sense' " ng-show="config.inUse && (!config.scoreRange[rangeKey] || config.scoreRange[rangeKey].length
+                      &lt; 2)"
+                      ng-click="vm.addRangeItemButtonOnClick(config, rangeKey) ">添加</button>
+                    <dropdown-selector ng-if="config.scoreType=='sense'" ng-model="config.scoreRange[rangeKey]" name="{{config.scoreType}}"
+                      options="vm.senseItemDic" with-id="true" multiple="true"></dropdown-selector>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:5px;">
+                <span>关联体征：</span>
+                <button class="btn btn-primary">设置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-rule-config-panel ">
+          <div class="alert-rule-title-panel ">
+            <h4>报警规则配置</h4>
+          </div>
+          <div class="alert-rule-config-item-panel bordered-bottom " ng-repeat="rule in vm.mewsConfig.rule | orderBy:['-alertLevel'] track by $index
+                      "
+            ng-mouseenter="vm.alertRuleMouseEnter($index) " ng-mouseleave="vm.alertRuleMouseLeave($index) ">
+            <div class="alert-rule-config-item-title-panel ">
+              <label>{{$index+1}}</label>
+              <div style="background-color:{{vm.ruleDic[rule.alertLevel].color}}"></div>
+              <label>{{vm.ruleDic[rule.alertLevel].text}}</label>
+            </div>
+            <div class="alert-rule-config-item-detail-panel ">
+              <div class="alert-rule-config-item-condtion-panel " ng-repeat="condition in rule.linkedConditions track by
+                      $index ">
+                <span>关联条件{{$index+1}}：</span>
+                <select class="form-control input-sm " ng-model="condition.condition ">
+                  <option value="0">单项</option>
+                  <option value="1">总分</option>
+                </select>
+                <label>&ge;</label>
+                <input class="form-control input-sm " type="number " max="100 " required min="0 " ng-model="condition.point " />
+                <div>
+                  <button ng-show="vm.alertRuleCurIndex==$parent.$index " ng-click="vm.deleteRuleButtonOnClick(rule, $index) ">删除</button>
+                  <button ng-show="vm.alertRuleCurIndex==$parent.$index && $index==rule.linkedConditions.length-1
+                      "
+                    ng-click="vm.addRuleButtonOnClick(rule) ">添加</button>
+                </div>
+              </div>
+              <div class="alert-rule-config-item-suggest-panel ">
+                <span>复测间隔(分)：</span>
+                <input class="form-control input-sm " type="number" ng-model="rule.reEvaluateInterval" required />
+                <div></div>
+              </div>
+              <div class="alert-rule-config-item-suggest-panel ">
+                <span>护理建议：</span>
+                <textarea class="form-control input-sm " ng-model="rule.nursingAdvise"></textarea>
+                <div></div>
+              </div>
+            </div>
+            <div class="alert-rule-config-item-use-panel ">
+              <span>是否启动：</span>
+              <switch class="switch-xs " ng-model="rule.inUse " on-color=" '#3f78bf' " off-color=" '#aaa' "></switch>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

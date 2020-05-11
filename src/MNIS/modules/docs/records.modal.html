@@ -1,0 +1,34 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <i class="fa fa-times"></i>
+    </button>
+    <h5 class="modal-title">患者住院历史</h5>
+  </div>
+  <div class="modal-body">
+    <table class="table white-borderd tr-hover">
+      <thead>
+        <tr>
+          <td>床号</td>
+          <td>姓名</td>
+          <td>病人编号</td>
+          <td>住院号</td>
+          <td>住院日期</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="record in vm.records" ng-click="vm.active = record" ng-class="{active: vm.active === record}">
+          <td>{{record.bedCode}}</td>
+          <td>{{record.patName}}</td>
+          <td>{{record.patCode}}</td>
+          <td>{{record.displayCode}}</td>
+          <td>{{record.inDate | idate}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success btn-sm" ng-click="vm.ok()" ng-disabled="!vm.active">确定</button>
+    <button class="btn btn-warning btn-sm" ng-click="$dismiss()">取消</button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="upload-image-wrapper text-center">
+  <button class="btn btn-sm btn-round btn-primary" ng-click="select()" ng-if="!ngModel">上传</button>
+  <img class="upload-image" ng-src="{{optionalModel}}" ng-click="select()" ng-if="ngModel">
+  <div  ng-if="ngModel">
+    <button style="margin-top:15px;width:200px;" class="btn btn-danger btn-sm" ng-click="removeUserImage()">删除用户头像</button>
+  </div>
+  <div class="upload-tips">仅支持{{options.sizeRules.max}}以下的{{options.suffixRules.join('、')}}文件</div>
+  <div class="upload-tips" ng-if="info.status !== 'upload-doing'" ng-class="{'file-fail': 'text-danger', 'upload-fail': 'text-danger', 'file-cancel': 'text-warning', 'upload-success': 'text-success'}[info.status]">{{echo.msg}}</div>
+  <input class="upload-input" type="file" nv-file-select uploader="uploader">
+</div>

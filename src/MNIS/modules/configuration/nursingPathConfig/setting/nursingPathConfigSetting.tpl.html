@@ -1,0 +1,129 @@
+<div loading-wrapper="vm.loadNursingPathTpl">
+  <div class="nursing-path-config-panel">
+    <div class="nursing-path-config-nodes-panel">
+      <div>
+        <div class="toolbar" style="justify-content: space-between;height:47px; line-height: 47px; padding: 0px;vertical-align: middle;">
+          <button style="font-weight: bold; margin:auto 0px; font-size: 18px; text-align: center;width: 100%;" class="btn btn-link">{{vm.nursingPathTpl.pathName}}</button>
+        </div>
+        <div class="toolbar">
+          <button class="btn btn-sm" ng-class="{'btn-danger': !vm.nursingPathTpl.bindSheetTpl, 'btn-primary': vm.nursingPathTpl.bindSheetTpl}"
+            ng-click="vm.setHljldTpl()">{{!vm.nursingPathTpl.bindSheetTpl ? '选择要绑定的护理记录单': '已绑定《' + (vm.nursingPathTpl
+            | pathBindTplName:vm.nursingDocList)+'》'}}</button>
+          <button class="btn btn-success btn-sm" ng-click="vm.specialValueConfig()">特殊值配置</button>
+        </div>
+        <div full-page="fix" style="padding: 10px 10px 0px 0px;">
+          <treecontrol selected-node="vm.selectedNode" menu-id="leftNodes" class="tree-light lachesis-custom-tree-control"
+            tree-model="vm.treeCollection" on-selection="vm.select(node, $index)" expanded-nodes="vm.expandedNodes"
+            options="vm.treeOption">
+            <span>
+              <span ng-if="!node.isEdit">{{node.nodeName}}</span>
+              <input ng-if="node.isEdit" type="text" style="width:120px;color: #333;" id="{{node.nodeTplId}}" ng-model="node.nodeName"
+                ng-click="vm.stopPropagation($event)" ng-blur="vm.inputBlur(node, $event)">
+              <i ng-click="vm.addNode(node)" class="fa fa-plus text-success" ng-if="!node.isAdd && node.childNodes !== null || node.canAdd"
+                style="padding: 0 3px;"></i>
+              <i ng-click="vm.editNode(node, $event)" ng-if="!node.isEdit && !node.isAdd" class="fa fa-pencil text-warning"
+                style="padding: 0 3px;"></i>
+              <i ng-click="vm.saveNode(node, $event)" ng-if="node.isEdit || node.isAdd" class="fa fa-check text-warning"
+                style="padding: 0 3px;"></i>
+              <i confirm yes="vm.removeNode(node, $event)" ng-if="!node.isAdd && !node.isEdit" content="确定要删除该节点？"
+                class="fa fa-trash text-danger" style="padding: 0 3px;"></i>
+            </span>
+          </treecontrol>
+          <div style="text-align: center;margin-top: 10px;">
+            <button class="btn btn-link btn-sm" ng-click="vm.addNode()">添加节点</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nursing-path-config-items-panel" loading-wrapper="vm.loadNodsForTableData" ng-if="vm.selectedNode">
+      <div class="toolbar">
+        <div class="toolbar-item">
+          <button class="btn btn-xs btn-success" ng-click="vm.createItem()" ng-disabled="!vm.currentSelectedNode">新建项目</button>
+          <button class="btn btn-xs btn-primary" style="margin-left:5px;" ng-click="vm.saveRightNode(vm.currentSelectedNode)" ng-disabled="!vm.currentSelectedNode">保存所有项目</button>
+        </div>
+      </div>
+      <div>
+        <table class="nursing-path-config-table table thead-fixed">
+          <thead>
+            <tr>
+              <th width="60px">操作</th>
+              <th width="300px">执行项目</th>
+              <th width="160px">绑定观察项</th>
+              <th width="200px">绑定文书模版</th>
+              <th width="80px">执行频率</th>
+              <th width="50px">必选</th>
+              <th width="50px">重点</th>
+              <th width="50px">审核</th>
+              <th style="text-align:left;">自定义提示</th>
+            </tr>
+          </thead>
+          <tbody full-page="fix">
+            <tr ng-repeat="node in vm.currentSelectedNodeForTable" ng-show="!node.treeNode.isHidden">
+              <td width="60px">
+                <div>
+                  <i ng-click="vm.saveRightNode(node)" class="fa fa-save text-success" style="padding: 0 3px;"></i>
+                  <i ng-click="vm.addRightNode(node)" class="fa fa-plus text-primary" style="padding: 0 3px;"></i>
+                  <i confirm yes="vm.removeRightNode(node)" content="确定要删除该项目？" class="fa fa-trash text-danger"
+                    style="padding: 0 3px;"></i>
+                </div>
+              </td>
+              <td width="300px">
+                <div>
+                  <span ng-style="{width: (node.treeNode.level -1) * 20 +'px'}"></span>
+                  <span class="nursing-path-item-node" ng-class="{'parent-node': (node.childNodes && node.childNodes.length > 0), 'expanded':node.treeNode.isExpanded, 'collapsed':!node.treeNode.isExpanded}"
+                    ng-click="vm.nodeExpanderClick(node)"></span>
+                  <input class="form-control input-sm" ng-model="node.nodeName" />
+                </div>
+              </td>
+              <td width="160px">
+                <select class="form-control input-sm" ng-model="node.attribute.bindObserveItem" ng-change="vm.bindObserveItemChange(node.attribute, node.attribute.bindObserveItem)">
+                  <option value="">请选择</option>
+                  <option ng-repeat="item in vm.observationItemList" value="{{item.itemCode}}">{{item.itemName}}</option>
+                </select>
+              </td>
+              <td width="200px">
+                <select class="form-control input-sm" ng-model="node.attribute.bindTplId" ng-change="vm.docChange(node.attribute, node.attribute.bindTplId)">
+                  <option value="">请选择</option>
+                  <option ng-repeat="item in vm.loadNursingDocList" value="{{item.tplId}}">{{item.tplName}}</option>
+                </select>
+              </td>
+              <td width="80px">
+                <select class="form-control input-sm" ng-model="node.attribute.frequency">
+                  <option value="">请选择</option>
+                  <option ng-repeat="freq in vm.frequencyDic" value="{{freq.dicCode}}">{{freq.dicName}}</option>
+                </select>
+              </td>
+              <td width="50px">
+                <label class="custom-checkbox control-label input-sm">
+                  <input type="checkbox" ng-model="node.attribute.required">
+                  <span></span>
+                </label>
+              </td>
+              <td width="50px">
+                <label class="custom-checkbox  control-label input-sm">
+                  <input type="checkbox" ng-model="node.attribute.important">
+                  <span></span>
+                </label>
+              </td>
+              <td width="50px">
+                <label class="custom-checkbox control-label input-sm">
+                  <input type="checkbox" ng-model="node.attribute.needCheck">
+                  <span></span>
+                </label>
+              </td>
+              <td style="text-align:left;">
+                <textarea class="form-control input-sm content" rows="{{node.attribute.customTip ? node.attribute.customTip.split('\n').length : 1}}"
+                  ng-model="node.attribute.customTip" ng-keydown="vm.autoExpandHeight($event)"></textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="nursing-path-config-items-panel" ng-if="!vm.selectedNode && vm.specialValueClick">
+      <special-value-config nursing-path-tpl="vm.nursingPathTpl"></special-value-config>
+    </div>
+  </div>
+</div>

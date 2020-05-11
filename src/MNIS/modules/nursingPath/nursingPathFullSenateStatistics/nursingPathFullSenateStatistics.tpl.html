@@ -1,0 +1,125 @@
+<div class="device-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      日期：
+      <date-picker class="dateTimePicker" ng-model="vm.params.beginTime"></date-picker>&nbsp;到&nbsp;
+      <date-picker class="dateTimePicker" ng-model="vm.params.endTime"></date-picker>
+    </div>
+    <div class="toolbar-item">
+      <button class="btn btn-sm btn-round btn-sm btn-success" ng-click="vm.search()">查询</button>
+    </div>
+    <div class="pull-right toolbar-item">
+      <a class="btn btn-sm btn-round btn-sm btn-primary" download ng-href="{{vm.exportExcel()}}">导出</a>
+    </div>
+  </div>
+  <div class="content-table" loading-wrapper="vm.load">
+    <h4 class="searchNoResultTitle" ng-if="vm.list.length === 0">暂无数据</h4>
+    <table class="table white-borderd tr-hover" ng-if="vm.list.length > 0">
+      <thead>
+        <tr>
+          <th>科室</th>
+          <th>
+            入院
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'inHosCount.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('inHosCount.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'inHosCount.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('inHosCount.desc')"></i>
+            </span>
+          </th>
+          <th>
+            入路径
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'enterPathCount.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('enterPathCount.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'enterPathCount.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('enterPathCount.desc')"></i>
+            </span>
+          </th>
+          <th><span uib-tooltip="各科入路径人次占全院入路径人次的百分比"><i class="fa fa-question-circle"></i>&nbsp;路径占比</i></span>
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'pathPercent.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('pathPercent.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'pathPercent.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('pathPercent.desc')"></i>
+            </span>
+          </th>
+          <th><span uib-tooltip="各科入路径人次占该科入院人次的百分比"><i class="fa fa-question-circle"></i>&nbsp;入径率</span>
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'enterPercent.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('enterPercent.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'enterPercent.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('enterPercent.desc')"></i>
+            </span>
+          </th>
+          <th>
+            出路径
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'outPathCount.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('outPathCount.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'outPathCount.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('outPathCount.desc')"></i>
+            </span>
+          </th>
+          <th>
+            正常出径
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'normalOut.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('normalOut.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'normalOut.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('normalOut.desc')"></i>
+            </span>
+          </th>
+          <th><span uib-tooltip="各科正常出径人次占该科出路径总人次的百分比"><i class="fa fa-question-circle"></i>&nbsp;正常出径率</span>
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'normalOutPercent.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('normalOutPercent.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'normalOutPercent.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('normalOutPercent.desc')"></i>
+            </span>
+          </th>
+          <th>
+            异常出径
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'abnormalOut.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('abnormalOut.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'abnormalOut.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('abnormalOut.desc')"></i>
+            </span>
+          </th>
+          <th><span uib-tooltip="各科异常出径人次占该科出路径总人次的百分比"><i class="fa fa-question-circle"></i>&nbsp;异常出径率</span>
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'abnormalOutPercent.asc' ? 'selectIcon': ''}}" ng-click="vm.sortList('abnormalOutPercent.asc')"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'abnormalOutPercent.desc' ? 'selectIcon': ''}}" ng-click="vm.sortList('abnormalOutPercent.desc')"></i>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="rowColorYellow">
+          <td>{{ vm.singleData.wardName }}</td>
+          <td>{{ vm.singleData.inHosCount }}</td>
+          <td>{{ vm.singleData.enterPathCount }}</td>
+          <td>{{ vm.singleData.pathPercent }}</td>
+          <td>{{ vm.singleData.enterPercent }}</td>
+          <td>{{ vm.singleData.outPathCount }}</td>
+          <td>{{ vm.singleData.normalOut }}</td>
+          <td>{{ vm.singleData.normalOutPercent }}</td>
+          <td>{{ vm.singleData.abnormalOut }}</td>
+          <td>{{ vm.singleData.abnormalOutPercent }}</td>
+        </tr>
+        <tr ng-click="vm.goCurrentWardName(row)" ng-repeat="row in vm.list track by $index">
+          <td>{{ row.wardName }}</td>
+          <td>{{ row.inHosCount }}</td>
+          <td>{{ row.enterPathCount }}</td>
+          <td>{{ row.pathPercent }}</td>
+          <td>{{ row.enterPercent }}</td>
+          <td>{{ row.outPathCount }}</td>
+          <td>{{ row.normalOut }}</td>
+          <td>{{ row.normalOutPercent }}</td>
+          <td>{{ row.abnormalOut }}</td>
+          <td>{{ row.abnormalOutPercent }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="paginationStyle" ng-if="vm.list.length > 0">
+      <div class="pageItem">
+        <label for="firstname" class="control-label">每页显示条数：</label>
+        <select ng-model="vm.pageItem.count" name="count" id="count" ng-change="vm.queryList(1)">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <ul uib-pagination total-items="vm.pageItem.totalItems" previous-text="上一页" next-text="下一页" first-text="首页" rotate="false"
+        last-text="最后一页" ng-change="vm.queryList(vm.pageItem.page)" ng-model="vm.pageItem.page" items-per-page="vm.pageItem.count"
+        class="pagination-sm" boundary-links="true" boundary-link-numbers="true" max-size="vm.pageItem.maxSize">
+      </ul>
+    </div>
+  </div>
+</div>

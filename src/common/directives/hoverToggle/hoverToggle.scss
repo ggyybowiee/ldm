@@ -1,0 +1,28 @@
+.hover-init {
+  position: relative;
+  overflow: hidden;
+
+  &.hover-mask:after {
+    position: absolute;
+    z-index: 899;
+    display: block;
+    content: ' ';
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: #f9f9f9;
+  }
+
+  &.hover-show {
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+.hover-inner {
+  position: fixed;
+  left: 0;
+}

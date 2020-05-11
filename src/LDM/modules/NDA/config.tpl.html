@@ -1,0 +1,34 @@
+<div class="config-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item pull-right">
+      <button class="btn btn-sm btn-round btn-success" ng-click="vm.open()">添加</button>
+    </div>
+  </div>
+  <div class="content-table">
+    <table class="table white-borderd">
+      <thead>
+        <tr>
+          <th>序号</th>
+
+          <th>配置名称</th>
+
+          <th>更新时间</th>
+
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="row in vm.list">
+          <td>{{$index + 1}}</td>
+
+          <td>{{}}</td>
+
+          <td>{{}}</td>
+
+          <td>{{}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

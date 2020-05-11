@@ -1,0 +1,208 @@
+<div class="modal-content nursing-doc-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">项目编辑</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group" ng-if="!vm.formData.sup">
+        <label for="double" class="col-sm-3 control-label">行数：</label>
+        <div class="col-sm-9">
+          <select name="double" id="double" ng-model="vm.formData.double" class="form-control input-sm" ng-disabled="vm.metaData.isEdit"
+            ng-change="vm.doubleChange()" required>
+            <option value="0">单行</option>
+            <option value="1">双行</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-3 partial-label">内容换行策略:</label>
+        <div class="col-xs-9">
+          <radio ng-model="vm.formData.isWrapInCell" options="[{text:'单元格换行', value:'true'}, {text:'整行换行', value:'false'}]"></radio>
+          <br />
+          <span ng-if="vm.formData.type =='divideCell' && (vm.formData.isWrapInCell !='true') " style="color:red;font-weight:bold;">分割单元格的内容换行策略只能使用单元格内换行!!!!</span>
+          <span ng-if="(vm.formData.type =='outer' || vm.formData.type == 'verifySignature') && (vm.formData.isWrapInCell !='true') " style="color:red;font-weight:bold;">签名单元格的内容换行策略只能使用单元格内换行!!!!</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-3 partial-label">二分表头:</label>
+        <div class="col-xs-9">
+          <radio ng-model="vm.formData.crossline" options="vm.metaData.tableHeadOption"></radio>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="text" class="col-sm-3 control-label">文字：</label>
+        <div class="col-sm-9">
+          <textarea id="text" name="text" ng-model="vm.formData.text" class="form-control input-sm" required></textarea>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.crossline =='R' || vm.formData.crossline =='L'">
+        <label for="text" class="col-sm-3 control-label">文字2：</label>
+        <div class="col-sm-9">
+          <textarea id="text" name="text" ng-model="vm.formData.text2" class="form-control input-sm"></textarea>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1">
+        <label for="text" class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+          <label class="custom-checkbox" for="isCustomColumn">
+            <input type="checkbox" id="isCustomColumn" name="isCustomColumn" autocomplete="off" ng-model="vm.formData.isCustomColumn">
+            <span>表头可编辑</span>
+          </label>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1">
+        <label for="type" class="col-sm-3 control-label">类型：</label>
+        <div class="col-sm-9">
+          <select name="type" id="type" ng-model="vm.formData.type" class="form-control input-sm" ng-change="vm.typeChange()">
+            <option ng-repeat="item in vm.metaData.inputTypes" value="{{item.value}}">{{item.text}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="vm.formData.type == 'divideCell'">
+        <label for="cate" class="control-label col-xs-3">分割单元格方向<br />
+          <span>可见性</span>
+          <br />
+          <span>分割字符</span>
+        </label>
+        <div class="col-xs-9">
+          <radio ng-model="vm.formData.divideCellSeperateCross" options="vm.metaData.tableHeadOption"></radio>
+          <br />
+          <radio ng-model="vm.formData.divideCellVisibility" options="[{text:'总是可见', value:'always'}, {text:'有值时可见', value:'value'} , {text:'值有效时可见', value:'valid'}]"></radio>
+          <br />
+          <input class="form-control input-sm" type="text" autocomplete="off" ng-model="vm.formData.divideCellSeprChar" placeholder="未录入时默认为'/'"/>
+          <br/>
+          <span ng-if="vm.formData.type =='divideCell' && (vm.formData.isWrapInCell !='true') " style="color:red;font-weight:bold;">分割单元格的内容换行策略只能使用单元格内换行!!!!</span>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="vm.formData.double != 1 && vm.formData.type === 'selectAndInput'">
+        <label for="text" class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+          <label for="isInsert">
+            <input type="checkbox" id="isInsert" name="isInsert" autocomplete="off" ng-model="vm.formData.rule.isInsert" />
+            插入模式
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" ng-if="'boolean' === vm.formData.type">
+        <label for="type" class="col-sm-3 control-label">真值：</label>
+        <div class="col-sm-9">
+          <input type="text" id="trueValue" name="trueValue" autocomplete="off" ng-model="vm.formData.rule.trueValue" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group" ng-if="'boolean' === vm.formData.type">
+        <label for="type" class="col-sm-3 control-label">假值：</label>
+        <div class="col-sm-9">
+          <input type="text" id="falseValue" name="falseValue" autocomplete="off" ng-model="vm.formData.rule.falseValue" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group" ng-if="['select', 'selectAndInput'].indexOf(vm.formData.type) < 0">
+        <label for="type" class="col-sm-3 control-label">对齐方式：</label>
+        <div class="col-sm-9">
+          <select name="textAlign" id="textAlign" ng-model="vm.formData.textAlign" class="form-control input-sm">
+            <option value="left">左对齐</option>
+            <option value="right">右对齐</option>
+            <option value="center">居中对齐</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1 && vm.formData.type == 'modal'">
+        <label for="type" class="col-sm-3 control-label">是否自动弹出：</label>
+        <div class="col-sm-9">
+          <div style="margin-top: 5px">
+            <label class="custom-checkbox">
+              <input type="checkbox" ng-model="vm.formData.autoShow" name="autoShow">
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" ng-if="['number', 'select', 'selectAndInput'].indexOf(vm.formData.type) < 0">
+        <label for="type" class="col-sm-3 control-label">前缀：</label>
+        <div class="col-sm-9">
+          <input type="text" id="prefix" name="prefix" autocomplete="off" ng-model="vm.formData.rule.prefix" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1 && vm.formData.type == 'number'">
+        <label for="type" class="col-sm-3 control-label">范围：</label>
+        <div class="col-sm-9 form-inline number-range">
+          <input type="text" ng-model="vm.formData.rule.number.min" class="form-control input-sm">&nbsp;~&nbsp;
+          <input type="text" ng-model="vm.formData.rule.number.max" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.isCustomColumn">
+        <label for="type" class="col-sm-3 control-label">自定义选项：</label>
+        <div class="col-sm-9 form-inline select-options clearfix">
+          <div class="flex-box">
+            <div class="flex">
+              <input type="text" class="form-control input-sm" autocomplete="off" ng-model="vm.customOptionsText">
+            </div>
+            <div class="select-option-control">
+              <i class="fa fa-plus" ng-click="vm.addOptions('customOptions')"></i>
+            </div>
+          </div>
+          <div class="select-option" ng-repeat="option in vm.formData.rule.customOptions" ng-click="vm.delOptions(option, 'customOptions')">{{option}}</div>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1 && ['select', 'selectAndInput'].indexOf(vm.formData.type) >= 0">
+        <label for="type" class="col-sm-3 control-label">选项：</label>
+        <div class="col-sm-9 form-inline select-options clearfix">
+          <div class="flex-box">
+            <div class="flex">
+              <input type="text" class="form-control input-sm" autocomplete="off" ng-model="vm.optionsText">
+            </div>
+            <div class="select-option-control">
+              <i class="fa fa-plus" ng-click="vm.addOptions('options')"></i>
+            </div>
+          </div>
+          <div class="select-option" ng-repeat="option in vm.formData.rule.options" ng-click="vm.delOptions(option, 'options')">{{option}}</div>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1 && vm.formData.type == 'modal'">
+        <label for="type" class="col-sm-3 control-label">模板：</label>
+        <div class="col-sm-9 form-inline modal-tpls clearfix">
+          <div class="flex-box">
+            <div class="flex">
+              <input type="text" class="form-control input-sm" autocomplete="off" ng-model="vm.tplText">
+            </div>
+            <div class="modal-tpl-control">
+              <i class="fa fa-plus" ng-click="vm.addTpls()"></i>
+            </div>
+          </div>
+          <div class="modal-tpl" ng-repeat="tpl in vm.formData.rule.tpls" ng-click="vm.delTpls(tpl)">{{tpl}}</div>
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1">
+        <label for="key" class="col-sm-3 control-label">键值：</label>
+        <div class="col-sm-9">
+          <input type="text" id="key" name="key" ng-model="vm.formData.key" autocomplete="off" class="form-control input-sm" placeholder="输入内容不能包括_">
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1">
+        <label for="width" class="col-sm-3 control-label">宽度：</label>
+        <div class="col-sm-9">
+          <input type="number" min="0" max="10" id="width" name="width" autocomplete="off" ng-model="vm.formData.width" class="form-control input-sm"
+            placeholder="宽度占比，比如5个该值为1的组件，每个组件占总宽度的20%">
+        </div>
+      </div>
+      <div class="form-group" ng-if="vm.formData.double != 1">
+        <label for="font" class="col-sm-3 control-label">字号：</label>
+        <div class="col-sm-9 form-inline flex-box">
+          <select name="font" id="font" ng-model="vm.formData.font" class="form-control input-sm flex">
+            <option value="{{font.value}}" ng-repeat="font in vm.fonts">{{font.text}}</option>
+          </select>
+          <div class="font-demo" ng-style="{'font-size': vm.formData.font + 'mm'}">示例</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-warning btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

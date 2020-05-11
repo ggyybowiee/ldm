@@ -1,0 +1,86 @@
+<div class="panel panel-layout panel-default" style="max-width: 1000px;min-width: 600px;">
+  <div class="row-bottom-margin ">
+      <img src="assets/svg/icon_switch.svg" style="width:34px;" alt="开关记录">
+      <span class="text-primary title-text" style="vertical-align: middle;">设备开关机记录导出</span>
+      <div class="filter-item pull-right" style="margin-top: 5px;">
+          <a class="btn btn-sm btn-round btn-success" style="width: 80px;" download ng-href="{{vm.exportExcel('/windranger/ldm/tool/operation/history/export', vm.operationQueryParams)}}">导出</a>
+        </div>
+  </div>
+  <div style="background-color: #f7f9fa;padding-top: 10px;">
+    <div class="filter-bar form-inline row-bottom-margin" style="margin-left: 30px;">
+      <div class="filter-bar__search row-bottom-margin " style="width:50%;">
+        <label>关键字： </label>
+        <input class="form-control input-sm" type="text" maxlength="30" ng-model="vm.operationQueryParams.key" placeholder="设备名称或MAC地址"></input>
+      </div>
+    </div>
+    <div class="filter-bar form-inline row-bottom-margin " style="margin-left: 30px; min-width: 570px;">
+      <div class="filter-item filter-bottom">
+        <label>设备类型： </label>
+        <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.operationQueryParams.deviceType" name="deviceType"
+          convert-to-number>
+          <option ng-repeat="item in vm.deviceTypes" value="{{item.code}}">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="filter-item filter-bottom">
+        <label>所属科室： </label>
+        <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.operationQueryParams.wardCode" name="wardCode"
+          convertToNumber>
+          <option value="">全部</option>
+          <option ng-repeat="item in vm.wards" value="{{item.wardCode}}">{{item.wardName}}</option>
+        </select>
+      </div>
+      <div class="filter-item filter-bottom">
+        <label> 操作时间： </label>
+        <date-picker ng-model="vm.operationQueryParams.startTime" ng-change="vm.load.func()" width="100px"></date-picker>
+        <span>&nbsp-&nbsp</span>
+        <date-picker ng-model="vm.operationQueryParams.endTime" ng-change="vm.load.func()" width="100px"></date-picker>
+      </div>
+  </div>
+    <!-- <div class="filter-item">
+      <a class="btn btn-sm btn-round btn-success" style="width: 80px;" download ng-href="{{vm.exportExcel('/windranger/ldm/tool/operation/history/export', vm.operationQueryParams)}}">导出</a>
+    </div> -->
+  </div>
+
+  </br>
+  </br>
+  </br>
+
+  <div class="row-bottom-margin ">
+    <img src="assets/svg/icon_Electricity.svg" style="width:34px;" alt="电量">
+    <span class="text-primary title-text" style="vertical-align: middle;">设备电量记录导出</span>
+    <div class="filter-item pull-right" style="margin-top: 5px;">
+        <a class="btn btn-sm btn-round btn-success" style="width: 80px;" download ng-href="{{vm.exportExcel('/windranger/ldm/tool/battery/history/export', vm.batteryQueryParams)}}">导出</a>
+      </div>
+  </div>
+  <div style="background-color: #f7f9fa;padding-top: 10px;">
+    <div class="filter-bar form-inline row-bottom-margin" style="margin-left: 30px;">
+      <div class="filter-bar__search row-bottom-margin " style="width:50%;">
+        <label>&nbsp关键字： </label>
+        <input class="form-control input-sm" type="text" maxlength="30" ng-model="vm.batteryQueryParams.key" placeholder="设备名称或MAC地址"></input>
+      </div>
+    </div>
+    <div class="filter-bar form-inline row-bottom-margin" style="margin-left: 30px;">
+      <div class="filter-item filter-bottom">
+          <label>设备类型： </label>
+          <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.batteryQueryParams.deviceType" name="deviceType"
+            convert-to-number>
+            <option ng-repeat="item in vm.deviceTypes" value="{{item.code}}">{{item.name}}</option>
+          </select>
+      </div>
+      <div class="filter-item filter-bottom">
+        <label>所属科室： </label>
+        <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.batteryQueryParams.wardCode" name="wardCode"
+          convert-to-number>
+          <option value="">全部</option>
+          <option ng-repeat="item in vm.wards" value="{{item.wardCode}}">{{item.wardName}}</option>
+        </select>
+      </div>
+      <div class="filter-item filter-bottom">
+        <label> 操作时间： </label>
+        <date-picker ng-model="vm.batteryQueryParams.startTime" ng-change="vm.load.func()" width="100px"></date-picker>
+        <span>&nbsp-&nbsp</span>
+        <date-picker ng-model="vm.batteryQueryParams.endTime" ng-change="vm.load.func()" width="100px"></date-picker>
+      </div>
+    </div>
+  </div>
+</div>

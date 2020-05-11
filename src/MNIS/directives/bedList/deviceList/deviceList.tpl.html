@@ -1,0 +1,26 @@
+<div class="panel-body" full-page="reverse" style="padding: 0px; width: 100%; overflow: auto;">
+  <h4 class="searchNoResultTitle" ng-show="vm.deviceList.length === 0">暂无数据</h4>
+  <div class="content-table" loading-wrapper="vm.loadDeviceData" ng-show="vm.deviceList.length > 0">
+    <input type="text" class="form-control input-sm" style="width:100%; margin-bottom: 5px;" ng-model="vm.filter.text" placeholder="输入设备名称|IP|姓名|床号查找设备">
+
+    <div full-page="fix">
+      <div class="patient-device-binding-wrapper" ng-repeat="item in vm.deviceList | orderBy: 'mnisIpBedMapping.deviceName' |filter:vm.deviceFilter track by $index">
+        <div>
+          设备编号：{{item.mnisIpBedMapping.deviceName}}
+        </div>
+        <div>{{item.mnisIpBedMapping.ip}}</div>
+        <div>{{item.mnisIpBedMapping.bedCode}}
+          <span ng-if="item.mnisIpBedMapping.bedCode">&nbsp;&nbsp;|&nbsp;&nbsp;</span>{{item.patName}}</div>
+        <div style="text-align: right;">
+          <button class="btn btn-link btn-xs primary-text" ng-click="vm.bind(item)" ng-if="!item.mnisIpBedMapping.bedCode">
+            绑定
+          </button>
+          <button class="btn btn-link btn-xs danger-text" confirm yes="vm.unbind(item)" ng-if="item.mnisIpBedMapping.bedCode" content="确定要解绑该患者？">
+            解绑
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

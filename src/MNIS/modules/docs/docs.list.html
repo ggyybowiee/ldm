@@ -1,0 +1,168 @@
+<div class="docs-wrapper">
+  <div style="opacity:{{vm.isPatLoadingEcho.fullPageLoaded ? '1' : '0'}}">
+    <!-- 患者选择 -->
+    <patient-selector-bar ng-show="!vm.openOuter" init-patient-code="vm.hid" on-patient-selected="vm.patientOnSelected"
+      is-pat-loading-echo="vm.isPatLoadingEcho" current-sheet="vm.currentSheet" ward-code="vm.wardCode" patients="vm.patients"
+      on-sheet-changed="vm.sheetChanged" ng-if="vm.hasLoaded"></patient-selector-bar>
+    <div class="docs-loadding-wrapper" ng-if="!vm.patient && (!vm.patient.pathStatus || !vm.patient.currentPath)"
+      full-page full-page-finish="fullPageLoaded">
+      <h1>...正在加载病区患者信息...</h1>
+    </div>
+    <span ng-if="!vm.openOuter">
+
+
+    <!-- 患者路径工具栏 -->
+    <div class="patient-path-toolbar toolbar" style="margin:0px;" ng-if="vm.patient.pathStatus" style="z-index:99">
+
+      <div class="toolbar-item bordered-right" style="width:280px; padding-left:10px;">
+        <span style="font-size:16px;font-weight: bold;">
+          {{vm.patient.currentPath.pathName}}
+        </span>
+
+        <button class="btn btn-primary btn-sm pull-right" style="margin-left:20px; width: 80px; height: 25px;" ng-if="vm.patient.pathStatus === 1"
+          ng-click="vm.exitPath()">退出</button>
+        <button class="btn btn-primary btn-sm pull-right" style="margin-left:20px;width: 80px; height: 25px;" ng-if="vm.patient.pathStatus === 2"
+          ng-click="vm.resetPath()">恢复</button>
+      </div>
+
+      <span class="toolbar-item bordered-right" style="margin-right:10px;padding-right:15px;">
+        <div class="btn-group btn-radio">
+          <label class="btn btn-sm btn-primary" ng-model="vm.pathParam.selectedIndex" uib-btn-radio="0">
+            路径执行表
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.pathParam.selectedIndex" uib-btn-radio="1">
+            路径护理记录单
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.pathParam.selectedIndex" uib-btn-radio="2">
+            其它护理文书
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.pathParam.selectedIndex" uib-btn-radio="3">
+            MEWS评分
+          </label>
+        </div>
+      </span>
+
+      <span class="toolbar-item bordered-right" ng-show="vm.pathParam.selectedIndex == 0">
+        <span>录入班次：</span>
+        <select type="text" ng-model="vm.currentShift" class="form-control input-sm" ng-options="shift.displayTitle for shift in vm.shiftList">
+        </select>
+      </span>
+
+      <span class="toolbar-item" ng-show="vm.pathParam.selectedIndex == 0">
+        <span>体征观察项录入点：</span>
+        <span class="toolbar-item">
+          <div class="btn-group btn-radio">
+            <label class="btn btn-sm btn-primary" ng-repeat="item in vm.timeList track by $index" ng-model="vm.pathParam.recordTimeIndex"
+              uib-btn-radio="$index">
+              {{item.showName}}
+            </label>
+          </div>
+        </span>
+      </span>
+
+      <span class="toolbar-item pull-right" ng-show="vm.pathParam.selectedIndex == 0">
+        <button class="btn btn-success btn-sm" style="width:100px;" ng-click="vm.executePathNode()">保存路径执行</button>
+      </span>
+    </div>
+
+    <!-- 路径执行表 -->
+    <div ng-show="vm.pathParam.selectedIndex == 0" ng-if="vm.patient.pathStatus" style="z-index:99">
+      <patient-nursing-path patient="vm.patient" sdk-operate="vm.sdkOperate" save-doc="vm.saveDoc" current-shift="vm.currentShift"
+        vital-sign-record-time="vm.timeList[vm.pathParam.recordTimeIndex]" path-param-selected-index="vm.pathParam.selectedIndex"></patient-nursing-path>
+    </div>
+
+    <!-- 路径护理记录 -->
+    <div ng-if="vm.pathParam.selectedIndex == 1 && vm.patient.pathStatus" style="z-index:99">
+      <path-nursing-record patient-info="vm.patient" reload-sheets="vm.loadSheets.func()"></path-nursing-record>
+    </div>
+
+  </span>
+    <!-- 文书列表 -->
+    <div class="flex-box" ng-show="vm.pathParam.selectedIndex == 2 || vm.openOuter" ng-if="vm.loadedStatus[2] || vm.openOuter">
+
+      <div class="docs-list" toggle-accordion="left" open="vm.isOpen" trigger-callback="vm.resetHeight()" inner>
+        <div loading-wrapper="vm.loadSheets" loading-type="content">
+          <div style="padding:5px;" ng-if="!vm.openOuter">
+            <button style="width:100%; height: 30px;" class="btn btn-success btn-sm doc-add" ng-click="vm.open()"
+              ng-disabled="!vm.tpls">添加文书</button>
+          </div>
+          <treecontrol selected-node="vm.selectedNode" class="tree-light lachesis-custom-tree-control" tree-model="vm.treeCollection"
+            on-selection="vm.select(node)" filter-expression="vm.filterText" expanded-nodes="vm.expandedNodes" options="vm.treeOption">
+            <span>{{node.itemText || vm.getIdocName(node.tplId)}}
+              <i confirm yes="vm.removeSheet(node)" content="确定要删除该文书？" class="fa fa-trash text-danger" ng-if="((!node.date && node.sheetId) || node.dataKey) && !vm.openOuter"></i>
+            </span>
+          </treecontrol>
+        </div>
+      </div>
+
+      <!-- 护理文书编辑 -->
+      <div class="flex doc-detail hover-toggle-trigger" tabindex="21" trigger-callback="vm.resetHeight()">
+
+        <div class="doc-toolbar clearfix" ng-if="vm.isIdoc && vm.pathParam.selectedIndex == 2">
+          <div class="pull-right">
+            <span class="idocPrintMark" id="printMark" ng-if="!vm.showByPrinting && vm.printFlag">
+              <img src="../../../assets/images/mnis/printIcon.svg" alt="" width="50">
+            </span>
+            <button type="button" class="btn btn-sm btn-success round-btn" name="button" ng-if="!vm.openOuter"
+              ng-disabled="vm.docSaving" ng-click="vm.saveDoc()">{{vm.docSaving ? '正在保存...' : '保存'}}</button>
+            <button type="button" class="btn btn-sm btn-primary round-btn" name="button" ng-click="vm.print()">打印</button>
+          </div>
+        </div>
+
+        <!-- 文书打印状态查询 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'documentPrintHistory'">
+          <document-print-history></document-print-history>
+        </div>
+
+        <!-- 护理记录单 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'hljld'">
+          <nursing-doc-panel cur-sheet="vm.selectedNode" all-sheets="vm.hljld" patient="vm.patient" set-selected-doc-sheet="vm.setSelectedDocSheet" reload-sheets="vm.loadSheets.func()"></nursing-doc-panel>
+        </div>
+
+        <!-- 护理评估单 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'hlpgd'">
+          <estimate-editor patient="vm.patient" cur-sheet="vm.selectedNode" reload-sheets="vm.loadSheets"></estimate-editor>
+        </div>
+
+        <!-- 体征单 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'tempSheet'" ng-include="'MNIS/modules/docs/temperatureSheetEdit/temperatureSheetEdit.tpl.html'"></div>
+
+        <!-- 医嘱查询 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'orderList'">
+          <patient-order-list patient-info="vm.patient"></patient-order-list>
+        </div>
+
+        <!-- 患者事件录入 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'eventList' && !vm.openOuter">
+          <patient-event-list patient-info="vm.patient"></patient-event-list>
+        </div>
+
+        <!-- 检查报告 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'examList'">
+          <patient-exam-list patient-info="vm.patient"></patient-exam-list>
+        </div>
+
+        <!-- 检验报告 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'testList'">
+          <patient-test-list patient-info="vm.patient"></patient-test-list>
+        </div>
+
+        <!-- MEWS评分 -->
+        <div class="nursing-doc-box" ng-if="vm.selectedNode.category === 'mewsList'" style="margin-left:15px;">
+          <patient-mews-list patient-info="vm.patient"></patient-mews-list>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEWS评分 -->
+    <div ng-show="vm.pathParam.selectedIndex == 3" ng-if="vm.loadedStatus[3]">
+      <patient-mews-list patient-info="vm.patient"></patient-mews-list>
+    </div>
+
+    <!-- 路径汇总表 -->
+    <!-- <patient-path-execute-summarize path-summary-data="vm.pathSummaryData" path-summary-keys="vm.pathSummaryKeys"
+      ng-show="vm.pathParam.selectedIndex == 3" style="z-index:99">
+    </patient-path-execute-summarize> -->
+
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="keys-history-wrapper" loading-wrapper="vm.load">
+  <div class="panel panel-default">
+    <div class="panel-heading form-inline">
+      <span class="workflow-name" ng-if="!vm.editModel">{{vm.data.name}}</span>
+      </span>
+    </div>
+    <div class="panel-body">
+      <div class="workflow-info">
+        <table class="table white-borderd">
+          <thead>
+            <tr>
+              <th>系统</th>
+              <th>名称</th>
+              <th>当前版本</th>
+              <th>最后更新人</th>
+              <th>最后更新时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{vm.data.category}}</td>
+              <td>{{vm.data.name}}</td>
+              <td>{{vm.data.version}}</td>
+              <td>{{vm.data.deployUserName}}</td>
+              <td>{{vm.data.deployTime | idate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="history-wrapper">
+        <p>修改记录</p>
+        <table class="table white-borderd">
+          <thead>
+            <tr>
+              <th>更新人</th>
+              <th>更新时间</th>
+              <th>版本号</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.history">
+              <td>{{row.deployUserName}}</td>
+              <td>{{row.deployTime | idate: 'DH'}}</td>
+              <td>{{row.version}}</td>
+              <td>
+                <a class="btn btn-info btn-xs" ui-sref="main.workflowEdit({id: row.deploymentId})">
+                  <i class="fa fa-eye"></i>
+                  查看
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

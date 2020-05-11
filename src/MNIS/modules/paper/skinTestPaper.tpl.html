@@ -1,0 +1,182 @@
+<div class="paper-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      时间：
+
+      <date-picker
+        style="width: 160px"
+        ng-model="vm.tmpDate"
+        ng-change="vm.loadContent.func()"
+      ></date-picker>
+    </div>
+
+    <div class="pull-right toolbar-item">
+      <button
+        class="btn btn-success btn-sm btn-round"
+        print-landscape
+        print-btn="print-btn"
+      >打印</button>
+    </div>
+  </div>
+
+  <div class="flex-box">
+    <div
+      class="patients-left-list"
+      loading-wrapper="vm.loadMenu"
+      loading-type="menu"
+    >
+      <div class="panel panel-default">
+        <div class="panel-heading">患者列表</div>
+
+        <div
+          class="panel-body"
+          full-page="reverse"
+        >
+          <div
+            checkbox-team="vm.params.inhosCodes"
+            listener="vm.loadContent.func"
+          >
+            <div class="check-all">
+              <label class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  checkbox-all="checkbox-all"
+                ></input>
+
+                <span>全部</span>
+              </label>
+            </div>
+
+            <checkbox-group
+              ng-model="vm.params.inhosCodes"
+              class="bodysign-patients__checkbox"
+              eles="vm.patients"
+              options="{value: 'inhosCode'}"
+            ></checkbox-group>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex"
+      loading-wrapper="vm.loadContent"
+    >
+      <div class="toolbar">待皮试医嘱：{{vm.stat[0] || 0}}个</div>
+
+      <div style="position: absolute;">
+        <table class="table white-borderd group-table" style="table-layout: fixed; width: calc(100% - 6px);">
+          <thead>
+            <tr>
+              <th>床位</th>
+            
+              <th>姓名</th>
+            
+              <th>医嘱内容</th>
+            
+              <th>皮试类型</th>
+            
+              <th>执行护士</th>
+            
+              <th>执行时间</th>
+            
+              <th>报告护士</th>
+            
+              <th>报告时间</th>
+            
+              <th>审核护士</th>
+            
+              <th>审核时间</th>
+            
+              <th>皮试结果</th>
+            
+              <th print-remove="print-remove">皮试照片</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+      <div full-page="reverse">
+        <table
+          class="table white-borderd" style="table-layout: fixed;"
+          print-table="vm.list"
+        >
+          <thead>
+            <tr>
+              <th>床位</th>
+  
+              <th>姓名</th>
+  
+              <th>医嘱内容</th>
+  
+              <th>皮试类型</th>
+  
+              <th>执行护士</th>
+  
+              <th>执行时间</th>
+  
+              <th>报告护士</th>
+  
+              <th>报告时间</th>
+  
+              <th>审核护士</th>
+  
+              <th>审核时间</th>
+  
+              <th>皮试结果</th>
+  
+              <th print-remove="print-remove">皮试照片</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr ng-repeat="row in vm.list">
+              <td>{{row.bedCode}}</td>
+  
+              <td>{{row.patName}}</td>
+  
+              <td>
+                <div ng-repeat="text in vm.pluck(row.items, 'itemName')">{{text}}</div>
+              </td>
+  
+              <td>
+                {{vm.dicHelper.getDicName('skinTestInfo', row.execType)}}
+              </td>
+  
+              <td>{{row.execNurse}}</td>
+  
+              <td>
+                {{row.execTime | idate: 'dh'}}
+              </td>
+  
+              <td>{{row.reportNurse}}</td>
+  
+              <td>
+                {{row.reportTime | idate: 'dh'}}
+              </td>
+  
+              <td>{{row.checkNurse}}</td>
+  
+              <td>
+                {{row.checkTime | idate: 'dh'}}
+              </td>
+  
+              <td>
+                {{vm.dicHelper.getDicName('patSkinTestResullt', row.result)}}
+              </td>
+  
+              <td print-remove="print-remove">
+                <button
+                  class="btn btn-xs btn-link success-text"
+                  ng-click="vm.showPic(row)"
+                >
+                  <i class="fa fa-image"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

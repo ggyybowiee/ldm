@@ -1,0 +1,76 @@
+<div class="panel panel-layout panel-default NDAconfigContent" ui-view>
+    
+      <form class="form-horizontal" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+          <div class="base-field clearfix">
+              <div class="form-group col-xs-8">
+              </div>
+        
+              <div class="form-group text-right col-xs-4">
+                <button class="btn btn-default btn-sm btn-round" ui-sref="main.deviceMonitoring">返回</button>
+              </div>
+    
+        <div class="form-row">
+          <div class="col-xs-12">
+            <span class="glyphicon glyphicon-briefcase text-primary" aria-hidden="true">基本信息{{'..' + window.monitoringDeviceMac}}</span>
+          </div>
+          <div class="col-xs-12">
+              <div ng-include src="'LDM/modules/deviceManagement/deviceRunningDetail/tpls/baseinfo.html'"></div>
+          </div>
+        </div>    
+    
+        <div class="form-row">
+          <div class="col-xs-12">
+            <span class="glyphicon glyphicon-briefcase text-primary" aria-hidden="true">网络连接</span>
+          </div>
+          <div class="col-xs-12">
+              <div ng-include src="'LDM/modules/deviceManagement/deviceRunningDetail/tpls/network.html'"></div>
+          </div>
+        </div>
+    
+        <div class="form-row">
+          <div class="col-xs-12">
+            <span class="glyphicon glyphicon-briefcase text-primary" aria-hidden="true">运行记录</span>
+          </div>
+          <div class="col-xs-12">
+              <div ng-include src="'LDM/modules/deviceManagement/deviceRunningDetail/tpls/runningRecord.html'"></div>
+          </div>
+        </div>
+    
+        <div class="form-row">
+          <div class="col-xs-12">
+            <span class="glyphicon glyphicon-briefcase text-primary" aria-hidden="true">位置信息</span>
+          </div>
+          <div class="col-xs-12">
+              <div ng-include src="'LDM/modules/deviceManagement/deviceRunningDetail/tpls/location.html'"></div>
+          </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-xs-12">
+              <span class="glyphicon glyphicon-briefcase text-primary" aria-hidden="true">电池信息</span>
+            </div>
+            <div class="col-xs-12">
+                <div ng-include src="'LDM/modules/deviceManagement/deviceRunningDetail/tpls/battery.html'"></div>
+            </div>
+          </div>
+
+          <div class="form-row">
+              <div class="col-xs-12">
+                <span class="glyphicon glyphicon-briefcase text-primary" aria-hidden="true">异常信息</span>
+              </div>
+              <div class="col-xs-12">
+                  <div ng-include src="'LDM/modules/deviceManagement/deviceRunningDetail/tpls/error.html'"></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-xs-12">
+                  <span class="glyphicon glyphicon-briefcase text-primary" aria-hidden="true">设备日志</span>
+                </div>
+                <div class="col-xs-12">
+                    <div ng-include src="'LDM/modules/deviceManagement/deviceRunningDetail/tpls/log.html'"></div>
+                </div>
+              </div>    
+      </form>
+    </div>
+    

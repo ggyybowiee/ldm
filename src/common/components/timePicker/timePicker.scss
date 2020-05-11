@@ -1,0 +1,60 @@
+.uib-separator {
+  display: inline-block;
+}
+
+.uib-timepicker {
+  display: inline-block;
+  .form-group {
+    margin:0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .form-control {
+    display: inline-block;
+    font-weight: bold;
+    height: 26px;
+    padding: 0 10px;
+  }
+
+  .time-spinner {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .am-pm {
+    display: inline-block;
+  }
+
+  .input-group {
+    width: 60px;
+  }
+
+  .input-group-addon {
+    padding: 0;
+    border: 0;
+  }
+}
+
+.uib-datepicker {
+  .btn-info.active {
+    .text-info {
+      color: #fff!important;
+    }
+  }
+}
+.time-spinner_btn {
+  display: block;
+  height: 13px;
+  line-height: 13px;
+  padding: 0 4px;
+  margin-left: -1px;
+  &.increase{
+    border-radius: 0 3px 0 0;
+    border-bottom: 0;
+  }
+
+  &.decrease{
+    border-radius: 0 0 3px 0;
+  }
+}

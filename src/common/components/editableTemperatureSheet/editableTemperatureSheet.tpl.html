@@ -1,0 +1,59 @@
+<div class="panel panel-layout">
+  <div class="toolbar" style="margin: 0">
+    <button class="btn btn-sm btn-default" ng-click="prevWeek(true)">
+      第一周
+    </button>
+    <button class="btn btn-sm btn-default" ng-click="prevWeek()">
+      <i class="fa fa-angle-left"></i>
+    </button>
+    <h5 class="temp-sheet__week-count">
+      第
+      <input type="text" name="weekCount" class="form-control input-sm" id="weekCount" ng-change="changeWeek()" style="width: 50px;text-align:center" value="n" ng-model="weekCount">
+      周</h5>
+    <button class="btn btn-sm btn-default" ng-click="nextWeek()">
+      <i class="fa fa-angle-right"></i>
+    </button>
+    <button class="btn btn-sm btn-default" ng-click="nextWeek(true)">
+      今天
+    </button>
+    <div class="toolbar-item pull-right">
+      <button print-frame="temperatureSheet" class="btn btn-sm btn-success btn-round">
+        打印
+      </button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <temperature-sheet
+      conf="conf"
+      id="temperatureSheet"
+      week="weekCount"
+      data="tplData"
+      load-data="/Mnis/singleDayDatas"
+      patient-info="patient"
+      url="/Mnis/tempSheetDatas"
+      surge-date-url="/Mnis/latestSsFmEvent"
+    >
+      <div class="temperature-sheet-header">
+        <div class="text-center">
+          <h3 style="margin: 0;">{{hospitalName}}</h3>
+          <h4 style="padding-bottom: 10px; border-bottom: 1px #000 solid;">体温单</h4>
+        </div>
+        <div class="text-center">
+          科室：{{patient.wardName}}
+          &nbsp;
+          姓名：{{patient.patName}}
+          &nbsp;
+          性别：{{gUtils.getGender(patient.gender)}}
+          &nbsp;
+          年龄：{{gUtils.getAge(patient.birthDate)}}
+          &nbsp;
+          床号：{{patient.bedCode}}
+          &nbsp;
+          住院号：{{patient.displayCode}}
+          &nbsp;
+          入院时间：{{patient.inDate | idate: 'DH'}}
+        </div>
+      </div>
+    </temperature-sheet>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<nav class="navbar header-top navbar-fixed-top">
+
+  <!-- 标题 -->
+  <div class="header-logo-app">
+    <span class="navbar-header header-logo">
+      <img ng-src="{{hosInfo.hosIconPath}}" onerror='this.src="/assets/images/logo-white.png"'>
+    </span>
+  </div>
+
+  <!-- 菜单栏 -->
+  <div class="header-nav-div">
+    <horizontal-nav ng-if="containNav" theme="transparent"></horizontal-nav>
+  </div>
+
+  <!-- 工具栏 -->
+  <div class="collapse navbar-collapse header-toolbar">
+
+    <ul class="nav navbar-nav navbar-right">
+
+      <!-- 应用切换 -->
+      <li uib-dropdown ng-if="resource!=null">
+        <a uib-dropdown-toggle ng-disabled="disabled" style="padding:10px 15px">
+          <img ng-src="{{gUtils.getImageURL(resource.resourceIcon)}}" style="height:30px;">
+          <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul uib-dropdown-menu role="menu" aria-labelledby="app-button">
+          <li ng-repeat="item in apps | filter:{'engine':'angular'}">
+            <a ng-class="{'active': item.resourceCode === resource.resourceCode}" href="..{{item.resourceContent}}?resource={{item.resourceCode}}">
+              <div>
+                <img ng-src="{{gUtils.getImageURL(item.resourceIcon)}}" style="height:30px;">&nbsp;|&nbsp;
+                {{item.resourceName}}
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- 科室切换 -->
+      <li uib-dropdown>
+        <a id="msg-button" class="dropdown-link" uib-dropdown-toggle ng-disabled="disabled">
+          <i class="fa fa-building"></i> {{profile.wardName}}
+          <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul uib-dropdown-menu role="menu" aria-labelledby="msg-button" style="max-height: 500px; overflow: auto;">
+          <li ng-repeat="item in wards">
+            <a ng-click="changeWard(item)" ng-class="{'active': item.wardCode === profile.wardCode}">
+              {{item.wardName}}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- 角色切换 -->
+      <li uib-dropdown>
+        <a id="msg-button" class="dropdown-link" uib-dropdown-toggle ng-disabled="disabled">
+          <i class="fa fa-flag"></i> {{role.roleName}}
+          <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul uib-dropdown-menu role="menu" aria-labelledby="msg-button">
+          <li ng-repeat="item in roles">
+            <a ng-click="changeRole(item)" ng-class="{'active': item.roleCode === role.roleCode}">
+              {{item.roleName}}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- 我的设置 -->
+      <li uib-dropdown>
+        <a id="user-button" class="dropdown-link" uib-dropdown-toggle ng-disabled="disabled">
+          <i class="fa fa-user"></i> {{profile.userName}}
+          <i class="fa fa-caret-down"></i>
+        </a>
+        <ul uib-dropdown-menu role="menu" aria-labelledby="user-button">
+          <li>
+            <a ng-click="setDefaultWard()">
+              <i class="fa fa-building icon"></i>
+              <span>我的科室配置</span>
+            </a>
+            <a ng-click="changePwd()">
+              <i class="fa fa-lock icon"></i>
+              <span>更改密码</span>
+            </a>
+            <a ng-click="changeUser()">
+              <i class="fa fa-user icon"></i>
+              <span>切换用户</span>
+            </a>
+            <div style="height:1px;background-color:whitesmoke; margin:3px 10px;"></div>
+            <a ng-click="logout()">
+              <i class="fa fa-sign-out icon"></i>
+              <span>退出系统</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

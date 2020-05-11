@@ -1,0 +1,98 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form"
+        name="deviceBindForm"
+        role="form"
+        novalidate
+        w5c-form-validate="vm.validationOption"
+        form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title">编辑选项</h5>
+    </div>
+    <div class="modal-body">
+
+      <div class="estiamte-option-panel">
+        <div class="estiamte-option-desc-panel">
+          配置规则：
+          <br/> 1.所有的项目必须有id，内容
+          <br/> 2.当项目有分值时，计算总分时会以此项进行统计，如无则计0分
+          <br/> 3.简称为项目选中后在单元格显示的短语，显示的优先级为：简称>分值>内容
+        </div>
+        <div class="estiamte-option-list-panel">
+          <button class="btn btn-sm btn-success btn-round" type="button" ng-click="vm.addOption()">添加新项目</button>
+          <table class="estiamte-option-list-table">
+            <thead>
+              <th>ID</th>
+              <th>内容</th>
+              <th>分值</th>
+              <th>简称</th>
+              <th>操作</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="option in vm.metaData.options" ng-click="vm.setActive(option, $index)" ng-class="vm.selectRowCss($index)">
+                <td>{{option.id}}</td>
+                <td>{{option.dicName}}</td>
+                <td>{{option.dicCode}}</td>
+                <td>{{option.shortcut}}</td>
+                <td>
+                  <button class="btn btn-link btn-xs danger-text" type="button" ng-click="vm.removeOption($index)">
+                    <i class="fa fa-trash "></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="estiamte-option-edit-panel" ng-if="!(vm.activeIndex === undefined)">
+          <div class="estiamte-option-detail-edit-panel">
+            <h5>选项内容编辑:</h5>
+            <div class="form-group" x>
+              <label for="cate" class="control-label col-xs-4 partial-label">Id：</label>
+              <div class="col-xs-6">
+                <input class="form-control input-sm" ng-model="vm.formData.id" name="id" required></input>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cate" class="control-label col-xs-4 partial-label">文本：</label>
+              <div class="col-xs-6">
+                <input class="form-control input-sm" ng-model="vm.formData.dicName" name="dicName" required></input>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cate" class="control-label col-xs-4 partial-label">值：</label>
+              <div class="col-xs-6">
+                <input class="form-control input-sm" ng-model="vm.formData.dicCode" name="dicCode"></input>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cate" class="control-label col-xs-4 partial-label">缩略语：</label>
+              <div class="col-xs-6">
+                <input class="form-control input-sm" ng-model="vm.formData.shortcut" name="shortcut"></input>
+              </div>
+            </div>
+          </div>
+          <div class="estiamte-option-desc-edit-panel">
+            <h5>选项描述:</h5>
+            <p>选项没有明确描述时，NDA需要展示选项的描述信息"</p>
+            <button class="btn btn-sm btn-success btn-round" type="button" w5c-form-submit="vm.addDesc()">添加描述</button>
+            <div class="modal-body">
+              <ul class="list-group">
+                <li ng-repeat="item in vm.formData.description track by $index" class="list-group-item">
+                  <div class="form-group">
+                    <div class="col-xs-10">
+                      <textarea class="form-control input-sm" ng-model="vm.formData.description[$index]"></textarea>
+                    </div>
+                    <div class="col-xs-2">
+                      <button class="btn btn-xs btn-danger btn-round" type="button" ng-click="vm.removeDesc($index)">删除</button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+  </div>

@@ -1,0 +1,49 @@
+<div class="panel panel-layout panel-default NDAconfigContent" ui-view>
+
+  <div class="filter-bar form-inline" style="overflow: hidden;">
+    <button class="btn btn-sm btn-primary round-btn pull-right" ui-sref="main.newNDAconfig">添加配置</button>
+  </div>
+
+  <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+    <table class="white-borderd table table-hover device-table" st-table="vm.configList">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>配置名称</th>
+          <th>更新时间</th>
+          <th style="width: 120px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.data| filter: {deviceType: 1} | orderBy : updateTime : desc track by $index">
+          <td class="ng-binding">{{ $index+1 }}</td>
+          <td class="ng-binding">{{ row.name }}</td>
+          <td class="ng-binding">{{ row.updateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td class="flex-box justify-around">
+            <button class="btn btn-link btn-s success-text" uib-tooltip="详情" ng-click="vm.open(row)">
+              <i class="fa fa-files-o"></i>
+            </button>
+            <button class="btn btn-link btn-s success-text" uib-tooltip="推送" ng-click="vm.pushConfigs(row)">
+              <i class="fa fa-play"></i>
+            </button>
+            <button class="btn btn-link btn-s primary-text" uib-tooltip="编辑" ui-sref="main.editNDAconfig({id: row.id})">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-link btn-s danger-text" uib-tooltip="删除" confirm yes="vm.del(row)" content="确定删除该配置吗？">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8">
+            <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <none-data-info list="vm.data"></none-data-info>
+  </div>
+
+</div>

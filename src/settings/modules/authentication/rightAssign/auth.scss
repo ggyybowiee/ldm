@@ -1,0 +1,22 @@
+.settings-auth-wrapper {
+  .auth-wrapper {
+    padding: 10px 0 30px;
+    background-color: white;
+    .auth-handler {
+      width: 840px;
+      margin: 0 auto;
+      
+      .resource-tree {
+        position: relative;
+        .section-cover {
+          .middle-cell {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 30px;
+          }
+        }
+      }
+    }
+  }
+}

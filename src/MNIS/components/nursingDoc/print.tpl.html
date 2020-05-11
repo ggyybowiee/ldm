@@ -1,0 +1,120 @@
+<div class="doc-comp-wrapper">
+  <!-- <style>
+    @media print {
+      @page {
+        margin: {{doc.tpl.margin.top + 'mm'}} {{doc.tpl.margin.right + 'mm'}} {{doc.tpl.margin.bottom + 'mm'}} {{doc.tpl.margin.left + 'mm'}};
+      }
+    }
+  </style> -->
+  <div class="table-header" ng-if="!doc.preview">
+    <div class="header-item" ng-class="{'left': $index === 0}" ng-repeat="item in doc.headerDivs" ng-style="{width: item.calcWidth + doc.unit, height: item.calcHeight}">
+      <div class="header-item-text" ng-if="item.double === '0'">
+        <span ng-if="!item.isCustomColumn">{{item.text}}</span>
+        <!-- 自定义列 -->
+        <div class="doc-custom-column" ng-if="item.isCustomColumn">
+          <span id="{{doc.sheet.sheetId}}_{{item.key}}"></span>
+        </div>
+      </div>
+      <div ng-if="item.double === '1'">
+        <div class="header-item-top"><span class="header-item-text">{{item.text}}</span></div>
+        <div class="header-item-bottom">
+          <div class="header-bottom-item" ng-repeat="sub in item.subs" ng-style="{width: sub.calcWidth + doc.unit}"><span class="header-item-text">{{sub.text}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-header" ng-if="doc.preview">
+    <div class="header-item" ng-class="{'left': $index === 0}" ng-repeat="item in doc.headerDivs" ng-style="{width: item.calcWidth + doc.unit, height: item.calcHeight}">
+      <div class="header-item-text" ng-if="item.double === '0'">
+        <span ng-if="!item.isCustomColumn">{{item.text}}</span>
+        <!-- 自定义列 -->
+        <div class="doc-custom-column" ng-if="item.isCustomColumn">
+          <span id="{{item.key}}">{{doc.getCustomTitle(item.key)}}</span>
+        </div>
+      </div>
+      <div ng-if="item.double === '1'">
+        <div class="header-item-top"><span class="header-item-text">{{item.text}}</span></div>
+        <div class="header-item-bottom">
+          <div class="header-bottom-item" ng-repeat="sub in item.subs" ng-style="{width: sub.calcWidth + doc.unit}"><span class="header-item-text">{{sub.text}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-content-wrapper">
+    <div ng-if="doc.data || doc.preview" style="width: {{doc.docWidthStyle}}">
+      <div class="table-border-pages">
+        <div class="table-border-page" ng-repeat="row in doc.pagesPerSheet">
+          <div class="table-border-line"
+            ng-style="{
+              'height': doc.lineHeight + 'px',
+              'line-height': doc.lineHeight + 'px'
+            }"
+            ng-repeat="row in doc.rowsPerPage">
+            <div
+            class="table-border-cell"
+            ng-class="{'left': $index === 0}"
+            ng-repeat="item in doc.contentDivs"
+            ng-style="{
+              width: item.calcWidth + doc.unit,
+              'height': doc.lineHeight + 'px',
+              'line-height': doc.lineHeight + 'px'
+            }"></div>
+          </div>
+        </div>
+      </div>
+      <div class="table-content">
+        <div class="table-content-row-wrapper" data-from="{{row.rowFrom}}" ng-repeat="row in doc.data track by row.dataId" data-count="{{row.$count}}">
+          <div
+            class="table-content-row"
+            ng-style="{
+              'z-index': 999 - $index,
+            }"
+            ng-if="!row.inOutStatistics"
+          >
+            <div
+              class="content-item"
+              ng-repeat="item in doc.contentDivs"
+              ng-style="{
+                'vertical-align': item.type === 'outer' ? doc.conf.signaturePosition.configValue : 'top',
+                width: item.calcWidth + doc.unit,
+                'min-height': doc.lineHeight + 'px',
+                'line-height': doc.lineHeight + 'px',
+                'font-size': item.font + 'mm'}"
+            >
+              <div
+                class="editable-line__text"
+                ng-style="{'text-align': '' + item.textAlign}"
+                ng-if="item.type !== 'outer' && item.type !== 'modal'"
+                ng-hide="item.type === 'date' && row.dateHidden"
+                ng-bind-html="row.data[item.key] | whitespaceFilter"></div>
+
+              <div
+                class="editable-line__text"
+                ng-style="{'text-align': '' + item.textAlign}"
+                ng-if="item.type === 'modal'"
+                ng-bind-html="row.data[item.key] | whitespaceFilter"></div>
+
+              <div
+                class="editable-line__text"
+                ng-style="{'text-align': '' + item.textAlign}"
+                data-type="{{item.type}}"
+                ng-if="item.type === 'outer'">
+                <span ng-repeat="value in row.data[item.key] track by $index">
+                  <img class="doc-sign-img" ng-src="/windranger/hospital/userDataSign/{{value}}" ng-if="doc.signType === 'image'">
+                  <span ng-if="doc.signType === 'name'">{{value}}</span></span></div>
+            </div>
+          </div>
+          <div
+            class="table-content-row in-out-line"
+            ng-if="row.inOutStatistics && row.rowSize"
+            ng-class="{'active': doc.echo.selected === row}"
+            ng-style="{'min-height': doc.lineHeight - 1 + 'px', 'line-height': doc.lineHeight - 1 + 'px'}"
+          >
+            <div class="flex-box editable-line__text total-in-out-wrap align-center" style="justify-content: center;" ng-bind-html="row.data.details | whitespaceFilter"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

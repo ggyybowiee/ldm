@@ -1,0 +1,86 @@
+<div>
+    <div class="modal-header">
+      <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title">
+        选择设备
+      </h5>
+    </div>
+    <form class="form-horizontal w5c-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption" name="yearForm">
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="filter-bar form-inline">
+            <div class="filter-item">
+              <input class="form-control input-sm" type="text" ng-model="vm.metaData.queryParams.eqpName" placeholder="关键字">
+            </div>
+            <button class="btn btn-sm btn-primary round-btn button-size" ng-click="vm.searchDevices()">查询</button>
+          </div>
+          <div class="filter-bar form-inline">
+            <div class="filter-item">
+              <div class="filter-item">
+                <label>设备类型： </label>
+                <select class="form-control input-sm" ng-change="vm.searchDevices()" ng-model="vm.metaData.queryParams.eqpType" name="eqpType" convert-to-number>
+                  <option ng-repeat="item in vm.metaData.deviceTypes" value="{{item.code}}">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="filter-item">
+              <label>所属科室： </label>
+              <select class="form-control input-sm" ng-change="vm.searchDevices()" ng-model="vm.metaData.queryParams.eqpBelong" name="eqpBelong" convertToNumber>
+                <option value="">全部</option>
+                <option ng-repeat="item in vm.metaData.wards" value="{{item.wardCode}}">{{item.wardName}}</option>
+              </select>
+            </div>
+            <span class="text-danger sm-warning-text">(仅支持安卓平台的设备)</span>
+          </div>
+          <table class="white-borderd table table-hover md-modal-font" st-table="vm.devicesDisplay" table-check="vm.devicesDisplay" key="content.basicInfo.mac" selected="vm.checked" st-safe-src="vm.data">
+            <thead>
+              <tr>
+                <th>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" table-check-all ng-disabled="vm.devices.length === 0">
+                    <span>全选</span>
+                  </label>
+                </th>
+                <th>设备名称</th>
+                <th>设备类型</th>
+                <th>序列号</th>
+                <th>Mac地址</th>
+                <th>所属科室</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="row in vm.devicesDisplay track by $index">
+                <td class="ng-binding">
+                  <label class="custom-checkbox" >
+                    <input table-check-all-item type="checkbox" value="row.content.basicInfo.mac">
+                    <span></span>
+                  </label>
+                </td>
+                <td class="ng-binding">{{row.content.basicInfo.eqpName}}</td>
+                <!-- <td class="ng-binding">{{row.name}}{{vm.selected.indexOf(row.seqId)}}</td> -->
+                <td class="ng-binding">{{(vm.metaData.deviceTypes | filter : {code: row.content.basicInfo.eqpType})[0].name}}</td>
+                <td class="ng-binding">{{row.content.basicInfo.sn}}</td>
+                <td class="ng-binding">{{row.content.basicInfo.mac}}</td>
+                <td class="ng-binding">{{(vm.metaData.wards | filter : {wardCode: row.content.basicInfo.eqpBelong})[0].wardName}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="8">
+                  <div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.ok()">确定</button>
+        <button class="btn btn-sm btn-default btn-round" ng-click="vm.cancel()">取消</button>
+      </div>
+    </form>
+
+  </div>

@@ -1,0 +1,55 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">入路径</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="bedCode" class="col-sm-3 control-label">床号：</label>
+        <div class="col-sm-6">
+          <span class="control-label" id="bedCode" style="color: #272e37">{{vm.formData.bedCode}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="patName" class="col-sm-3 control-label">患者：</label>
+        <div class="col-sm-6">
+          <span class="control-label" id="patName" style="color: #272e37">{{vm.formData.patName}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inDiag" class="col-sm-3 control-label">入院诊断：</label>
+        <div class="col-sm-6">
+          <span class="control-label" id="inDiag" style="color: #272e37">{{vm.formData.inDiag}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pathTplId" class="col-sm-3 control-label">路径名称：</label>
+        <div class="col-sm-6">
+          <select type="text" id="pathTplId" name="pathTplId" ng-model="vm.formData.pathTplId" class="form-control input-sm" required ng-change="vm.pathChange(vm.formData.pathTplId)">
+            <option value="">请选择</option>
+            <option value="{{item.pathTplId}}" ng-repeat="item in vm.metaData.pathList">{{item.pathName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group editing" ng-if="vm.metaData.specialItems.length > 0" ng-repeat="item in vm.metaData.specialItems">
+        <label class="col-sm-3 control-label">{{item.label ? item.label + '：' : ''}}</label>
+        <div class="col-sm-6">
+          <editable-form-item type="item.dataType" options="item.opts" name="item.dataBind" ng-model="vm.metaData.headerForm[item.dataBind]"></editable-form-item>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inPathDate" class="col-sm-3 control-label">路径日期：</label>
+        <div class="col-sm-6">
+          <date-picker class="pathDateStyle" id="inPathDate" ng-model="vm.formData.inPathDate"></date-picker>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-round btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-round btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

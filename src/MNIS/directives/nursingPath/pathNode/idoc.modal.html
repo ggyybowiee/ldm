@@ -1,0 +1,15 @@
+<div class="modal-content docs-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="vm.close()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="height: 650px;">
+    <div class="pull-right">
+      <button type="button" class="btn btn-sm btn-success round-btn" name="button" ng-if="!vm.openOuter" ng-disabled="vm.docSaving"
+        ng-click="vm.saveDoc()">{{vm.docSaving ? '正在保存...' : '保存'}}</button>
+      <button type="button" class="btn btn-sm btn-primary round-btn" name="button" ng-click="vm.print()">打印</button>
+    </div>
+    <div class="idoc-modal-container"></div>
+  </div>
+</div>

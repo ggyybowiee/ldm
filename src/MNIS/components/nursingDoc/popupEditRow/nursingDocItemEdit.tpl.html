@@ -1,0 +1,53 @@
+<div class="nursing-doc-item-edit-root">
+  <div class="estiamte-item-edit-disable-panel" ng-click="vm.saveEditButton()">
+  </div>
+
+  <div class="nursing-doc-item-edit-extend-panel" ng-if="vm.extendEcho.isOpen">
+    <extend-panel extend-echo="vm.extendEcho" edit-data="editingData" tpl="tpl" patient-info="patientInfo"></extend-panel>
+  </div>
+
+  <div class="nursing-doc-item-edit-panel">
+    <div loading-wrapper="vm.savingDataProc">
+      <div class="nursing-doc-item-toolbar bordered-bottom">
+        <div>
+          <button class="btn btn-primary" ng-click="vm.importButton()" ng-if="!editingData.checkUserCode">引用</button>
+        </div>
+        <span>编辑数据</span>
+        <div>
+          <button class="btn btn-danger" content="是否确定放弃修改？" confirm yes="vm.cancelEditButton()" ng-if="!editingData.checkUserCode">取消</button>
+          <button class="btn btn-success" ng-click="vm.saveEditButton()">{{editingData.checkUserCode?'关闭':'保存'}}</button>
+        </div>
+      </div>
+      <div class=" bordered-bottom">
+        <button class="btn" ng-class="!editingData.checkUserCode ? 'btn-success' : 'btn-danger'" style="width: 100%; margin-top: 5px;"
+          ng-click="vm.nursingCheckSign()">{{!editingData.checkUserCode ? '冠签' : '取消冠签'}}</button>
+      </div>
+      <div style="margin-top:5px;">
+        <span>Enter:下一列&nbsp;&nbsp;&nbsp;↑↓:上下列&nbsp;&nbsp;&nbsp;ESC:关闭下拉弹框</span>
+      </div>
+      <div class="nursing-doc-item-edit-form-panel" full-page="fix" full-page-bottom="10" ng-disable="true">
+        <table class="nursing-doc-item-table">
+          <tbody>
+            <tr ng-if="item.double==0 || item.sup != undefined" class="nursing-doc-item-title-tr" ng-repeat="item in tpl.components | orderBy:'+orderIndex'">
+              <td ng-if="item.double!=0 && item.index==0" rowspan=" {{vm.findHeader(item).childCnt}}">
+                {{vm.findHeader(item).text}}
+              </td>
+              <td class="nursing-doc-item-title-td" ng-class="vm.extendEcho.focusRowEcho.row == item ? 'nursing-doc-current-edit-cell' : ''"
+                colspan="{{item.double==0 ? 2 : 1}}">
+                <span ng-if="!item.isCustomColumn">
+                  {{item.text2}}{{item.text}}</span>
+                <button class="nursing-doc-item-custom-header-button" ng-if="item.isCustomColumn" tabindex="-1"
+                  ng-click="vm.openCustomColumnEdit(item)">
+                  {{!currentPageColumns.content[item.key] ? '点击设置表头' : currentPageColumns.content[item.key]}}</button>
+              </td>
+              <td class="nursing-doc-item-val-td">
+                <nursing-doc-item-edit-cell row="item" edit-data="editingData" editable="!editingData.checkUserCode"
+                  current-page-columns="currentPageColumns" focus-row-echo="vm.extendEcho.focusRowEcho"></nursing-doc-item-edit-cell>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

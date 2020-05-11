@@ -1,0 +1,416 @@
+<div class="panel panel-layout panel-default NDAconfigContent" style="max-width: 1700px; min-width: 1200px;" ui-view>
+
+  <form class="form-horizontal nda-config-form" role="form" novalidate="novalidate" w5c-form-validate="w5c-form-validate" name="form">
+    <div class="base-field clearfix">
+      <div class="form-group col-xs-4">
+        <label for="name" class="col-sm-5 control-label"><span class="text-danger">＊</span>配置名称：</label>
+
+        <div class="col-sm-7">
+          <input type="text" id="name" name="name" ng-model="vm.data.name" maxlength="30" class="form-control input-sm" required="required"
+          />
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4 filter-item">
+        <label class="col-sm-5 control-label">所属病区： </label>
+        <div class="col-sm-7">
+          <select class="form-control input-sm" ng-model="vm.data.wardCode" id="wardCode" name="wardCode">
+            <option value="">全部</option>
+            <option ng-repeat="item in vm.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- <div class="form-group text-right col-xs-4">
+        <button class="btn btn-default btn-sm btn-round button-size" ui-sref="main.NDAconfig">取消</button>
+        <button class="btn btn-success btn-sm btn-round button-size" w5c-form-submit="vm.save()">保存</button>
+      </div> -->
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12 flex-box align-center">
+        <img src="assets/svg/icon_Network settings.svg" style="width:34px;vertical-align: middle;" alt="网络设置">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">&nbsp网络设置</span>
+        <!-- <span class="text-primary title-text" style="vertical-align: middle;">设备开关机记录导出</span> -->
+      </div>
+    </div>
+
+
+    <div class="form-row form-colored-field">
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label" for="ssidName">
+          <span class="text-danger" ng-show="vm.data.content.AP.bindSsid">＊</span>连接指定AP：</label>
+
+        <div class="col-xs-7">
+          <input type="text" id="ssidName" name="ssidName" ng-model="vm.data.content.AP.apName" class="form-control input-sm" ng-required="vm.data.content.AP.bindSsid"
+          />
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label" for="password">密码：</label>
+
+        <div class="col-xs-7">
+          <input type="text" class="form-control input-sm" name="password" ng-model="vm.data.content.AP.password" />
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label" for="WLANFreqBand">WLAN频带：</label>
+
+        <div class="col-xs-7">
+          <select type="text" class="form-control input-sm" name="WLANFreqBand" ng-model="vm.data.content.AP.WLANFreqBand" ng-init="(!vm.id && !vm.data.content.AP.WLANFreqBand) ? vm.data.content.AP.WLANFreqBand = '0': ''">
+            <option ng-repeat="option in vm.wlanBands" value="{{option.code}}">{{option.value}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label" for="encryptType">加密方式：</label>
+
+        <div class="col-xs-7">
+          <select type="text" class="form-control input-sm" name="encryptType" ng-model="vm.data.content.AP.encryptType" ng-init="(!vm.id && !vm.data.content.AP.encryptType) ? vm.data.content.AP.encryptType = '2': ''">
+            <option ng-repeat="option in vm.encryptTypes" value="{{option.code}}">{{option.value}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label" for="wifiRoaming">漫游触发值：</label>
+
+        <div class="col-xs-7">
+          <div class="input-group input-group-sm">
+            <input class="form-control input-sm" name="wifiRoaming" type="number" max="100" min="30" ng-model="vm.data.content.wifiRoaming.trigger"
+            />
+            <span class="input-group-addon" id="wifiRoamingDB">db</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label" for="gain">漫游增益值：</label>
+
+        <div class="col-xs-7">
+          <div class="input-group input-group-sm">
+            <input class="form-control input-sm" name="gain" type="number" max="50" min="0" ng-model="vm.data.content.wifiRoaming.gain"
+            />
+            <span class="input-group-addon" id="basic-addon2">db</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <div class="form-group col-xs-4">
+          <div class="col-xs-5"></div>
+          <div class="col-xs-7">
+            <label class="custom-checkbox" for="bindSsid">
+              <input type="checkbox" name="bindSsid" id="bindSsid" ng-model="vm.data.content.AP.bindSsid" />
+
+              <span>是否绑定指定SSID</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group col-xs-8">
+          <div class="col-xs-12">
+            <label class="custom-checkbox" for="staticIp">
+              <input type="checkbox" name="staticIp" id="staticIp" ng-model="vm.switch.staticIp" />
+
+              <span>设置静态IP</span>
+
+            </label>
+            &nbsp; &nbsp;
+            <div class="btn btn-xs btn-primary btn-round btn-file-selector" role="button" style="width: 80px;" ng-disabled="!vm.switch.staticIp">
+              选择文件
+              <input class="form-control input-sm input-file--hidden" ng-disabled="!vm.switch.staticIp" nv-file-select="" uploader="vm.uploader"
+                required name="softPath" id="softPath" type="file" />
+            </div>
+            <span class="label label-success label-sm">{{vm.data.content.AP.SSIDstaticIp.fileName}}</span>
+            <a class="btn btn-xs btn-round btn-success" style="width: 80px;" download ng-disabled="!vm.data.content.AP.SSIDstaticIp.fileName"
+              ng-href="{{vm.downloadFile(vm.fileInfo.seqId||vm.data.content.AP.SSIDstaticIp.fileSeqId)}}">下载</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label">
+          <span ng-if="vm.switch.staticIp" class="text-danger">＊</span>网关：</label>
+
+        <div class="col-xs-7">
+          <input type="text" id="gateway" name="gateway" ng-model="vm.data.content.AP.SSIDstaticIp.gateway" ng-required="vm.switch.staticIp"
+          class="form-control input-sm" />
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label">
+          <span ng-if="vm.switch.staticIp" class="text-danger">＊</span>掩码长度：</label>
+
+        <div class="col-xs-7">
+          <input type="text" class="form-control input-sm" name="netLength" ng-model="vm.data.content.AP.SSIDstaticIp.netLength" ng-required="vm.switch.staticIp"
+          />
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label">
+          <span ng-if="vm.switch.staticIp" class="text-danger">＊</span>域名1：</label>
+
+        <div class="col-xs-7">
+          <input type="text" class="form-control input-sm" name="dns1" ng-model="vm.data.content.AP.SSIDstaticIp.dns1" ng-required="vm.switch.staticIp"
+          />
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label" for="dns2">域名2：</label>
+
+        <div class="col-xs-7">
+          <input type="text" class="form-control input-sm" name="dns2" ng-model="vm.data.content.AP.SSIDstaticIp.dns2" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12 flex-box align-center">
+        <img src="assets/svg/icon_Personalized.svg" style="width:34px;vertical-align: middle;" alt="个性化设置">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">&nbsp个性化设置</span>
+      </div>
+    </div>
+
+    <div class="form-row form-colored-field">
+      <div class="col-xs-4 form-group">
+        <span class="col-xs-5 control-value text-right">
+          <label class="custom-checkbox" for="switchDesktopTitle">
+            <input type="checkbox" id="switchDesktopTitle" name="switchDesktopTitle" ng-model="vm.switch.desktopTitle" />
+
+            <span>设置桌面标题</span>
+          </label>
+        </span>
+        <div class="col-xs-7">
+          <input type="text" class="form-control input-sm" name="desktopTitle" ng-disabled="!vm.switch.desktopTitle" ng-model="vm.data.content.desktopTitle"
+            ng-required="vm.switch.desktopTitle" />
+        </div>
+
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label"></label>
+        <div class="col-xs-7">
+          <label class="custom-checkbox" for="showScreenRotationSetter">
+            <input type="checkbox" id="showScreenRotationSetter" name="showScreenRotationSetter" ng-model="vm.data.content.showScreenRotationSetter"
+              ng-true-value="1" ng-false-value="0" />
+
+            <span>启用快速旋转屏幕</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group col-xs-4">
+        <label class="col-xs-5 control-label"></label>
+        <div class="col-xs-7">
+          <label class="custom-checkbox" for="showBluetoothSetter">
+            <input type="checkbox" id="showBluetoothSetter" name="showBluetoothSetter" ng-model="vm.data.content.showBluetoothSetter"
+              ng-true-value="1" ng-false-value="0" />
+
+            <span>启用快速设置蓝牙</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="col-xs-4 form-group">
+        <label class="col-xs-5 control-label"></label>
+        <div class="col-xs-7">
+          <label class="custom-checkbox" for="showWifiSetter">
+            <input type="checkbox" id="showWifiSetter" name="showWifiSetter" ng-model="vm.data.content.showWifiSetter" ng-true-value="1"
+              ng-false-value="0" />
+
+            <span>启用快速设置Wi-Fi</span>
+          </label>
+        </div>
+      </div>
+      <div class="col-xs-4 form-group">
+        <label class="col-xs-5 control-label"></label>
+
+        <div class="col-xs-7">
+          <label class="custom-checkbox" for="limitDesktopOp">
+            <input type="checkbox" id="limitDesktopOp" name="limitDesktopOp" ng-model="vm.data.content.limitDesktopOp" ng-true-value="1"
+              ng-false-value="0" />
+            <span>限制桌面操作</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12 flex-box align-center">
+        <img src="assets/svg/icon_other.svg" style="width:34px;vertical-align: middle;" alt="其它设置">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">&nbsp其它设置</span>
+      </div>
+    </div>
+
+    <div class="form-row form-colored-field">
+      <div class="col-xs-12">
+        <div class="col-xs-4 form-group">
+          <label class="col-xs-5 control-label"></label>
+          <div class="col-xs-7">
+            <label class="custom-checkbox" for="switchTimeServer">
+              <input type="checkbox" id="switchTimeServer" name="switchTimeServer" ng-model="vm.switch.timeServer" ng-change="vm.changeTimeServerState()"/>
+
+              <span>终端时间与服务器同步</span>
+            </label>
+          </div>
+        </div>
+        <div class="col-xs-4 form-group">
+          <label class="col-xs-5 control-label" for="syncTimeServer">时间服务器</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="syncTimeServer" ng-required="vm.switch.timeServer" ng-model="vm.data.content.syncTime.timeServer"
+            ng-disabled="!vm.switch.timeServer"/>
+          </div>
+        </div>
+
+        <div class="col-xs-4 form-group">
+          <label class="col-xs-5 control-label" for="syncTimeServerInterval">间隔</label>
+
+          <div class="col-xs-7">
+            <select type="text" class="form-control input-sm" name="syncTimeServerInterval" ng-model="vm.data.content.syncTime.syncInterval"
+              ng-required="vm.data.content.syncTime.timeServerSetter" ng-disabled="!vm.switch.timeServer">
+              <option value="300000">5分钟</option>
+              <option value="600000">10分钟</option>
+              <option value="1800000">30分钟</option>
+              <option value="3600000">1小时</option>
+              <option value="43200000">12小时</option>
+              <option value="86400000">1天</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="col-xs-4 form-group">
+          <div class="col-xs-5"></div>
+          <div class="col-xs-7">
+            <label class="custom-checkbox" for="sysPwdEnable">
+              <input type="checkbox" name="sysPwdEnable" id="sysPwdEnable" ng-model="vm.data.content.sysPwdEnable" ng-change="vm.setUncheckedProperty()" ng-true-value="1" ng-false-value="-1"
+              />
+
+              <span>启用系统密码设置</span>
+            </label>
+          </div>
+        </div>
+        <div class="col-xs-4 form-group">
+          <label class="col-xs-5 control-label" for="sysPassword">密码</label>
+
+          <div class="col-xs-7">
+            <input type="text" name="sysPassword" class="form-control input-sm" ng-disabled="vm.data.content.sysPwdEnable !== 1" ng-model="vm.data.content.sysPassword"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="col-xs-4 form-group">
+          <div class="col-xs-5"></div>
+          <div class="col-xs-7">
+            <label class="custom-checkbox" for="switchPdaScanMethod">
+              <input type="checkbox" id="switchPdaScanMethod" ng-model="vm.switch.pdaScanMethod" name="switchPdaScanMethod" ng-change="vm.setUncheckedProperty()" ng-true-value="1"
+                ng-false-value="-1" />
+
+              <span>设置PDA扫描方式</span>
+            </label>
+          </div>
+        </div>
+
+
+        <div class="col-xs-4 form-group">
+          <label class="radio-inline custom-radio">
+            <input type="radio" value="broadcast" name="pdaScanMethod" ng-disabled="vm.switch.pdaScanMethod !== 1" ng-model="vm.data.content.pdaScanMethod"/>
+
+            <span>广播接收方式</span>
+          </label>
+
+          <label class="radio-inline custom-radio">
+            <input type="radio" value="keyboard" name="pdaScanMethod" ng-disabled="vm.switch.pdaScanMethod !== 1" ng-model="vm.data.content.pdaScanMethod"/>
+
+            <span>键盘接收方式</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="col-xs-4 form-group">
+          <div class="col-xs-5"></div>
+          <div class="col-xs-7">
+            <label class="custom-checkbox" for="switchBackendServer">
+              <input type="checkbox" id="switchBackendServer" name="switchBackendServer" ng-model="vm.switch.backendServer" />
+
+              <span>设置后台服务器地址</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-xs-4 form-group">
+          <label class="col-xs-5 control-label">后台服务器地址</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="backendServer" ng-model="vm.data.content.backendServer" ng-disabled="!vm.switch.backendServer"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12">
+        <div class="col-xs-4 form-group">
+          <div class="col-xs-5"></div>
+          <div class="col-xs-7">
+            <label class="custom-checkbox" for="switchOTA">
+              <input type="checkbox" id="switchOTA" ng-model="vm.switch.OTA" name="switchOTA" />
+
+              <span>设置OTA地址</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-xs-4 form-group">
+          <label class="col-xs-5 control-label" for="OTA">OTA升级地址</label>
+
+          <div class="col-xs-7">
+            <input type="text" class="form-control input-sm" name="OTA" ng-model="vm.data.content.OTA" ng-disabled="!vm.switch.OTA"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-xs-12 flex-box align-center">
+        <img src="assets/svg/icon_Application equipment.svg" style="width:34px;vertical-align: middle;" alt="应用设备">
+        <span class="glyphicon glyphicon-briefcase text-primary title-text" aria-hidden="true">&nbsp应用设备</span>
+      </div>
+    </div>
+
+    <div class="form-row form-colored-field">
+      <div class="col-xs-12">
+        <button class="btn btn-label btn-sm btn-default" ng-repeat="mac in vm.data.devices" style="margin-right:3px; margin-bottom: 3px;">
+          <i class="fa fa-mobile-phone fa-lg"></i>
+          &nbsp;
+          <span>{{mac}}</span>
+          &nbsp;
+          <span class="btn-inner-close" uib-tooltip="移除" ng-click="vm.data.devices.splice($index, 1)">&nbsp;×</span>
+        </button>
+      </div>
+      <div class="col-xs-12 flex-box justify-center" ng-if="vm.data.devices.length===0">
+        <img src="assets/images/ldm/ldm_noDevice.png" style="margin-top: 10px; width: 234px;" alt="暂无设备">
+      </div>
+      <div class="col-xs-12 text-center nda-config-form__add-device">
+        <button class="btn btn-primary btn-sm btn-round" w5c-form-submit="vm.ok()" style="margin-top: 20px" ng-click="vm.openDevicesModal()">添加设备</button>
+      </div>
+    </div>
+    <div class="base-field clearfix">
+      <div class="form-group text-right col-xs-6">
+        <button class="btn btn-default btn-sm btn-round button-size" style="margin-right: 10px;" ui-sref="main.NDAconfig">取消</button>
+      </div>
+      <div class="form-group col-xs-6">
+          <button class="btn btn-success btn-sm btn-round button-size" style="margin-left: 10px;" w5c-form-submit="vm.save()">保存</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,208 @@
+.table {
+  &.white-borderd {
+
+    td,
+    th {
+      // border-color: #fff;
+      text-align: center;
+      border-bottom: 0;
+      border-top: 0;
+      border-left: 1px solid #fff;
+      border-right: 1px solid #fff;
+      vertical-align: middle;
+
+      &:first-child {
+        border-left: 0;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      &.text-left {
+        text-align: left;
+      }
+
+      &.text-right {
+        text-align: right;
+      }
+    }
+
+    th {
+      background-color: $th-color;
+      font-weight: normal;
+      color: $font-2;
+    }
+
+    thead {
+      tr+tr {
+        th {
+          border-top: 1px solid white;
+        }
+      }
+    }
+
+    tr {
+      &:nth-child(even) {
+        background-color: $dark-grey;
+      }
+
+      &:nth-child(odd) {
+        background-color: $light-grey;
+      }
+    }
+  }
+
+  &.table-hover {
+    tr {
+      transition: all .2s;
+      cursor: pointer !important;
+
+      &:nth-child(even):hover {
+        background-color: $dark-grey;
+      }
+
+      &:nth-child(odd):hover {
+        background-color: $dark-grey;
+      }
+    }
+  }
+
+  &.tr-hover {
+    tbody {
+      tr {
+        transition: all .2s;
+        cursor: pointer;
+
+        &:hover {
+          color: white;
+          background-color: lighten($primary, 15%) !important;
+        }
+
+        &.active {
+          color: white;
+          background-color: lighten($primary, 5%) !important;
+
+          td {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  &.thead-fixed {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    tbody {
+      display: block;
+      overflow: auto;
+    }
+
+    thead,
+    tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+  }
+}
+
+.table {
+  .trigger {
+    width: 60px;
+    color: $primary;
+    cursor: pointer;
+  }
+
+  tbody {
+    tr {
+      &.doing {
+        background-color: #FFE48D !important;
+        font-weight: bold;
+      }
+    }
+  }
+
+  tr.st-selected {
+    td {
+      background: transparentize($info, .82);
+    }
+  }
+
+  tr.info {
+    user-select: none;
+  }
+
+  tbody {
+    +tbody {
+      border-top-width: 1px;
+    }
+  }
+
+  &.text-center {
+    th {
+      text-align: center;
+    }
+  }
+}
+
+.sort-arrows {
+  display: inline-block;
+  vertical-align: middle;
+  height: 18px;
+  margin-left: 4px;
+
+  .fa {
+    color: #BFBFBF;
+  }
+}
+
+.sort-arrows__up,
+.sort-arrows__down {
+  width: 12px;
+  height: 8px;
+  position: relative;
+
+  .fa {
+    font-size: 14px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.sort-arrows__up {
+  .fa {
+    bottom: -3px;
+
+    .st-sort-ascent & {
+      color: #A4BDEA;
+    }
+
+    .st-sort-descent & {
+      color: #427ABD;
+    }
+  }
+}
+
+.st-sort-ascent,
+.st-sort-descent {
+  color: #427ABD !important;
+}
+
+.sort-arrows__down {
+  .fa {
+    top: -3px;
+
+    .st-sort-ascent & {
+      color: #427ABD;
+    }
+
+    .st-sort-descent & {
+      color: #A4BDEA;
+    }
+  }
+}

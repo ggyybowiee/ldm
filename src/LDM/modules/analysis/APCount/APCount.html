@@ -1,0 +1,85 @@
+<div class="panel panel-layout panel-default" style="max-width: 1600px; min-width: 1200px;" ui-view>
+    <div class="flex-box justify-between filter-bar form-inline">
+    </div>
+    <div class="filter-bar form-inline">
+        <button class="btn btn-sm btn-success round-btn pull-right" ui-sref="main.APCount.APCountDataTable">图标/数据表切换</button>
+    </div>
+    <div loading-wrapper loading-type="content" loading-options="vm.load">
+      <div class="col-xs-12" style="display: flex;align-items: center;">
+        <div class="col-xs-3">
+            <div class="flex-box align-center pull-right" style="width: 140px; height: 140px;">
+                <div class="col-xs-9" style="text-align: center">
+                  <img src="assets/images/devices/device_juyuwang.png" style="width: 89px;height: 63px;">
+                  <div class="text-center node-text">
+                    <p style="margin-top: 10px;">局域网</p>
+                    </div>
+                </div>
+                <hr class="col-xs-3" style="display:inline-block; height:2px;border:none;border-top:2px dashed lightgrey;"/>
+              </div>
+        </div>
+        <div class="col-xs-8">
+          <div class="ward-device" ng-repeat="row in vm.graphData track by $index">
+          <hr class="vertical-bar" ng-class="vm.graphData.length == 1 ? '': ($index == 0 ? 'ward-under-dashed' : ($index == vm.graphData.length-1 ? 'ward-above-dashed':'ward-both-dashed'))"/>
+            <div class="col-xs-3">
+              <div style="width:275px; height: 160px">
+                  <div style="width:230px; height: 60px; border-radius: 0px 0px 5px 5px; text-align: center">
+                    <span/>
+                    </div>
+                <div style="color: lightgrey">
+                  <hr style="display:inline-block; height:2px;width: 100px; border:none;border-top:2px dashed lightgrey; margin: 0px;"/>&nbsp
+                  <img src="assets/images/ldm/ldm_luyouqi.png" style="width: 45px; height: 38px; position: relative; top: -5px;">&nbsp
+                  <img src="assets/images/ldm/ldm_bg_jiantou.png" style="width: 20px; height: 20px;">
+                  <hr style="display:inline-block; height:2px;width: 85px; border:none;border-top:2px dashed lightgrey; margin: 0px;"/>
+                </div>
+                <div>
+                  <div style="width:260px; height: 60px; border-radius: 0px 0px 5px 5px; text-align: center">
+                    <p style="margin-top: 10px;margin-bottom: 0px;"><span style="background-color: #ebebeb;padding: 5px 5px 5px 5px;">{{row.deviceName}}</span></p>
+                    <p>{{row.mac}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-8">
+              <div class="col-xs-12" class="flex-box align-center" style="padding-left: 0px;" ng-repeat="ward in row.connectedDevices track by $index">
+                <div class="col-xs-6" style="padding-left: 0px;">
+                  <div class="flex-box align-center" style="width:300px; height: 100px; " >
+                      <hr class="vertical-bar" ng-class="row.connectedDevices.length == 1 ? '': ($index == 0 ? 'under-dashed' : ($index == row.connectedDevices.length-1 ? 'above-dashed' : 'both-dashed'))"/>
+                      <div class="preposing-icon">
+                          <img src="assets/images/ldm/ldm_lanya.png" style="width: 12px; height: 20px;">
+                        </div>
+                      <hr style="display:inline-block; height:2px;width: 50px; border:none;border-top:2px dashed lightgrey;"/>
+                    <div class="flex-box align-center pull-right ap-device-box" ng-click="vm.getDevices(row.mac, ward)">
+                      <div class="flex-box align-center btn ap-devcie-button">
+                        <img class="img_amend" ng-src="{{vm.setIcons(ward.deviceType)}}" >
+                      </div>
+                      <div class="node-text">
+                          <p style="margin-bottom: 10px;">&nbsp&nbsp<strong>{{(vm.deviceTypes && (vm.deviceTypes | filter: {code: ward.deviceType})[0].name) || '设备类型未知'}}</strong></p>
+                          <p>&nbsp&nbsp接入数量：{{ward.connectedNumber}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="col-xs-6" style="height: 100px;" class="flex-box align-center">
+                  <div ng-if="row.mac === vm.selectedDevice.mac && vm.selectedDevice.deviceType === ward.deviceType"
+                       class="align-center" style="width: 360px; background-color: #ffffff; border-radius: 5px;padding: 5px; position: relative;top: 20px;">
+                      <p ng-repeat="detail in vm.selectedDeviceDetail">
+                        <span style="display: inline-block;width: 100px;">{{detail.content.basicInfo.eqpName}}</span>
+                        <span style="display: inline-block;width: 100px;">{{(vm.deviceTypes && (vm.deviceTypes | filter: {code: detail.content.basicInfo.eqpType})[0].name) || '设备类型未知'}}</span>
+                        <span style="display: inline-block;width: 100px;">{{detail.content.basicInfo.mac}}</span></p>
+                    </div>
+              </div>
+            </div>
+            </div>
+            <!-- <div class="col-xs-4">
+              <div ng-if="" style="width: 300px; background-color: lightgrey; border-radius: 5px;padding: 5px;">
+                <p ng-repeat="detail in vm.selectedDeviceDetail">
+                  <span style="display: inline-block;width: 70px;">{{detail.content.basicInfo.eqpName}}</span>
+                  <span style="display: inline-block;width: 70px;">{{(vm.deviceTypes && (vm.deviceTypes | filter: {code: detail.content.basicInfo.eqpType})[0].name) || '设备类型未知'}}</span>
+                  <span style="display: inline-block;width: 100px;">{{detail.content.basicInfo.mac}}</span></p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

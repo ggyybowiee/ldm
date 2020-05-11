@@ -1,0 +1,57 @@
+<div class="left-nav" print-remove>
+  <div class="nav-wrapper" ng-class="{'min-mode': minMode}" print-remove print-hide>
+    <div class="nav-view-trigger">
+      <a ng-click="toggleNavMode()">
+        <i class="fa" ng-class="{'fa-dedent': !minMode, 'fa-indent': minMode}"></i>
+      </a>
+    </div>
+    <div class="menu-list">
+      <uib-accordion class="nav-menu">
+        <div class="nav-list" ng-repeat="item in navs">
+          <div class="nav-menu_item" ng-if="!navFilter(item)" ng-class="{'current': item.isCurrent}">
+            <a target="_self" tooltip-enable="minMode" uib-tooltip="{{item.resourceName}}" tooltip-placement="right"
+              tooltip-append-to-body="true" ui-sref="main.{{item.resourceContent}}" ui-sref-active="active">
+              <!-- <i class="pull-left fa fa-user nav-menu_item-icon"></i> -->
+              <span class="nav-menu_item-icon">
+                <img ng-src="{{'/assets/svg/' + item.resourceIcon + '_blur.svg'}}" class="blur">
+                <img ng-src="{{'/assets/svg/' + item.resourceIcon + '_focus.svg'}}" class="focus">
+              </span>
+              <span class="nav-menu_item-text">{{item.resourceName}}</span>
+              <i ng-if="item.subResource" class="pull-right fa nav-menu_item-arrow" ng-class="{'fa-angle-down': item.isOpen, 'fa-angle-right': !item.isOpen}"></i>
+            </a>
+          </div>
+          <uib-accordion-group panel-class="no-panel" is-open="item.isOpen" ng-if="navFilter(item)">
+            <uib-accordion-heading>
+              <div class="nav-menu_item" ng-class="{'active': item.isOpen, 'current': item.isCurrent}">
+                <a tooltip-enable="minMode" uib-tooltip="{{item.resourceName}}" tooltip-placement="right"
+                  tooltip-append-to-body="true">
+                  <i class="pull-left fa fa-th-list nav-menu_item-icon" ng-if="!item.resourceIcon"></i>
+                  <span class="nav-menu_item-icon" ng-if="item.resourceIcon">
+                    <img ng-src="{{'/assets/svg/' + item.resourceIcon + '_blur.svg'}}" class="blur">
+                    <img ng-src="{{'/assets/svg/' + item.resourceIcon + '_focus.svg'}}" class="focus">
+                  </span>
+                  <span class="nav-menu_item-text">{{item.resourceName}}</span>
+                  <i ng-if="item.subResource" class="pull-right fa nav-menu_item-arrow" ng-class="{'fa-angle-down': item.isOpen, 'fa-angle-right': !item.isOpen}"></i>
+                </a>
+              </div>
+            </uib-accordion-heading>
+            <ul class="nav-menu_sub-item">
+              <li ng-repeat="subItem in item.subResource" tooltip-enable="minMode" uib-tooltip="{{subItem.resourceName}}"
+                tooltip-placement="right" tooltip-append-to-body="true">
+                <a target="_self" ui-sref-active="active" class="nav-menu_sub-item-text" data-id="{{subItem.funUrl}}"
+                  data-name="{{subItem.resourceName}}" ui-sref="main.{{subItem.resourceContent}}">
+                  <i class="fa fa-caret-square-o-right nav-menu_item-icon pull-left" ng-if="!subItem.resourceIcon"></i>
+                  <span class="nav-menu_item-icon" ng-if="subItem.resourceIcon">
+                    <img ng-src="{{'/assets/svg/' + subItem.resourceIcon + '_blur.svg'}}" class="blur">
+                    <img ng-src="{{'/assets/svg/' + subItem.resourceIcon + '_focus.svg'}}" class="focus">
+                  </span>
+                  <span class="sub-item__title">{{subItem.resourceName}}</span>
+                </a>
+              </li>
+            </ul>
+          </uib-accordion-group>
+        </div>
+      </uib-accordion>
+    </div>
+  </div>
+</div>

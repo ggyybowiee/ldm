@@ -1,0 +1,56 @@
+<div class="custom-print-wrapper">
+  <style>
+    .custom-print-wrapper * {
+      font-family: 'microsoft yahei';
+      font-weight: 700;
+    }
+    .custom-print-wrapper .sm {
+      font-size: 2mm;
+    }
+    .custom-print-wrapper .middle {
+      font-size: 3mm;
+    }
+    .custom-print-wrapper .lg {
+      font-size: 3.5mm;
+    }
+    .custom-print-wrapper .bold {
+      font-weight: 900;
+    }
+    .custom-print-wrapper qrcode {
+      display: block;
+    }
+  </style>
+  <style>
+    .custom-print-wrapper img {
+      width: 50px;
+    }
+    .custom-print-wrapper .patient-img {
+      position: absolute;
+      right: .5mm;
+      top: .5mm;
+    }
+    .custom-print-wrapper .patient-text {
+      line-height: 1.4;
+    }
+  </style>
+  <div class="patient-content">
+    <div class="patient-info">
+      <div class="patient-text">
+        <span class="middle">床号：{{patient.bedCode}}床</span><br>
+        <span class="middle">姓名：{{patient.patName}}</span><br>
+        <span class="middle">住院号：{{patient.displayCode}}</span><br>
+        <span class="middle">年龄：{{patient.age}}</span><br>
+        <span class="middle">性别：{{getGender(patient.gender)}}</span><br>
+        <span class="middle">科别：{{patient.wardName}}</span><br>
+        <span class="middle">责任护士：{{patient.dutyNurseName}}</span><br>
+        <span class="middle">责任医生：{{patient.doctorName}}</span><br>
+        <span class="middle">入院日期：{{patient.inDate | idate}}</span><br>
+        <span class="middle">护理级别：{{getNurseLevel(patient.nurseLevel)}}</span><br>
+        <span class="middle">饮食状况：{{patient.dietName}}</span><br>
+      </div>
+      <div class="patient-img">
+        <qrcode data="{{patient.barCode}}" size="50" mode="img" version="1" error-correction-level="L"></qrcode>
+      </div>
+    </div>
+  </div>
+</div>

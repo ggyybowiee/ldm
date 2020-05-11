@@ -1,0 +1,49 @@
+<div class="patient-nursing-path-panel">
+  <div class="path-list" full-page="fix">
+    <!-- <div class="nursing-path-header" style="justify-content: space-between;">
+      <span>
+        <strong>{{vm.currentPath.pathName}}</strong>
+      </span>
+      <button class="btn btn-primary btn-sm" style="width: 80px" ng-if="patient.pathStatus === 1" ng-click="vm.exitPath()">退出</button>
+      <button class="btn btn-primary btn-sm" style="width: 80px" ng-if="patient.pathStatus === 2" ng-click="vm.resetPath()">恢复</button>
+    </div> -->
+    <div>
+      <div class="toolbar">
+        <button class="btn btn-default" ng-class="{'btn-primary': vm.selectedPathNode === null}" ng-click="vm.loadPathSummaryData.func()" style="width: 100%;">路径执行汇总表</button>
+      </div>
+      <treecontrol selected-node="vm.selectedPathNode" class="tree-light lachesis-custom-tree-control" tree-model="vm.pathTreeCollection"
+        on-selection="vm.pathSelect(node, $index)" expanded-nodes="vm.expandedPathNodes"
+        options="vm.pathTreeOption">
+        <span>
+          <span>{{node.nodeName}}
+            <span ng-if="node.childNodes !== null && node.childNodes.length > 0">({{node.nodeDate|idate}})</span>
+          </span>
+          <i ng-click="vm.confirmToRemoveNode(node, $event)" class="fa fa-trash text-danger" style="padding: 0 3px;"
+            ng-if="node.childNodes !== null && node.childNodes.length > 0 && patient.pathStatus === 1"></i>
+        </span>
+      </treecontrol>
+
+      <div class="path-execute" ng-if="patient.pathStatus === 1">
+        <button class="btn btn-default" ng-click="vm.gotoNextDay()">进入下一天</button>
+        <button class="btn btn-default" ng-click="vm.gotoNextNode()">进入下一节点</button>
+      </div>
+    </div>
+  </div>
+  <div loading-wrapper="vm.loadPathNode" ng-if="vm.selectedPathNode !== null">
+    <patient-path-node current-selected-nodes="vm.currentSelectedNodes" expanded-right-nodes="vm.expandedRightNodes"
+      vital-sign-record-time="vitalSignRecordTime" refresh="vm.refresh" patient="patient" sdk-operate="sdkOperate"
+      selected-path-node="vm.selectedPathNode" save-doc="saveDoc" get-patient-path="vm.getPatientPath" selected-node="vm.selectedNode"
+      current-shift="currentShift"></patient-path-node>
+
+    <div ng-if="vm.showPathSummarize" style="width:100%; height:100%; left:0px; top:0px; background-color:white; z-index: 10; position: absolute;margin: 10px 10px 0px 10px;">
+      <patient-path-execute-summarize path-summary-data="vm.pathSummaryData" path-summary-keys="vm.pathSummaryKeys">
+      </patient-path-execute-summarize>
+    </div>
+
+  </div>
+  <div ng-if="vm.selectedPathNode === null" loading-wrapper="vm.loadPathSummaryData">
+    <patient-path-execute-summarize path-summary-data="vm.pathSummaryData" path-summary-keys="vm.pathSummaryKeys"
+      style="z-index:99">
+    </patient-path-execute-summarize>
+  </div>
+</div>

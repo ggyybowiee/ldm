@@ -1,0 +1,50 @@
+<div class="panel panel-layout panel-default" >
+        <div class="flex-box justify-between filter-bar form-inline">
+        </div>
+        <div class="filter-bar form-inline">
+            <button class="btn btn-sm btn-success round-btn pull-right" ui-sref="main.APCount">返回</button>
+        </div>
+        <div loading-wrapper loading-type="content" loading-options="vm.load">
+                <div style="display: flex;align-items: center; border-left: 2px lightgrey;
+                border-left-style: dashed;" ng-repeat="row in vm.graphData track by $index">
+                  <div class="col-xs-4">
+                    <div style="width:200px; height: 100px" ng-click="clickWard(row)">
+                        <div>
+                            <div style="width:200px; height: 60px; border-radius: 0px 0px 5px 5px; text-align: center">
+                                <p>{{row.deviceName}}</p>
+                                <p>{{row.mac}}</p>
+                            </div>
+                          </div>
+                      <div style="color: lightgrey">
+                        <hr style="display:inline-block; height:2px;width: 100px; border:none;border-top:2px dashed lightgrey; margin: 0px;"/>
+                        <img src="assets/images/ldm/ldm_lanqiao.png" style="width: 40px; height: 40px;">&nbsp
+                        <img src="assets/images/ldm/ldm_bg_jiantou.png" style="width: 20px; height: 20px;">
+                      </div>
+                      <div>
+                        <div style="width:200px; height: 60px; border-radius: 0px 0px 5px 5px; text-align: center">
+                          <p>{{row.deviceName}}</p>
+                          <p>{{row.mac}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-4">
+                      <div class="flex-box align-center" style="width:360px; height: 100px;" ng-repeat="ward in row.connectedDevices track by $index">
+                          <hr class="vertical-bar" ng-class="row.statistics.length == 1 ? '': ($index == 0 ? 'under-dashed' : ($index == row.statistics.length-1 ? 'above-dashed' : 'both-dashed'))"/>
+                          <img src="assets/images/ldm/ldm_lanya.png" style="width: 20px; height: 20px;">
+                          <hr style="display:inline-block; height:2px;width: 50px; border:none;border-top:2px dashed lightgrey;"/>
+                        <div class="col-xs-10 flex-box align-center" style="background-color: lightgrey; border-radius: 10px; padding-left: 0px;">
+                          <div class="flex-box align-center btn-primary" style="width: 60px; height: 60px; border-radius: 10px 0px 0px 10px; justify-content: center;">
+                            <img ng-src="{{vm.setIcons(ward.deviceType)}}" height= "40px" width= "40px">
+                          </div>
+                          <div class="node-text" style="width: 200px;">
+                              <p>{{(vm.deviceTypes && (vm.deviceTypes | filter: {code: ward.deviceType})[0].name) || '设备类型未知'}}</strong></p>
+                              <p>接入数量：{{ward.connectedNumber}}</p>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+        </div>
+      </div>
+    

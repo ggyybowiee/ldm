@@ -1,0 +1,78 @@
+<div>
+  <div class="toolbar">
+    <div style="float: left;">
+      <label>查询时间:</label>
+      <date-picker style="width: 160px" ng-model="vm.filter.queryDate" date-options="vm.dateOptions" ng-change="vm.loadWardMewsAlert.func()"
+      />
+    </div>
+
+    <span class="toolbar-item pull-right">
+      <div class="btn-group btn-radio">
+        <label class="btn btn-sm btn-primary" ng-model="vm.filter.cate" uib-btn-radio="0">
+          全部
+        </label>
+        <label class="btn btn-sm btn-primary" ng-model="vm.filter.cate" uib-btn-radio="1">
+          已处理
+        </label>
+        <label class="btn btn-sm btn-primary" ng-model="vm.filter.cate" uib-btn-radio="2">
+          待处理
+        </label>
+      </div>
+    </span>
+  </div>
+
+  <div class="content" loading-wrapper="vm.loadWardMewsAlert">
+    <table class="mews-table table white-borderd">
+      <thead>
+        <th>预警时间</th>
+        <th>处理时间</th>
+        <th>床号</th>
+        <th>患者</th>
+        <th>总分</th>
+        <th>体温(℃)</th>
+        <th>心率(次/分)</th>
+        <th>呼吸(次/分)</th>
+        <th>收缩压(mmHg)</th>
+        <th>意识</th>
+        <th>操作</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="score in vm.showScoreData">
+          <td>{{score.alertTime|idate: 'DM'}}</td>
+          <td>{{score.processTime|mewsScore|idate: 'DM'}}</td>
+          <td>{{score.bedCode}}</td>
+          <td>{{score.patName}}</td>
+          <td style="color:{{vm.ruleDic[score.alertLevel].color}};font-weight:bold;">
+            {{score.totalScore|mewsScore}}
+          </td>
+          <td>
+            <label>{{score.temperature.value|mewsScore}}</label>
+            <label class="mews-score-label" ng-if="score.temperature" style="color:{{vm.ruleDic[score.temperature.alertLevel].color}};">({{score.temperature.score}}分)</label>
+          </td>
+          <td>
+            <label>{{score.heartRate.value|mewsScore}}</label>
+            <label class="mews-score-label" ng-if="score.heartRate" style="color:{{vm.ruleDic[score.heartRate.alertLevel].color}};">({{score.heartRate.score}}分)</label>
+          </td>
+          <td>
+            <label>{{score.breath.value|mewsScore}}</label>
+            <label class="mews-score-label" ng-if="score.breath" style="color:{{vm.ruleDic[score.breath.alertLevel].color}};">({{score.breath.score}}分)</label>
+          </td>
+          <td>
+            <label>{{score.bloodPress.value|mewsScore}}</label>
+            <label class="mews-score-label" ng-if="score.bloodPress" style="color:{{vm.ruleDic[score.bloodPress.alertLevel].color}};">({{score.bloodPress.score}}分)</label>
+          </td>
+          <td>
+            <label>{{score.sense.value|mewsScore}}</label>
+            <label class="mews-score-label" ng-if="score.sense" style="color:{{vm.ruleDic[score.sense.alertLevel].color}};">({{score.sense.score}}分)</label>
+          </td>
+          <td class="mews-risk-process-td">
+            <div>
+              <button class="mews-risk-process-btn" ng-if="!score.isProcessed || score.isProcessed==0" ng-click="vm.riskButtonOnClick(score)">知道了</button>
+              <button class="mews-risk-processed-btn" ng-if="score.isProcessed==1" style="cursor:default;">已处理</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
+</div>

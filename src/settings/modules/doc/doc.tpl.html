@@ -1,0 +1,60 @@
+<div class="doc-wrapper">
+  <div class="panel panel-default">
+    <div class="panel-heading"><i class="fa fa-book"></i>文书模板配置</div>
+    <div class="toolbar">
+      <div class="toolbar-item">
+        <label>系统： </label>
+        <select class="form-control input-sm" ng-model="vm.queryParams.category" name="category" ng-change="vm.load.func()">
+          <option value="">全部</option>
+          <option ng-repeat="item in vm.apps | filter: {appType: '0'}" value="{{item.resourceCode}}">{{item.ad}}</option>
+        </select>
+      </div>
+      <div class="toolbar-item">
+        <label>病区： </label>
+        <select class="form-control input-sm" ng-model="vm.queryParams.wardCode" name="wardCode" ng-change="vm.load.func()">
+          <option value="">全部</option>
+          <option ng-repeat="item in vm.wards" value="{{item.wardCode}}">{{item.wardName}}</option>
+        </select>
+      </div>
+      <div class="toolbar-item pull-right">
+        <a class="btn btn-success btn-sm btn-round" ng-click="vm.openDocAdd()">添加</a>
+      </div>
+    </div>
+      <div class="doc-list" loading-wrapper loading-type="content" loading-options="vm.load">
+        <table class="table white-borderd">
+          <thead>
+            <tr>
+              <th>名称</th>
+              <th>纸张</th>
+              <th>当前版本</th>
+              <th>历史版本</th>
+              <th>最后更新人</th>
+              <th>最后更新时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in vm.list">
+              <td>{{ row.tplName }}</td>
+              <td>{{ gUtils.getMatchedField(vm.sizeDic, {value: row.components.params.size}, 'label') }}</td>
+              <td>{{ row.version }}</td>
+              <td>{{ row.history }}</td>
+              <td>{{ row.updatePerson }}</td>
+              <td>{{ row.updateTime | idate }}</td>
+              <td>
+                <button class="btn btn-link success-text btn-xs" ng-click="vm.go(row.tplId)">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button class="btn btn-link success-text btn-xs" ng-click="vm.open(row)">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-link danger-text btn-xs" confirm yes="vm.delDoc(row.tplId)" content="确认要删除该模板？">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <none-data-info list="vm.list"></none-data-info>
+      </div>
+</div>

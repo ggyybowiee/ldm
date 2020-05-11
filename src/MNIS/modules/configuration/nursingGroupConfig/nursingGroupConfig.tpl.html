@@ -1,0 +1,78 @@
+<div>
+  <form class="form-horizontal w5c-form estimate-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption"
+    name="estimateConfigForm">
+
+    <div class="nursing-group-panel">
+
+      <div class="nursing-duty-config-panel" full-page="fix">
+        <div class="nursing-group-config-title-panel mews-title-panel bordered-bottom">
+          <h4>设置每日班次</h4>
+          <div>
+            <button class="btn btn-sm btn-success pull-right" ng-click="vm.addDuty()">新增</button>
+          </div>
+        </div>
+        <div loading-wrapper="vm.loadNursingDuty">
+          <div class="nursing-duty-item-panel flex bordered-bottom" ng-repeat="duty in vm.nursingDuty track by $index" ng-click="vm.selectDuty(duty)"
+            loading-type="list">
+            <div class="nursing-duty-item-selected" ng-class="vm.selectedDuty == duty ? 'duty-item-selected' : ''"></div>
+            <div style="flex-grow:1;">
+              <div class="flex space-between">
+                <div class="flex">
+                  <span style="width:60px;">班次名称：</span>
+                  <span>{{duty.shiftName}}</span>
+                </div>
+              </div>
+              <div class="flex space-between">
+                <div class="flex">
+                  <span style="width:60px;">时间段：</span>
+                  <span>{{duty.startTime ? duty.startTimeString : '未设定'}}</span>
+                  <span>&nbsp;—&nbsp;</span>
+                  <span>{{duty.endTime ? duty.endTimeString : '未设定'}}</span>
+                </div>
+                <div>
+                  <button class="btn btn-primary btn-sm" ng-click="vm.editDuty(duty, $index)">编辑</button>
+                  <button class="btn btn-danger btn-sm" ng-click="vm.deleteDuty(duty, $index)">删除</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nursing-group-config-panel bordered-left">
+        <div class="nursing-group-config-title-panel mews-title-panel">
+          <h4>设置床位分组</h4>
+          <span>(床号连续时，使用"-"连接；床号不连续时，用逗号隔开。示例：1-4,6,9-12)</span>
+          <div>
+            <button class="btn btn-sm btn-success pull-right" ng-click="vm.addNursingGroupButtonOnClick()" ng-disabled="!vm.selectedDuty || (vm.selectedDuty.status == '9')">新增</button>
+          </div>
+        </div>
+        <div loading-wrapper="vm.loadNursingGroup">
+
+          <table class="table  white-borderd" ng-show="vm.selectedDuty != undefined">
+            <thead>
+              <th>是否启用</th>
+              <th>分组名称</th>
+              <th>床位范围</th>
+              <th>操作</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="group in vm.nursingGroup track by $index">
+                <td>{{group.status=="1"? "启用":"停用"}}</td>
+                <td>{{group.teamName}}</td>
+                <td>{{group.bedRange}}</td>
+                <td>
+                  <div>
+                    <button class="btn btn-primary btn-sm" ng-click="vm.editNursingGroup(group, $index)" ng-disabled="vm.selectedDuty.status == '9'">编辑</button>
+                    <button class="btn btn-danger btn-sm" ng-click="vm.deleteNursingGroupButtonOnClick(group,$index)">删除</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

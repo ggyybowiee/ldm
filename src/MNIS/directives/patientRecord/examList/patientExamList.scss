@@ -1,0 +1,88 @@
+.patient-exam-list-panel {
+  display: flex;
+  padding: 10px 5px 0px 20px;
+
+  .patient-exam-list-wrapper {
+    width: 300px;
+    min-width: 300px;
+    border: 1px solid $border-3;
+
+    .toolbar {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 0px;
+    }
+  }
+
+  .patient-exam-report-panel {
+    flex-grow: 1;
+    border: 1px solid $border-3;
+    margin-left: 5px;
+    padding: 10px 20px;
+
+    .patient-test-report-hospital-wrapper {
+      position: relative;
+      margin-top: 10px;
+
+      .patient-test-code {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        font-weight: bold;
+      }
+
+      h3 {
+        margin: 0px;
+      }
+    }
+
+    .patient-test-report-test-header-wrapper {
+      border-top: 2px solid black;
+      border-bottom: 2px solid black;
+      margin-top: 10px;
+
+      >table {
+        width: 100%;
+
+        td {
+          padding: 3px 0px;
+        }
+      }
+    }
+
+    >p {
+      margin: 15px 0px;
+      text-indent: 2em;
+    }
+  }
+}
+
+.patient-exam-brief-panel {
+  margin: 5px;
+  border: 1px solid $border-3;
+  padding: 5px;
+  border-radius: 0px 5px 5px 0px;
+  display: flex;
+  cursor: pointer;
+
+  >span:first-child {
+    min-width: 70px;
+    width: 70px;
+    margin-right: 10px;
+    border-right: 1px solid $border-3;
+  }
+
+  >span:last-child {
+    flex-grow: 1;
+  }
+
+  &:hover {
+    background-color: $primary;
+    color: white;
+  }
+
+  &.selected {
+    background-color: $primary;
+    color: white;
+  }
+}

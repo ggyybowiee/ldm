@@ -1,0 +1,120 @@
+<div class="estimate-preview ">
+  <style>
+    @media screen {
+      .estimate-table-container {
+        position: relative;
+        width: {{pageWidth}}mm;
+        height: {{pageHeight}}mm;
+        {{padding}}
+      }
+    }
+
+  </style>
+  <div class="estimate-table-container" print-section>
+    <div class="doc-header" style="position:relative">
+      <div class="shield" ng-if="openOuter"></div>
+      <div class="text-center">
+        <div class="hospital-name" ng-if="!hospitalLogo || !hlpgd.tpl.logoVisible">{{hospitalName}}</div>
+        <img ng-if="hospitalLogo && hlpgd.tpl.logoVisible" url-to-base64 ng-src="{{hospitalLogo}}" alt="{{hospitalName}}" height="50"
+          width="auto">
+        <div class="tpl-name">{{hlpgd.tpl.tplName}}</div>
+      </div>
+      <div class="flex-box doc-table__header">
+        <patient-info-bar items="hlpgd.tpl.header" patient="patInfo" start-time="" end-time="">
+          <retouch diagnosis="" items="hlpgd.tpl.retouch" patient="patInfo" sheet-id="sheet.sheetId" date-time=""></retouch>
+          <doc-header-form sheet="sheet" items="hlpgd.tpl.headerFormItems" callback="reloadSheets()"></doc-header-form>
+          <img ng-src="{{hlpgd.tpl.image.url}}" width="{{hlpgd.tpl.image.width || 'auto'}}" height="{{hlpgd.tpl.image.height || 'auto'}}"
+            alt="">
+        </patient-info-bar>
+      </div>
+    </div>
+    <table class="original-table estimate-doc__table estimate-doc__table-original" ng-repeat="table in tableColumns track by $index"
+      key-table="hlpgd.data" table-index="$index" event-map="{
+        up: saveDoc,
+        down: saveDoc,
+        click: saveDoc,
+        enter: saveDoc,
+        blur: saveDoc
+      }">
+      <thead>
+        <tr ng-repeat="tr in table.tableHeader">
+          <th ng-repeat="th in tr" rowspan="{{th.rowspan}}" ng-style="{ 'text-align': th.textAlign }"
+            colspan="{{th.colspan}}">
+            <div ng-bind-html="vm.getHtml(th.title)"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in hlpgd.data[$index] track by $index" extra="{risk: hlpgd.tpl.components.risk}" editable-row="row.data"
+          table-index="$parent.$index" config-source="table.row" context-menu="vm.contextMenuConfig">
+          <td ng-repeat="td in table.row track by td.id" style="text-align:{{td.textAlign}}; width: {{td.width}}%" type="td.dataType" pre-row="hlpgd.data[$parent.$parent.$index][$parent.$index - 1]"
+            editable-td="td.editable" sign-type="signType" with-id="true" options="td.opts" settings="td.settings" colspan="{{td.colspan}}"
+            ng-model="row.data[td.dataBind]" name="td.dataBind">
+          </td>
+        </tr>
+        <tr ng-if="hlpgd.data[$index].length === 0 || !hlpgd.data[$index]">
+          <td colspan="99">
+            <button class="btn btn-sm btn-default" ng-click="insert({event: $event, tableData: hlpgd.data, rowIndex: $index, isAddNewLine: true, tableCount: tableColumns.length, sheetId: sheet.sheetId})"
+              style="width: 100%;border-radius:0;">
+              <i class="fa fa-plus"></i>&nbsp;新增
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="doc-footer">
+      <p ng-bind-html="vm.getHtml(hlpgd.tpl.footer)"></p>
+    </div>
+  </div>
+  <estimate-print></estimate-print>
+  <div class="estimate-doc-print source-wrap" style="display: none;">
+    <style>
+      @media print {
+        .estimate-table-container {
+          width: {{pageWidth - hlpgd.tpl.margin.left - hlpgd.tpl.margin.right}}mm;
+          height: {{pageHeight - hlpgd.tpl.margin.top - hlpgd.tpl.margin.bottom}}mm;
+          overflow: hidden;
+        }
+
+        @page { overflow: hidden; }
+      }
+    </style>
+    <div class="estimate-table-container" print-section ng-repeat="page in pages track by $index" on-finish-render="">
+      <div class="doc-header">
+        <div class="text-center">
+          <div class="hospital-name" ng-if="!hospitalLogo || !hlpgd.tpl.logoVisible">{{hospitalName}}</div>
+          <img ng-if="hospitalLogo && hlpgd.tpl.logoVisible" url-to-base64 ng-src="{{hospitalLogo}}" alt="{{hospitalName}}" height="50"
+            width="auto">
+          <div class="tpl-name">{{hlpgd.tpl.tplName}}</div>
+        </div>
+        <div class="flex-box doc-table__header">
+          <patient-info-bar items="hlpgd.tpl.header" patient="patInfo" start-time="" end-time="">
+          </patient-info-bar>
+        </div>
+        <img ng-src="{{hlpgd.tpl.image.url}}" url-to-base64 width="{{hlpgd.tpl.image.width || 'auto'}}" height="{{hlpgd.tpl.image.height || 'auto'}}"
+          alt="">
+      </div>
+      <div class="estimateTable{{$index}}">
+        <table class="original-table estimate-doc__table" ng-show="pages[$parent.$index][$index]" ng-repeat="table in tableColumns track by $index">
+          <thead>
+            <tr ng-repeat="tr in table.tableHeader">
+              <th ng-repeat="th in tr" rowspan="{{th.rowspan}}" ng-style="{ 'text-align': th.textAlign }"
+                colspan="{{th.colspan}}">
+                <div ng-bind-html="vm.getHtml(th.title)"></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="doc-footer">
+        <p ng-bind-html="vm.getHtml(hlpgd.tpl.footer)"></p>
+        <p class="text-center">第{{$index + 1}}页</p>
+      </div>
+      <div style="page-break-after: always"></div>
+    </div>
+  </div>
+  <div class="print-wrap" style="display: none;"></div>
+</div>

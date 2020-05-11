@@ -1,0 +1,65 @@
+<div class="wrapper">
+    <div class="panel panel-layout panel-default">
+      <div class="panel-heading">
+        <div class="row map-top-setting">
+          <div class="col-md-3">
+            <span class="col-md-2 control-label">楼：</span>
+              <select data-placeholder="请选择楼号" ng-change="vm.getTiers()" class="form-controll input-sm" ng-model="vm.formData.building">
+                <option value="{{building.buildingCode}}" ng-repeat="building in vm.buildings track by building.buildingCode">{{building.buildingName}}</option>
+              </select>
+          </div>
+          <div class="col-md-3">
+            <span class="col-md-4 control-label">楼层：</span>
+            <select data-placeholder="请选择楼层" ng-change="vm.setCurrentTier()" class="form-controll input-sm" ng-model="vm.formData.level">
+              <option value="{{tier.tierCode}}" ng-repeat="tier in vm.tiers track by tier.tierCode">{{tier.tierName}}</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-round active" style="width: 80px;" ng-if="vm.src" ui-sref="{{vm.src}}">返回</button>
+          <button class="btn btn-primary btn-round pull-right" ng-click="vm.openUploadMapImg()" ng-disabled="!vm.formData.building || !vm.formData.level">上传地图</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="blueBridge-sidebar pull-left">
+            <div class="blueBridge-sidebar__heading">
+              <strong>蓝桥列表{{vm.edittingLocation}}</strong>
+            </div>
+            <div class="blueBridge-sidebar__body">
+              <div class="blueBridge-sidebar__filter">
+                <input type="text" class="form-control input-sm input-round" ng-model="vm.filterText" placeholder="输入关键字搜索">
+              </div>
+              <div class="blueBridge-sidebar__filter">
+                <select name="type" class="form-control input-sm" ng-model="vm.eqpBelong">
+                  <option value="{{ward.wardCode}}" ng-repeat="ward in vm.wards">{{ward.wardName}}</option>
+                </select>
+              </div>
+              <p class="blueBridge-sidebar__tips">点击拖动设备</p>
+              <ul class="list-group blueBridge-sidebar__bridges">
+                <li class="list-group-item blueBridge-sidebar__bridge" ng-repeat="bridge in vm.bridges | filter: vm.filterText">
+                  <i ng-hide="vm.isInMarkers(bridge)" class="iconmoon icomoon-blue-bridge bridge-pin" extra="vm.formData" id="id{{bridge.id}}" data-link="id" data="bridge" draggable="true" drag-marker save="vm.doSave" target=".map-markers"></i>
+                  <div>{{bridge.content.basicInfo.eqpName}}</div>
+                  <div>{{bridge.content.basicInfo.mac}}</div>
+                  <div class="blueBridge-room-input">
+                    位置:
+                    <span ng-dblclick="vm.startEditLocation(bridge)">
+                      <input type="text" ng-model="bridge.content.basicInfo.roomCode" name="{{bridge.content.basicInfo.mac}}-roomCode" placeholder="蓝桥位置" ng-blur="vm.saveBridge(bridge)" ng-disabled="vm.edittingLocation !== bridge.content.basicInfo.mac" title="双击编辑" id="location-input-{{bridge.id}}" >
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="map-bg-wrapper">
+            <div class="floor-map-container">
+              <div class="map-markers">
+                <span uib-tooltip="{{marker.content.basicInfo.eqpName}}" ng-show="marker.level === vm.formData.level && marker.buildingCode === vm.formData.buildingCode" ng-repeat="marker in vm.setMarkers" save="vm.doSave" data-source-id="{{marker.sourceId}}" id="{{marker.uid}}" drag-marker data="marker" class="map-markers__item iconmoon icomoon-blue-bridge" ng-style="{left: marker.left + 'px', top: marker.top + 'px'}"></span>
+              </div>
+              <div class="bridge-map-bg" imgSrc="{{vm.imgSrc}}" style="background-image: url({{vm.imgSrc}})">
+                <img ng-src="{{vm.imgSrc}}" on-image-error class="bridge-map-bg__image" ng-onload="vm.resetPosition()">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

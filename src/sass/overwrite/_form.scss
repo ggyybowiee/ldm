@@ -1,0 +1,105 @@
+.divide-line {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px;  
+  &:after {
+    content: " ";
+    display: block;
+    height: 1px;
+    background-color: #ccc;
+    width: 100%;
+    flex: 1;
+  }
+}
+
+.divide-line__title {
+  display: block;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}
+
+.static-form {
+  .form-group {
+    margin-bottom: 0;
+    min-height: 26px;
+
+    [class*="col"] {
+      line-height: 26px;
+    }
+  }
+
+  .control-label {
+    padding: 0;
+  }
+}
+
+.input-round {
+  &.input-sm {
+    border-radius: 13px;
+    padding: 3px 12px;
+  }
+
+  &.input-xs {
+    border-radius: 11px;
+    padding: 1px 10px;
+  }
+}
+
+.control-label {
+  // text-align-last: justify;
+  color: #888;
+  text-align: right;
+  line-height: 26px;
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+}
+
+.control-value {
+  line-height: 26px;
+  color: #333;
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+}
+
+.form-control {
+  &:hover {
+    background: $gray-lighter;
+  }
+  &:focus {
+    background: #fff;
+  }
+}
+
+.color-picker-input {
+  display: inline-block;
+  width: 70px;
+  color: #fff;
+}
+
+.form-row {
+  margin-bottom: 15px;
+  @include make-row;
+}
+
+.form-colored-field {
+  background-color: #F6FAFB;
+  padding: 30px 0;
+}
+
+.form-group-empty {
+  min-height: 26px;
+}
+
+
+input[type="file"].input-file--hidden {
+  // display: none;
+
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}

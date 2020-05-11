@@ -1,0 +1,61 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">出路径</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="bedCode" class="col-sm-3 control-label">床号：</label>
+        <div class="col-sm-6">
+          <span class="control-label" id="bedCode" style="color: #272e37">{{vm.formData.bedCode}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="patName" class="col-sm-3 control-label">患者：</label>
+        <div class="col-sm-6">
+          <span class="control-label" id="patName" style="color: #272e37">{{vm.formData.patName}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pathName" class="col-sm-3 control-label">所在路径：</label>
+        <div class="col-sm-6">
+          <span class="control-label" id="pathName" style="color: #272e37">{{vm.formData.pathName}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="enterDate" class="col-sm-3 control-label">入径日期：</label>
+        <div class="col-sm-6">
+          <span class="control-label" id="enterDate" style="color: #272e37">{{vm.formData.enterDate}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="outPathDate" class="col-sm-3 control-label">出径日期：</label>
+        <div class="col-sm-6">
+          <date-picker class="pathDateStyle" id="outPathDate" ng-model="vm.formData.outPathDate"></date-picker>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exitReasonCode" class="col-sm-3 control-label">出径原因：</label>
+        <div class="col-sm-6">
+          <select type="text" id="exitReasonCode" name="exitReasonCode" ng-model="vm.formData.exitReasonCode" class="form-control input-sm" required>
+            <option value="">请选择</option>
+            <option value="{{item.dicCode}}" ng-repeat="item in vm.metaData.exitList">{{item.dicName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="remark" class="col-sm-3 control-label">备注：</label>
+        <div class="col-sm-6">
+          <textarea placeholder="请说明退出原因！" id="remark" name="remark" ng-model="vm.formData.remark" class="form-control input-sm"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-round btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-round btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

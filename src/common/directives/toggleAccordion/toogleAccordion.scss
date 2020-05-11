@@ -1,0 +1,85 @@
+$offset: 18px;
+$width: 50px;
+
+.accordion-trigger{
+  position: absolute;
+  background-color: #fff;
+
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 12;
+  opacity: 1!important;
+  // transition: all .2s ease-in-out;
+
+  * {
+    opacity: 1!important;
+  }
+
+  &.left {
+    border-left: 0;
+    right: -($offset);
+    top: 50%;
+    width: $offset;
+    height: $width;
+    transform: translateY(-50%);
+    border-radius: 0 2px 2px 0;
+    line-height: 30px;
+  }
+
+  &.right {
+    border-right: 0;
+    left: -14px;
+    top: 50%;
+    width: 14px;
+    height: 30px;
+    transform: translateY(-50%);
+    border-radius: 2px 0 0 2px;
+  }
+
+  &.up {
+    border-top: 0;
+    bottom: -($offset);
+    left: 50%;
+    width: $width;
+    height: $offset;
+    transform: translateX(-50%);
+    border-radius: 0 0 2px 2px;
+    line-height: $offset;
+
+    &.inner {
+      bottom: 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 0;
+    }
+
+    .accordion-hide & {
+      bottom: -($offset);
+      border-top: 0;
+      border-bottom: 1px solid #ccc;
+    }
+  }
+
+  &.bottom {
+    border-bottom: 0;
+  }
+}
+
+.accordion-hide {
+  &.left {
+    width: 0!important;
+  }
+
+  &.up .accordion-inner {
+    height: 0!important;
+    overflow: hidden;
+  }
+
+  * {
+    // transition: all .2s ease-in-out;
+    opacity: 0;
+  }
+}

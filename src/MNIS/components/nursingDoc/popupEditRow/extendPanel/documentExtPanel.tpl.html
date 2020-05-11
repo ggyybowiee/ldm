@@ -1,0 +1,19 @@
+<div>
+  <div loading-wrapper="vm.loadDocuments">
+    <div ng-if="vm.documents.length > 0">
+      <div style="margin:5px 0px;" class="bordered-bottom">
+        <label for="cate" class="control-label col-xs-2 partial-label">引用的文书：</label>
+        <select class="form-contorl input-sm" ng-model="vm.selectedDocument"  ng-change="vm.selectDocument(vm.selectedDocument)"
+        ng-options="document.fileName for document in vm.documents">
+        </select>
+      </div>
+      <div class="patient-exam-ext-report-panel" full-page="overflowHidden" full-page-bottom="39">
+        <iframe height="100%" width="100%" id="patient-document-ext-import-iframe"></iframe>
+      </div>
+      <div>
+        <button class="btn btn-primary" ng-click="vm.insertText()" style="width: 100%;">引用选中部分</button>
+      </div>
+    </div>
+    <h3 ng-if="vm.documents.length == 0">患者没有病历记录</h3>
+  </div>
+</div>

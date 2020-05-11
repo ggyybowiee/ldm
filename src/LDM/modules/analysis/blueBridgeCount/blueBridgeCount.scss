@@ -1,0 +1,209 @@
+.node-text {
+  > p {
+    margin-bottom: 0px;
+  }
+}
+
+.ward-device {
+  display: flex;
+  align-items: center;
+  position: relative;
+  &:before {
+    content: url("../assets/images/ldm/ldm_wifi.png");
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: -5px;
+    z-index: 1;
+    background-color: white;
+  }
+}
+
+.ward-both-dashed {
+  height: 100%;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: absolute;
+  left: 5px;
+  top: 0px;
+}
+
+.ward-under-dashed {
+  height: 50%;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: absolute;
+  left: 5px;
+  bottom: 0px;
+}
+
+.ward-above-dashed {
+  height: 50%;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: absolute;
+  left: 5px;
+  top: 0px;
+}
+
+.vertical-bar {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.both-dashed {
+  height: 100px;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: relative;
+  left: 14px;
+  top: 0px;
+}
+
+.under-dashed {
+  height: 50px;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: relative;
+  left: 14px;
+  top: 30px;
+}
+
+.above-dashed {
+  height: 50px;
+  width: 2px;
+  border: none;
+  border-left: 2px dashed lightgrey;
+  position: relative;
+  left: 14px;
+  bottom: 25px;
+}
+
+.img_amend {
+  position: relative;
+  top: 2px;
+}
+
+.dashed-striping {
+  display: inline-block;
+  height: 2px;
+  border: none;
+  border-top: 2px dashed lightgrey;
+}
+
+.blue-device-img {
+  width: 60px;
+  height: 64px;
+  border-radius: 10px 0px 0px 10px;
+  justify-content: center;
+  background-color: #68a3fd;
+}
+.blue-device-box {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding-left: 0px;
+  max-width: 280px;
+  min-width: 200px;
+}
+
+.preposing-icon {
+  width: 20px;
+  height: 30px;
+  z-index: 1;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ward-under-box {
+  height: 60px;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0px 2px 1px #f2f2f2;
+}
+
+.ward-top-box {
+  min-height: 40px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.white-table {
+  > thead > tr > th {
+    border-bottom: none;
+    font-weight: normal;
+    text-align: left;
+    background-color: #f4f4f4;
+  }
+  > tbody > tr > td {
+    border: none;
+    border-top: 0px;
+    border-bottom: 0px;
+    text-align: left;
+    background-color: #ffffff;
+    height: 50px;
+    vertical-align: middle;
+  }
+}
+
+.blue-border-table {
+  border: 1px solid #3f78bf;
+  > thead > tr > th {
+    border-bottom: none;
+    font-weight: normal;
+    text-align: left;
+    background-color: #f7f9fa;
+  }
+  > tbody > tr > td {
+    border: none;
+    border-top: 0px;
+    border-bottom: 0px;
+    text-align: left;
+    background-color: #f7f9fa;
+    height: 50px;
+    vertical-align: middle;
+  }
+}
+
+.top-table-blue {
+  border: 1px solid #3f78bf;
+  border-bottom: none;
+  > td {
+    background-color: #f7f9fa;
+  }
+}
+
+.under-table-blue {
+  border: 1px solid #3f78bf;
+  border-top: none;
+  background-color: #f7f9fa;
+  > td {
+    background-color: #f7f9fa;
+    >table {
+      >thead > tr > th {
+        background-color: #f7f9fa;
+      }
+      >tbody > tr> td {
+        background-color: #f7f9fa;
+      }
+    }
+  }
+}
+
+.table-border-blue {
+  border: 1px solid #3f78bf !important;
+}
+
+// .table> tbody + tbody {
+//   border: 0px !important;
+// }
+
+.turn-img{
+  transform: rotate(180deg);
+  -webkit-transform:rotate(180deg);
+}

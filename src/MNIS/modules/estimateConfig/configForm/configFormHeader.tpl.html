@@ -1,0 +1,16 @@
+<div class="toolbar-item-panel">
+  <h3 ng-bind="vm.formData.tplName" style="display: inline-block;margin: 0px;">文书名称</h3>
+  <button class="btn btn-sm btn-success btn-round pull-right" w5c-form-submit="vm.save()">
+    保存
+  </button>
+  <span class="toolbar-item pull-right" style="margin: 0px 10px">
+    <div class="btn-group btn-radio">
+      <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="0">
+        评估单基本信息
+      </label>
+      <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="1">
+        评估单表体配置
+      </label>
+    </div>
+  </span>
+</div>

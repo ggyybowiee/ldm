@@ -1,0 +1,125 @@
+<div class="nursing-doc-panel" full-page="fix" padding-bottom="-10">
+  <div class="doc-control">
+    <div class="abs-left" ng-if="!vm.curSheet.date">
+      <!-- <span class="continue-print"></span> -->
+      <!-- Commit by HSW -->
+      <!-- 不使用此特殊字符功能 -->
+      <!-- （提示：按alt + shift + e可输入特殊字符） -->
+      <span uib-tooltip="上次打印到第{{panel.mark.page || 0}}页，第{{panel.mark.row || 0}}行" tooltip-class="btn-custom-tip" tooltip-append-to-body="true" style="margin-left:10px;cursor:pointer;">{{panel.mark.page
+        || 0}}页-{{panel.mark.row || 0}}行</span>
+      &nbsp;|&nbsp;
+      <doc-scale-input ng-model="panel.docShowScale"></doc-scale-input>
+      &nbsp;|&nbsp;
+      <nursing-doc-page-nav cur-sheet="panel.curSheet" direct-to-page="panel.pageInputChange"></nursing-doc-page-nav>
+      <button class="btn btn-primary btn-sm btn-nursing-doc-tool" ng-click="panel.setCustomPage()" ng-if="!panel.curSheet.date"
+        uib-tooltip="换页符管理" tooltip-class="btn-custom-tip" tooltip-append-to-body="true"><span class="fa fa-film"></span></button>
+    </div>
+    <span ng-if="!vm.curSheet.date">
+      <button class="btn btn-sm btn-default" ng-disabled="panel.echo.curPage - panel.curSheet.$offsetPage == 1 || panel.editingRow || panel.echo.curPage == 1 || (panel.echo.curPage == panel.curSheet.$offsetPage)"
+        ng-click="panel.firstPage()">
+        <span class="fa fa-step-backward"></span>
+      </button>
+      <button class="btn btn-sm btn-default" ng-disabled="panel.echo.curPage - panel.curSheet.$offsetPage == 1 || panel.editingRow || panel.echo.curPage == 1 || (panel.echo.curPage == panel.curSheet.$offsetPage)"
+        ng-click="panel.prevPage()">
+        <span class="fa fa-angle-left"></span>
+      </button>
+      <form class="page-form" ng-submit="panel.goPage(panel.echo.curPage)" novalidate>
+        <input uib-tooltip="按“回车”前往" tooltip-class="btn-custom-tip" type="text" class="page-index input-sm form-control" ng-model="panel.echo.curPage"
+          ng-change="panel.pageInputChange(panel.echo.curPage)" required ng-blur="panel.pageInputBlur()" />
+      </form>
+      &nbsp;/&nbsp;&nbsp;{{panel.page}}&nbsp;
+      <button class="btn btn-sm btn-default" ng-disabled="panel.echo.curPage - panel.curSheet.$offsetPage == panel.echo.pageNum || panel.editingRow || panel.page == 1"
+        ng-click="panel.nextPage()">
+        <span class="fa fa-angle-right"></span>
+      </button>
+      <button class="btn btn-sm btn-default" ng-disabled="panel.echo.curPage - panel.curSheet.$offsetPage == panel.echo.pageNum || panel.editingRow || panel.page == 1"
+        ng-click="panel.lastPage()">
+        <span class="fa fa-step-forward"></span>
+      </button>
+    </span>
+    <div class="doc-control-right" style="padding-right:10px;">
+      {{vm.echo.active}}
+      <button class="btn btn-success btn-sm btn-nursing-doc-tool" tooltip-class="btn-custom-tip"  ng-click="panel.addData()" ng-show="!panel.openOuter"
+        uib-tooltip="创建记录" tooltip-append-to-body="true"><span class="fa fa-plus"></span></button>
+      <button class="btn btn-success btn-sm btn-nursing-doc-tool" tooltip-class="btn-custom-tip" ng-click="panel.saveHeaderForm()" ng-show="!panel.openOuter"
+        uib-tooltip="保存表头" tooltip-append-to-body="true"><span class="fa fa-save"></span></button>
+      &nbsp;|&nbsp;
+      <button ng-if="(''|nursingDocSignType) == 'CA'" class="btn btn-primary btn-sm btn-nursing-doc-tool btnIconGroup" tooltip-class="btn-custom-tip" ng-click="panel.signAllPage()"
+        ng-show="!panel.openOuter" uib-tooltip="整页签名" tooltip-append-to-body="true">
+        <span class="fa fa-pencil"></span>
+      </button>
+      <button class="btn btn-primary btn-sm btn-nursing-doc-tool btnIconGroup" tooltip-class="btn-custom-tip" ng-click="panel.checkAllPage()" ng-show="!panel.openOuter"
+        uib-tooltip="整页冠签" tooltip-append-to-body="true">
+        <span class="fa fa-check-square-o"></span>
+      </button>
+      <button class="btn btn-primary btn-sm btn-nursing-doc-tool btnIconGroup" tooltip-class="btn-custom-tip" ng-click="panel.manualStatistics($event)" ng-show="!panel.openOuter"
+        uib-tooltip="统计出入量" tooltip-append-to-body="true">
+        <span class="fa fa-bar-chart"></span>
+      </button>
+      &nbsp;|&nbsp;
+      <button class="btn btn-primary btn-sm btn-nursing-doc-tool" tooltip-class="btn-custom-tip" ng-click="panel.printCur()" ng-if="!panel.curSheet.date" ng-disabled="panel.echo.isCurrentBlankPage"
+        uib-tooltip="打印当前页" tooltip-append-to-body="true"><i class="fa fa-file"></i></button>
+      <button class="btn btn-primary btn-sm btn-nursing-doc-tool btnIconGroup" tooltip-class="btn-custom-tip" ng-click="panel.print()" ng-if="!panel.curSheet.date"
+        uib-tooltip="打印" tooltip-append-to-body="true">
+        <i class="fa fa-print"></i>
+      </button>
+    </div>
+  </div>
+
+  <nursing-doc-item-edit ng-if="panel.editPanel.isOpen" edit-data="panel.editPanel.editData" tpl="panel.tpl" echo="panel.echo"
+    patient-info="panel.patient" current-page-columns="panel.currentPageColumns" close-panel="panel.saveEditItemDataWhenPopup"
+    nursing-check-sign="panel.nursingCheckSign"></nursing-doc-item-edit>
+
+  <style>
+    /* @media print {
+      #scale-doc-container {
+        transform: scale(1, 1);
+      }
+    } */
+
+  </style>
+
+  <div class="nursing-doc-page-container doc-box" loading-wrapper="panel.load" loading-type="all">
+    <div id="scale-doc-container" style="transform: scale({{panel.docShowScale/100}},{{panel.docShowScale/100}});transform-origin:0 0;">
+      <div class="doc-wrapper nursing-doc-page-wrapper " ng-style="{width: panel.pageWidth}" ng-class="{'left-algins':panel.editPanel.isOpen}">
+        <div class="doc-header" style="position:relative;" ng-class="{'blank-page':panel.echo.isCurrentBlankPage}">
+          <div class="shield" ng-if="panel.openOuter"></div>
+          <div class="text-center">
+            <img ng-if="panel.hospitalLogo && panel.tpl.logoVisible" url-to-base64 ng-src="{{panel.hospitalLogo}}" alt="{{panel.hospitalName}}"
+              height="50" width="auto">
+            <span class="pull-right printMark" id="printMark" ng-if="!panel.showByPrinting && panel.printFlag">
+              <img src="../../../assets/images/mnis/printIcon.svg" alt="" width="65">
+            </span>
+            <div class="doc-title">{{panel.tpl.tplName}}</div>
+          </div>
+          <div class="flex-box doc-table__header">
+            <patient-info-bar items="panel.tpl.header" patient="panel.patient" is-current="true" start-time="panel.startTime"
+              headers="panel.headers" end-time="panel.endTime">
+              <div class="align-center flex-box" ng-if="panel.tpl.showTplIdVisible">
+                <div class="doc-table__header-label">编号：</div>
+                <div class="doc-table__header-value">{{panel.tpl.showTplId}}</div>
+              </div>
+              <retouch url="/emr/Diagnosis" diagnosis="" items="panel.tpl.retouch" patient="panel.patient" sheet-id="panel.curSheet.sheetId"
+                date-time=""></retouch>
+              <doc-header-form sheet="panel.curSheet" items="panel.tpl.headerFormItems"></doc-header-form>
+            </patient-info-bar>
+          </div>
+        </div>
+
+        <div class="doc-content">
+          <nursing-doc editing-index="panel.editingIndex" tpl="panel.tpl" current-page-columns="panel.currentPageColumns"
+            data="panel.tplData" show-data="panel.showData" raw-data="panel.rawData" methods="panel.methods" echo="panel.echo"
+            editing-row="panel.editingRow" line-height="panel.lineHeight" del-data="panel.delData" sheet="panel.curSheet"
+            print-from-this-row="panel.printFromThisRow" alt-page="panel.altPage" set-columns="panel.setCustomColumns"
+            input-page="panel.echo.curPage" scroll-page="panel.scrollPage" row-mark="{{panel.oriMark.markRow}}"
+            load-page-data="panel.reloadSheetAndPage" patient-info="panel.patient"  direct-to-page="panel.pageInputChange"></nursing-doc>
+          <!-- input-disabled="{{panel.curSheet.wardCode !== panel.profile.wardCode}}" -->
+        </div>
+        <div class="doc-footer">
+          <p ng-bind-html="panel.getHtml(panel.tpl.footer)"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <custom-print print-html="panel.printHtml" cb="panel.printSync()"></custom-print>
+</div>

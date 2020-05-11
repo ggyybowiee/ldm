@@ -1,0 +1,220 @@
+<!-- 选择器 -->
+<div class="patient-selector-btn-panel">
+  <span>
+    <input class="form-control" type="text" placeholder="输入患者床号(在院患者)|住院号|姓名后检索" ng-model="vm.searchText" />
+  </span>
+  <div class="btn-group btn-radio">
+    <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="0">住院患者</label>
+    <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" uib-btn-radio="1">转科患者</label>
+    <label class="btn btn-sm btn-primary" ng-model="vm.filter.showType" ng-click="vm.loadOuthosRecord.func()"
+      uib-btn-radio="2">出院患者</label>
+  </div>
+</div>
+
+<div class="patient-selector-inhos-panel">
+  <!-- 住院患者 -->
+  <div ng-show="vm.filter.showType == 0" style="height: 300px;" loading-wrapper loading-type="content" loading-options="vm.loadPatients">
+    <table class="table white-borderd tr-hover" ng-show="vm.filter.showType==0">
+      <thead>
+        <th>
+          床号
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'bedCode.asc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('bedCode.asc', 0)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'bedCode.desc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('bedCode.desc', 0)"></i>
+          </span>
+        </th>
+        <th>
+          住院号
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'displayCode.asc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('displayCode.asc', 0)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'displayCode.desc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('displayCode.desc', 0)"></i>
+          </span>
+        </th>
+        <th>
+          姓名
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'patName.asc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('patName.asc', 0)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'patName.desc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('patName.desc', 0)"></i>
+          </span>
+        </th>
+        <th>
+          性别
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'gender.asc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('gender.asc', 0)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'gender.desc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('gender.desc', 0)"></i>
+          </span>
+        </th>
+        <th>
+          年龄
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'age.asc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('age.asc', 0)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'age.desc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('age.desc', 0)"></i>
+          </span>
+        </th>
+        <th>
+          入院日期
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'inDate.asc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('inDate.asc', 0)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'inDate.desc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('inDate.desc', 0)"></i>
+          </span>
+        </th>
+        <th>
+          付费方式
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'chargeTypeName.asc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('chargeTypeName.asc', 0)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'chargeTypeName.desc0' ? 'selectIcon': ''}}" ng-click="vm.sortList('chargeTypeName.desc', 0)"></i>
+          </span>
+        </th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="pat in vm.patients | filter:vm.searchPatientFilter" ng-click="vm.patientSelector(pat, 0)">
+          <td> {{pat.bedCode}}</td>
+          <td> {{pat.displayCode}}</td>
+          <td> {{pat.patName}}</td>
+          <td> {{pat.gender|gender}}</td>
+          <td> {{pat.birthDate|age}}</td>
+          <td> {{pat.inDate|idate:'D' }}</td>
+          <td> {{pat.chargeTypeName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 转科患者 -->
+  <div ng-show="vm.filter.showType == 1">
+    <h5>近三个月转科的患者</h5>
+    <table class="table white-borderd tr-hover">
+      <thead>
+        <th>
+          住院号
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'displayCode.asc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('displayCode.asc', 1)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'displayCode.desc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('displayCode.desc', 1)"></i>
+          </span>
+        </th>
+        <th>
+          姓名
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'patName.asc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('patName.asc', 1)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'patName.desc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('patName.desc', 1)"></i>
+          </span>
+        </th>
+        <th>
+          性别
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'gender.asc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('gender.asc', 1)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'gender.desc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('gender.desc', 1)"></i>
+          </span>
+        </th>
+        <th>
+          年龄
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'age.asc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('age.asc', 1)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'age.desc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('age.desc', 1)"></i>
+          </span>
+        </th>
+        <th>
+          转科时间
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'dischargeDateTime.asc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('dischargeDateTime.asc', 1)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'dischargeDateTime.desc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('dischargeDateTime.desc', 1)"></i>
+          </span>
+        </th>
+        <th>
+          当前科室
+          <span class="iconWrap">
+            <i class="fa fa-caret-up {{vm.sortType == 'wardName.asc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('wardName.asc', 1)"></i>
+            <i class="fa fa-caret-down {{vm.sortType == 'wardName.desc1' ? 'selectIcon': ''}}" ng-click="vm.sortList('wardName.desc', 1)"></i>
+          </span>
+        </th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="pat in vm.transferPatients | filter:vm.searchPatientFilter" ng-click="vm.patientSelector(pat, 1)">
+          <td> {{pat.displayCode}}</td>
+          <td> {{pat.patName}}</td>
+          <td> {{pat.gender|gender}}</td>
+          <td> {{pat.birthDate|age}}</td>
+          <td> {{pat.patTransferRecord.dischargeDateTime|idate:'D'}}</td>
+          <td> {{pat.wardName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 出院患者 -->
+  <div ng-show="vm.filter.showType == 2">
+    <div class="toolbar">
+      <div class="toolbar-item">
+        近三个月出院的患者
+      </div>
+      <div class="pull-right">
+        <div class="toolbar-item">
+          时间：
+          <date-picker width="100px" ng-model="vm.params.beginTime" open="false"></date-picker>&nbsp;到&nbsp;
+          <date-picker width="100px" ng-model="vm.params.endTime" open="false"></date-picker>
+        </div>
+        <div class="toolbar-item">
+          <button class="btn btn-sm btn-round btn-primary" ng-click="vm.search()">查询</button>
+        </div>
+      </div>
+    </div>
+    <div style="height: 350px;" loading-wrapper loading-type="content" loading-options="vm.loadHistoryPatients">
+      <table class="table white-borderd tr-hover">
+        <thead>
+          <th>
+            住院号
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'displayCode.asc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('displayCode.asc', 2)"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'displayCode.desc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('displayCode.desc', 2)"></i>
+            </span>
+          </th>
+          <th>
+            床号
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'bedCode.asc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('bedCode.asc', 2)"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'bedCode.desc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('bedCode.desc', 2)"></i>
+            </span>
+          </th>
+          <th>
+            姓名
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'patName.asc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('patName.asc', 2)"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'patName.desc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('patName.desc', 2)"></i>
+            </span>
+          </th>
+          <th>
+            性别
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'gender.asc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('gender.asc', 2)"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'gender.desc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('gender.desc', 2)"></i>
+            </span>
+          </th>
+          <th>
+            年龄
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'age.asc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('age.asc', 2)"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'age.desc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('age.desc', 2)"></i>
+            </span>
+          </th>
+          <th>
+            出院日期
+            <span class="iconWrap">
+              <i class="fa fa-caret-up {{vm.sortType == 'outDate.asc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('outDate.asc', 2)"></i>
+              <i class="fa fa-caret-down {{vm.sortType == 'outDate.desc2' ? 'selectIcon': ''}}" ng-click="vm.sortList('outDate.desc', 2)"></i>
+            </span>
+          </th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="pat in vm.historyPatients | filter:vm.searchPatientFilter" ng-click="vm.patientSelector(pat, 2)">
+            <td> {{pat.displayCode}}</td>
+            <td> {{pat.bedCode|mewsScore}}</td>
+            <td> {{pat.patName}}</td>
+            <td> {{pat.gender|gender}}</td>
+            <td> {{pat.birthDate|age}}</td>
+            <td> {{pat.outDate| idate:'D'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

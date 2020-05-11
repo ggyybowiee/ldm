@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <table class="white-borderd table table-hover">
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>状态</th>
+        <th>备注</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in vm.metaData.errorInfo">
+        <td class="ng-binding">{{row.sendTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="ng-binding" ng-class="{'warning': row.content.code == 2, 'danger': row.content.code == 1}">{{(vm.metaData.codes | filter: { type: 'errorLevel', code: row.content.level })[0].name || '--'}}</td>
+        <td class="ng-binding">{{row.content.message}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

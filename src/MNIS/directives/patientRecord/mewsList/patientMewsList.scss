@@ -1,0 +1,184 @@
+.patient-mews-list-panel {
+  border: 1px solid $border-3;
+  margin: 5px 5px 0px 5px;
+}
+
+#mews-echart {
+  width: 100%;
+  height: 400px;
+}
+
+.mews-value-label {
+  font-size: 12px;
+}
+
+.mews-score-label {
+  color: $primary;
+  font-size: 10px;
+}
+
+.mews-table {
+  td {
+    height: 40px;
+    line-height: 40px;
+
+    label {
+      margin: auto 0px;
+    }
+  }
+}
+
+.realtime-mews-panel {
+
+  padding: 10px 5% 0px 5%;
+  border: 1px solid $border-3;
+
+  .realtime-mews-table {
+    width: 100%;
+    font-size: 16px;
+
+    img {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+    }
+
+    tr {
+      >td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 0px 10px;
+      }
+
+      >th {
+        vertical-align: middle;
+        text-align: center;
+        padding: 0px 10px;
+      }
+
+      height: 60px;
+    }
+
+    >thead {
+      >tr:first-child {
+        >th {
+          padding: 20px 10px;
+          text-align: center;
+
+          >div {
+            border-right: 1px solid $border-3;
+           
+
+            >div {
+              &:first-child {
+                font-weight: normal;
+                font-size: 16px;
+              }
+
+              &:last-child {
+                font-size: 30px;
+              }
+            }
+          }
+
+          &:first-child {
+            >div {
+              border-right: 1px solid $border-3;
+
+              >div {
+                &:first-child {
+                  font-weight: normal;
+                  font-size: 16px;
+                  >span{
+                    font-weight: bold;
+                    font-size: 30px;
+                  }
+                }
+
+                &:last-child {
+                  font-weight: normal;
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+
+          &:last-child {
+            >div {
+              border: 0px;
+            }
+          }
+        }
+      }
+
+      >tr:last-child {
+        background-color: $back-5;
+        border-bottom: 1px solid $back-3;
+
+        >th {
+          &:first-child {
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    >tbody {
+      >tr {
+        >td:first-child {
+          text-align: left;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+.mews-chart-tooptip-panel {
+  background-color: white;
+  box-shadow: 2px 2px 5px  $border-3;
+  border:1px solid #BFBFBF;
+  min-width: 200px;
+  width: 200px;
+  min-height: 100px;
+
+  .mews-chart-tooptip-header{
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 40px;    
+    background-color: $back-4;
+    border-bottom: 1px solid $border-3;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    color: $font-1;
+
+    b{
+      font-size: 16px;
+      color: $primary;
+    }
+  }
+
+  .mews-chart-tooptip-content{
+    padding: 0px 10px;
+    background-color: white;
+    >ul{
+      >li{
+        height: 30px;
+        line-height: 30px;
+        >div{
+          display: flex;
+          justify-content: space-between;
+          font-size: 14px;
+          color: $font-1;
+
+          b{
+            font-weight: bold;            
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}

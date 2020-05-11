@@ -1,0 +1,23 @@
+<div class="toolbar flex selector-bar-panel">
+
+  <div class="selector-pat-info-panel">
+    <div class="selector-pat-info-brief-panel">
+      <button class="btn btn-default" ng-click="vm.previewPatientBtnOnClick()" ng-disabled="!vm.isCurInHosPatient() || vm.currentIndex === 0">&lt;</button>
+      <span uib-dropdown auto-close="outsideClick" on-toggle="vm.toggle()" is-open="vm.filter.isOpen">
+        <div class="selector-dropdown-toggle" uib-dropdown-toggle ng-click="vm.openPatientList()">
+          <div class="selector-dropdown-toggle-title" ng-class="{'color-green': vm.patient.pathSpecialItems['rs'] === 'yes'}">
+            <span ng-if="!vm.patStatus">{{vm.patient.bedCode}}</span>
+            {{vm.patient.patName}}
+            <span ng-if="vm.patStatus==1">(转科)</span>
+            <span ng-if="vm.patStatus==2">(出院)</span>
+          </div>
+        </div>
+        <div class="selector-dropdown-menu" uib-dropdown-menu ng-include="'MNIS/directives/patientSelectorBar/patientSelectorDropdownMenu.tpl.html'">
+        </div>
+      </span>
+      <button class="btn btn-default" ng-click="vm.nextPatientBtnOnClick()" ng-disabled="!vm.isCurInHosPatient() || (vm.currentIndex === vm.patients.length - 1)">&gt;</button>
+    </div>
+    <div class="selector-pat-info-detail-panel" ng-include="'MNIS/directives/patientSelectorBar/patientSelectorBarPatInfo.tpl.html'">
+    </div>
+  </div>
+</div>

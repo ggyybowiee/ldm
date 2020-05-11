@@ -1,0 +1,91 @@
+<div class="panel panel-layout panel-default">
+    <div class="filter-bar form-inline">
+        <div class="filter-item">
+            <input class="form-control input-sm" type="text" ng-model="vm.queryParams.key" placeholder="关键字">
+          </div>
+      <!-- <div class="filter-item">
+        <label>所属病区： </label>
+        <select class="form-control input-sm" ng-change="vm.load.func()" ng-model="vm.queryParams.warCode" name="eqpBelong" convertToNumber>
+          <option value="">全部</option>
+          <option ng-repeat="item in vm.belongs" value="{{item.wardCode}}">{{item.wardName}}</option>
+        </select>
+      </div> -->
+
+      <button class="btn btn-sm btn-primary round-btn button-size" ng-click="vm.load.func()">查询</button>
+      <!-- <button class="btn btn-sm btn-primary round-btn pull-right" ui-sref="main.APCount">图标/数据表切换</button> -->
+      <button class="btn btn-sm btn-primary round-btn pull-right button-size" style="margin-right: 20px;" ng-click="vm.load.func()"
+     >刷新</button>
+    </div>
+    <div class="panel-body" loading-wrapper loading-type="content" loading-options="vm.load">
+      <table class="table table-hover white-table" st-table="vm.devicesDisplay" st-safe-src="vm.devices" sytle="table-layout: fixed">
+        <thead>
+          <tr>
+            <th width="10%" style="text-align: center">序号</th>
+            <th width="30%">AP名称</th>
+            <th width="35%">Mac地址</th>
+            <th width="15%">接入设备数(台)</th>
+            <th width="10%" style="text-align: center">操作</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="row in vm.devicesDisplay | orderBy : createTime : desc track by $index" ng-class="{'table-border-blue' : row.showDetail}">
+          <tr >
+            <td class="ng-binding" style="text-align: center">{{$index + 1}}</td>
+            <td class="ng-binding">{{row.name}}</td>
+            <td class="ng-binding">{{row.mac}}</td>
+            <td class="ng-binding">
+              <span ng-class="vm.setColor(row.connectedNum)">
+                <strong class="fz-16">{{row.connectedNum}}</strong>台</span>
+            </td>
+            <td class="ng-binding" ng-click="vm.clickRow(row)" ng-disabled="row.connectedNum == 0" style="text-align: center">
+              <span class="text-primary"> {{row.showDetail ? '收缩' : '展开'}}</span>&nbsp&nbsp
+              <img style="width: 12px;" ng-class="{'turn-img': row.showDetail}" src="assets/images/devices/icon_xiala.png">
+            </td>
+          </tr>
+          <tr ng-show="row.showDetail === true" >
+            <td colspan="5">
+              <table class="table table-hover white-table sub-table" style="margin-bottom: 0px">
+                <thead>
+                  <tr>
+                    <th width="10%"></th>
+                    <th width="30%"></th>
+                    <th width="35%"></th>
+                    <th width="15%"></th>
+                    <th width="10%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="device in row.deviceList">
+                    <td></td>
+                    <td class="ng-binding subTable-td">
+                        <label>
+                            <i class="fa fa-dot-circle-o text-primary" style="margin-right: 5px;"></i>
+                            <span>{{device.content.basicInfo.eqpName}}</span>
+                          </label>
+                    </td>
+                    <td class="ng-binding subTable-td">{{vm.types && (vm.types | filter : {code: device.content.basicInfo.eqpType})[0].name}}</td>
+                    <td class="ng-binding subTable-td">{{device.content.basicInfo.mac}}</td>
+                    <td class="ng-binding subTable-td" style="text-align:center;">{{vm.belongs && (vm.belongs | filter : {wardCode: device.content.basicInfo.eqpBelong})[0].wardName}}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="8">
+                      <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+          </tr>
+        </tbody>
+        </td>
+        <tfoot>
+          <tr>
+            <td colspan="8">
+              <div st-pagination="" st-items-by-page="20" st-displayed-pages="5"></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- <none-data-info list="vm.statuses"></none-data-info> -->
+    </div>
+  </div>

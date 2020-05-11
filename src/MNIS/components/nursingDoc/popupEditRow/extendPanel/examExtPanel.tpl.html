@@ -1,0 +1,22 @@
+<div>
+  <div loading-wrapper="vm.loadExams">
+    <div class="patient-exam-ext-list-panel" ng-if="vm.examList.length > 0">
+      <div class="patient-exam-ext-list-wrapper">
+        <div full-page="fix" full-page-bottom="3">
+          <div class="patient-exam-brief-panel" ng-repeat="examReport in vm.examList " ng-click="vm.selectExam(examReport)"
+            ng-class="{'selected': vm.selectedExam == examReport}">
+            <span>{{examReport.patExamMaster.examDateTime | idate:'XD'}}</span>
+            <span>{{examReport.patExamMaster.localIdClass}}&nbsp;&nbsp;|&nbsp;&nbsp;{{examReport.patExamMaster.clinSymp}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="patient-exam-ext-report-panel">
+        <textarea id="patient-exam-ext-import-textarea" ng-model="vm.reportText" ng-blur="vm.textareaOnBlur()"></textarea>
+        <div>
+          <button class="btn btn-primary" ng-click="vm.insertText()">引用选中部分</button>
+        </div>
+      </div>
+    </div>
+    <h3  ng-if="vm.examList.length == 0">患者没有检查报告记录</h3>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="paper-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-item">
+      日期：
+      <date-picker style="width: 160px" ng-model="vm.tmpDate" ng-change="vm.dateChange()"></date-picker>
+    </div>
+
+    <div class="toolbar-item">
+      <div class="btn-group btn-radio">
+        <label class="btn btn-sm btn-primary" ng-repeat="item in vm.shiftList track by $index" ng-model="vm.params.teamCode"
+          uib-btn-radio="item.teamCode">
+          {{item.shiftName}}{{item.teamCode === '' ? '' : '班'}}
+        </label>
+      </div>
+    </div>
+    <div class="pull-right toolbar-item">
+      <button class="btn btn-success btn-sm btn-round" print-landscape print-btn="print-btn">打印</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-item" checkbox-team="vm.params.eventKeys" listener="vm.loadContent.func">
+      <label class="custom-checkbox">
+        <input type="checkbox" checkbox-all="checkbox-all"></input>
+        <span>住院总数({{vm.all.count}})</span>
+      </label>
+      <checkbox-group ng-model="vm.params.eventKeys" eles="vm.itemTypes" options="{text: 'dicName', value: 'dicCode', extra: 'count'}"></checkbox-group>
+    </div>
+  </div>
+
+  <div class="content-table" loading-wrapper="vm.loadContent">
+    <h4 class="searchNoResultTitle" ng-if="vm.list.length === 0">暂无数据</h4>
+    <table class="table white-borderd tr-hover" ng-if="vm.list.length > 0" print-table="vm.list">
+      <thead>
+        <tr>
+          <th>床号</th>
+          <th>姓名</th>
+          <th>诊断</th>
+          <th>记录摘要</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in vm.list track by $index">
+          <td>{{ row.bedCode }}</td>
+          <td>{{ row.patName }}</td>
+          <td edit-text="row.diagnosis" cb="vm.saveEditData(row)">{{ row.diagnosis }}</td>
+          <td edit-text="row.breif" cb="vm.saveEditData(row)">{{ row.breif }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="paginationStyle" ng-if="vm.list.length > 0">
+      <div class="pageItem">
+        <label for="firstname" class="control-label">每页显示条数：</label>
+        <select ng-model="vm.pageItem.count" name="count" id="count" ng-change="vm.queryList(1)">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <ul uib-pagination total-items="vm.pageItem.totalItems" previous-text="上一页" next-text="下一页" first-text="首页" rotate="false"
+        last-text="最后一页" ng-change="vm.queryList(vm.pageItem.page)" ng-model="vm.pageItem.page" items-per-page="vm.pageItem.count"
+        class="pagination-sm" boundary-links="true" boundary-link-numbers="true" max-size="vm.pageItem.maxSize">
+      </ul>
+    </div>
+  </div>
+</div>

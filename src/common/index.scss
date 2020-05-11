@@ -1,0 +1,383 @@
+/**
+ *  If you want to override some bootstrap variables, you have to change values here.
+ *  The list of variables are listed here bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss
+ */
+@import '../sass/variables';
+@import '../sass/mixin';
+/**
+ *  Do not remove the comments below. It's the markers used by wiredep to inject
+ *  sass dependencies when defined in the bower.json of your dependencies
+ */
+// bower:scss
+// endbower
+@import '../sass/override';
+@import '../sass/app-layout.scss';
+
+::-webkit-scrollbar {
+  width: $scrollbar-width;
+  height: $scrollbar-width;
+  background-color: #f7f7f7;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+.browsehappy {
+  margin: .2em 0;
+  padding: .2em 0;
+  color: #000;
+  background: #ccc;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif, 'microsoft yahei', '宋体';
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+  height: 100%;
+  color: $font-color;
+  background-color: #fff;
+
+  .main {
+    height: 100%;
+    padding-top: 50px;
+  }
+}
+
+label {
+  font-weight: normal;
+}
+
+a,
+.btn {
+  cursor: pointer;
+
+  &:focus,
+  &:visited,
+  &:hover,
+  &:active {
+    text-decoration: none;
+    outline: none !important;
+  }
+}
+
+a {
+  color: inherit;
+
+  &:focus,
+  &:hover,
+  &:active {
+    color: inherit;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+textarea {
+  resize: none;
+}
+
+[disabled] {
+  cursor: not-allowed;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.full-screen {
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 6666 !important;
+  overflow-y: scroll !important;
+}
+
+.margin-0 {
+  margin: 0 !important;
+}
+
+.margin-v-0 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.margin-h-0 {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.margin-r-10 {
+  margin-right: 10px !important;
+}
+
+.margin-l-10 {
+  margin-left: 10px !important;
+}
+
+.margin-t-10 {
+  margin-top: 10px !important;
+}
+
+.margin-b-10 {
+  margin-bottom: 10px !important;
+}
+
+.padding-0 {
+  padding: 0 !important;
+}
+
+.padding-v-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.padding-h-0 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.padding-t-0 {
+  padding-top: 0 !important;
+}
+
+.padding-b-0 {
+  padding-bottom: 0 !important;
+}
+
+.padding-l-0 {
+  padding-left: 0 !important;
+}
+
+.padding-r-0 {
+  padding-right: 0 !important;
+}
+
+.fz-6 {
+  font-size: 6px;
+}
+
+.fz-7 {
+  font-size: 7px;
+}
+
+.fz-8 {
+  font-size: 8px;
+}
+
+.fz-9 {
+  font-size: 9px;
+}
+
+.fz-10 {
+  font-size: 10px;
+}
+
+.fz-11 {
+  font-size: 11px;
+}
+
+.fz-12 {
+  font-size: 12px;
+}
+
+.fz-13 {
+  font-size: 13px;
+}
+
+.fz-14 {
+  font-size: 14px;
+}
+
+.fz-15 {
+  font-size: 15px;
+}
+
+.fz-16 {
+  font-size: 16px;
+}
+
+.fz-17 {
+  font-size: 17px;
+}
+
+.fz-18 {
+  font-size: 18px;
+}
+
+.fz-19 {
+  font-size: 19px;
+}
+
+.fz-20 {
+  font-size: 20px;
+}
+
+// flex
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-right {
+  justify-content: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-top {
+  align-items: flex-start;
+}
+
+.align-base {
+  align-items: baseline;
+}
+
+.align-bottom {
+  align-items: flex-end;
+}
+
+// 文本颜色
+.danger-text {
+  color: $danger;
+
+  &a:hover {
+    color: darken($danger, 10%);
+  }
+}
+
+.primary-text {
+  color: $primary;
+
+  &a:hover {
+    color: darken($primary, 10%);
+  }
+}
+
+.success-text {
+  color: $success;
+
+  &a:hover {
+    color: darken($success, 10%);
+  }
+}
+
+.info-text {
+  color: $info;
+
+  &a:hover {
+    color: darken($info, 10%);
+  }
+}
+
+.warning-text {
+  color: $warning;
+
+  &a:hover {
+    color: darken($warning, 10%);
+  }
+}
+
+.text-light {
+  color: $font-2;
+}
+
+.white-text {
+  color: white;
+}
+
+.filter-bar {
+  margin: 10px 0;
+}
+
+.filter-item {
+  display: inline-block;
+  margin-right: 20px;
+
+  .filter-text {
+    line-height: 26px;
+  }
+
+  .inline {
+    display: inline-block;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.bordered-top {
+  border-top: 1px solid $border-color;
+  padding-top: 5px;
+}
+
+.bordered-left {
+  border-left: 1px solid $border-color;
+  padding-left: 5px;
+}
+
+.bordered-right {
+  border-right: 1px solid $border-color;
+  padding-right: 5px;
+}
+
+.bordered-bottom {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 5px;
+}
+
+.bordered-lrside {
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  padding: 0px 5px;
+}
+
+.bordered-tbside {
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  padding: 5px 0px;
+}
+
+.bordered-all {
+  border: 1px solid $border-color;
+  padding: 5px;
+}
+
+.flex-50 {
+  flex-basis: 50%;
+}
+
+// injector
+// endinjector
+.fixedTop {
+  position: fixed;
+  z-index: 997;
+}
+
+@import './font';

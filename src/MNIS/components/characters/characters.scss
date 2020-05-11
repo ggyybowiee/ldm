@@ -1,0 +1,35 @@
+.emoji-wrap {
+  position: fixed;
+  display: none;
+  z-index: 99999;
+  bottom: 10px;
+  border: 1px #ddd solid;
+  right: 10px;
+  width: 300px;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+
+  &.open {
+    display: block;
+  }
+}
+
+.emoji-table {
+  thead {
+    td {
+      border-bottom: 1px #fff solid!important;
+      font-weight: bold;
+      line-height: 2;
+    }
+  }
+  tbody {
+    td {
+      &:hover {
+        background-color: #c3e2f9;
+      }
+
+      &:active {
+        background-color: #b2d9f7;
+      }
+    }
+  }
+}

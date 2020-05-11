@@ -1,0 +1,109 @@
+.switch {
+  background: #fff;
+  border: 1px solid #dfdfdf;
+  position: relative;
+  display: inline-block;
+  box-sizing: content-box;
+  overflow: visible;
+  width: 60px;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: rgb(223, 223, 223) 0px 0px 0px 0px inset;
+  transition: 0.3s ease-out all;
+  top: -1px;
+
+  &.switch-sm {
+    width: 52px;
+    height: 26px;
+    border-radius: 13px;
+  }
+
+  &.switch-xs {
+    width: 44px;
+    height: 22px;
+    border-radius: 11px;
+  }
+
+  &.checked {
+    background: $success;
+    border-color: $success;
+  }
+}
+
+.switch__ball {
+  background: #fff;
+  border-radius: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transition: 0.3s ease-out all;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .switch-sm & {
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+  }
+
+  .switch-sm.checked &{
+    left: 26px;
+  }
+
+  .switch-xs & {
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+  }
+
+  .switch-xs.checked &{
+    left: 22px;
+  }
+
+  .checked & {
+    left: 30px;
+    color: $success;
+  }
+
+  color: #999;
+}
+
+.switch .off {
+  display:block;
+  position: absolute;
+  right: 15%;
+  top: 18%;
+  z-index: 0;
+  color:#A9A9A9;
+}
+
+.switch .on {
+  display:none;
+   z-index: 0;
+  color:#fff;
+  position: absolute;
+  top: 25%;
+  left: 9%;
+}
+
+.switch.checked .off {
+  display:none;
+}
+
+.switch.checked .on {
+  display:block;
+
+}
+
+.switch.disabled {
+  opacity: .50;
+  cursor: not-allowed;
+}

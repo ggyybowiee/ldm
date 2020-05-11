@@ -1,0 +1,121 @@
+.role-resource-right-assign-panel {
+  display: flex;
+
+  >.role-list {
+    width: 250px;
+    flex-basis: 250px;
+    max-width: 250px;
+
+    li {
+
+      height: 35px;
+      border-bottom: 1px dotted $border-3;
+      font-size: 14px;
+
+      >button {
+        width: 100%;
+        height: 100%;
+
+        border: 0px;
+        background-color: transparent;
+        text-align: left;
+      }
+
+      &.active {
+        background-color: $primary;
+        color: white;
+      }
+
+      &:hover {
+        background-color: lighten($primary, 10%);
+        color: white;
+      }
+    }
+  }
+
+  >.app-list {
+    width: 350px;
+    flex-basis: 350px;
+    max-width: 350px;
+    border-left: 1px solid $border-3;
+
+    li {
+
+      height: 35px;
+      border-bottom: 1px dotted $border-3;
+      font-size: 14px;
+
+      >button {
+        width: 100%;
+        height: 100%;
+
+        border: 0px;
+        background-color: transparent;
+        text-align: left;
+      }
+
+      >span {
+
+        margin: 5px 5px;
+        background-color: white;
+        border-radius: 5px;
+
+        .edit-button {
+          height: 25px;
+          width: 25px;
+          border: 0px;
+          background-color: transparent;
+        }
+      }
+
+      &.active {
+        background-color: $primary;
+        color: white;
+      }
+
+      &:hover {
+        background-color: lighten($primary, 10%);
+        color: white;
+      }
+    }
+  }
+
+  >.resource-assign-panel {
+    flex-grow: 1;
+    border-left: 1px solid $border-3;
+
+    div.tree-label {
+      width: 100%;
+      padding: 3px;
+      margin-right: 5px;
+      border-bottom: 1px transparent solid;
+
+
+      &.tree-selected {
+        border-radius: 0px;
+        font-weight: normal;
+        background-color: transparent !important;
+        color: $primary !important;
+        border-bottom: 1px $primary solid;
+      }
+
+      &:hover {
+        border-radius: 0px;
+        font-weight: normal;
+        background-color: transparent !important;
+        color: $primary !important;
+        border-bottom: 1px $primary solid;
+      }
+
+      .app-resource-module-node {
+        line-height: 20px;        
+      }
+
+    }
+  }
+
+  >.resource-right-assign-panel {
+    flex-grow: 1;
+
+  }
+}

@@ -1,0 +1,8 @@
+.blood-pressure-input {
+  >input {
+    &.input-content-warning {
+      color: $danger;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,278 @@
+.beds-wrapper {
+  .toolbar {
+    margin-bottom: 5px;
+  }
+
+  .beds-info {
+    > div {
+      > span {
+        + span {
+          margin-left: 20px;
+        }
+      }
+    }
+
+    .status-line {
+      display: inline-block;
+      width: 30px;
+      height: 6px;
+      margin-right: 10px;
+      vertical-align: middle;
+
+      &.specisl-level {
+        background-color: #7e4342;
+      }
+
+      &.one-level {
+        background-color: #ff5d6f;
+      }
+
+      &.two-level {
+        background-color: #00a7fb;
+      }
+
+      &.three-level {
+        background-color: #f5c256;
+      }
+    }
+  }
+
+  .beds-list {
+    .beds-card {
+      margin-right: -5px;
+      margin-left: -5px;
+      padding-bottom: 100px;
+    }
+
+    .beds-table {
+      tbody {
+        > tr {
+          > td:first-child {
+            padding: 0px;
+            position: relative;
+
+            > div {
+              height: 100%;
+
+              .triangle-topleft {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 0;
+                height: 0;
+                border-top: 13px solid transparent;
+                border-right: 13px solid transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .bed-card {
+      width: 20%;
+      margin-bottom: 10px;
+      padding-right: 5px;
+      padding-left: 5px;
+
+      .tooltip {
+        opacity: 1;
+      }
+
+      .tooltip-arrow {
+        border-right-color: #eff2f2;
+        border-left-color: #eff2f2;
+      }
+
+      .tooltip-inner {
+        width: 350px;
+        padding: 10px;
+        color: $font-1;
+        background-color: #eff2f2;
+        box-shadow: 5px 5px 5px #ccc;
+      }
+    }
+
+    .bed-wrapper {
+      border: 1px solid $border-color;
+    }
+
+    .bed-card-header {
+      padding: 8px 20px;
+      border-bottom: 1px solid $border-3;
+
+      .triangle-topleft {
+        position: absolute;
+        left: 5px;
+        top: 0px;
+        width: 0;
+        height: 0;
+        border-top: 20px solid transparent;
+        border-right: 20px solid transparent;
+      }
+
+      .toggle-focus {
+        margin-left: 10px;
+      }
+    }
+
+    .bed-card-content {
+      border-bottom: 1px solid $border-color;
+      display: flex;
+      flex-direction: column;
+      padding-top: 10px;
+
+      .patient-info {
+        line-height: 2;
+        padding: 0 10px;
+
+        .patient-code {
+          margin-left: 20px;
+        }
+
+        .patient-age {
+          margin-left: 10px;
+        }
+      }
+
+      .doctor-diet {
+        line-height: 20px;
+        height: 20px;
+        padding: 0 10px;
+      }
+
+      .patient-diagnosis {
+        line-height: 20px;
+        display: -webkit-box;
+        overflow: hidden;
+        height: 40px;
+        margin-bottom: 5px;
+        padding: 0 10px;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    .bed-card-evaluate {
+      border-bottom: 1px solid $border-color;
+    }
+
+    .bed-card-evaluate,
+    .bed-card-remind {
+      line-height: 30px;
+      padding: 0 10px;
+    }
+  }
+}
+
+.beds-tooltip-wrapper {
+  .beds-tooltip-line {
+    text-align: left;
+
+    .beds-tooltip-label {
+      display: inline-block;
+      width: 60px;
+      text-align-last: justify;
+    }
+
+    .beds-tooltip-value {
+      display: inline-block;
+    }
+  }
+}
+
+.pathDateStyle {
+  width: 100%;
+
+  input {
+    width: 100% !important;
+  }
+}
+
+.beds-panel {
+  display: flex;
+
+  .beds-information-panel {
+    min-width: 320px;
+    max-width: 320px;
+    border-right: 1px solid $border-3;
+    padding: 5px;
+  }
+
+  .beds-list {
+    margin-left: 5px;
+    flex-grow: 1;
+  }
+}
+
+.background-green {
+  background-color: #2dc26b;
+  color: #fff;
+}
+
+.ward-statistics-table {
+  table-layout: fixed;
+  width: 100%;
+  tr {
+    > td {
+      text-align: left;
+      width: 33%;
+      height: 30px;
+      font-size: 12px;
+      > span {
+        &:first-child {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.ward-statistics-accordion {
+  border-top: 1px solid $border-3;
+  text-align: left;
+  > div:first-child {
+    .status-line {
+      display: inline-block;
+      width: 3px;
+      height: 16px;
+      margin: auto 0px auto 0px;
+      margin-right: 3px;
+      vertical-align: sub;
+      background-color: $back-1;
+    }
+
+    > span {
+      height: 16px;
+      margin: auto 0px auto 0px;
+      line-height: 16px;
+    }
+
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .ward-statistics-bed-panel {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 3px 0px;
+
+    > div {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 30px;
+      margin: 2px 5px;
+      background-color: black;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
+    }
+  }
+}
+
+.accordion-toggle { display: block; }

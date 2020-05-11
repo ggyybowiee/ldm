@@ -1,0 +1,36 @@
+.upload-files-wrapper {
+  position: relative;
+  .upload-input {
+    position: absolute;
+    left: -9999px;
+  }
+  .progress-wrapper {
+    position: relative;
+    .upload-cancel {
+      line-height: 26px;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      width: 26px;
+
+      text-align: center;
+
+      color: white;
+      border-radius: 50%;
+      background-color: $danger;
+    }
+  }
+  .msg-wrapper {
+    line-height: 26px;
+    margin: 0 15px;
+  }
+  .progress {
+    height: 26px;
+    margin: 0 42px 0 15px;
+    .progress-bar {
+      line-height: 26px;
+    }
+  }
+}

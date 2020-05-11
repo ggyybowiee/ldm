@@ -1,0 +1,288 @@
+<div class="beds-wrapper">
+
+  <div loading-wrapper="vm.load">
+
+    <div class="beds-panel">
+
+      <div class="beds-information-panel scroll-bar-hidden" full-page="fix">
+        <uib-accordion close-others="false">
+          <uib-accordion-group is-open="vm.accordion['ward']">
+            <uib-accordion-heading>
+              病区统计  <i class="pull-right fa" aria-hidden="true" ng-class="{'fa-chevron-down': vm.accordion['ward'], 'fa-chevron-right': !vm.accordion['ward']}"></i> 
+            </uib-accordion-heading>
+            <table class="ward-statistics-table">
+              <tr>
+                <td>
+                  <span>住院人数：{{vm.list.length}}</span>
+                </td>
+                <td></td>
+                <td>
+                  <span>欠费：{{(vm.list | filter: vm.balanceFilter).length}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span style="color:{{vm.basicConfig.nursingLevelColor['0']}}">特级护理: </span>
+                  <span>{{(vm.list | filter: {nurseLevel: '0'}).length}}</span>
+                </td>
+                <td>
+                  <span style="color:{{vm.basicConfig.nursingLevelColor['1']}}">一级护理: </span>
+                  <span>{{(vm.list | filter: {nurseLevel: '1'}).length}}</span>
+                </td>
+                <td>
+                  <span style="color:{{vm.basicConfig.nursingLevelColor['2']}}">二级护理: </span>
+                  <span>{{(vm.list | filter: {nurseLevel: '2'}).length}}</span>
+                </td>
+              </tr>
+            </table>
+            <div class="row" style="margin-bottom: 10px; font-weight: bold;" ng-if="vm.whiteBoardData.showCritical || vm.whiteBoardData.showSevere || vm.whiteBoardData.showDischarged || vm.whiteBoardData.showSurgery">
+              <div class="col-sm-3" ng-if="vm.whiteBoardData.showCritical">
+                <span>病重: </span>
+                <span>{{(vm.list | filter: {dangerLevel: 'S'}).length}}</span>
+              </div>
+              <div class="col-sm-3" ng-if="vm.whiteBoardData.showSevere">
+                <span>病危: </span>
+                <span>{{(vm.list | filter: {dangerLevel: 'D'}).length}}</span>
+              </div>
+              <div class="col-sm-3" ng-if="vm.whiteBoardData.showDischarged">
+                <span>出院: </span>
+                <span>{{vm.outHosPatients.length}}</span>
+              </div>
+              <div class="col-sm-3" ng-if="vm.whiteBoardData.showSurgery">
+                <span>手术: </span>
+                <span>{{vm.surgeryPatients.length}}</span>
+              </div>
+            </div>
+
+            <!-- 护理等级 -->
+            <div ng-if="!vm.whiteBoardData.showMEWSPathOnBedList">
+              <div class="ward-statistics-accordion">
+                <div>
+                  <div class="status-line"></div><span>新入&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.newPathPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <!-- (pat.nurseLevel== null ? '-1' : pat.nurseLevel) -->
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.newPathPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion">
+                <div>
+                  <div class="status-line"></div><span>特级护理&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.specialNursingPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.specialNursingPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion">
+                <div>
+                  <div class="status-line"></div><span>一级护理&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.ILevelNursingPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.ILevelNursingPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion">
+                <div>
+                  <div class="status-line"></div><span>二级护理&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.IILevelNursingPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.IILevelNursingPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion" ng-if="vm.whiteBoardData.showCritical">
+                <div>
+                  <div class="status-line"></div><span>病重&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.criticalNursingPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.criticalNursingPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion" ng-if="vm.whiteBoardData.showSevere">
+                <div>
+                  <div class="status-line"></div><span>病危&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.severeNursingPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.severeNursingPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion" ng-if="vm.whiteBoardData.showDischarged">
+                <div>
+                  <div class="status-line"></div><span>出院&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.outHosPatients.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.outHosPatients" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion" ng-if="vm.whiteBoardData.showSurgery">
+                <div>
+                  <div class="status-line"></div><span>手术&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.surgeryPatients.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.surgeryPatients" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEWS与路径 -->
+            <div ng-if="vm.whiteBoardData.showMEWSPathOnBedList">
+              <div class="ward-statistics-accordion">
+                <div>
+                  <div class="status-line"></div><span>MEWS预警患者&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.mewsAlertPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.mewsAlertPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+              <div class="ward-statistics-accordion">
+                <div>
+                  <div class="status-line"></div><span>执行路径患者&nbsp;&nbsp;|&nbsp;&nbsp;{{vm.nursingPathPatient.length}}人</span>
+                </div>
+                <div class="ward-statistics-bed-panel">
+                  <div ng-click="vm.goDoc(pat)" ng-repeat="pat in vm.nursingPathPatient" style="background-color: {{vm.basicConfig.nursingLevelColor[pat.nurseLevel]}}">{{vm.bedCodeShortCut(pat.bedCode)}}</div>
+                </div>
+              </div>
+            </div>
+          </uib-accordion-group>
+          <uib-accordion-group ng-if="vm.whiteBoardData.showECGDeviceOnBedList" is-open="vm.accordion['device']">
+            <uib-accordion-heading>
+              设备 <i class="pull-right fa" aria-hidden="true" ng-class="{'fa-chevron-down': vm.accordion['device'], 'fa-chevron-right': !vm.accordion['device']}"></i>
+            </uib-accordion-heading>
+            <device-list></device-list>
+          </uib-accordion-group>
+
+          <!-- <uib-accordion-group is-open="true" heading="护理计划">
+            </uib-accordion-group>
+          <uib-accordion-group is-open="true" heading="危机值">
+          </uib-accordion-group> -->
+        </uib-accordion>
+
+      </div>
+
+      <div class="beds-list">
+
+        <!-- 操作栏 -->
+        <div class="toolbar" style="margin-top:5px;">
+          <span class="toolbar-item">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm" style="width:220px;" ng-model="vm.filter.text"
+                placeholder="输入床号|姓名|住院号查询患者">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-sm btn-default">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </span>
+          <span class="toolbar-item">
+            <div class="btn-group btn-radio">
+              <label class="btn btn-sm btn-primary" ng-model="vm.filter.cate" uib-btn-radio="0">
+                <i class="icon icomoon-hospital">&nbsp;全科</i>
+              </label>
+              <label class="btn btn-sm btn-primary" ng-model="vm.filter.cate" uib-btn-radio="1">
+                <i class="icon icomoon-people">&nbsp;本组</i>
+              </label>
+            </div>
+          </span>
+          <!-- <span class="toolbar-item ">
+          <button class="btn btn-default btn-sm btn-round " ng-disabled="vm.syncing " ng-click="vm.syncPatientInfo() ">
+            <i class="fa fa-refresh " ng-class="{ 'fa-spin': vm.syncing} "></i>
+            &nbsp; {{vm.syncing ? '正在同步...' : '同步患者信息'}}
+          </button>
+        </span> -->
+
+        </div>
+
+        <!-- 卡片 -->
+        <div class="beds-card row " ng-if="vm.filter.type==0 ">
+          <div class="bed-card col-xs-2 " ng-click="vm.goDoc(item) " ng-repeat="item in (vm.filter.cate == 0 ? vm.list : vm.myGroupList) | filter:vm.patientFilter track
+          by item.patCode ">
+            <div class="bed-wrapper " uib-tooltip-template=" 'MNIS/modules/patients/beds.tooltip.html'
+          "
+              tooltip-popup-delay="500 " tooltip-placement="{{vm.calcPosition($index)}} ">
+              <div class="bed-card-header ">
+                <div class="triangle-topleft" style="border-top-color:{{item.nurseLevel|nursingLevelColor}}"></div>
+
+                {{item.bedCode}}.{{item.patName}}
+                <span class="pull-right ">
+                  {{item.chargeTypeName | limitTo: 1}} {{item.allergen ? '敏' : ''}}
+                </span>
+              </div>
+              <div class="bed-card-content " style="margin:0px 10px; ">
+                <div class="patient-info ">
+                  <span class="patient-gender ">{{gUtils.getGender(item.gender)}}</span>
+                  <span class="patient-age ">{{gUtils.getAge(item.birthDate)}}</span>
+                  <span class="patient-code ">{{item.patCode}}</span>
+                </div>
+                <div class="patient-diagnosis ">{{item.inDiag}}</div>
+                <div class="doctor-diet ">{{item.dietName}}</div>
+              </div>
+              <div class="bed-card-evaluate " style="margin:0px 10px; ">
+                <span class="bold ">评估：</span>
+              </div>
+              <div class="bed-card-remind " style="margin:0px 10px; ">
+                <span class="bold ">提醒：</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 列表 -->
+        <div class="beds-table" ng-if="vm.filter.type==1 ">
+          <table class="table white-borderd tr-hover thead-fixed">
+            <thead>
+              <tr>
+                <th style="width:80px">床号</th>
+                <th style="width:80px">今日待办</th>
+                <th style="width:80px">姓名</th>
+                <th style="width:50px">性别</th>
+                <th style="width:50px">年龄</th>
+                <th style="width:80px">住院号</th>
+                <th style="width:50px">压疮</th>
+                <th style="width:50px">跌倒</th>
+                <th style="width:50px">BADL</th>
+                <th style="width:50px">MEWS</th>
+                <th style="width:50px">情况</th>
+                <th style="width:50px">路径</th>
+                <th style="width:90px;min-width: 90px;">入院日期</th>
+                <th style="width:auto;text-align:left;">入院诊断</th>
+                <th style="width:auto;text-align:left;">饮食</th>
+              </tr>
+            </thead>
+            <tbody full-page="fix" full-page-bottom="5">
+              <tr ng-click="vm.goDoc(row)" context-menu="vm.contextMenuConfig" ng-repeat="row in vm.filter.cate == 0 ? vm.list : vm.myGroupList | filter:vm.patientFilter track by row.patCode ">
+                <td style="width:80px">
+                  <div>
+                    <div class="triangle-topleft" style="border-top-color:{{vm.basicConfig.nursingLevelColor[row.nurseLevel]}}"></div>
+                    {{ row.bedCode }}
+                  </div>
+                </td>
+                <td style="width:80px">{{ row.taskCount|mewsScore}}</td>
+                <td style="width:80px">{{ row.patName }}</td>
+                <td style="width:50px">{{ mnisUtils.getGender(row.gender) }}</td>
+                <td style="width:50px">{{ mnisUtils.getAge(row.birthDate) }}</td>
+                <td style="width:80px">{{ row.displayCode }}</td>
+                <td style="width:50px;color:{{ row.realTimeEvaluateList | evaluateRiskColor:'pressureSore' }}">{{
+                  row.realTimeEvaluateList | evaluateRiskScore:'pressureSore' }}</td>
+                <td style="width:50px;color:{{ row.realTimeEvaluateList | evaluateRiskColor:'fallDown' }}">{{
+                  row.realTimeEvaluateList | evaluateRiskScore:'fallDown' }}</td>
+                <td style="width:50px;color:{{ row.realTimeEvaluateList | evaluateRiskColor:'selfCare' }}">{{
+                  row.realTimeEvaluateList | evaluateRiskScore:'selfCare' }}</td>
+                <td style="width:50px;color:{{vm.mewsAlertLevelDic[row.mewsRecord.alertLevel].color}} ">{{
+                  row.mewsRecord.totalScore|mewsScore }}</td>
+                <td style="width:50px">{{ row.dangerLevel|dangerLevel|mewsScore}}</td>
+                <td style="width:50px" ng-class="{'background-green': row.pathSpecialItems['rs'] === 'yes'}">
+                  <span> {{ row.pathStatus|pathStatus }} </span>
+                </td>
+                <td style="width:90px;min-width: 90px;">{{ row.inDate|idate:'D' }}</td>
+                <td style="width:auto;text-align:left; " class="text-overflow ">{{ row.inDiag }}</td>
+                <td style="width:auto;text-align:left;" class="text-overflow ">{{ row.dietName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

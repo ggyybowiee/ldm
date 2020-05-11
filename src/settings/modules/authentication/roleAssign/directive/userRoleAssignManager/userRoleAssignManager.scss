@@ -1,0 +1,48 @@
+.role-wrapper {  
+  background-color: white;
+  padding: 0px !important;
+
+  .alert{
+    margin-bottom: 10px;
+  }
+
+  .user-role-wrapper {
+
+    position: relative;
+    display: flex;
+
+    >.role-panel {
+      flex-basis: 280px;
+      width: 280px;
+      min-width: 280px;
+      max-width: 280px;
+    }
+
+    >.assign-user-panel {
+      border-left: 1px solid $border-3;
+      flex-grow: 1;
+    }
+
+    >.available-user-panel{
+      border-left: 1px solid $border-3;
+      flex-grow: 1;      
+    }
+
+    .role-list {
+      li {
+        line-height: 30px;
+        padding: 0 12px;
+        cursor: pointer;
+
+        +li {
+          border-top: 1px solid $border-color;
+        }
+
+        &.selected{
+          background-color: $primary;
+          color: white;
+        }
+      }
+    }
+  }
+}

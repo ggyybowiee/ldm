@@ -1,0 +1,59 @@
+.setting-basic-dictionary-wrapper {
+  display: flex;
+  margin-top: 10px;
+
+  .toolbar {
+    padding: 10px;
+
+    >input {
+      border: 1px solid $border-3;
+    }
+  }
+
+  .setting-basic-dic-type-wrapper {
+    width: 300px;
+    border: 1px solid $border-3;
+
+    >div:last-child {
+      padding: 0px 10px;
+    }
+
+    .dic-type-item-panel {
+      background-color: $back-4;
+      padding: 0px 5px;
+      margin: 5px 0px;
+      border-radius: 5px;
+      cursor: pointer;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+
+      &:hover {
+        color: $primary;
+        border-bottom: 5px solid $primary;
+      }
+
+      &.selected {
+        color: $primary;
+        border-bottom: 5px solid $primary;
+      }
+
+      div {
+        line-height: 25px;
+
+        >button {
+          float: right;
+        }
+      }
+    }
+  }
+
+  .setting-basic-dic-item-wrapper {
+    flex-grow: 1;
+    border: 1px solid $border-3;
+    margin-left: 10px;
+
+    >div:last-child {
+      padding: 10px;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      &times;
+    </button>
+    <h5 class="modal-title">新建应用资源</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <resource-editor resource="vm.formData" embedded-modal="true" edit-resource-type="2" on-resource-saved="vm.onResourceSaved"
+        save-echo="vm.metaData.saveEcho" parent-resource="vm.metaData.parentResource"></resource-editor>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

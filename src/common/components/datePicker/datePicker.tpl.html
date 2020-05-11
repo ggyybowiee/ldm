@@ -1,0 +1,8 @@
+<span class="input-group {{class}}">
+  <input ng-model="model" type="text" ng-click="isOpen = !isOpen" ng-attr-id="{{name}}" ng-attr-name="{{name}}"
+    uib-datepicker-popup datepicker-options="dateOptions" ng-style="{'width': width}" on-open-focus="true" is-open="isOpen" close-on-date-selection="!open"
+    close-text="关闭" current-text="今天" clear-text="清除" class="form-control input-sm" placeholder="请选择" ng-disabled="disabled !== 'false'"
+    readonly time-codec>
+  <span ng-show="!noIcon" class="input-group-btn"><button type="button" class="btn btn-sm btn-default" ng-click="isOpen = !isOpen"
+      ng-disabled="disabled !== 'false'"><i class="fa fa-calendar"></i></button></span>
+</span>

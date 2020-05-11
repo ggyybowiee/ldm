@@ -1,0 +1,44 @@
+<div class="doc-wrapper">
+  <div class="panel panel-default">
+    <div class="panel-heading"><i class="fa fa-user-secret"></i>CA用户绑定</div>
+    <div class="panel-body">
+      <form class="form-horizontal" role="form" novalidate w5c-form-validate name="caForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="roleCode" class="col-sm-1 control-label">选择证书：</label>
+            <div class="col-sm-3">
+              <select id="user" name="user" ng-options="user as user.userName for user in vm.userList track by user.certId" ng-model="vm.formData" class="form-control input-sm" required>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id" class="col-sm-1 control-label">证书用户唯一标识：</label>
+            <div class="col-sm-3">
+              <input type="text" id="id" name="id" ng-model="vm.formData.SF" class="form-control input-sm" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sign" class="col-sm-1 control-label">电子签章值：</label>
+            <div class="col-sm-3">
+              <input readonly type="text" id="sign" name="sign" ng-model="vm.formData.strCert" class="form-control input-sm">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="roleName" class="col-sm-1 control-label">电子签章图片：</label>
+            <div class="col-sm-3">
+              <img ng-src="{{vm.formData.png}}" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="roleName" class="col-sm-1 control-label"></label>
+          <div class="col-sm-3">
+            <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.bind()">绑定</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

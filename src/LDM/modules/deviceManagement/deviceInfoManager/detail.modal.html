@@ -1,0 +1,161 @@
+<div>
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title title-text">
+      设备详情
+    </h5>
+  </div>
+  <form class="form-horizontal static-form" name="yearForm">
+
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="form-group">
+          <label for="fatherDept" class="col-sm-2 control-label text-black">设备类型：</label>
+          <div class="col-sm-5">
+            <label>{{ (vm.metaData.deviceTypes | filter: { code: vm.metaData.detail.content.basicInfo.eqpType })[0].name }}</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="deptCode" class="col-sm-2 control-label text-black">设备名称：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.eqpName}}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fatherDept" class="col-sm-2 control-label text-black">所属病区：</label>
+          <div class="col-sm-5">
+            <label>{{(vm.metaData.belongs | filter: { wardCode: vm.metaData.detail.content.basicInfo.eqpBelong })[0].wardName }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="deptName" class="col-sm-2 control-label text-black">序列号：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.sn}}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="deptName" class="col-sm-2 control-label text-black">型号：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.model}}</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="deptName" class="col-sm-2 control-label text-black">子型号：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.subModel}}</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label text-black">房间号：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.roomCode}}</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label text-black">床号：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.bedCode}}</label>
+          </div>
+        </div>
+        <!-- class="divide-line" -->
+        <div class="bottom-10">
+          <label class="bottom-10">MAC地址:</label>
+          <i class="pull-right fa nav-menu_item-arrow" aria-hidden="true"
+          ng-class="{'fa-chevron-down': vm.metaData.status.isMacOpen,'fa-chevron-right': !vm.metaData.status.isMacOpen}"
+          ng-click="vm.metaData.status.isMacOpen = !vm.metaData.status.isMacOpen"></i>
+        </div>
+
+        <div class="form-group" ng-if="vm.metaData.status.isMacOpen && vm.metaData.detail.content.basicInfo.mac">
+          <label for="deptCode" class="col-sm-2 control-label text-black">Wi-Fi：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.mac}}</label>
+          </div>
+        </div>
+
+        <!-- <div class="form-group" ng-repeat="mac in vm.metaData.detail.content.extInfo.macAddresses">
+          <label for="deptCode" class="col-sm-2 control-label">{{mac.name}}</label>
+          <div class="col-sm-5">
+            {{mac.value}}
+          </div>
+        </div> -->
+
+        <div class="form-group" ng-if="vm.metaData.status.isMacOpen && vm.metaData.detail.content.basicInfo.bluetoothMac">
+          <label for="deptCode" class="col-sm-2 control-label text-black">蓝牙：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.bluetoothMac}}</label>
+          </div>
+        </div>
+
+        <div class="bottom-10">
+            <label class="bottom-10">硬件配置:</label>
+            <i class="pull-right fa nav-menu_item-arrow" aria-hidden="true"
+            ng-class="{'fa-chevron-down': vm.metaData.status.isHardwareOpen,'fa-chevron-right': !vm.metaData.status.isHardwareOpen}"
+            ng-click="vm.metaData.status.isHardwareOpen = !vm.metaData.status.isHardwareOpen"></i>
+        </div>
+
+        <div class="form-group" ng-if="vm.metaData.status.isHardwareOpen && vm.metaData.detail.content.basicInfo.cpu">
+          <label for="deptCode" class="col-sm-2 control-label text-black">CPU：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.cpu}}</label>
+          </div>
+        </div>
+
+        <div class="form-group" ng-if="vm.metaData.status.isHardwareOpen && vm.metaData.detail.content.basicInfo.cpu">
+          <label for="deptCode" class="col-sm-2 control-label text-black">内存：</label>
+          <div class="col-sm-5">
+            {{}}
+          </div>
+        </div>
+
+        <div class="form-group" ng-if="vm.metaData.status.isHardwareOpen && vm.metaData.detail.content.basicInfo.wiFi">
+          <label for="deptCode" class="col-sm-2 control-label text-black">Wi-Fi：</label>
+          <div class="col-sm-5">
+            {{}}
+          </div>
+        </div>
+
+        <div class="bottom-10">
+          <label class="bottom-10">{{[1001,1002,1003].indexOf(vm.metaData.detail.content.basicInfo.eqpType) > -1 ? '操作系统&nbsp:' :'固件版本&nbsp:'}}</label>
+          <i class="pull-right fa nav-menu_item-arrow" aria-hidden="true"
+          ng-class="{'fa-chevron-down': vm.metaData.status.isOperaSysOpen,'fa-chevron-right': !vm.metaData.status.isOperaSysOpen}"
+          ng-click="vm.metaData.status.isOperaSysOpen = !vm.metaData.status.isOperaSysOpen"></i>
+        </div>
+
+        <div class="form-group" ng-if="vm.metaData.status.isOperaSysOpen && vm.metaData.detail.content.basicInfo.version">
+          <div class="col-sm-5">
+            <label> {{vm.metaData.detail.content.basicInfo.version}}</label>
+          </div>
+        </div>
+
+        <div class="bottom-10">
+            <label class="bottom-10">其它&nbsp:</label>
+            <i class="pull-right fa nav-menu_item-arrow" aria-hidden="true"
+            ng-class="{'fa-chevron-down': vm.metaData.status.isOtherOpen,'fa-chevron-right': !vm.metaData.status.isOtherOpen}"
+            ng-click="vm.metaData.status.isOtherOpen = !vm.metaData.status.isOtherOpen"></i>
+        </div>
+
+        <div class="form-group" ng-if="vm.metaData.status.isOtherOpen && vm.metaData.detail.content.basicInfo.version">
+          <label for="deptCode" class="col-sm-2 control-label text-black">添加时间：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.addedTime | date: 'yyyy-MM-dd HH:mm:ss'}}</label>
+          </div>
+        </div>
+
+        <div class="form-group" ng-if="vm.metaData.status.isOtherOpen && vm.metaData.detail.content.basicInfo.eqpNotes">
+          <label for="deptCode" class="col-sm-2 control-label text-black">备注：</label>
+          <div class="col-sm-5">
+            <label>{{vm.metaData.detail.content.basicInfo.eqpNotes}}</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+</div>

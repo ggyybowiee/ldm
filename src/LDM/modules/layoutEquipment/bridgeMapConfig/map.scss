@@ -1,0 +1,116 @@
+.blueBridge-sidebar {
+  background-color: #E0E0E0;
+  width: 200px;
+}
+
+.blueBridge-sidebar__heading {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  border-bottom: 1px #ccc solid;
+}
+
+.blueBridge-sidebar__body {
+  padding: 0 10px;
+}
+
+.blueBridge-sidebar__filter {
+  margin: 10px 0;
+}
+
+.blueBridge-sidebar__bridges {
+  padding: 0 10px;
+
+  & > li {
+    margin: 5px 0;
+    padding: 0 2px;
+    line-height: 36px;
+    padding-left: 36px;
+  }
+}
+
+.blueBridge-sidebar__tips {
+  margin: 0 0 0 10px;
+  color: #999;
+}
+
+.map-bg-wrapper {
+  margin-left: 200px;
+}
+
+.bridge-map-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // display: flex;
+  // align-items: center;
+  z-index: 97;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+}
+
+.floor-map-container {
+  width: 100%;
+  // height: 600px;
+  height: 800px;
+  position: relative;
+}
+
+.map-markers {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  &.entered {
+    background-color: #f3f3f3;
+  }
+}
+
+.bridge-pin {
+  position: absolute;
+  z-index: 98;
+  font-size: 32px;
+  color: $primary;
+  vertical-align: middle;
+  top: 2px;
+  left: 3px;
+  cursor: move;
+}
+
+.map-markers__item {
+  position: absolute;
+  cursor: move;
+  z-index: 98;
+  font-size: 32px;
+  color: $danger;
+
+  &.dragging {
+    cursor: move;
+  }
+
+  &.active {
+    outline: red solid 1px;
+  }
+}
+
+.blueBridge-sidebar__bridge {
+  line-height: 1.5 !important;
+}
+
+
+.blueBridge-room-input {
+  margin-left: -24px;
+  padding-bottom: 4px;
+  input {
+    width: 100px;
+  }
+}

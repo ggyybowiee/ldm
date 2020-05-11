@@ -1,0 +1,78 @@
+<div loading-wrapper="vm.loadDictionary">
+  <div class="toolbar bordered-all">
+    <button class="toolbar-item btn btn-danger btn-xs" ng-click="vm.forceServerDicCacheRefresh()">后台重新加载字典项目</button>
+    <span style="margin-left:5px; font-weight: bold;">当字典修改后建议手动刷新后台字典缓存</span>
+  </div>
+  <div class="setting-basic-dictionary-wrapper">
+    <div class="setting-basic-dic-type-wrapper">
+      <div class="toolbar">
+        字典名
+      </div>
+      <div class="toolbar">
+        <input class="input-sm" ng-model="vm.filter.dicFilterText" autocomplete="off" placeholder="通过字典名|字典编码检索" />
+        <button class="pull-right btn btn-sm btn-success" ng-click="vm.addOrEditDic()">新增字典</button>
+      </div>
+      <div full-page="fix" full-page-bottom="25">
+        <div class="dic-type-item-panel" ng-repeat="dic in vm.dicItemGroup | filter:vm.filter.dicFilterText" ng-click="vm.selecDicType(dic)"
+          ng-class="{'selected':dic==vm.selectedDic}">
+          <div ng-if="dic.key">
+            <span><b>{{dic.name}}</b>&nbsp;&nbsp;|&nbsp;&nbsp;{{dic.key}}&nbsp;|&nbsp;{{dic.items.length}}</span>
+            <i class="fa fa-trash btn-xs danger-text" confirm yes="vm.deleteDic(dic)" content="此操作将会删除该字典下所有项目，确定要删除该字典？ "></i>
+            <i class="fa fa-edit warning-text" ng-click="vm.addOrEditDic(dic) "></i>
+          </div>
+          <div ng-if="!dic.key">
+            <b>{{dic.name}}</b>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="setting-basic-dic-item-wrapper ">
+      <div class="toolbar">
+        <span>字典项目</span>
+      </div>
+      <div class="toolbar">
+        <!-- <input class="input-sm" ng-model="vm.filter.dicItemFilterText" autocomplete="off" placeholder="通过字典名|字典编码|字典项名|字典项编码检索"
+          style="width:350px;" /> -->
+        <div>
+          <span style="margin:auto 0px;">{{vm.selectedDic.name}}&nbsp;</span>
+          <button class=" btn btn-sm btn-success" ng-disable="!vm.selectedDic" ng-click="vm.addOrEditDicItem()">新增字典项</button>
+        </div>
+      </div>
+      <div full-page="fix" full-page-bottom="25">
+        <table class="table white-borderd tr-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>所有人</th>
+              <th>字典项编码</th>
+              <th>字典项名</th>
+              <th>简称</th>
+              <th>字典项说明</th>
+              <th>字典</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody full-page="fix" full-page-bottom="30">
+            <tr ng-repeat="dicItem in vm.selectedDic.items | filter:vm.filter.dicItemFilterText track by $index">
+              <td>{{$index + 1}}</td>
+              <td>{{dicItem.owner}}</td>
+              <td>{{dicItem.dicCode}}</td>
+              <td>{{dicItem.dicName}}</td>
+              <td>{{dicItem.abbreviation}}</td>
+              <td>{{dicItem.description}}</td>
+              <td>{{vm.selectedDic.key}} | {{vm.selectedDic.name}}</td>
+              <td>
+                <button class="btn btn-link btn-xs warning-text" ng-click="vm.addOrEditDicItem(dicItem) ">
+                  <i class="fa fa-edit "></i>
+                </button>
+                <button class="btn btn-link btn-xs danger-text " confirm yes="vm.deleteDicItem(dicItem) " content="确定要删除该记录单？ ">
+                  <i class="fa fa-trash "></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

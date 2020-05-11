@@ -1,0 +1,144 @@
+<div>
+
+  <div ng-if="!vm.editingResource">
+    <h3 style="text-align:center;">请选中需要编辑的资源</h3>
+  </div>
+
+  <form class="form-horizontal w5c-form estimate-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption"
+    name="resourceForm" ng-if="vm.editingResource">
+    <div class="panel-body">
+
+      <div ng-if="!embeddedModal">
+        <div class="bordered-bottom">
+          <button class="btn btn-primary btn-sm" w5c-form-submit="vm.save()">保存</button>
+          <button class="btn btn-danger btn-sm" ng-click="vm.undo()">撤销修改</button>
+        </div>
+        <br />
+      </div>
+
+      <div>
+        <h5 class="bordered-bottom">资源类型</h5>
+        <div class="form-group">
+          <label for="resourceType" class="col-sm-2 control-label">资源类型：</label>
+          <div class="col-sm-9">
+            <radio ng-model="vm.editingResource.resourceType" options="vm.resourceFieldDic.resourceType" ng-disabled="editResourceType!=null"></radio>
+            <div ng-if="!embeddedModal">
+              <div style="color:red;font-weight:bold;">资源类型会影响菜单目录结构，调整时请慎重！!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="vm.editingResource.resourceType == 2">
+        <h5 class="bordered-bottom">应用资源特定配置</h5>
+
+        <!-- <div class="form-group">
+          <label for="appType" class="col-sm-2 control-label">应用类型：</label>
+          <div class="col-sm-9">
+            <radio ng-model="vm.editingResource.appType" options="vm.resourceFieldDic.appType"></radio>
+          </div>
+        </div> -->
+
+        <div class="form-group">
+          <label for="ad" class="col-sm-2 control-label">应用平台引擎：</label>
+          <div class="col-sm-9">
+            <radio ng-model="vm.editingResource.engine" options="[{value:'react', text:'React'}, {value:'angular', text:'AngularJS'}]"></radio>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ad" class="col-sm-2 control-label">应用缩写：</label>
+          <div class="col-sm-9">
+            <input type="text" id="ad" name="ad" autocomplete="off" ng-model="vm.editingResource.ad" class="form-control input-sm"
+              required>
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="isOut" class="col-sm-2 control-label">应用位置：</label>
+          <div class="col-sm-9">
+            <radio ng-model="vm.editingResource.isOut" options="vm.resourceFieldDic.positionType"></radio>
+          </div>
+        </div> -->
+
+        <div class="form-group">
+          <label for="appVersion" class="col-sm-2 control-label">应用版本：</label>
+          <div class="col-sm-9">
+            <input type="text" id="appVersion" name="appVersion" autocomplete="off" ng-model="vm.editingResource.appVersion"
+              class="form-control input-sm" required>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="bordered-bottom">资源通用配置</h5>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">终端</label>
+          <div class="col-sm-9" style="margin-top:5px;">
+            <label class="custom-checkbox" for="isMobileResource">
+              <input class="form-control input-sm" type="checkbox" id="isMobileResource" name="isMobileResource"
+                autocomplete="off" ng-checked="vm.editingResource.isMobileResource">
+              <span>是否移动资源</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="resourceCode" class="col-sm-2 control-label">资源码：</label>
+          <div class="col-sm-9">
+            <input type="text" id="resourceCode" name="resourceCode" autocomplete="off" ng-model="vm.editingResource.resourceCode"
+              class="form-control input-sm" required />
+            <div ng-if="!embeddedModal">
+              <div style="color:red;font-weight:bold;">资源码修改会影响其所有子模块及对应的页面元素，请谨慎调整</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="resourceName" class="col-sm-2 control-label">资源名：</label>
+          <div class="col-sm-9">
+            <input type="text" id="resourceName" name="resourceName" autocomplete="off" ng-model="vm.editingResource.resourceName"
+              class="form-control input-sm" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="resourceIcon" class="col-sm-2 control-label">资源图标：</label>
+          <div class="col-sm-9">
+            <input type="text" id="resourceIcon" name="resourceIcon" autocomplete="off" ng-model="vm.editingResource.resourceIcon"
+              class="form-control input-sm">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="parentResourceCode" class="col-sm-2 control-label">父资源：</label>
+          <div ng-class="{'col-sm-6':editResourceType!=vm.resourceTypeDic['App'], 'col-sm-9':editResourceType==vm.resourceTypeDic['App']}">
+            <input type="text" id="parentResourceCode" name="parentResourceCode" autocomplete="off" ng-model="parentResource.resourceName"
+              class="form-control input-sm" ng-disabled="true">
+            <div ng-if="!embeddedModal" style="color:red;font-weight:bold;">移动到其它应用时，需要调整代码，实施切勿调整！!</div>
+          </div>
+          <div class="col-sm-3" ng-if="editResourceType!=vm.resourceTypeDic['App']">
+            <button class="btn btn-primary btn-sm" style="width:100%; height:100%" ng-disabled="!parentResource"
+              ng-click="vm.moveParentNode(vm.editingResource)">移动到其它应用或模块</button>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="resourceContent" class="col-sm-2 control-label">资源内容：</label>
+          <div class="col-sm-9">
+            <input type="text" name="resourceContent" id="resourceContent" autocomplete="off" ng-model="vm.editingResource.resourceContent"
+              class="form-control">
+            <div ng-if="!embeddedModal">
+              <div style="color:red;font-weight:bold;">1.AngularJS下记录模块信息</div>
+              <div style="color:red;font-weight:bold;">2.React下记录路由信息??（关林补充）</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="resourceDesc" class="col-sm-2 control-label">资源描述：</label>
+          <div class="col-sm-9">
+            <textarea name="resourceDesc" id="resourceDesc" autocomplete="off" ng-model="vm.editingResource.resourceDesc"
+              class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

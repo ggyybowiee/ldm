@@ -1,0 +1,24 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form" name="deviceBindForm" role="form" novalidate w5c-form-validate="vm.validationOption"
+    form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title">添加新的MEWS体征配置</h5>
+    </div>
+    <div class="modal-body">
+      <div class="bordered-bottom">
+        <input class="form-control input-sm" ng-model="vm.filterText" placeholder="输入名称或编号进行查找" style="width:300px;" />
+      </div>
+      <div class="vitalsign-list-panel">
+        <div class="vitalsign-item-panel" ng-repeat="vitalsign in vm.formData | filter:vm.filterText" ng-click="vm.ok(vitalsign)">
+          <div>
+            <div style="font-size: 14px;font-weight: bold;">{{vitalsign.dicName}}</div>
+            <div>{{vitalsign.dicCode}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

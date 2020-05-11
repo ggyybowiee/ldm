@@ -1,0 +1,34 @@
+.retouch-item {
+  margin-left: 6px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.retouch-wrap {
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 26px;
+
+  &:hover {
+    .retouch-edit-btn {
+      display: block;
+    }
+  }
+}
+
+.retouch-edit-btn {
+  position: absolute;
+  display: none;
+  right: 0px;
+  // top: -70%;
+  z-index: 12;
+  opacity: .5;
+  transition: all .1s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}

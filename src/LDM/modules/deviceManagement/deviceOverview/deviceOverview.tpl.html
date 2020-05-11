@@ -1,0 +1,167 @@
+<div id="deviceOverview" class="panel panel-layout panel-default" style="min-width: 1100px; max-width: 1300px;">
+  <div class="panel-body panel-default">
+    <div class="panel-body panel-body-shadow"  style="margin-bottom: 15px;">
+      <div class="divide-bar col-xs-4">
+        <span class="text-primary title-text">设备统计</span>
+      </div>
+      <div class="base-field clearfix" ng-if="vm.selectedSoftwares.length !== 0">
+        <div class="form-group col-xs-12">
+          <div class="col-xs-2 flex-v-box align-center divide-box">
+            <div class="col-xs-8 device-img">
+              <img ng-src="{{vm.isDeviceAvaiable('蓝桥') && vm.queryDevices.indexOf(1004) !== -1 ? 'assets/svg/icon_lanqiao_focus.svg' : 'assets/svg/icon_lanqiao_blur.svg'}}"
+                alt="蓝桥">
+              <p class="fz-14 text-primary" ng-class="{'text-lightgray': (vm.isDeviceAvaiable('蓝桥') && vm.queryDevices.indexOf(1004) === -1)}">蓝桥</p>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-default btn-round button-wide justify-center" ng-disabled="!vm.isDeviceAvaiable('蓝桥')" ng-click="vm.clickDevice('蓝桥')"
+                ng-class="{'button-click': vm.queryDevices.indexOf(1004) !== -1}">
+                <!-- <img class="checked-image" ng-hover="src='assets/images/devices/icon_check_pressed.png'" src="assets/images/devices/icon_check_default.png"> -->
+                <!-- <a class="overview-device-button btn-round" href=""></a> -->
+                <img class="checked-image" ng-src="{{vm.isDeviceAvaiable('蓝桥') && vm.queryDevices.indexOf(1004) !== -1 ? 'assets/images/devices/icon_check_default.png' : 'assets/images/devices/icon_check_pressed.png'}}">
+              </button>
+            </div>
+          </div>
+          <div class="col-xs-2 flex-v-box align-center divide-box">
+            <div class="col-xs-8 device-img">
+              <img ng-src="{{vm.isDeviceAvaiable('输液监测器') && vm.queryDevices.indexOf(1005) !== -1 ? 'assets/svg/icon_shuyejianceqi_focus.svg' : 'assets/svg/icon_shuyejianceqi_blur.svg'}}"
+                alt="输液检测器">
+              <p class="fz-14 text-primary" ng-class="{'text-lightgray': (vm.isDeviceAvaiable('输液监测器') && vm.queryDevices.indexOf(1005) === -1)}">输液监测器</p>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-default btn-round button-wide" ng-disabled="!vm.isDeviceAvaiable('输液监测器')" ng-click="vm.clickDevice('输液监测器')"
+                ng-class="{'button-click': vm.queryDevices.indexOf(1005) !== -1}">
+                <img class="checked-image" ng-src="{{vm.isDeviceAvaiable('输液监测器') && vm.queryDevices.indexOf(1005) !== -1 ? 'assets/images/devices/icon_check_default.png' : 'assets/images/devices/icon_check_pressed.png'}}">
+              </button>
+            </div>
+          </div>
+          <div class="col-xs-2 flex-v-box align-center divide-box">
+            <div class="col-xs-8 device-img">
+              <img ng-src="{{vm.isDeviceAvaiable('NDA') && vm.queryDevices.indexOf(1001) !== -1 ? 'assets/svg/icon_NDA_focus.svg' : 'assets/svg/icon_NDA_blur.svg'}}"
+                alt="NDA">
+              <p class="fz-14 text-primary" ng-class="{'text-lightgray': (vm.isDeviceAvaiable('NDA') && vm.queryDevices.indexOf(1001) === -1)}">NDA</p>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-default btn-round button-wide" ng-disabled="!vm.isDeviceAvaiable('NDA')" ng-click="vm.clickDevice('NDA')"
+                ng-class="{'button-click': vm.queryDevices.indexOf(1001) !== -1}">
+                <img class="checked-image" ng-src="{{vm.isDeviceAvaiable('NDA') && vm.queryDevices.indexOf(1001) !== -1 ? 'assets/images/devices/icon_check_default.png' : 'assets/images/devices/icon_check_pressed.png'}}">
+              </button>
+            </div>
+          </div>
+          <div class="col-xs-2 flex-v-box align-center divide-box">
+            <div class="col-xs-8 device-img">
+              <img ng-src="{{vm.isDeviceAvaiable('医生推车') && vm.queryDevices.indexOf(1002) !== -1 ? 'assets/svg/icon_yishengtuiche_focus.svg' : 'assets/svg/icon_yishengtuiche_blur.svg'}}"
+                alt="医生推车">
+              <p class="fz-14 text-primary" ng-class="{'text-lightgray': (vm.isDeviceAvaiable('医生推车') && vm.queryDevices.indexOf(1002) === -1)}">医生推车</p>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-default btn-round button-wide" ng-disabled="!vm.isDeviceAvaiable('医生推车')" ng-click="vm.clickDevice('医生推车')"
+                ng-class="{'button-click': vm.queryDevices.indexOf(1002) !== -1}">
+                <img class="checked-image" ng-src="{{vm.isDeviceAvaiable('医生推车') && vm.queryDevices.indexOf(1002) !== -1 ? 'assets/images/devices/icon_check_default.png' : 'assets/images/devices/icon_check_pressed.png'}}">
+              </button>
+            </div>
+          </div>
+          <div class="col-xs-2 flex-v-box align-center divide-box">
+            <div class="col-xs-8 device-img">
+              <img ng-src="{{vm.isDeviceAvaiable('护士推车') && vm.queryDevices.indexOf(1003) !== -1 ? 'assets/svg/icon_hushituiche_focus.svg' : 'assets/svg/icon_hushituiche_blur.svg'}}"
+                alt="护士推车">
+              <p class="fz-14 text-primary" ng-class="{'text-lightgray': (vm.isDeviceAvaiable('护士推车') && vm.queryDevices.indexOf(1003) === -1)}">护士推车</p>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-default btn-round button-wide" ng-disabled="!vm.isDeviceAvaiable('护士推车')" ng-click="vm.clickDevice('护士推车')"
+                ng-class="{'button-click': vm.queryDevices.indexOf(1003) !== -1}">
+                <img class="checked-image" ng-src="{{vm.isDeviceAvaiable('护士推车') && vm.queryDevices.indexOf(1003) !== -1 ? 'assets/images/devices/icon_check_default.png' : 'assets/images/devices/icon_check_pressed.png'}}">
+              </button>
+            </div>
+          </div>
+          <div class="col-xs-2 flex-v-box align-center">
+            <div class="col-xs-8 device-img" style="text-align: center;margin-top: 10px;margin-bottom: 10px;">
+              <img ng-src="{{vm.isDeviceAvaiable('其他设备') && vm.queryDevices.indexOf(-1) !== -1 ? 'assets/svg/icon_qita_focus.svg' : 'assets/svg/icon_qita_blur.svg'}}"
+                alt="其他设备">
+              <p class="fz-14 text-primary" ng-class="{'text-lightgray': (vm.isDeviceAvaiable('其他设备') && vm.queryDevices.indexOf(-1) === -1)}">其他设备</p>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-default btn-round button-wide" ng-disabled="!vm.isDeviceAvaiable('其他设备')" ng-click="vm.clickDevice('其他设备')"
+                ng-class="{'button-click': vm.deviceTypes.indexOf(-1) !== -1}">
+                <img class="checked-image" ng-src="{{vm.isDeviceAvaiable('其他设备') && vm.queryDevices.indexOf(-1) !== -1 ? 'assets/images/devices/icon_check_default.png' : 'assets/images/devices/icon_check_pressed.png'}}">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body form-group no-padding">
+      <div class="col-xs-4" style="padding-left: 0px;">
+        <div class="panel-body-shadow" style="margin-right: 10px;">
+          <div class="divide-bar" style="margin-left: 10px;padding-left: 10px;">
+            <span class="text-primary title-text">所有设备</span>
+            <span class="pull-right title-text">合计：
+              <strong>{{vm.deviceCountNumber}}</strong>台</span>
+          </div>
+          <div class="flex-box justify-center">
+            <div custom-echarts width="240px" height="300px" options="vm.pieOption"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4" style="padding-left: 0px;">
+        <div class="panel-body-shadow">
+          <div class="divide-bar" style="margin-left: 10px;padding-left: 10px;">
+            <span class="text-primary title-text">在线状态</span>
+          </div>
+          <div class="flex-box justify-center">
+            <div custom-echarts width="240px" height="300px" options="vm.onlineStatistic"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4" style="padding-right: 0px;">
+        <div class="panel-body-shadow">
+          <div class="divide-bar" style="margin-left: 10px;padding-left: 10px;">
+            <span class="text-primary title-text">运行状态</span>
+          </div>
+          <div class="flex-box justify-center">
+            <div custom-echarts width="240px" height="300px" options="vm.errorStatistic"></div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <div class="panel-body panel-body-shadow">
+      <div class="base-field clearfix">
+        <div class="form-group col-xs-12 no-padding">
+          <div class="divide-bar col-xs-8">
+            <span class="text-primary title-text">蓝桥服务器实时传输数据量</span>
+            <span class="pull-right title-text">显示当前一分钟数据</span>
+          </div>
+          <div class="col-xs-1"></div>
+          <div class="divide-bar col-xs-3">
+            <span class="text-primary title-text">蓝桥统计</span>
+          </div>
+        </div>
+        <div class="form-group col-xs-12">
+          <div class="col-xs-8" style="height:270px;position: relative; top: -40px;">
+            <div id="LineChart" custom-echarts height="100%" width="700px" options="vm.lineTemplate"></div>
+          </div>
+          <div class="col-xs-1"></div>
+          <div class="col-xs-3">
+            <div class="col-xs-12" style="height: 20px"></div>
+            <div class="col-xs-12"></div>
+            <p class="fz-14">全部{{vm.size.width}}</p>
+            <p class="fz-14">
+              <span class="text-primary" style="font-size: 26px;">
+                <strong>{{(vm.blueBridgeOnlineCount.online + vm.blueBridgeOnlineCount.offline) || '0'}}</strong>
+              </span>&nbsp台</p>
+            <p>在线</p>
+            <p class="fz-14">
+              <span class="text-primary" style="font-size: 26px;">
+                <strong>{{vm.blueBridgeOnlineCount.online || '0'}}</strong>
+              </span>&nbsp台</p>
+            <p>离线</p>
+            <p class="fz-14">
+              <span class="text-primary" style="font-size: 26px;">
+                <strong>{{vm.blueBridgeOnlineCount.offline || '0'}}</strong>
+              </span>&nbsp台</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

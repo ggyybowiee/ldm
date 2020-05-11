@@ -1,0 +1,296 @@
+.nursing-path-config-panel {
+  display: flex;
+
+  .toolbar {
+    margin: 0px;
+    background-color: $back-5;
+
+    >button{
+      font-size: 14px;
+      text-align: center;
+      width: 100%;
+    }
+
+    >button:first-child{
+      margin-bottom: 5px;
+    }
+  }
+
+  .nursing-path-config-nodes-panel {
+    width: 280px;
+    max-width: 280px;
+    min-width: 280px;
+    border-right: 1px solid $border-3;
+    background-color: $back-5;
+
+
+    .nursing-path-header {
+      display: flex;
+
+      >span {
+        margin: auto 0px;
+        font-size: 14px;
+        color: $font-2;
+      }
+
+      >input {
+        flex-grow: 1;
+        border: 0px;
+        border-bottom: 1px solid $border-3;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .nursing-path-config-items-panel {
+    flex-grow: 1;
+
+    .nursing-path-header {}
+
+    .nursing-path-config-table {
+      border: 0px;
+
+      >thead {
+        >tr {
+          th {
+            color: $font-2;
+            padding: 0px 8px;
+            background-color: $back-5;
+            height: 35px;
+            line-height: 35px;
+            border: 0px;
+            border-right: 1px solid $border-3;
+            border-bottom: 1px solid $border-3;
+            text-align: center;
+            font-weight: bold !important;
+            font-size: 14px;
+
+            &:first-child {
+              border-left: 0px;
+            }
+          }
+        }
+      }
+
+      >tbody {
+        >tr {
+
+          td {
+            padding: 3px;
+            border: 0px;
+            border-right: 1px solid $border-3;
+            border-bottom: 1px solid $border-3;
+            text-align: center;
+            vertical-align: middle;
+
+            button {
+              font-weight: bold;
+              width: 100%;
+              text-align: left;
+              padding: 0px;
+              white-space: normal;
+            }
+
+            >label {
+              margin-top: 5px;
+            }
+
+            input {
+              color: $font-1;
+              border: 0px;
+
+              &:hover {
+                background-color: $primary;
+                color: white
+              }
+
+              &:focus {
+                background-color: $primary;
+                color: white
+              }
+            }
+
+            >select {
+              color: $font-1;
+              border: 0px;
+              text-align: center;
+              text-align-last: center;
+              cursor: pointer;
+
+              &:hover {
+                background-color: $primary;
+                color: white
+              }
+            }
+
+            >div {
+              display: flex;
+              justify-content: space-between;
+            }
+          }
+
+          td:last-child {
+            vertical-align: middle;
+
+            >div {
+              display: flex;
+              justify-content: space-between;
+
+              button {
+                font-weight: bold;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .nursing-path-header {
+    height: 50px;
+    padding: 10px 10px;
+    border-bottom: 1px solid $border-3;
+  }
+}
+
+.self-defined-table {
+  color: #272e37;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-around;
+  background-color: #fafafa;
+
+  li {
+    text-align: center;
+    display: inline-block;
+    padding: 8px;
+  }
+}
+
+.right-table {
+  .tree-light ul:first-child+li {
+    padding: 0;
+  }
+
+  .tree-selected {
+    font-weight: 400 !important;
+  }
+
+  .tree-branch-head {
+    position: absolute;
+    left: 0;
+    height: 16px;
+    top: 5px;
+    z-index: 99;
+  }
+
+  .tree-label {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  li.tree-leaf {
+    display: flex;
+    margin: 1px 0px;
+
+    .tree-label.tree-selected {
+      border-radius: 3px;
+      font-weight: 400;
+      background-color: #fff !important;
+      color: white;
+    }
+  }
+
+  li.tree-leaf:hover {
+    color: $primary;
+
+    .tree-label {
+      border-radius: 3px;
+      font-weight: 400 !important;
+      background-color: #fff !important;
+      color: white;
+    }
+  }
+}
+
+.nursing-path-item-node {
+
+  width: 20px;
+  height: 20px;
+  margin: auto 0px;
+
+  &.parent-node {
+
+    cursor: pointer;
+
+    &.expanded {
+      background: url('/assets/images/mnis/tree/expand.svg') no-repeat;
+      background-size: 100% 100% !important;
+    }
+
+    &.collapsed {
+      background: url('/assets/images/mnis/tree/collapse.svg') no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+}
+
+.item-table {
+  vertical-align: text-top;
+  display: flex;
+  justify-content: space-around;
+
+  li {
+    text-align: center;
+    display: inline-block !important;
+    line-height: 26px;
+  }
+}
+
+.zxxm {
+  width: 212px;
+}
+
+.bdgcx {
+  width: 9em;
+}
+
+.bzwsmb {
+  width: 20em;
+}
+
+.zxpl {
+  width: 7em;
+}
+
+.bx,
+.sh {
+  width: 5em;
+}
+
+.hlzd {
+  width: 6em;
+}
+
+.zdyts {
+  width: 14em;
+}
+
+.cz {
+  width: 14em;
+}
+
+.hideSave {
+  visibility: hidden;
+}
+
+.nursing-path-hlpgd-picker-list-panel {
+  tr.selected{
+    background-color: $primary !important;
+    color: white;
+  }
+}

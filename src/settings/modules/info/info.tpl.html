@@ -1,0 +1,40 @@
+<div class="hos-info-wrapper" loading-wrapper="vm.load">
+  <div class="panel panel-default">
+    <div class="panel-heading"><i class="fa fa-info-circle"></i>医院基础信息</div>
+    <div class="panel-body">
+      <div class="alert alert-danger">修改完成后请返回中央系统使设置生效，点击 <a class="btn btn-sm btn-danger" ng-click="vm.reload()">跳转中央系统</a></div>
+      <div class="hos-info-panel" loading-wrapper="vm.load">
+        <form class="form-horizontal" novalidate  w5c-form-validate name="form">
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">医院名称：</label>
+            <div class="col-sm-10">
+              <input type="text" id="name" name="name" ng-model="vm.formData.hosDisplayName" class="form-control input-sm" placeholder="名称" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="logo" class="col-sm-2 control-label">医院名称图片：</label>
+            <div class="col-sm-10">
+              <upload-image ng-model="vm.formData.hosLogoAttachmentSeqid" optional-model="vm.formData.hosLogoPath" options="vm.imgOptions"></upload-image>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">医院横幅：</label>
+            <div class="col-sm-10">
+              <upload-image ng-model="vm.formData.hosImageAttachmentSeqid" optional-model="vm.formData.hosImagePath" options="vm.imgOptions"></upload-image>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">医院标识：</label>
+            <div class="col-sm-10">
+              <upload-image ng-model="vm.formData.hosIconAttachmentSeqid" optional-model="vm.formData.hosIconPath" options="vm.iconOptions"></upload-image>
+            </div>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+

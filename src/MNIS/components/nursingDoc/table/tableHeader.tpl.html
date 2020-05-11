@@ -1,0 +1,17 @@
+<div class="toolbar-item-panel">
+  <h3 style="display: inline-block;margin: 0px;">{{tpl.tplName}}</h3>
+  <div class="pull-right toolbar-item">
+    <button class="btn btn-primary btn-sm btn-round" ng-click="open()">添加项目</button>
+    <button class="btn btn-success btn-sm btn-round" ng-click="save()">保存</button>
+  </div>
+  <span class="toolbar-item pull-right" style="margin: 0px 10px">
+    <div class="btn-group btn-radio">
+      <label class="btn btn-sm btn-primary" ng-model="filter.showType" uib-btn-radio="0">
+        记录单基本信息
+      </label>
+      <label class="btn btn-sm btn-primary" ng-model="filter.showType" uib-btn-radio="1">
+        记录单表体配置
+      </label>
+    </div>
+  </span>
+</div>

@@ -1,0 +1,58 @@
+<div class="modal-content nursing-doc-modal-wrapper">
+  <div class="modal-header">
+    <button type="button" ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">换页符管理</h5>
+  </div>
+  <form class="form-horizontal" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+      <div>
+        <div>
+          <h5 class="modal-title-1">换页码列表({{vm.formData.blankPageList? vm.formData.blankPageList.length:0}})</h5>
+          <table class="table white-borderd tr-hover thead-fixed bordered-all">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>所处页码</th>
+                <th>换页页数</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody style="height:200px;overflow-y:auto;">
+              <tr class="nursing-doc-custom-blankpage-tr" ng-repeat="item in vm.formData.blankPageList track by $index"
+               ng-class="{'selected': item.dataId == vm.formData.selectedRow.dataId}"
+                ng-click="vm.selectBlankPage(item)">
+                <td>{{$index + 1}}</td>
+                <td>{{item.pageNo}}</td>
+                <td>{{item.pageOffSet}}</td>
+                <td>
+                  <button class="btn btn-danger btn-xs" ng-click="vm.deleteBlankPage(item)">
+                    <span class="fa fa-trash"></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div ng-if="vm.formData.selectedRow">
+          <h5 class="modal-title-1">换页码编辑</h5>
+          <div class="form-group" ng-if="vm.formData.double != 1">
+            <label for="type" class="col-sm-3 control-label">换页页数：</label>
+            <div class="col-sm-7">
+              <input class="form-control input-sm" ng-model="vm.formData.selectedRow.pageOffSet" autocomplete="off" type="number" />
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-sm btn-success" ng-click="vm.saveBlankPage()"><span class="fa fa-save"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="pull-left" style="font-style: italic;">提示：如要添加换页码，请右键点击需要插入的位置后选择插入换页符</span>
+      <br/>
+    </div>
+    <div class="modal-footer" style="margin-top:5px;">
+      <button class="btn btn-warning btn-sm btn-round" ng-click="vm.cancel()">关闭</button>
+    </div>
+  </form>
+</div>

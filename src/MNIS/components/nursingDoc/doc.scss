@@ -1,0 +1,327 @@
+$nurse-doc-color: #000;
+
+.nursing-doc-panel {
+  // position: relative;
+  // padding-bottom: 40px;
+  .doc-box {
+    overflow-x: auto;
+  }
+
+  .doc-control {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 26px;
+    padding: 7px 60px 7px 0;
+    text-align: center;
+    background-color: $back-6;
+    z-index: 999;
+
+    .continue-print {
+      padding: 0 10px;
+    }
+
+    .page-form {
+      display: inline-block;
+    }
+
+    .page-index {
+      display: inline-block;
+      text-align: center;
+      margin: 0 5px;
+      width: 40px;
+    }
+  }
+}
+
+.doc-comp-wrapper {
+  .table-header {
+    position: relative;
+    page-break-after: avoid;
+    height: 74px;
+    background-color: white;
+
+    .header-item {
+      position: relative;
+      display: inline-block;
+      box-sizing: content-box;
+      z-index: 90;
+      text-align: center;
+      vertical-align: middle;
+      border-top: 1px solid $nurse-doc-color;
+      border-right: 1px solid $nurse-doc-color;
+      border-bottom: 1px solid $nurse-doc-color;
+
+      &.left {
+        border-left: 1px solid $nurse-doc-color;
+      }
+
+      .header-item-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        word-break: break-all;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        >span{
+          margin: auto 0px;
+          line-height: 100%;
+          height: 100%;
+        }
+      }
+
+      .header-item-text.cross-line {
+        height:100%;
+      }
+
+      .header-item-top {
+        position: relative;
+        height: 24px;
+        border-bottom: 1px solid $nurse-doc-color;
+      }
+
+      .header-item-bottom {
+        height: 48px;
+
+        .header-bottom-item {
+          position: relative;
+          display: inline-block;
+          box-sizing: content-box;
+          height: 100%;
+
+          +.header-bottom-item {
+            border-left: 1px solid $nurse-doc-color;
+          }
+        }
+      }
+    }
+  }
+
+  .table-content-wrapper {
+    position: relative;
+    margin-left: -20px;
+    margin-right: -10px;
+    padding-left: 20px;
+
+    // overflow-x: hidden;
+    // 隐藏输入框的箭头
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0;
+      /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .table-content-row-wrapper {
+      user-select: none;
+    }
+
+    .table-content-row {
+      font-size: 0;
+      position: relative;
+
+      .content-deleter {
+        position: absolute;
+        right: 0;
+        top: 1px;
+        padding: 0;
+        display: none;
+        width: 24px;
+        height: 24px;
+
+        .fa {
+          font-size: 12px;
+        }
+      }
+
+      &:hover {
+        background-color: rgba(88, 88, 88, 0.2);
+
+        .content-deleter {
+          display: block;
+        }
+      }
+
+      &.active {
+        background-color: rgba(88, 88, 88, 0.3);
+      }
+
+      &.fixed {
+        cursor: not-allowed;
+      }
+
+      &.mark-row {
+
+        &:before {
+          @media print {
+            display: none;
+          }
+
+          position: absolute;
+          left: -4px;
+          width: 0;
+          height: 0;
+          bottom: -4px;
+          content: ' ';
+          display: block;
+          border-left: 4px solid #007bff;
+          border-top: 4px solid transparent;
+          border-bottom: 4px solid transparent;
+          border-right: 4px solid transparent;
+        }
+
+        &:after {
+          position: absolute;
+          left: -18px;
+          width: 14px;
+          height: 8px;
+          bottom: -4px;
+          content: ' ';
+          display: block;
+          background-color: #007bff;
+        }
+      }
+
+      &.editing-line:hover {
+        .content-deleter {
+          display: none;
+        }
+      }
+
+      .content-item {
+        line-height: 26px;
+        display: inline-block;
+        box-sizing: content-box;
+        min-height: 26px;
+        vertical-align: top;
+        border-left: 1px solid transparent;
+
+        .uib-timepicker {
+          display: block;
+
+          &>.form-input {
+            display: flex;
+          }
+
+          .uib-time {
+            flex: 1;
+          }
+
+          .input-group {
+            width: auto;
+
+            .input-group-addon {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.table-border-pages {
+  position: absolute;
+  top: 0;
+  // visibility: hidden;
+
+  // width: 100%;
+  .table-border-cell {
+    display: inline-block;
+    box-sizing: content-box;
+    height: 25px;
+    cursor: not-allowed;
+    border-right: 1px solid $nurse-doc-color;
+    border-bottom: 1px solid $nurse-doc-color;
+
+    &.left {
+      border-left: 1px solid $nurse-doc-color;
+    }
+  }
+
+  .table-border-line {
+    position: relative;
+    height: 26px;
+
+    .table-page-index {
+      position: absolute;
+      left: -20px;
+      top: 0;
+      display: block;
+      width: 20px;
+      line-height: 26px;
+    }
+  }
+}
+
+.in-out-line {
+  font-size: 12px !important;
+  text-align: center;
+  background-color: white !important;
+  margin-left: 1px;
+  width: calc(100% - 2px);
+  border-top: 1px solid #000;
+
+  &:hover,
+  &:active {
+    background-color: #fff;
+  }
+  
+  &.first-line{
+    border-top: 0px solid #000;
+  }
+}
+
+.doc-print-wrapper {
+  display: none;
+}
+
+.print-modal-wrapper {
+  input {
+    width: 60px !important;
+    margin: 0 5px;
+    text-align: center;
+  }
+}
+
+.shield {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  z-index: 999;
+}
+
+.doc-control-right {
+  position: absolute;
+  right: 0;
+  top: 6px;
+}
+
+.printHidden {
+  opacity: 0;
+}
+
+@media print {
+  opacity: 0;
+
+  .printHidden {
+    opacity: 0 !important;
+  }
+
+  .printBorderHidden {
+    border: 0px !important;
+  }
+}

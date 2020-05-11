@@ -1,0 +1,34 @@
+<div class="nursing-doc-ext-panel">
+
+  <div class="bordered-bottom" class="nursing-doc-ext-type-panel">
+    <div class="btn-group btn-radio">
+      <label class="btn btn-sm btn-primary" ng-repeat="item in vm.extendType" ng-model="extendEcho.showIndex"
+        uib-btn-radio="{{item.type}}">{{item.text}}</label>
+    </div>
+    <button class="btn btn-primary btn-sm pull-right" ng-show="!hideCloseButton" ng-click="vm.closePanel()">关闭</button>
+  </div>
+
+  <div ng-if="[2,3,4,6].indexOf(extendEcho.showIndex)==-1" class="bordered-bottom" style="margin-top:5px;">
+    <span>双击选项可在右侧正在编辑的行内追加内容</span>
+  </div>
+
+  <div>
+    <special-char-ext-panel ng-if="extendEcho.showIndex==0" extend-echo="extendEcho" edit-data="editData"
+      insert-callback="insertCallback"></special-char-ext-panel>
+    <order-ext-panel ng-if="extendEcho.showIndex==1" extend-echo="extendEcho" edit-data="editData" patient-info="patientInfo"
+      insert-callback="insertCallback"></order-ext-panel>
+    <vitalsign-ext-panel ng-if="extendEcho.showIndex==2" extend-echo="extendEcho" tpl="tpl" edit-data="editData"
+      patient-info="patientInfo" insert-callback="insertCallback"></vitalsign-ext-panel>
+    <test-ext-panel ng-if="extendEcho.showIndex==3" extend-echo="extendEcho" edit-data="editData" patient-info="patientInfo"
+      insert-callback="insertCallback"></test-ext-panel>
+    <exam-ext-panel ng-if="extendEcho.showIndex==4" extend-echo="extendEcho" edit-data="editData" patient-info="patientInfo"
+      insert-callback="insertCallback"></exam-ext-panel>
+    <operation-ext-panel ng-if="extendEcho.showIndex==5" extend-echo="extendEcho" edit-data="editData" patient-info="patientInfo"
+      insert-callback="insertCallback"></operation-ext-panel>
+    <document-ext-panel ng-if="extendEcho.showIndex==6" extend-echo="extendEcho" edit-data="editData" patient-info="patientInfo"
+      insert-callback="insertCallback"></document-ext-panel>
+    <modal-tpl-ext-panel ng-if="extendEcho.showIndex==100" extend-echo="extendEcho" edit-data="editData"
+      insert-callback="insertCallback"></modal-tpl-ext-panel>
+  </div>
+
+</div>

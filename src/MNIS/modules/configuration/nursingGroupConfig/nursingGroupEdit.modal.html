@@ -1,0 +1,46 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form" name="deviceBindForm" role="form" novalidate w5c-form-validate="vm.validationOption"
+    form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title">{{vm.type}}床位分组信息</h5>
+      <span>床号连续时，使用"-"连接；床号不连续时，用逗号隔开。示例：1-4,6,9-12</span>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="cate" class="control-label col-xs-3 partial-label">班次名称：</label>
+        <div class="col-xs-8">
+          <label class="control-label partial-label" style="margin:auto 0px;">{{vm.formData.shiftName}}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="teamName" class="control-label col-xs-3 partial-label">分组名称：</label>
+        <div class="col-xs-8">
+          <input name="teamName" class="form-control input-sm" autocomplete="off" type="text" ng-model="vm.formData.teamName" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bedRange" class="control-label col-xs-3 partial-label">床位分组：</label>
+        <div class="col-xs-8">
+          <input name="bedRange" class="form-control input-sm" type="text" autocomplete="off" ng-model="vm.formData.bedRange" w5c-customizer="vm.validateBedRange()"
+            required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="status" class="col-sm-3 control-label">是否启用：</label>
+        <div class="col-sm-9">
+          <select name="status" class="form-control input-sm" required ng-model="vm.formData.status" name="showType" style="width: 200px">
+            <option value="1">启用</option>
+            <option value="9">停用</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm btn-round" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-default btn-sm btn-round" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

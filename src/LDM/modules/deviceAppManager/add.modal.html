@@ -1,0 +1,72 @@
+<div class="device-modal-content">
+  <div class="modal-header">
+    <button ng-click="vm.cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h5 class="modal-title">
+      填写软件信息
+    </h5>
+  </div>
+  <form class="form-horizontal w5c-form" role="form" novalidate w5c-form-validate="vm.metaData.validationOption" name="yearForm">
+
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="form-group">
+          <label for="softPath" class="col-sm-3 control-label">安装文件：</label>
+          <div class="col-sm-5">
+            <div ng-if="vm.metaData.uploader.queue[0]">{{vm.metaData.fileName}}</div>
+            <!-- <div ng-if="vm.formData.softPath || vm.metaData.uploader.queue[0]">{{vm.metaData.fileName || vm.getFilenameFromPath(vm.formData.softPath) }}</div> -->
+            <div class="btn btn-xs btn-default btn-round btn-file-selector" role="button">
+              {{vm.formData.softPath ? '替换文件' : '选择文件'}}
+              <input class="form-control input-sm input-file--hidden" nv-file-select="" uploader="vm.metaData.uploader" required name="softPath" id="softPath" type="file" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="softMark" class="col-sm-3 control-label">软件标识：</label>
+          <div class="col-sm-5">
+              <input class="form-control input-sm" required name="softMark" id="softMark" type="text" ng-model="vm.formData.softMark" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="softName" class="col-sm-3 control-label"><span class="text-danger">＊</span>名称：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" required name="softName" maxlength="30" id="softName" type="text" ng-model="vm.formData.softName" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="softVersion" class="col-sm-3 control-label"><span class="text-danger">＊</span>版本号：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" required name="softVersion" w5c-customizer="vm.max30()" id="softVersion" type="text" ng-model="vm.formData.softVersion"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="versionName" class="col-sm-3 control-label">版本名称：</label>
+          <div class="col-sm-5">
+            <input class="form-control input-sm" required name="versionName" maxlength="30" id="versionName" type="text" ng-model="vm.formData.versionName" />
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="upgradeType" class="col-sm-3 control-label">升级方式：</label>
+          <div class="col-sm-5 filter-text">
+            <label class="custom-checkbox" ng-repeat="item in vm.metaData.dic.upgradeType">
+              <input type="checkbox" ng-false-value="0" ng-true-value="1" value="{{item.dicCode}}" ng-model="vm.formData.upgradeType">
+              <span>{{item.dicName}}</span>
+            </label>
+          </div>
+        </div> -->
+
+        <div class="form-group">
+          <label for="softDesc" class="col-sm-3 control-label">备注：</label>
+          <div class="col-sm-5">
+            <textarea class="form-control input-sm" id="softDesc" maxlength="500" ng-model="vm.formData.softDesc" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-sm btn-success btn-round" w5c-form-submit="vm.ok()">保存</button>
+      <button class="btn btn-sm btn-default btn-round" ng-click="vm.cancel()">取消</button>
+    </div>
+  </form>
+
+</div>

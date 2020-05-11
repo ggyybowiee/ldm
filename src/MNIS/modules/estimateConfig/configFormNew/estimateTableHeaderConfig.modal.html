@@ -1,0 +1,292 @@
+<div class="modal-content">
+  <form class="form-inlne form-horizontal w5c-form" name="deviceBindForm" role="form" novalidate w5c-form-validate="vm.validationOption"
+    form="deviceBindForm">
+    <div class="modal-header">
+      <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <span class="toolbar-item pull-right" style="margin: 0px 10px">
+        <div class="btn-group btn-radio">
+          <label class="btn btn-sm btn-primary" ng-model="vm.formData.showType" uib-btn-radio="0">
+            表头布局
+          </label>
+          <label class="btn btn-sm btn-primary" ng-model="vm.formData.showType" uib-btn-radio="1">
+            数据绑定
+          </label>
+          <label ng-if="vm.formData.headerData.isValueHeader &&  !vm.formData.headerData.isParentDataBind && vm.formData.headerData.isDataBind"
+            class="btn btn-sm btn-primary" ng-model="vm.formData.showType" uib-btn-radio="2">
+            计算公式
+          </label>
+          <label ng-if="vm.formData.headerData.isValueHeader &&  !vm.formData.headerData.isParentDataBind && vm.formData.headerData.isDataBind"
+            class="btn btn-sm btn-primary" ng-model="vm.formData.showType" uib-btn-radio="3">
+            填写说明
+          </label>
+        </div>
+      </span>
+      <h4 class="modal-title">表头项目设置</h4>
+    </div>
+    <div class="modal-body">
+      <!-- 布局 -->
+      <div ng-show="vm.formData.showType==0" class="estiamte-table-header-config-subheader-layout" style="flex-basis: 50%;">
+        <h4>布局</h4>
+
+        <div class="form-group">
+          <label for="cate" class="control-label col-xs-3 partial-label">二分表头:</label>
+          <div class="col-xs-8">
+            <!-- <input type="checkbox" ng-model="vm.formData.headerData.corssLine" />  -->
+            <radio ng-model="vm.formData.headerData.crossline" options="vm.metaData.tableHeadOption"></radio>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cate" class="control-label col-xs-3 partial-label">标题:</label>
+          <div class="col-xs-8">
+            <textarea style="height: 100px;" class="form-control input-sm" ng-model="vm.formData.headerData.title"
+              required name="title"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group" ng-if="vm.formData.headerData.crossline=='R'|| vm.formData.headerData.crossline=='L'">
+          <label for="cate" class="control-label col-xs-3 partial-label">标题2:</label>
+          <div class="col-xs-8">
+            <textarea style="height: 100px;" class="form-control input-sm" ng-model="vm.formData.headerData.titleSecond"
+              required name="title2"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cate" class="control-label col-xs-3 partial-label">对齐方式：</label>
+          <div class="col-xs-8">
+            <select class="form-control input-sm" ng-model="vm.formData.headerData.textAlign" required name="textAlign">
+              <option value="center">居中对齐</option>
+              <option value="left">左对齐</option>
+              <option value="right">右对齐</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="estimate-table-header-config-subheader-title">
+          <h5>子表头编辑区</h5>
+          <button class="btn btn-sm btn-success btn-round" ng-click="vm.addSubHeader()">添加子表头</button>
+        </div>
+        <div class="estiamte-table-header-config-subheader">
+          <ul>
+            <li ng-repeat="subHeader in vm.formData.headerData.subHeaders track by $index">
+              <label>标题:</label>
+              <input type="text" ng-model="subHeader.title" />
+              <button class="btn btn-sm btn-success " ng-click="vm.upSubHeader($index)">↑</button>
+              <button class="btn btn-sm btn-success " ng-click="vm.downSubHeader($index)">↓</button>
+              <button class="btn btn-sm btn-danger" ng-click="vm.removeSubHeader($index)">×</button>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 数据绑定 -->
+      <div ng-show="vm.formData.showType==1">
+        <h4>数据绑定</h4>
+        <div ng-if="vm.formData.headerData.level == 1">
+          <input type="checkbox" ng-model="vm.formData.headerData.isValueHeader" /> &nbsp;表头下是否绑定数据(所有数据值都不与此表头绑定信息，
+          <bold style="color: red">目前只支持当列只有一行表头的情况</bold>)
+        </div>
+        <div ng-if="vm.formData.headerData.isValueHeader">
+          <div ng-if="!vm.formData.headerData.isParentDataBind">
+            <input type="checkbox" ng-model="vm.formData.headerData.isDataBind" ng-change="vm.dataBindChanged(vm.formData.headerData)" />
+            &nbsp;数据是否绑定到此层(每条数据的值将与该行绑定，如果父级已经设定该项无效)
+          </div>
+          <div ng-if="vm.formData.headerData.isParentDataBind">
+            <bold style="color: red">父级已经绑定数据，子级无须设定</bold>
+          </div>
+        </div>
+        <div class="estiamte-table-header-top-border" ng-if="vm.formData.headerData.isValueHeader && vm.formData.headerData.isDataBind">
+          <h5>数据项编辑区</h5>
+          <div style="margin:10px 16px; display: flex;">
+            <div class="flex-50 bordered-right">
+              <div class="form-group" style="margin-top: 10px;">
+                <label for="cate" class="control-label col-xs-3 partial-label">数据绑定编码:</label>
+                <div class="col-xs-8">
+                  <input class="form-control input-sm" type="text" ng-model="vm.formData.headerData.dataBind" required
+                    name="title" uib-tooltip="使用以下字段会自动生成值: date（日期）time（时间）sign（签名）" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-top: 10px;">
+                <label for="cate" class="control-label col-xs-3 partial-label">数据类型:</label>
+                <div class="col-xs-8">
+                  <select class="form-control input-sm table-header__input-item" uib-tooltip="输入类型" ng-model="vm.formData.headerData.dataType"
+                    name="dataType">
+                    <option ng-repeat="inputType in vm.formData.headInputTypes" value="{{inputType.type}}">{{inputType.desc}}</option>
+                  </select>
+                  <span ng-if="vm.formData.headerData.dataType == 'select'" style="color:red;font-weight:bold;">下拉单选类型无法自动计算分数及评估等级</span>
+                </div>
+              </div>
+              <div style="color:red;">
+                <div ng-repeat="item in vm.formData.headerData|headerDataBindCheck">{{item}}</div>
+              </div>
+            </div>
+
+            <div class="flex-50" style="margin:0px 16px;">
+              <label for="cate" class="control-label partial-label">绑定属性:</label>
+              <table class="table white-borderd">
+                <thead>
+                  <th>参与计分</th>
+                  <th>总和项</th>
+                  <th>评估等级</th>
+                  <th>是否可编辑</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="checkbox" ng-model="vm.formData.headerData.countable" ng-disabled="vm.formData.headerData.dataType == 'select'" />
+                    </td>
+                    <td>
+                      <input type="checkbox" ng-model="vm.formData.headerData.isSum" ng-change="vm.updateSubHeader(vm.formData.headerData, 'isSum')" />
+                    </td>
+                    <td>
+                      <input type="checkbox" ng-model="vm.formData.headerData.isLevel" ng-change="vm.updateSubHeader(vm.formData.headerData, 'isLevel')" />
+                    </td>
+                    <td>
+                      <input type="checkbox" ng-model="vm.formData.headerData.editable" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div ng-if="['select', 'select2', 'multiSelect', 'radio'].indexOf(vm.formData.headerData.dataType) > -1"
+            class="estiamte-table-header-top-border">
+            <h5>数据选项编辑区</h5>
+            <span>1、编号，文本和值为必填项</span>
+            <br />
+            <span>2、选项显示为 文本（值）,如文本：正常，分值：0，显示为正常（0），当文本与分值一样时只显示一个，分值为数值时会自动补齐为(x分) </span>
+            <br />
+            <span>3、表格内值显示顺序为科室、文本、分值</span>
+            <div style="margin:10px 16px; display: flex;">
+              <div class="bordered-right" style="flex-basis:60%;">
+                <div class="bordered-bottom">
+                  <button class="btn btn-sm btn-success btn-round" ng-click="vm.addOption()">添加选项</button>
+                  <div class="pull-right" ng-show="vm.formData.curOption">
+                    <button class="btn btn-sm btn-success " ng-click="vm.upOption(vm.formData.curOption)">↑</button>
+                    <button class="btn btn-sm btn-success " ng-click="vm.downOption(vm.formData.curOption)">↓</button>
+                    <button class="btn btn-sm btn-danger " ng-click="vm.removeOption(vm.formData.curOption)">×</button>
+                  </div>
+                </div>
+                <table class="table white-borderd tr-hover">
+                  <thead>
+                    <th>编号</th>
+                    <th>文本</th>
+                    <th>值</th>
+                    <th>简写</th>
+                    <th>选项显示</th>
+                    <th>表格显示</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="option in vm.formData.headerData.opts track by $index" ng-click="vm.optionOnSelect($index)"
+                      ng-class="vm.optionSelectSytle(vm.formData.headerData.opts[$index])">
+                      <td>{{option.id}} </td>
+                      <td>{{option.text}} </td>
+                      <td>{{option.value}} </td>
+                      <td>{{option.shortcut}}</td>
+                      <td>{{option|optionSelectText}}</td>
+                      <td>{{option|optionDisplayText}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div ng-if="vm.formData.curOption" style="flex-basis:40%;">
+                <div class="form-group" style="margin-top: 10px;">
+                  <label for="title" class="control-label col-xs-3 partial-label">编码:</label>
+                  <div class="col-xs-8">
+                    <input name="id" class="form-control input-sm" type="text" ng-model="vm.formData.curOption.id"
+                      required name="title" ng-disabled="!vm.formData.curOption" />
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top: 10px;">
+                  <label for="text" class="control-label col-xs-3 partial-label">文本:</label>
+                  <div class="col-xs-8">
+                    <input name="text" class="form-control input-sm" type="text" ng-model="vm.formData.curOption.text"
+                      required name="text" ng-disabled="!vm.formData.curOption" />
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top: 10px;">
+                  <label for="value" class="control-label col-xs-3 partial-label">值:</label>
+                  <div class="col-xs-8">
+                    <input name="value" class="form-control input-sm" type="text" ng-model="vm.formData.curOption.value"
+                      name="value" ng-disabled="!vm.formData.curOption" />
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top: 10px;">
+                  <label for="shortcut" class="control-label col-xs-3 partial-label">简写:</label>
+                  <div class="col-xs-8">
+                    <input name="shortcut" class="form-control input-sm" type="text" ng-model="vm.formData.curOption.shortcut"
+                      name="shortcut" ng-disabled="!vm.formData.curOption" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 计算公式 -->
+      <div ng-show="vm.formData.showType==2">
+        <h4>数据绑定</h4>
+
+        <div class="form-group" style="margin-top: 10px;">
+          <label for="formula" class="control-label col-xs-3 partial-label">已有表头(双击追加):</label>
+          <div class="col-xs-8">
+            <div class="estimate-data-header-formula-panel">
+              <div class="estimate-data-header-formula-wrapper" ng-repeat="header in vm.metaData.dataTableHeader[vm.metaData.tableIndex]"
+                ng-if="header" ng-dblclick="vm.appendDataHeader(header)">
+                <div>{{header.dataBind}}</div>
+                <div>{{header.title}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 10px;">
+          <label for="formula" class="control-label col-xs-3 partial-label">计算公式:</label>
+          <div class="col-xs-8">
+            <input class="form-control input-sm" type="text" ng-model="vm.formData.headerData.formula" name="formula"
+              placeholder="" ng-change="vm.validateFomula(vm.formData.headerData.formula)" />
+            <span ng-if="!vm.metaData.formulaValidation.isValid" style="color:red;font-weight:bold;">{{vm.metaData.formulaValidation.content}}</span>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 10px;">
+          <label for="formula" class="control-label col-xs-3 partial-label">公式说明:</label>
+          <div class="col-xs-8">
+            <div>
+              <span>1.计算公式中的变量，支持对当表其它表头进行引用</span>
+              <br />
+              <span>2.计算公式中的变量，按数据绑定值进行填写</span>
+              <br />
+              <span>3.支持[+][-][*][/]四个基本运算</span>
+              <br />
+              <span>4.以BMI为例: weight/height/height，其中weight与height是其它表头绑定项</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 填写说明 -->
+      <div ng-show="vm.formData.showType==3">
+        <h4>填写说明</h4>
+        <div class="form-group">
+          <label for="cate" class="control-label col-xs-3 partial-label">填写说明:</label>
+          <div class="col-xs-8">
+            <textarea style="height: 400px;" class="form-control input-sm" ng-model="vm.formData.headerData.summary"
+              name="title"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 5px" class="modal-footer clearfix">
+        <button class="btn btn-sm btn-success btn-round" type="button" w5c-form-submit="vm.ok()">保存</button>
+        <button class="btn btn-sm btn-default btn-round" type="button" ng-click="$dismiss()">取消</button>
+      </div>
+    </div>
+  </form>
+</div>

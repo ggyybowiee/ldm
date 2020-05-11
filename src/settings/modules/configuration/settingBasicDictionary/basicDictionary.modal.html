@@ -1,0 +1,72 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">添加或编辑字典项信息</h5>
+  </div>
+  <form class="form-horizontal" name="basicDictionary" role="form" novalidate w5c-form-validate name="form">
+    <div class="modal-body">
+
+      <div ng-if="vm.metaData.type=='newDic'" class="form-group" style="text-align:center;">
+        <span style="color:red;font-weight:bold;">新增字典必须同时创建一个字典项<br />请在前三行输入字典项值</span>
+      </div>
+
+      <div class="form-group" ng-show="vm.metaData.type!='dic'">
+        <label for="dicCode" class="col-sm-3 control-label">字典项编号：</label>
+        <div class="col-sm-8">
+          <input type="text" id="dicCode" name="dicCode" ng-model="vm.formData.dicItem.dicCode" autocomplete="off"
+            class="form-control input-sm" required />
+        </div>
+      </div>
+      <div class="form-group" ng-show="vm.metaData.type!='dic'">
+        <label for="dicName" class="col-sm-3 control-label">字典项名：</label>
+        <div class="col-sm-8">
+          <input type="text" id="dicName" name="dicName" ng-model="vm.formData.dicItem.dicName" autocomplete="off"
+            class="form-control input-sm" required />
+        </div>
+      </div>
+      <div class="form-group" ng-show="vm.metaData.type!='dic'">
+        <label for="abbreviation" class="col-sm-3 control-label">简称：</label>
+        <div class="col-sm-8">
+          <input type="text" id="abbreviation" name="abbreviation" ng-model="vm.formData.dicItem.abbreviation" autocomplete="off" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="form-group" ng-show="vm.metaData.type!='dic'">
+        <label for="description" class="col-sm-3 control-label">描述：</label>
+        <div class="col-sm-8">
+          <input type="text" id="description" name="description" autocomplete="off" ng-model="vm.formData.dicItem.description"
+            class="form-control input-sm" required />
+          <span style="color:red;font-weight:bold;"><br />不认真写描述的人，都没有涨工资——来自软件部的古老传说</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dicType" class="col-sm-3 control-label">字典编码：</label>
+        <div class="col-sm-8">
+          <input type="text" id="dicType" name="dicType" ng-model="vm.formData.dic.key" autocomplete="off" class="form-control input-sm"
+            ng-disabled="vm.metaData.type=='item'" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dicTypeName" class="col-sm-3 control-label">字典名：</label>
+        <div class="col-sm-8">
+          <input type="text" id="dicTypeName" name="dicTypeName" ng-model="vm.formData.dic.name" autocomplete="off"
+            class="form-control input-sm" ng-disabled="vm.metaData.type=='item'" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dicOwner" class="col-sm-3 control-label">所有者：</label>
+        <div class="col-sm-8">
+          <input type="text" id="dicOwner" name="dicOwner" ng-model="vm.formData.dic.owner" autocomplete="off" class="form-control input-sm"
+            ng-disabled="vm.metaData.type=='item'" required />
+          <span style="color:red;font-weight:bold;"><br />！！！创建者必须写上自己的属名，便于后期跟踪字典作用！！！</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-round btn-sm" w5c-form-submit="vm.ok()">确定</button>
+      <button class="btn btn-warning btn-round btn-sm" ng-click="$dismiss()">取消</button>
+    </div>
+  </form>
+</div>

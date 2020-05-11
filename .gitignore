@@ -1,0 +1,13 @@
+node_modules/
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+.svn/
+src/DOC
+./dist
+dist
+.DS_Store
+dist.zip
+gulp/server.js
+npm-debug.log
